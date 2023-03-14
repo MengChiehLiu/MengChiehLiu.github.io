@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Hello Hexo！用Hexo在GitHub上架設個人部落格吧！（1）</title>
-    <url>/2023/03/14/Hello-Hexo-%E7%94%A8Hexom3/</url>
+    <title>Hello Hexo！用Hexo在GitHub Pages上架設個人部落格吧！(1)</title>
+    <url>/2023/03/14/Hello_Hexo_1/</url>
     <content><![CDATA[<h1 id="Hexo-介紹"><a href="#Hexo-介紹" class="headerlink" title="Hexo 介紹"></a>Hexo 介紹</h1><p>Hexo 是一個基於Node.js 的自動化部落格部署框架，有近400種網頁主題可供選擇，支援Markdown語言撰寫文章內容而且部署相當迅速，簡直是自己架設部落格的必備神器呀！什麼？你說之前沒用過Node.js怎麼辦？沒關係，因為我之前也沒用過XD。事實上，只要掌握幾個基本的指令，就能夠架出漂漂亮亮、功能齊全的個人部落格囉！就讓我們一起看下去吧～<br>Hexo 官網：<a href="https://hexo.io/zh-cn/">https://hexo.io/zh-cn/</a><br>Hexo GitHub：<a href="https://github.com/hexojs/hexo">https://github.com/hexojs/hexo</a></p>
+<span id="more"></span>
+
 <h1 id="前置作業"><a href="#前置作業" class="headerlink" title="前置作業"></a>前置作業</h1><ul>
 <li><p>安裝 Node.js<br>官方載點：<a href="https://nodejs.org/zh-tw/download/">https://nodejs.org/zh-tw/download/</a></p>
 <blockquote>
@@ -22,7 +24,7 @@
 <li><p>安裝 Hexo</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm install hexo-cli -g</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>初始化資料夾，並將當前路徑移動到該資料夾下（blog 是資料夾名稱，可以改成自己喜歡的名字）</p>
+<li><p>初始化資料夾，並將當前路徑移動到該資料夾下(blog 是資料夾名稱，可以改成自己喜歡的名字)</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo init blog</span><br><span class="line">cd blog</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>下載 Hexo 所需套件</p>
@@ -40,11 +42,11 @@
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">|</span><br><span class="line">├── package.json</span><br><span class="line">├── scaffolds</span><br><span class="line">|   ├── draft</span><br><span class="line">|   ├── page</span><br><span class="line">|   └── post</span><br><span class="line">├── source</span><br><span class="line">|   ├── _drafts</span><br><span class="line">|   └── _posts</span><br><span class="line">├── themes</span><br><span class="line">|   └── yourTheme</span><br><span class="line">|       └── _config.yml</span><br><span class="line">└── _config.yml</span><br></pre></td></tr></table></figure>
 
 <ul>
-<li>package.json<br>用來存放node.js的各種套件，一班情況下不太需要動到這個資料夾</li>
+<li>package.json<br>用來存放node.js的各種套件，一班情況下不太需要動到這個資料夾。</li>
 <li>scaffolds<br>鷹架資料夾，裡面有三個檔案draft、page與post，分別對應了我們能建立的三種佈局，Hexo會依據這些佈局來生成新的頁面。</li>
 <li>source<br>來源資料夾，用來存放文章、頁面以及圖片等內容，其中_drafts用來存放草稿，_posts用來存放已經發布的文章。</li>
-<li>themes<br>主題資料夾，可以下載自己喜歡的主題放到裡面，在每個主題底下會有一個與主題設定檔，與主題有關的東西都在那裡進行設定</li>
-<li>_config.yml<br>網頁設定檔，與網頁有關的東西都在這裡進行設定 (跟主題設定檔不一樣！)</li>
+<li>themes<br>主題資料夾，可以下載自己喜歡的主題放到裡面，在每個主題底下會有一個與主題設定檔，與主題有關的東西都在那裡進行設定。</li>
+<li>_config.yml<br>網頁設定檔，與網頁有關的東西都在這裡進行設定。 (跟主題設定檔不一樣！)</li>
 </ul>
 <h1 id="Config-設置"><a href="#Config-設置" class="headerlink" title="Config 設置"></a>Config 設置</h1><p>進到_config.yml檔案中，對Site部分進行修改，可以參考下面的設置：</p>
 <blockquote>
@@ -74,8 +76,8 @@
 <li><p>做完記得打開server確認一下結果！</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo server #or</span><br><span class="line">hexo s </span><br></pre></td></tr></table></figure></li>
 </ul>
-<p>這三個指令<br>非常重要！！！<br>非常重要！！！<br>非常重要！！！<br>簡單來說有動到東西請執行一下就對了</p>
-<h1 id="部署至-GitHub"><a href="#部署至-GitHub" class="headerlink" title="部署至 GitHub"></a>部署至 GitHub</h1><ol>
+<p>這三個指令<br>非常重要！！！<br>非常重要！！！<br>非常重要！！！<br>簡單來說有動到東西請執行一下就對了！</p>
+<h1 id="部署至-GitHub-Pages"><a href="#部署至-GitHub-Pages" class="headerlink" title="部署至 GitHub Pages"></a>部署至 GitHub Pages</h1><ol>
 <li><p>在GitHub中創建一個新的repository (點右上角加號)<br><img src="/../images/20230314/repository.png" alt="repository"></p>
 </li>
 <li><p>repository名稱取為<code>user_name.github.io</code>，然後直接create repository<br><img src="/../images/20230314/repository_create.png" alt="repository_create"></p>
@@ -83,7 +85,7 @@
 <li><p>修改網頁_config.yml中的URL設置</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">url: https://user_name.github.io/</span><br><span class="line">root: /</span><br></pre></td></tr></table></figure>
 <blockquote>
-<p>這裡的url是GitPage的網址<br>root設成 &#x2F;<br><img src="/../images/20230314/config_url.png" alt="config_url"></p>
+<p>這裡的url是GitHub Pages的網址<br>root設成 &#x2F;<br><img src="/../images/20230314/config_url.png" alt="config_url"></p>
 </blockquote>
 </li>
 <li><p>修改網頁_config.yml中的deploy設置</p>
@@ -97,7 +99,7 @@
 <li><p>開始部署</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo deploy #or</span><br><span class="line">hexo d</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>打開GitPage的網址就能看到我們剛剛部署上去的網頁啦！</p>
+<li><p>打開GitHub Pages的網址就能看到我們剛剛部署上去的網頁啦！<br><img src="/../images/20230314/gitpage.png" alt="Alt text"></p>
 </li>
 </ol>
 <h1 id="預告"><a href="#預告" class="headerlink" title="預告"></a>預告</h1><p>下一篇文章我將會介紹如何套用nexT主題，除了講解外觀設定以外，也將帶著大家打造標籤頁、站內搜尋系統以及留言板等功能！</p>
@@ -109,28 +111,6 @@
         <tag>Hexo</tag>
         <tag>GitHub</tag>
         <tag>Blog</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hello World</title>
-    <url>/2023/03/11/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-]]></content>
-      <tags>
-        <tag>Testing</tag>
-        <tag>Another Tag</tag>
       </tags>
   </entry>
 </search>
