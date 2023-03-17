@@ -102,15 +102,82 @@
 <li><p>打開GitHub Pages的網址就能看到我們剛剛部署上去的網頁啦！<br><img src="/../images/20230314/gitpage.png" alt="Alt text"></p>
 </li>
 </ol>
-<h1 id="預告"><a href="#預告" class="headerlink" title="預告"></a>預告</h1><p>下一篇文章我將會介紹如何套用nexT主題，除了講解外觀設定以外，也將帶著大家打造標籤頁、站內搜尋系統以及留言板等功能！</p>
+<h1 id="預告"><a href="#預告" class="headerlink" title="預告"></a>預告</h1><p>下一篇文章我將會介紹如何套用nexT主題，除了講解外觀設定以外，也將帶著大家打造標籤頁及站內搜尋等功能！</p>
 ]]></content>
       <categories>
-        <category>Blog</category>
+        <category>Hexo</category>
       </categories>
       <tags>
         <tag>Hexo</tag>
         <tag>GitHub</tag>
         <tag>Blog</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hello Hexo！套用NexT主題打造個性化部落格頁面！(2)</title>
+    <url>/2023/03/15/Hello_Hexo_2/</url>
+    <content><![CDATA[<h1 id="NexT-介紹"><a href="#NexT-介紹" class="headerlink" title="NexT 介紹"></a>NexT 介紹</h1><p>NexT是一個相當受歡迎的Hexo主題，外觀簡潔、功能強大，且持續有在維護，今天會教大家如何套用NexT主題，並啟用標籤頁及站內搜尋等功能。<br>NexT 官網：<a href="https://theme-next.js.org/">https://theme-next.js.org/</a><br>NexT GitHub：<a href="https://github.com/next-theme/hexo-theme-next">https://github.com/next-theme/hexo-theme-next</a></p>
+<span id="more"></span>
+
+<h1 id="安裝-NexT"><a href="#安裝-NexT" class="headerlink" title="安裝 NexT"></a>安裝 NexT</h1><p>有兩個方法，第一個方法是透過npm</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm install hexo-theme-next</span><br></pre></td></tr></table></figure>
+<p>第二個方法是透過git</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git clone https://github.com/next-theme/hexo-theme-next themes/next</span><br></pre></td></tr></table></figure>
+<p>我個人是喜歡第二種方法(git)，因為資源為自動進到themes資料夾當中，如果使用第二種方法(npm)的話資源會跑到node_modules資料夾中，雖然在功能上不會有差異，但未來要對主題的config檔做調整時要找比較久。</p>
+<h1 id="套用主題"><a href="#套用主題" class="headerlink" title="套用主題"></a>套用主題</h1><p>到<strong>網頁</strong>的config檔(<code>/_config.yml</code>)，搜尋<strong>theme</strong>將主題設置成next就行了。<br><img src="/../images/20230315/config_theme.png" alt="config_theme"></p>
+<p>另外Next其實有提供4種版面可以做選擇，分別是：💟 <a href="https://theme-next.js.org/muse/">Muse</a> | 🔯 <a href="https://theme-next.js.org/mist/">Mist</a> | ♓️ <a href="https://theme-next.js.org/pisces/">Pisces</a> | ♊️ <a href="https://theme-next.js.org/">Gemini</a></p>
+<p>大家可以點擊連結看看自己喜歡哪種版面，預設是使用Muse，如果要做更改的話，到<strong>主題</strong>的config檔(<code>themes/next/_config.yml</code>)中搜尋<strong>Schemes</strong>，將喜歡的佈局取消註解就可以了，另外下面的<strong>darkmode</strong>改成true的話則是可以讓網頁變成黑色模式。<br><img src="/../images/20230315/next_schemes.png" alt="next_schemes"></p>
+<p>NexT也支援canvas背景動畫，我們可以在<strong>主題</strong>config檔搜尋<strong>canvas_ribbon</strong>，將下方的enable改為true，部屬後網頁背景就會出現酷炫的彩色絲帶動畫了～</p>
+<h1 id="添加頭像-avatar"><a href="#添加頭像-avatar" class="headerlink" title="添加頭像 avatar"></a>添加頭像 avatar</h1><ol>
+<li>把準備好的圖片放入<code>source/images</code>當中。</li>
+<li>在<strong>主題</strong>config檔搜尋<strong>avatar</strong>，修改成自己準備的圖片路徑或者修改圖片名稱使其一致。<blockquote>
+<p>rounded改成true的話頭像會是圓形，rotated改成true的話滑鼠移到頭像上時會有快速旋轉的動畫。<br><img src="/../images/20230315/next_avatar.png" alt="next_avatar"></p>
+</blockquote>
+</li>
+</ol>
+<h1 id="更改網站圖示-favicon"><a href="#更改網站圖示-favicon" class="headerlink" title="更改網站圖示 favicon"></a>更改網站圖示 favicon</h1><p>我們可以把網站圖示換成自己的圖片，官方文件中建議可以使用<a href="https://realfavicongenerator.net/">Favicon Generator</a>來生成客製化的網站圖示。</p>
+<ol>
+<li>把準備好的圖片放入<code>source/images</code>當中。</li>
+<li>在<strong>主題</strong>config檔搜尋<strong>favicon</strong>，修改成自己準備的圖片路徑或者修改圖片名稱使其一致。<br><img src="/../images/20230315/next_favicon.png" alt="next_favicon"></li>
+</ol>
+<h1 id="社群媒體連結-social-link"><a href="#社群媒體連結-social-link" class="headerlink" title="社群媒體連結 social link"></a>社群媒體連結 social link</h1><p>在<strong>主題</strong>config檔搜尋<strong>social</strong>，將自己的社群媒體連結填入並取消註解就可以了，下方的social_icon則可以設定是否顯示icon及icon外觀。<br><img src="/../images/20230315/next_social.png" alt="next_social"></p>
+<p>Hexo NexT使用<a href="https://fontawesome.com/icons">Font Awesome</a>提供的icons，因此我們可以為新的連結挑選適合的icon，接下來我們來新增一個Linkedin連結看看(包含icon)。</p>
+<ol>
+<li>先到Font Awesome上搜尋Linkedin，選擇自己喜歡的icon，複製綠色的那段文字。<br><img src="/../images/20230315/font_awesome_linkedin.png" alt="font_awesome_linkedin"></li>
+<li>依<code>標題: 連結 || 綠色文字</code>的格式在social下加入新的一行，舉例來說。<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Linkedin: https://www.linkedin.com/in/meng-chieh-liu-615952235/ || fa-brands fa-linkedin</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h1 id="啟用功能選單-Menu"><a href="#啟用功能選單-Menu" class="headerlink" title="啟用功能選單 Menu"></a>啟用功能選單 Menu</h1><p>在<strong>主題</strong>config檔搜尋<strong>menu</strong>，可以看到NexT預先幫我們建立好許多功能選單，其中home跟archives是預設就開啟的，我們可以取消註解來啟用其他功能選單，但目前那些頁面還是空的喔！所以我們的下一步就是要建立相應的分頁。<br><img src="/../images/20230315/next_menu.png" alt="next_menu"></p>
+<p>這邊介紹如何建立tags&#x2F;categories頁面：</p>
+<ol>
+<li><p>建立新頁面</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo new page &quot;tags&quot;</span><br><span class="line">hexo new page &quot;categories&quot;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>找到<code>source/tags/index.md</code>檔案，在檔案中加入<code>type: &quot;tags&quot;</code>，注意這裡的tags要加<strong>雙引號</strong>！！！<br>(categories比照辦理)<br><img src="/../images/20230315/tags.png" alt="tags"></p>
+</li>
+<li><p>在post裡面加入tags&#x2F;categories，重新部署後這些tags&#x2F;categories就會出現對應的頁面上啦～<br><img src="/../images/20230315/post_tags.png" alt="post_tags"></p>
+</li>
+</ol>
+<h1 id="站內搜尋功能-local-search"><a href="#站內搜尋功能-local-search" class="headerlink" title="站內搜尋功能 local search"></a>站內搜尋功能 local search</h1><ol>
+<li><p>安裝<code>hexo-generator-searchdb</code>套件</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm install hexo-generator-searchdb</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在<strong>主題</strong>config檔搜尋<strong>local_search</strong>，將enable調為true。<br><img src="/../images/20230315/next_local_search.png" alt="next_local_search"></p>
+</li>
+<li><p>在<strong>網頁</strong>config檔加入下面設置。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">search:</span><br><span class="line">  path: search.xml</span><br><span class="line">  field: post</span><br><span class="line">  format: html</span><br><span class="line">  limit: 10000</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>重新部署後就能開始使用站內搜尋啦～<br><img src="/../images/20230315/local_search.png" alt="local_search"></p>
+</li>
+</ol>
+<h1 id="預告"><a href="#預告" class="headerlink" title="預告"></a>預告</h1><p>下一篇文章將會帶大家做SEO，設定keywords與sitemap讓Google搜的到我們的部落格&#x2F;文章。</p>
+]]></content>
+      <categories>
+        <category>Hexo</category>
+      </categories>
+      <tags>
+        <tag>Hexo</tag>
+        <tag>Blog</tag>
+        <tag>NexT</tag>
       </tags>
   </entry>
 </search>
