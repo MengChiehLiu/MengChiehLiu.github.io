@@ -74,6 +74,13 @@
 
   
   <url>
+    <loc>https://mengchiehliu.github.io/tags/Hexo/</loc>
+    <lastmod>2023-03-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://mengchiehliu.github.io/tags/Trie/</loc>
     <lastmod>2023-03-17</lastmod>
     <changefreq>weekly</changefreq>
@@ -87,24 +94,17 @@
     <priority>0.2</priority>
   </url>
   
-  <url>
-    <loc>https://mengchiehliu.github.io/tags/Hexo/</loc>
-    <lastmod>2023-03-17</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
 
   
   <url>
-    <loc>https://mengchiehliu.github.io/categories/Data-Structure/</loc>
+    <loc>https://mengchiehliu.github.io/categories/Hexo/</loc>
     <lastmod>2023-03-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://mengchiehliu.github.io/categories/Hexo/</loc>
+    <loc>https://mengchiehliu.github.io/categories/Data-Structure/</loc>
     <lastmod>2023-03-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
