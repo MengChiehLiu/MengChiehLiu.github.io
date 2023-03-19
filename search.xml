@@ -32,6 +32,7 @@
 </ul>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">class Trie:</span><br><span class="line">    def __init__(self):</span><br><span class="line">        self._root = &#123;&#125;</span><br><span class="line"></span><br><span class="line">    def insert(self, word: str) -&gt; None:</span><br><span class="line">        curr = self._root</span><br><span class="line">        for w in word:</span><br><span class="line">            if w not in curr:</span><br><span class="line">                curr[w] = &#123;&#125;</span><br><span class="line">            curr = curr[w]</span><br><span class="line">        curr[&quot;#&quot;] = True</span><br><span class="line">        </span><br><span class="line">    def search(self, word: str) -&gt; bool:</span><br><span class="line">        curr = self._root</span><br><span class="line">        for w in word:</span><br><span class="line">            if w in curr:</span><br><span class="line">                curr = curr[w]</span><br><span class="line">            else:</span><br><span class="line">                return False</span><br><span class="line">        return curr.get(&quot;#&quot;, False)</span><br><span class="line"></span><br><span class="line">    def startsWith(self, prefix: str) -&gt; bool:</span><br><span class="line">        curr = self._root</span><br><span class="line">        for w in prefix:</span><br><span class="line">            if w in curr:</span><br><span class="line">                curr = curr[w]</span><br><span class="line">            else:</span><br><span class="line">                return False</span><br><span class="line">        return True</span><br></pre></td></tr></table></figure>
 
+<h1 id="相關文章"><a href="#相關文章" class="headerlink" title="相關文章"></a>相關文章</h1><p><a href="/2023/03/20/trie_2/">Trie (字典樹) - Design Add and Search Words Data Structure</a></p>
 <h1 id="結語"><a href="#結語" class="headerlink" title="結語"></a>結語</h1><p>Trie的基本觀念說實在還蠻簡單的，難應該是難在之後的應用，之後有機會看能不能更新一些進階的觀念，像是搜尋引擎之類的。</p>
 <h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://www.youtube.com/watch?v=f48wGD-MuQw">https://www.youtube.com/watch?v=f48wGD-MuQw</a></p>
 ]]></content>
@@ -217,6 +218,42 @@
       </categories>
       <tags>
         <tag>Hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Trie (字典樹) - Design Add and Search Words Data Structure</title>
+    <url>/2023/03/20/trie_2/</url>
+    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>寫完上一篇<a href="/2023/03/18/trie/">Implement Trie (字典樹)</a>後，沒過兩天LeetCode每日一題又出現Trie的題目了(笑)，題目是<a href="https://leetcode.com/problems/design-add-and-search-words-data-structure/">211. Design Add and Search Words Data Structure</a>，簡單來說就是字典樹加上一點正規表達(regular expression)的概念，舉例來說trie裡有<code>bad</code>，那搜尋<code>b.d</code>的話也要回傳<code>true</code>，詳細題目一樣自己到LeetCode去看囉。</p>
+<span id="more"></span>
+
+<h1 id="解題思路"><a href="#解題思路" class="headerlink" title="解題思路"></a>解題思路</h1><p>如果不考慮正規表達的話，那其實就是最基本的Trie，但現在多了這個特殊條件後，我們就需要去考慮所有可能，方法是寫一個dfs(deep first search)的輔助函式，遇到<code>.</code>的話就將當前節點下的所有子節點再帶入dfs，看最後有沒有符合的單字，只要有其中一個子節點符合的話會提前回傳<code>true</code>，都沒有的話就回傳<code>false</code>。</p>
+<p>我們以下面的圖片來說明步驟，假設我們今天搜尋<code>b.t</code>：<br><img src="/../images/20230320/trie.png" alt="trie"></p>
+<ol>
+<li>跟一般的trie一樣，我們會先確認root下有沒有b這個節點，有的話就走到這個節點上。</li>
+<li>因為第二個字是<code>.</code>，表示<code>ba</code>跟<code>bo</code>都是我們可以走的路徑，因此我們兩條路都要去訪問，依字母順序我們先訪問<code>ba</code>。</li>
+<li><code>ba</code>下面雖然有節點<code>bat</code>，但他不是單字的結尾，所以我們跳出這條路徑。</li>
+<li>我們回到上一層，改走<code>bo</code>這條路境。</li>
+<li><code>bot</code>符合我們要找的答案，並且他也是單字的結尾，因此回傳<code>true</code>。</li>
+</ol>
+<h1 id="方法一-Pointers-C"><a href="#方法一-Pointers-C" class="headerlink" title="方法一: Pointers (C++)"></a>方法一: Pointers (C++)</h1><p>重點</p>
+<ul>
+<li>dfs除了要傳入節點<code>curr</code>，也要記錄目前走到第單字中的第幾個位置<code>start</code>。</li>
+<li>遇到<code>.</code>的話就對所有可能路徑再做一次dfs。</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">struct Node&#123;</span><br><span class="line">    Node* children[26];</span><br><span class="line">    bool is_end = false;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">class WordDictionary &#123;</span><br><span class="line">private:</span><br><span class="line">    Node* root;</span><br><span class="line">    int n;</span><br><span class="line">    string word;</span><br><span class="line"></span><br><span class="line">    bool dfs(Node* curr, int start)&#123;</span><br><span class="line">        for (int i=start; i&lt;n; i++)&#123;</span><br><span class="line">            if (word[i] == &#x27;.&#x27;)&#123;</span><br><span class="line">                for (Node* next: curr-&gt;children)&#123;</span><br><span class="line">                    if (next!=nullptr &amp;&amp; dfs(next, i+1))&#123;</span><br><span class="line">                        return true;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                return false;</span><br><span class="line">            &#125;else if (curr-&gt;children[word[i]-&#x27;a&#x27;] != nullptr)&#123;</span><br><span class="line">                curr = curr-&gt;children[word[i]-&#x27;a&#x27;];</span><br><span class="line">            &#125;else&#123;</span><br><span class="line">                return false;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return curr-&gt;is_end;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">public:</span><br><span class="line">    WordDictionary() &#123;</span><br><span class="line">        root = new Node();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    void addWord(string word) &#123;</span><br><span class="line">        Node* curr = root;</span><br><span class="line">        for (char w: word)&#123;</span><br><span class="line">            if (curr-&gt;children[w-&#x27;a&#x27;] == nullptr)&#123;</span><br><span class="line">                curr-&gt;children[w-&#x27;a&#x27;] = new Node();</span><br><span class="line">            &#125;</span><br><span class="line">            curr = curr-&gt;children[w-&#x27;a&#x27;];</span><br><span class="line">        &#125;</span><br><span class="line">        curr-&gt;is_end = true;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    bool search(string word) &#123;</span><br><span class="line">        this-&gt;n = word.size();</span><br><span class="line">        this-&gt;word = word;</span><br><span class="line">        return dfs(root, 0);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+<h1 id="方法二-Hash-Table-Python"><a href="#方法二-Hash-Table-Python" class="headerlink" title="方法二: Hash Table (Python)"></a>方法二: Hash Table (Python)</h1><p>重點</p>
+<ul>
+<li>注意要避開<code>#</code>因為他不是一個路徑，否則會報錯。</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">class WordDictionary:</span><br><span class="line">    def __init__(self):</span><br><span class="line">        self.root = &#123;&#125;</span><br><span class="line"></span><br><span class="line">    def addWord(self, word: str) -&gt; None:</span><br><span class="line">        curr = self.root</span><br><span class="line">        for w in word:</span><br><span class="line">            if w not in curr:</span><br><span class="line">                curr[w] = &#123;&#125;</span><br><span class="line">            curr = curr[w]</span><br><span class="line">        curr[&quot;#&quot;] = True</span><br><span class="line"></span><br><span class="line">    def search(self, word: str) -&gt; bool:</span><br><span class="line">        n = len(word)</span><br><span class="line"></span><br><span class="line">        def dfs(curr, start):</span><br><span class="line">            for i in range(start, n):</span><br><span class="line">                w = word[i]</span><br><span class="line">                if w == &quot;.&quot;:</span><br><span class="line">                    for c in curr:</span><br><span class="line">                        if c!=&quot;#&quot; and dfs(curr[c], i+1):</span><br><span class="line">                            return True</span><br><span class="line">                    return False</span><br><span class="line">                elif w in curr:</span><br><span class="line">                    curr = curr[w]</span><br><span class="line">                else:</span><br><span class="line">                    return False</span><br><span class="line">            return &quot;#&quot; in curr</span><br><span class="line"></span><br><span class="line">        return dfs(self.root, 0)</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>Data Structure</category>
+      </categories>
+      <tags>
+        <tag>LeetCode</tag>
+        <tag>trie</tag>
       </tags>
   </entry>
 </search>
