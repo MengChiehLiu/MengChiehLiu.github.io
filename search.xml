@@ -1,6 +1,117 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Hello Hexo！用Hexo在GitHub Pages上架設個人部落格吧！(1)</title>
+    <url>/2023/03/14/Hello_Hexo_1/</url>
+    <content><![CDATA[<h1 id="Hexo-介紹"><a href="#Hexo-介紹" class="headerlink" title="Hexo 介紹"></a>Hexo 介紹</h1><p>Hexo 是一個基於Node.js 的自動化部落格部署框架，有近400種網頁主題可供選擇，支援Markdown語言撰寫文章內容而且部署相當迅速，簡直是自己架設部落格的必備神器呀！什麼？你說之前沒用過Node.js怎麼辦？沒關係，因為我之前也沒用過XD。事實上，只要掌握幾個基本的指令，就能夠架出漂漂亮亮、功能齊全的個人部落格囉！就讓我們一起看下去吧～<br>Hexo 官網：<a href="https://hexo.io/zh-cn/">https://hexo.io/zh-cn/</a><br>Hexo GitHub：<a href="https://github.com/hexojs/hexo">https://github.com/hexojs/hexo</a></p>
+<span id="more"></span>
+
+<h1 id="前置作業"><a href="#前置作業" class="headerlink" title="前置作業"></a>前置作業</h1><ul>
+<li><p>安裝 Node.js<br>官方載點：<a href="https://nodejs.org/zh-tw/download/">https://nodejs.org/zh-tw/download/</a></p>
+<blockquote>
+<p>進入網站後選擇LTS版本，然後選擇下載安裝程式，我自己是用Windows作業系統，直接點擊Windows icon就開始下載了，下載好後打開安裝程式一路確認到最後就安裝好啦～安裝完成後可以用 <code>npm --version</code> 來確認是否安裝成功。<br><img src="/../images/20230314/nodejs.png" alt="Node.js"></p>
+</blockquote>
+</li>
+<li><p>安裝 git<br>官方載點：<a href="https://git-scm.com/downloads">https://git-scm.com/downloads</a></p>
+<blockquote>
+<p>選擇對應的作業系統直接下載就好～這裡一樣以Windows為例，選擇的是Standalone Installer下的64-bit Git for Windows Setup，下載好後打開安裝程式一路確認到最後就安裝好啦～安裝完成後可以用 <code>git --version</code> 來確認是否安裝成功。<br><img src="/../images/20230314/git.png" alt="git"></p>
+</blockquote>
+</li>
+<li><p>註冊GitHub帳號<br>官網連結：<a href="https://github.com/">https://github.com/</a></p>
+</li>
+</ul>
+<h1 id="安裝-Hexo"><a href="#安裝-Hexo" class="headerlink" title="安裝 Hexo"></a>安裝 Hexo</h1><ul>
+<li><p>安裝 Hexo</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm install hexo-cli -g</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>初始化資料夾，並將當前路徑移動到該資料夾下(blog 是資料夾名稱，可以改成自己喜歡的名字)</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo init blog</span><br><span class="line">cd blog</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>下載 Hexo 所需套件</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm install</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>做完上面這些步驟後，我們就可以啟動伺服器來看看目前部落格的樣子囉。</p>
+<ul>
+<li>啟動伺服器<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo server #or</span><br><span class="line">hexo s      </span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>預設主題是landscape，也可以使用其他主題，下一篇文章會教大家如何套用Hexo上的熱門主題nexT！<br><img src="/../images/20230314/landscape.png" alt="landscape"></p>
+</blockquote>
+</li>
+</ul>
+<h1 id="Hexo-架構"><a href="#Hexo-架構" class="headerlink" title="Hexo 架構"></a>Hexo 架構</h1><p>在開始加工我們的網站之前，先來認識一下Hexo的資料夾架構！</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">|</span><br><span class="line">├── package.json</span><br><span class="line">├── scaffolds</span><br><span class="line">|   ├── draft</span><br><span class="line">|   ├── page</span><br><span class="line">|   └── post</span><br><span class="line">├── source</span><br><span class="line">|   ├── _drafts</span><br><span class="line">|   └── _posts</span><br><span class="line">├── themes</span><br><span class="line">|   └── yourTheme</span><br><span class="line">|       └── _config.yml</span><br><span class="line">└── _config.yml</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>package.json<br>用來存放node.js的各種套件，一班情況下不太需要動到這個資料夾。</li>
+<li>scaffolds<br>鷹架資料夾，裡面有三個檔案draft、page與post，分別對應了我們能建立的三種佈局，Hexo會依據這些佈局來生成新的頁面。</li>
+<li>source<br>來源資料夾，用來存放文章、頁面以及圖片等內容，其中_drafts用來存放草稿，_posts用來存放已經發布的文章。</li>
+<li>themes<br>主題資料夾，可以下載自己喜歡的主題放到裡面，在每個主題底下會有一個與主題設定檔，與主題有關的東西都在那裡進行設定。</li>
+<li>_config.yml<br>網頁設定檔，與網頁有關的東西都在這裡進行設定。 (跟主題設定檔不一樣！)</li>
+</ul>
+<h1 id="Config-設置"><a href="#Config-設置" class="headerlink" title="Config 設置"></a>Config 設置</h1><p>進到_config.yml檔案中，對Site部分進行修改，可以參考下面的設置：</p>
+<blockquote>
+<p>subtitle跟description可寫可不寫<br>language預設是英文，可以改成zh-TW顯示繁體中文<br>keyword跟Google關鍵字搜尋有關，這裡先忽略不管他，未來有機會再來詳細介紹！<br><img src="/../images/20230314/config_site.png" alt="config_site"></p>
+</blockquote>
+<h1 id="撰寫文章-x2F-新增頁面"><a href="#撰寫文章-x2F-新增頁面" class="headerlink" title="撰寫文章&#x2F;新增頁面"></a>撰寫文章&#x2F;新增頁面</h1><p>在Hexo當中共有三種佈局，分別是draft、post與page，其中draft跟page屬於文章，page則屬於頁面。</p>
+<ul>
+<li><p>post<br>所有draft都會被存放在_posts資料夾當中，會出現在網頁上。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># post 可以省略</span><br><span class="line">hexo new post &quot;My Post&quot;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>draft<br>draft是草稿，會另外從放於_drafts資料夾下，且不會出現在網頁上。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo new draft &quot;My Draft&quot;</span><br></pre></td></tr></table></figure>
+<p>可以用指令將draft轉成post，原理只是換個資料夾而已，其實也可以手動作，反過來手動把post丟到draft也行。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo publish &quot;My Draft&quot;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>page<br>page是功能頁面，常見的有about、tags、categories等，下一篇文章就會介紹如何在nexT主題下建立對應的page！</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo new page &quot;My Page&quot;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h1 id="生成靜態文件"><a href="#生成靜態文件" class="headerlink" title="生成靜態文件"></a>生成靜態文件</h1><p>每次修改config檔或是寫完文章後，記得不要忘記重新生成一次網頁的靜態文件，不然剛剛做的變動網頁上是不會呈現出來的喔！</p>
+<ul>
+<li><p>清空原本的靜態文件&#x2F;暫存<br>這個步驟相當重要！否則容易出現新加的東西更新不上去的情況。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo clear #or</span><br><span class="line">hexo cl</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>生成靜態文件</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo generate #or</span><br><span class="line">hexo g</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>做完記得打開server確認一下結果！</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo server #or</span><br><span class="line">hexo s </span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>這三個指令<br>非常重要！！！<br>非常重要！！！<br>非常重要！！！<br>簡單來說有動到東西請執行一下就對了！</p>
+<h1 id="部署至-GitHub-Pages"><a href="#部署至-GitHub-Pages" class="headerlink" title="部署至 GitHub Pages"></a>部署至 GitHub Pages</h1><ol>
+<li><p>在GitHub中創建一個新的repository (點右上角加號)<br><img src="/../images/20230314/repository.png" alt="repository"></p>
+</li>
+<li><p>repository名稱取為<code>user_name.github.io</code>，然後直接create repository<br><img src="/../images/20230314/repository_create.png" alt="repository_create"></p>
+</li>
+<li><p>修改網頁_config.yml中的URL設置</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">url: https://user_name.github.io/</span><br><span class="line">root: /</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>這裡的url是GitHub Pages的網址<br>root設成 &#x2F;<br><img src="/../images/20230314/config_url.png" alt="config_url"></p>
+</blockquote>
+</li>
+<li><p>修改網頁_config.yml中的deploy設置</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repo: https://github.com/user_name/user_name.github.io.git</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>這裡選擇用HTTPS的方式連結，部署時直接輸入帳號密碼就行，也可以用SSH，不過就要設置金鑰，比較麻煩一些<br><img src="/../images/20230314/config_deploy.png" alt="config_deploy"></p>
+</blockquote>
+</li>
+<li><p>修改完後記得重新生成一次靜態文件</p>
+</li>
+<li><p>開始部署</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo deploy #or</span><br><span class="line">hexo d</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>打開GitHub Pages的網址就能看到我們剛剛部署上去的網頁啦！<br><img src="/../images/20230314/gitpage.png" alt="Alt text"></p>
+</li>
+</ol>
+<h1 id="預告"><a href="#預告" class="headerlink" title="預告"></a>預告</h1><p>下一篇文章我將會介紹如何套用nexT主題，除了講解外觀設定以外，也將帶著大家打造標籤頁及站內搜尋等功能！</p>
+]]></content>
+      <categories>
+        <category>Hexo</category>
+      </categories>
+      <tags>
+        <tag>Hexo</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Hello Hexo！套用NexT主題打造個性化部落格頁面！(2)</title>
     <url>/2023/03/15/Hello_Hexo_2/</url>
     <content><![CDATA[<h1 id="NexT-介紹"><a href="#NexT-介紹" class="headerlink" title="NexT 介紹"></a>NexT 介紹</h1><p>NexT是一個相當受歡迎的Hexo主題，外觀簡潔、功能強大，且持續有在維護，今天會教大家如何套用NexT主題，並啟用標籤頁及站內搜尋等功能。<br>NexT 官網：<a href="https://theme-next.js.org/">https://theme-next.js.org/</a><br>NexT GitHub：<a href="https://github.com/next-theme/hexo-theme-next">https://github.com/next-theme/hexo-theme-next</a></p>
@@ -130,7 +241,7 @@
 <li>dfs除了要傳入節點<code>curr</code>，也要記錄目前走到第單字中的第幾個位置<code>start</code>。</li>
 <li>遇到<code>.</code>的話就對所有可能路徑再做一次dfs。</li>
 </ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">struct Node&#123;</span><br><span class="line">    Node* children[26];</span><br><span class="line">    bool is_end = false;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">class WordDictionary &#123;</span><br><span class="line">private:</span><br><span class="line">    Node* root;</span><br><span class="line">    int n;</span><br><span class="line">    string word;</span><br><span class="line"></span><br><span class="line">    bool dfs(Node* curr, int start)&#123;</span><br><span class="line">        for (int i=start; i&lt;n; i++)&#123;</span><br><span class="line">            # 遇到 .</span><br><span class="line">            if (word[i] == &#x27;.&#x27;)&#123;</span><br><span class="line">                # 用迴圈造訪所有可能路徑</span><br><span class="line">                for (Node* next: curr-&gt;children)&#123;</span><br><span class="line">                    # 路徑不可為空 &amp;&amp; 該路徑有符合答案者</span><br><span class="line">                    if (next!=nullptr &amp;&amp; dfs(next, i+1))&#123;</span><br><span class="line">                        # 提前回傳 true</span><br><span class="line">                        return true;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                # 全部路徑無答案，回傳 false</span><br><span class="line">                return false;</span><br><span class="line">            &#125;else if (curr-&gt;children[word[i]-&#x27;a&#x27;] != nullptr)&#123;</span><br><span class="line">                curr = curr-&gt;children[word[i]-&#x27;a&#x27;];</span><br><span class="line">            &#125;else&#123;</span><br><span class="line">                return false;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return curr-&gt;is_end;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">public:</span><br><span class="line">    WordDictionary() &#123;</span><br><span class="line">        root = new Node();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    void addWord(string word) &#123;</span><br><span class="line">        Node* curr = root;</span><br><span class="line">        for (char w: word)&#123;</span><br><span class="line">            if (curr-&gt;children[w-&#x27;a&#x27;] == nullptr)&#123;</span><br><span class="line">                curr-&gt;children[w-&#x27;a&#x27;] = new Node();</span><br><span class="line">            &#125;</span><br><span class="line">            curr = curr-&gt;children[w-&#x27;a&#x27;];</span><br><span class="line">        &#125;</span><br><span class="line">        curr-&gt;is_end = true;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    bool search(string word) &#123;</span><br><span class="line">        this-&gt;n = word.size();</span><br><span class="line">        this-&gt;word = word;</span><br><span class="line">        return dfs(root, 0);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">struct Node&#123;</span><br><span class="line">    Node* children[26];</span><br><span class="line">    bool is_end = false;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">class WordDictionary &#123;</span><br><span class="line">private:</span><br><span class="line">    Node* root;</span><br><span class="line">    int n;</span><br><span class="line">    string word;</span><br><span class="line"></span><br><span class="line">    bool dfs(Node* curr, int start)&#123;</span><br><span class="line">        for (int i=start; i&lt;n; i++)&#123;</span><br><span class="line">            // 遇到 .</span><br><span class="line">            if (word[i] == &#x27;.&#x27;)&#123;</span><br><span class="line">                // 用迴圈造訪所有可能路徑</span><br><span class="line">                for (Node* next: curr-&gt;children)&#123;</span><br><span class="line">                    // 路徑不可為空 &amp;&amp; 該路徑有符合答案者</span><br><span class="line">                    if (next!=nullptr &amp;&amp; dfs(next, i+1))&#123;</span><br><span class="line">                        // 提前回傳 true</span><br><span class="line">                        return true;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                // 全部路徑無答案，回傳 false</span><br><span class="line">                return false;</span><br><span class="line">            &#125;else if (curr-&gt;children[word[i]-&#x27;a&#x27;] != nullptr)&#123;</span><br><span class="line">                curr = curr-&gt;children[word[i]-&#x27;a&#x27;];</span><br><span class="line">            &#125;else&#123;</span><br><span class="line">                return false;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return curr-&gt;is_end;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">public:</span><br><span class="line">    WordDictionary() &#123;</span><br><span class="line">        root = new Node();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    void addWord(string word) &#123;</span><br><span class="line">        Node* curr = root;</span><br><span class="line">        for (char w: word)&#123;</span><br><span class="line">            if (curr-&gt;children[w-&#x27;a&#x27;] == nullptr)&#123;</span><br><span class="line">                curr-&gt;children[w-&#x27;a&#x27;] = new Node();</span><br><span class="line">            &#125;</span><br><span class="line">            curr = curr-&gt;children[w-&#x27;a&#x27;];</span><br><span class="line">        &#125;</span><br><span class="line">        curr-&gt;is_end = true;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    bool search(string word) &#123;</span><br><span class="line">        this-&gt;n = word.size();</span><br><span class="line">        this-&gt;word = word;</span><br><span class="line">        return dfs(root, 0);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
 
 <h1 id="方法二-Hash-Table-Python"><a href="#方法二-Hash-Table-Python" class="headerlink" title="方法二: Hash Table (Python)"></a>方法二: Hash Table (Python)</h1><p>重點</p>
@@ -144,117 +255,6 @@
       <tags>
         <tag>Trie</tag>
         <tag>LeetCode</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hello Hexo！用Hexo在GitHub Pages上架設個人部落格吧！(1)</title>
-    <url>/2023/03/14/Hello_Hexo_1/</url>
-    <content><![CDATA[<h1 id="Hexo-介紹"><a href="#Hexo-介紹" class="headerlink" title="Hexo 介紹"></a>Hexo 介紹</h1><p>Hexo 是一個基於Node.js 的自動化部落格部署框架，有近400種網頁主題可供選擇，支援Markdown語言撰寫文章內容而且部署相當迅速，簡直是自己架設部落格的必備神器呀！什麼？你說之前沒用過Node.js怎麼辦？沒關係，因為我之前也沒用過XD。事實上，只要掌握幾個基本的指令，就能夠架出漂漂亮亮、功能齊全的個人部落格囉！就讓我們一起看下去吧～<br>Hexo 官網：<a href="https://hexo.io/zh-cn/">https://hexo.io/zh-cn/</a><br>Hexo GitHub：<a href="https://github.com/hexojs/hexo">https://github.com/hexojs/hexo</a></p>
-<span id="more"></span>
-
-<h1 id="前置作業"><a href="#前置作業" class="headerlink" title="前置作業"></a>前置作業</h1><ul>
-<li><p>安裝 Node.js<br>官方載點：<a href="https://nodejs.org/zh-tw/download/">https://nodejs.org/zh-tw/download/</a></p>
-<blockquote>
-<p>進入網站後選擇LTS版本，然後選擇下載安裝程式，我自己是用Windows作業系統，直接點擊Windows icon就開始下載了，下載好後打開安裝程式一路確認到最後就安裝好啦～安裝完成後可以用 <code>npm --version</code> 來確認是否安裝成功。<br><img src="/../images/20230314/nodejs.png" alt="Node.js"></p>
-</blockquote>
-</li>
-<li><p>安裝 git<br>官方載點：<a href="https://git-scm.com/downloads">https://git-scm.com/downloads</a></p>
-<blockquote>
-<p>選擇對應的作業系統直接下載就好～這裡一樣以Windows為例，選擇的是Standalone Installer下的64-bit Git for Windows Setup，下載好後打開安裝程式一路確認到最後就安裝好啦～安裝完成後可以用 <code>git --version</code> 來確認是否安裝成功。<br><img src="/../images/20230314/git.png" alt="git"></p>
-</blockquote>
-</li>
-<li><p>註冊GitHub帳號<br>官網連結：<a href="https://github.com/">https://github.com/</a></p>
-</li>
-</ul>
-<h1 id="安裝-Hexo"><a href="#安裝-Hexo" class="headerlink" title="安裝 Hexo"></a>安裝 Hexo</h1><ul>
-<li><p>安裝 Hexo</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm install hexo-cli -g</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>初始化資料夾，並將當前路徑移動到該資料夾下(blog 是資料夾名稱，可以改成自己喜歡的名字)</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo init blog</span><br><span class="line">cd blog</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>下載 Hexo 所需套件</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm install</span><br></pre></td></tr></table></figure></li>
-</ul>
-<p>做完上面這些步驟後，我們就可以啟動伺服器來看看目前部落格的樣子囉。</p>
-<ul>
-<li>啟動伺服器<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo server #or</span><br><span class="line">hexo s      </span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>預設主題是landscape，也可以使用其他主題，下一篇文章會教大家如何套用Hexo上的熱門主題nexT！<br><img src="/../images/20230314/landscape.png" alt="landscape"></p>
-</blockquote>
-</li>
-</ul>
-<h1 id="Hexo-架構"><a href="#Hexo-架構" class="headerlink" title="Hexo 架構"></a>Hexo 架構</h1><p>在開始加工我們的網站之前，先來認識一下Hexo的資料夾架構！</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">|</span><br><span class="line">├── package.json</span><br><span class="line">├── scaffolds</span><br><span class="line">|   ├── draft</span><br><span class="line">|   ├── page</span><br><span class="line">|   └── post</span><br><span class="line">├── source</span><br><span class="line">|   ├── _drafts</span><br><span class="line">|   └── _posts</span><br><span class="line">├── themes</span><br><span class="line">|   └── yourTheme</span><br><span class="line">|       └── _config.yml</span><br><span class="line">└── _config.yml</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>package.json<br>用來存放node.js的各種套件，一班情況下不太需要動到這個資料夾。</li>
-<li>scaffolds<br>鷹架資料夾，裡面有三個檔案draft、page與post，分別對應了我們能建立的三種佈局，Hexo會依據這些佈局來生成新的頁面。</li>
-<li>source<br>來源資料夾，用來存放文章、頁面以及圖片等內容，其中_drafts用來存放草稿，_posts用來存放已經發布的文章。</li>
-<li>themes<br>主題資料夾，可以下載自己喜歡的主題放到裡面，在每個主題底下會有一個與主題設定檔，與主題有關的東西都在那裡進行設定。</li>
-<li>_config.yml<br>網頁設定檔，與網頁有關的東西都在這裡進行設定。 (跟主題設定檔不一樣！)</li>
-</ul>
-<h1 id="Config-設置"><a href="#Config-設置" class="headerlink" title="Config 設置"></a>Config 設置</h1><p>進到_config.yml檔案中，對Site部分進行修改，可以參考下面的設置：</p>
-<blockquote>
-<p>subtitle跟description可寫可不寫<br>language預設是英文，可以改成zh-TW顯示繁體中文<br>keyword跟Google關鍵字搜尋有關，這裡先忽略不管他，未來有機會再來詳細介紹！<br><img src="/../images/20230314/config_site.png" alt="config_site"></p>
-</blockquote>
-<h1 id="撰寫文章-x2F-新增頁面"><a href="#撰寫文章-x2F-新增頁面" class="headerlink" title="撰寫文章&#x2F;新增頁面"></a>撰寫文章&#x2F;新增頁面</h1><p>在Hexo當中共有三種佈局，分別是draft、post與page，其中draft跟page屬於文章，page則屬於頁面。</p>
-<ul>
-<li><p>post<br>所有draft都會被存放在_posts資料夾當中，會出現在網頁上。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># post 可以省略</span><br><span class="line">hexo new post &quot;My Post&quot;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>draft<br>draft是草稿，會另外從放於_drafts資料夾下，且不會出現在網頁上。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo new draft &quot;My Draft&quot;</span><br></pre></td></tr></table></figure>
-<p>可以用指令將draft轉成post，原理只是換個資料夾而已，其實也可以手動作，反過來手動把post丟到draft也行。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo publish &quot;My Draft&quot;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>page<br>page是功能頁面，常見的有about、tags、categories等，下一篇文章就會介紹如何在nexT主題下建立對應的page！</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo new page &quot;My Page&quot;</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h1 id="生成靜態文件"><a href="#生成靜態文件" class="headerlink" title="生成靜態文件"></a>生成靜態文件</h1><p>每次修改config檔或是寫完文章後，記得不要忘記重新生成一次網頁的靜態文件，不然剛剛做的變動網頁上是不會呈現出來的喔！</p>
-<ul>
-<li><p>清空原本的靜態文件&#x2F;暫存<br>這個步驟相當重要！否則容易出現新加的東西更新不上去的情況。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo clear #or</span><br><span class="line">hexo cl</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>生成靜態文件</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo generate #or</span><br><span class="line">hexo g</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>做完記得打開server確認一下結果！</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo server #or</span><br><span class="line">hexo s </span><br></pre></td></tr></table></figure></li>
-</ul>
-<p>這三個指令<br>非常重要！！！<br>非常重要！！！<br>非常重要！！！<br>簡單來說有動到東西請執行一下就對了！</p>
-<h1 id="部署至-GitHub-Pages"><a href="#部署至-GitHub-Pages" class="headerlink" title="部署至 GitHub Pages"></a>部署至 GitHub Pages</h1><ol>
-<li><p>在GitHub中創建一個新的repository (點右上角加號)<br><img src="/../images/20230314/repository.png" alt="repository"></p>
-</li>
-<li><p>repository名稱取為<code>user_name.github.io</code>，然後直接create repository<br><img src="/../images/20230314/repository_create.png" alt="repository_create"></p>
-</li>
-<li><p>修改網頁_config.yml中的URL設置</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">url: https://user_name.github.io/</span><br><span class="line">root: /</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>這裡的url是GitHub Pages的網址<br>root設成 &#x2F;<br><img src="/../images/20230314/config_url.png" alt="config_url"></p>
-</blockquote>
-</li>
-<li><p>修改網頁_config.yml中的deploy設置</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repo: https://github.com/user_name/user_name.github.io.git</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>這裡選擇用HTTPS的方式連結，部署時直接輸入帳號密碼就行，也可以用SSH，不過就要設置金鑰，比較麻煩一些<br><img src="/../images/20230314/config_deploy.png" alt="config_deploy"></p>
-</blockquote>
-</li>
-<li><p>修改完後記得重新生成一次靜態文件</p>
-</li>
-<li><p>開始部署</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo deploy #or</span><br><span class="line">hexo d</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>打開GitHub Pages的網址就能看到我們剛剛部署上去的網頁啦！<br><img src="/../images/20230314/gitpage.png" alt="Alt text"></p>
-</li>
-</ol>
-<h1 id="預告"><a href="#預告" class="headerlink" title="預告"></a>預告</h1><p>下一篇文章我將會介紹如何套用nexT主題，除了講解外觀設定以外，也將帶著大家打造標籤頁及站內搜尋等功能！</p>
-]]></content>
-      <categories>
-        <category>Hexo</category>
-      </categories>
-      <tags>
-        <tag>Hexo</tag>
       </tags>
   </entry>
 </search>
