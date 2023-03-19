@@ -1,6 +1,152 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Hello Hexo！套用NexT主題打造個性化部落格頁面！(2)</title>
+    <url>/2023/03/15/Hello_Hexo_2/</url>
+    <content><![CDATA[<h1 id="NexT-介紹"><a href="#NexT-介紹" class="headerlink" title="NexT 介紹"></a>NexT 介紹</h1><p>NexT是一個相當受歡迎的Hexo主題，外觀簡潔、功能強大，且持續有在維護，今天會教大家如何套用NexT主題，並啟用標籤頁及站內搜尋等功能。<br>NexT 官網：<a href="https://theme-next.js.org/">https://theme-next.js.org/</a><br>NexT GitHub：<a href="https://github.com/next-theme/hexo-theme-next">https://github.com/next-theme/hexo-theme-next</a></p>
+<span id="more"></span>
+
+<h1 id="安裝-NexT"><a href="#安裝-NexT" class="headerlink" title="安裝 NexT"></a>安裝 NexT</h1><p>有兩個方法，第一個方法是透過npm</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm install hexo-theme-next</span><br></pre></td></tr></table></figure>
+<p>第二個方法是透過git</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git clone https://github.com/next-theme/hexo-theme-next themes/next</span><br></pre></td></tr></table></figure>
+<p>我個人是喜歡第二種方法(git)，因為資源為自動進到themes資料夾當中，如果使用第二種方法(npm)的話資源會跑到node_modules資料夾中，雖然在功能上不會有差異，但未來要對主題的config檔做調整時要找比較久。</p>
+<h1 id="套用主題"><a href="#套用主題" class="headerlink" title="套用主題"></a>套用主題</h1><p>到<strong>網頁</strong>的config檔(<code>/_config.yml</code>)，搜尋<strong>theme</strong>將主題設置成next就行了。<br><img src="/../images/20230315/config_theme.png" alt="config_theme"></p>
+<p>另外Next其實有提供4種版面可以做選擇，分別是：💟 <a href="https://theme-next.js.org/muse/">Muse</a> | 🔯 <a href="https://theme-next.js.org/mist/">Mist</a> | ♓️ <a href="https://theme-next.js.org/pisces/">Pisces</a> | ♊️ <a href="https://theme-next.js.org/">Gemini</a></p>
+<p>大家可以點擊連結看看自己喜歡哪種版面，預設是使用Muse，如果要做更改的話，到<strong>主題</strong>的config檔(<code>themes/next/_config.yml</code>)中搜尋<strong>Schemes</strong>，將喜歡的佈局取消註解就可以了，另外下面的<strong>darkmode</strong>改成true的話則是可以讓網頁變成黑色模式。<br><img src="/../images/20230315/next_schemes.png" alt="next_schemes"></p>
+<p>NexT也支援canvas背景動畫，我們可以在<strong>主題</strong>config檔搜尋<strong>canvas_ribbon</strong>，將下方的enable改為true，部屬後網頁背景就會出現酷炫的彩色絲帶動畫了～</p>
+<h1 id="添加頭像-avatar"><a href="#添加頭像-avatar" class="headerlink" title="添加頭像 avatar"></a>添加頭像 avatar</h1><ol>
+<li>把準備好的圖片放入<code>source/images</code>當中。</li>
+<li>在<strong>主題</strong>config檔搜尋<strong>avatar</strong>，修改成自己準備的圖片路徑或者修改圖片名稱使其一致。<blockquote>
+<p>rounded改成true的話頭像會是圓形，rotated改成true的話滑鼠移到頭像上時會有快速旋轉的動畫。<br><img src="/../images/20230315/next_avatar.png" alt="next_avatar"></p>
+</blockquote>
+</li>
+</ol>
+<h1 id="更改網站圖示-favicon"><a href="#更改網站圖示-favicon" class="headerlink" title="更改網站圖示 favicon"></a>更改網站圖示 favicon</h1><p>我們可以把網站圖示換成自己的圖片，官方文件中建議可以使用<a href="https://realfavicongenerator.net/">Favicon Generator</a>來生成客製化的網站圖示。</p>
+<ol>
+<li>把準備好的圖片放入<code>source/images</code>當中。</li>
+<li>在<strong>主題</strong>config檔搜尋<strong>favicon</strong>，修改成自己準備的圖片路徑或者修改圖片名稱使其一致。<br><img src="/../images/20230315/next_favicon.png" alt="next_favicon"></li>
+</ol>
+<h1 id="社群媒體連結-social-link"><a href="#社群媒體連結-social-link" class="headerlink" title="社群媒體連結 social link"></a>社群媒體連結 social link</h1><p>在<strong>主題</strong>config檔搜尋<strong>social</strong>，將自己的社群媒體連結填入並取消註解就可以了，下方的social_icon則可以設定是否顯示icon及icon外觀。<br><img src="/../images/20230315/next_social.png" alt="next_social"></p>
+<p>Hexo NexT使用<a href="https://fontawesome.com/icons">Font Awesome</a>提供的icons，因此我們可以為新的連結挑選適合的icon，接下來我們來新增一個Linkedin連結看看(包含icon)。</p>
+<ol>
+<li>先到Font Awesome上搜尋Linkedin，選擇自己喜歡的icon，複製綠色的那段文字。<br><img src="/../images/20230315/font_awesome_linkedin.png" alt="font_awesome_linkedin"></li>
+<li>依<code>標題: 連結 || 綠色文字</code>的格式在social下加入新的一行，舉例來說。<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Linkedin: https://www.linkedin.com/in/meng-chieh-liu-615952235/ || fa-brands fa-linkedin</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h1 id="啟用功能選單-Menu"><a href="#啟用功能選單-Menu" class="headerlink" title="啟用功能選單 Menu"></a>啟用功能選單 Menu</h1><p>在<strong>主題</strong>config檔搜尋<strong>menu</strong>，可以看到NexT預先幫我們建立好許多功能選單，其中home跟archives是預設就開啟的，我們可以取消註解來啟用其他功能選單，但目前那些頁面還是空的喔！所以我們的下一步就是要建立相應的分頁。<br><img src="/../images/20230315/next_menu.png" alt="next_menu"></p>
+<p>這邊介紹如何建立tags&#x2F;categories頁面：</p>
+<ol>
+<li><p>建立新頁面</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo new page &quot;tags&quot;</span><br><span class="line">hexo new page &quot;categories&quot;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>找到<code>source/tags/index.md</code>檔案，在檔案中加入<code>type: &quot;tags&quot;</code>，注意這裡的tags要加<strong>雙引號</strong>！！！<br>(categories比照辦理)<br><img src="/../images/20230315/tags.png" alt="tags"></p>
+</li>
+<li><p>在post裡面加入tags&#x2F;categories，重新部署後這些tags&#x2F;categories就會出現對應的頁面上啦～<br><img src="/../images/20230315/post_tags.png" alt="post_tags"></p>
+</li>
+</ol>
+<h1 id="站內搜尋功能-local-search"><a href="#站內搜尋功能-local-search" class="headerlink" title="站內搜尋功能 local search"></a>站內搜尋功能 local search</h1><ol>
+<li><p>安裝<code>hexo-generator-searchdb</code>套件</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm install hexo-generator-searchdb</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在<strong>主題</strong>config檔搜尋<strong>local_search</strong>，將enable調為true。<br><img src="/../images/20230315/next_local_search.png" alt="next_local_search"></p>
+</li>
+<li><p>在<strong>網頁</strong>config檔加入下面設置。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">search:</span><br><span class="line">  path: search.xml</span><br><span class="line">  field: post</span><br><span class="line">  format: html</span><br><span class="line">  limit: 10000</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>重新部署後就能開始使用站內搜尋啦～<br><img src="/../images/20230315/local_search.png" alt="local_search"></p>
+</li>
+</ol>
+<h1 id="預告"><a href="#預告" class="headerlink" title="預告"></a>預告</h1><p>下一篇文章將會帶大家做SEO，設定keywords與sitemap讓Google搜的到我們的部落格&#x2F;文章。</p>
+]]></content>
+      <categories>
+        <category>Hexo</category>
+      </categories>
+      <tags>
+        <tag>Hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Implement Trie (字典樹)</title>
+    <url>/2023/03/18/trie/</url>
+    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>今天在寫LeetCode每日一題時遇到<a href="https://leetcode.com/problems/implement-trie-prefix-tree/description/">208. Implement Trie (Prefix Tree)</a>，之前因為覺得Trie好像很難所以一直不願面對，但這題就是要跟Trie的直球對決了想躲也躲不掉XD，Anyway，看了一下發現Trie其實蠻好理解的，今天就來認識一下Trie，然後看看這一題可以怎麼寫吧！(Python, C++)</p>
+<span id="more"></span>
+
+<h1 id="Trie-介紹"><a href="#Trie-介紹" class="headerlink" title="Trie 介紹"></a>Trie 介紹</h1><p>Trie的中文可以叫做字典樹、字首樹或前綴樹，顧名思義是一種樹狀結構，常被用來檢索文本中的單詞或前綴(prefix)。</p>
+<p>字典樹有幾個性質，這裡搭配下方圖片做介紹：</p>
+<ol>
+<li>每個節點代表一個字符，並且單字的結尾有標記，舉例來說單字”ten”會依序經過t、e、n三個節點，其中n是結尾(綠色)。</li>
+<li>節點是可以被共用的，舉例來說”sun”及”sup”就共用了s、u兩個節點。</li>
+<li>葉子節點一定是單字結尾，但非葉節點也可以是結尾，舉例來說”an”及”and”分別是兩個單字，其中n及d都是單字的結尾(綠色)。<br><img src="/../images/20230318/trie.png" alt="trie"><br>字典樹的優點是可以快速查找字符串，且可以按照字典序進行排序。但缺點是需要較大的空間來存儲，且插入和刪除操作相對較慢。</li>
+</ol>
+<h1 id="實作-Trie"><a href="#實作-Trie" class="headerlink" title="實作 Trie"></a>實作 Trie</h1><p>實作的內容就是一開始提到的LeetCode 208，簡單來說就是要做出初始化、插入、尋找及尋找前綴4個功能，詳細題目可以自己到LeetCode去看。</p>
+<p>值得一提的是，Trie 有兩種實作方法，第一個方法相當直覺，就是用指針連結各個節點來模擬出一個樹狀結構；第二個方法則是動態語言限定，我們可以直接用hash table來儲存字符，接下來分別用C++及Python來演示這兩種方法。</p>
+<h2 id="方法一-Pointers-C"><a href="#方法一-Pointers-C" class="headerlink" title="方法一: Pointers (C++)"></a>方法一: Pointers (C++)</h2><p>重點</p>
+<ul>
+<li>英文字母只有26個，所以可以直接使用array，以index(<code>w-&#39;a&#39;</code>)來表示字符。</li>
+<li>prefix的部分只要節點存在就OK，但search的部分還要檢查是不是結尾。</li>
+<li>另外定義一個struct而不是直接new原本的class，是因為struct的結構比class簡單的多(沒有function)，可以提升執行效率。</li>
+<li>使用靜態宣告(array)所以不用擔心memory leak。</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">struct Node&#123;</span><br><span class="line">  Node* children[26];</span><br><span class="line">  bool is_word = false;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">class Trie &#123;</span><br><span class="line">public:</span><br><span class="line">    Node* root;</span><br><span class="line">    Trie() &#123;</span><br><span class="line">        root = new Node();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    void insert(string word) &#123;</span><br><span class="line">        Node* curr = root;</span><br><span class="line">        for (char w: word) &#123;</span><br><span class="line">            if(curr-&gt;children[w-&#x27;a&#x27;] == nullptr)&#123;</span><br><span class="line">                curr-&gt;children[w-&#x27;a&#x27;] = new Node();</span><br><span class="line">            &#125;</span><br><span class="line">            curr = curr-&gt;children[w-&#x27;a&#x27;];</span><br><span class="line">        &#125;</span><br><span class="line">        curr-&gt;is_word = true;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    bool search(string word) &#123;</span><br><span class="line">        Node* curr = root;</span><br><span class="line">        for (char w: word) &#123;</span><br><span class="line">            if(curr == NULL || curr-&gt;children[w-&#x27;a&#x27;] == nullptr)&#123;</span><br><span class="line">                return false;</span><br><span class="line">            &#125;</span><br><span class="line">            curr = curr-&gt;children[w-&#x27;a&#x27;];</span><br><span class="line">        &#125;</span><br><span class="line">        return curr-&gt;is_word;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    bool startsWith(string prefix) &#123;</span><br><span class="line">        Node* curr = root;</span><br><span class="line">        for (char w: prefix) &#123;</span><br><span class="line">            if(curr-&gt;children[w-&#x27;a&#x27;] == nullptr)&#123;</span><br><span class="line">                return false;</span><br><span class="line">            &#125;</span><br><span class="line">            curr = curr-&gt;children[w-&#x27;a&#x27;];</span><br><span class="line">        &#125;</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="方法二-Hash-Table-Python"><a href="#方法二-Hash-Table-Python" class="headerlink" title="方法二: Hash Table (Python)"></a>方法二: Hash Table (Python)</h2><p>重點</p>
+<ul>
+<li>用特殊符號(#)來標記單字結尾。</li>
+<li>因為動態語言中的資料型態是動態決定的，所以Hash Table內可以同時儲存不同資料型態(存下一層&#x2F;存結尾)。</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">class Trie:</span><br><span class="line">    def __init__(self):</span><br><span class="line">        self._root = &#123;&#125;</span><br><span class="line"></span><br><span class="line">    def insert(self, word: str) -&gt; None:</span><br><span class="line">        curr = self._root</span><br><span class="line">        for w in word:</span><br><span class="line">            if w not in curr:</span><br><span class="line">                curr[w] = &#123;&#125;</span><br><span class="line">            curr = curr[w]</span><br><span class="line">        curr[&quot;#&quot;] = True</span><br><span class="line">        </span><br><span class="line">    def search(self, word: str) -&gt; bool:</span><br><span class="line">        curr = self._root</span><br><span class="line">        for w in word:</span><br><span class="line">            if w in curr:</span><br><span class="line">                curr = curr[w]</span><br><span class="line">            else:</span><br><span class="line">                return False</span><br><span class="line">        return curr.get(&quot;#&quot;, False)</span><br><span class="line"></span><br><span class="line">    def startsWith(self, prefix: str) -&gt; bool:</span><br><span class="line">        curr = self._root</span><br><span class="line">        for w in prefix:</span><br><span class="line">            if w in curr:</span><br><span class="line">                curr = curr[w]</span><br><span class="line">            else:</span><br><span class="line">                return False</span><br><span class="line">        return True</span><br></pre></td></tr></table></figure>
+
+<h1 id="相關文章"><a href="#相關文章" class="headerlink" title="相關文章"></a>相關文章</h1><p><a href="/2023/03/20/trie_2/">Trie (字典樹) - Design Add and Search Words Data Structure</a></p>
+<h1 id="結語"><a href="#結語" class="headerlink" title="結語"></a>結語</h1><p>Trie的基本觀念說實在還蠻簡單的，難應該是難在之後的應用，之後有機會看能不能更新一些進階的觀念，像是搜尋引擎之類的。</p>
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://www.youtube.com/watch?v=f48wGD-MuQw">https://www.youtube.com/watch?v=f48wGD-MuQw</a></p>
+]]></content>
+      <categories>
+        <category>Data Structure</category>
+      </categories>
+      <tags>
+        <tag>Trie</tag>
+        <tag>LeetCode</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Trie (字典樹) - Design Add and Search Words Data Structure</title>
+    <url>/2023/03/20/trie_2/</url>
+    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>寫完上一篇<a href="/2023/03/18/trie/">Implement Trie (字典樹)</a>後，沒過兩天LeetCode每日一題又出現Trie的題目了(笑)，題目是<a href="https://leetcode.com/problems/design-add-and-search-words-data-structure/">211. Design Add and Search Words Data Structure</a>，簡單來說就是字典樹加上一點正規表達(regular expression)的概念，舉例來說trie裡有<code>bad</code>，那搜尋<code>b.d</code>的話也要回傳<code>true</code>，詳細題目一樣自己到LeetCode去看囉。</p>
+<span id="more"></span>
+
+<h1 id="解題思路"><a href="#解題思路" class="headerlink" title="解題思路"></a>解題思路</h1><p>如果不考慮正規表達的話，那其實就是最基本的Trie，還不了解trie的話可以參考前一篇文章！但現在多了這個特殊條件後，我們就需要去考慮所有可能，方法是寫一個dfs(Depth First Search)的輔助函式，遇到<code>.</code>的話就將當前節點下的所有子節點再帶入dfs，看最後有沒有符合的單字，只要有其中一個子節點符合的話會提前回傳<code>true</code>，都沒有的話就回傳<code>false</code>。</p>
+<p>我們以下面的圖片來說明步驟，假設我們今天搜尋<code>b.t</code>：</p>
+<ol>
+<li>跟一般的trie一樣，我們會先確認root下有沒有b這個節點，有的話就走到這個節點上。</li>
+<li>因為第二個字是<code>.</code>，表示<code>ba</code>跟<code>bo</code>都是我們可以走的路徑，因此我們兩條路都要去訪問，依字母順序我們先訪問<code>ba</code>。</li>
+<li><code>ba</code>下面雖然有節點<code>bat</code>，但他不是單字的結尾，所以我們跳出這條路徑。</li>
+<li>我們回到上一層，改走<code>bo</code>這條路徑。</li>
+<li><code>bot</code>符合我們要找的答案，並且他也是單字的結尾，因此回傳<code>true</code>。</li>
+</ol>
+<p><img src="/../images/20230320/trie.png" alt="trie"></p>
+<h1 id="方法一-Pointers-C"><a href="#方法一-Pointers-C" class="headerlink" title="方法一: Pointers (C++)"></a>方法一: Pointers (C++)</h1><p>重點</p>
+<ul>
+<li>dfs除了要傳入節點<code>curr</code>，也要記錄目前走到第單字中的第幾個位置<code>start</code>。</li>
+<li>遇到<code>.</code>的話就對所有可能路徑再做一次dfs。</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">struct Node&#123;</span><br><span class="line">    Node* children[26];</span><br><span class="line">    bool is_end = false;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">class WordDictionary &#123;</span><br><span class="line">private:</span><br><span class="line">    Node* root;</span><br><span class="line">    int n;</span><br><span class="line">    string word;</span><br><span class="line"></span><br><span class="line">    bool dfs(Node* curr, int start)&#123;</span><br><span class="line">        for (int i=start; i&lt;n; i++)&#123;</span><br><span class="line">            # 遇到 .</span><br><span class="line">            if (word[i] == &#x27;.&#x27;)&#123;</span><br><span class="line">                # 用迴圈造訪所有可能路徑</span><br><span class="line">                for (Node* next: curr-&gt;children)&#123;</span><br><span class="line">                    # 路徑不可為空 &amp;&amp; 該路徑有符合答案者</span><br><span class="line">                    if (next!=nullptr &amp;&amp; dfs(next, i+1))&#123;</span><br><span class="line">                        # 提前回傳 true</span><br><span class="line">                        return true;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                # 全部路徑無答案，回傳 false</span><br><span class="line">                return false;</span><br><span class="line">            &#125;else if (curr-&gt;children[word[i]-&#x27;a&#x27;] != nullptr)&#123;</span><br><span class="line">                curr = curr-&gt;children[word[i]-&#x27;a&#x27;];</span><br><span class="line">            &#125;else&#123;</span><br><span class="line">                return false;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return curr-&gt;is_end;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">public:</span><br><span class="line">    WordDictionary() &#123;</span><br><span class="line">        root = new Node();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    void addWord(string word) &#123;</span><br><span class="line">        Node* curr = root;</span><br><span class="line">        for (char w: word)&#123;</span><br><span class="line">            if (curr-&gt;children[w-&#x27;a&#x27;] == nullptr)&#123;</span><br><span class="line">                curr-&gt;children[w-&#x27;a&#x27;] = new Node();</span><br><span class="line">            &#125;</span><br><span class="line">            curr = curr-&gt;children[w-&#x27;a&#x27;];</span><br><span class="line">        &#125;</span><br><span class="line">        curr-&gt;is_end = true;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    bool search(string word) &#123;</span><br><span class="line">        this-&gt;n = word.size();</span><br><span class="line">        this-&gt;word = word;</span><br><span class="line">        return dfs(root, 0);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+<h1 id="方法二-Hash-Table-Python"><a href="#方法二-Hash-Table-Python" class="headerlink" title="方法二: Hash Table (Python)"></a>方法二: Hash Table (Python)</h1><p>重點</p>
+<ul>
+<li>注意要避開<code>#</code>因為他不是一個路徑，否則會報錯。</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">class WordDictionary:</span><br><span class="line">    def __init__(self):</span><br><span class="line">        self.root = &#123;&#125;</span><br><span class="line"></span><br><span class="line">    def addWord(self, word: str) -&gt; None:</span><br><span class="line">        curr = self.root</span><br><span class="line">        for w in word:</span><br><span class="line">            if w not in curr:</span><br><span class="line">                curr[w] = &#123;&#125;</span><br><span class="line">            curr = curr[w]</span><br><span class="line">        curr[&quot;#&quot;] = True</span><br><span class="line"></span><br><span class="line">    def search(self, word: str) -&gt; bool:</span><br><span class="line">        n = len(word)</span><br><span class="line"></span><br><span class="line">        def dfs(curr, start):</span><br><span class="line">            for i in range(start, n):</span><br><span class="line">                w = word[i]</span><br><span class="line">                # 遇到 .</span><br><span class="line">                if w == &quot;.&quot;:</span><br><span class="line">                    # 用迴圈造訪所有可能路徑</span><br><span class="line">                    for c in curr:</span><br><span class="line">                        # 避開結尾標記 &amp;&amp; 該路徑有符合答案者</span><br><span class="line">                        if c!=&quot;#&quot; and dfs(curr[c], i+1):</span><br><span class="line">                            # 提前回傳 true</span><br><span class="line">                            return True</span><br><span class="line">                    # 全部路徑無答案，回傳 false</span><br><span class="line">                    return False</span><br><span class="line">                elif w in curr:</span><br><span class="line">                    curr = curr[w]</span><br><span class="line">                else:</span><br><span class="line">                    return False</span><br><span class="line">            return &quot;#&quot; in curr</span><br><span class="line"></span><br><span class="line">        return dfs(self.root, 0)</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>Data Structure</category>
+      </categories>
+      <tags>
+        <tag>Trie</tag>
+        <tag>LeetCode</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Hello Hexo！用Hexo在GitHub Pages上架設個人部落格吧！(1)</title>
     <url>/2023/03/14/Hello_Hexo_1/</url>
     <content><![CDATA[<h1 id="Hexo-介紹"><a href="#Hexo-介紹" class="headerlink" title="Hexo 介紹"></a>Hexo 介紹</h1><p>Hexo 是一個基於Node.js 的自動化部落格部署框架，有近400種網頁主題可供選擇，支援Markdown語言撰寫文章內容而且部署相當迅速，簡直是自己架設部落格的必備神器呀！什麼？你說之前沒用過Node.js怎麼辦？沒關係，因為我之前也沒用過XD。事實上，只要掌握幾個基本的指令，就能夠架出漂漂亮亮、功能齊全的個人部落格囉！就讓我們一起看下去吧～<br>Hexo 官網：<a href="https://hexo.io/zh-cn/">https://hexo.io/zh-cn/</a><br>Hexo GitHub：<a href="https://github.com/hexojs/hexo">https://github.com/hexojs/hexo</a></p>
@@ -109,152 +255,6 @@
       </categories>
       <tags>
         <tag>Hexo</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Trie (字典樹) - Design Add and Search Words Data Structure</title>
-    <url>/2023/03/20/trie_2/</url>
-    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>寫完上一篇<a href="/2023/03/18/trie/">Implement Trie (字典樹)</a>後，沒過兩天LeetCode每日一題又出現Trie的題目了(笑)，題目是<a href="https://leetcode.com/problems/design-add-and-search-words-data-structure/">211. Design Add and Search Words Data Structure</a>，簡單來說就是字典樹加上一點正規表達(regular expression)的概念，舉例來說trie裡有<code>bad</code>，那搜尋<code>b.d</code>的話也要回傳<code>true</code>，詳細題目一樣自己到LeetCode去看囉。</p>
-<span id="more"></span>
-
-<h1 id="解題思路"><a href="#解題思路" class="headerlink" title="解題思路"></a>解題思路</h1><p>如果不考慮正規表達的話，那其實就是最基本的Trie，但現在多了這個特殊條件後，我們就需要去考慮所有可能，方法是寫一個dfs(Depth First Search)的輔助函式，遇到<code>.</code>的話就將當前節點下的所有子節點再帶入dfs，看最後有沒有符合的單字，只要有其中一個子節點符合的話會提前回傳<code>true</code>，都沒有的話就回傳<code>false</code>。</p>
-<p>我們以下面的圖片來說明步驟，假設我們今天搜尋<code>b.t</code>：</p>
-<ol>
-<li>跟一般的trie一樣，我們會先確認root下有沒有b這個節點，有的話就走到這個節點上。</li>
-<li>因為第二個字是<code>.</code>，表示<code>ba</code>跟<code>bo</code>都是我們可以走的路徑，因此我們兩條路都要去訪問，依字母順序我們先訪問<code>ba</code>。</li>
-<li><code>ba</code>下面雖然有節點<code>bat</code>，但他不是單字的結尾，所以我們跳出這條路徑。</li>
-<li>我們回到上一層，改走<code>bo</code>這條路徑。</li>
-<li><code>bot</code>符合我們要找的答案，並且他也是單字的結尾，因此回傳<code>true</code>。</li>
-</ol>
-<p><img src="/../images/20230320/trie.png" alt="trie"></p>
-<h1 id="方法一-Pointers-C"><a href="#方法一-Pointers-C" class="headerlink" title="方法一: Pointers (C++)"></a>方法一: Pointers (C++)</h1><p>重點</p>
-<ul>
-<li>dfs除了要傳入節點<code>curr</code>，也要記錄目前走到第單字中的第幾個位置<code>start</code>。</li>
-<li>遇到<code>.</code>的話就對所有可能路徑再做一次dfs。</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">struct Node&#123;</span><br><span class="line">    Node* children[26];</span><br><span class="line">    bool is_end = false;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">class WordDictionary &#123;</span><br><span class="line">private:</span><br><span class="line">    Node* root;</span><br><span class="line">    int n;</span><br><span class="line">    string word;</span><br><span class="line"></span><br><span class="line">    bool dfs(Node* curr, int start)&#123;</span><br><span class="line">        for (int i=start; i&lt;n; i++)&#123;</span><br><span class="line">            if (word[i] == &#x27;.&#x27;)&#123;</span><br><span class="line">                for (Node* next: curr-&gt;children)&#123;</span><br><span class="line">                    if (next!=nullptr &amp;&amp; dfs(next, i+1))&#123;</span><br><span class="line">                        return true;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                return false;</span><br><span class="line">            &#125;else if (curr-&gt;children[word[i]-&#x27;a&#x27;] != nullptr)&#123;</span><br><span class="line">                curr = curr-&gt;children[word[i]-&#x27;a&#x27;];</span><br><span class="line">            &#125;else&#123;</span><br><span class="line">                return false;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return curr-&gt;is_end;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">public:</span><br><span class="line">    WordDictionary() &#123;</span><br><span class="line">        root = new Node();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    void addWord(string word) &#123;</span><br><span class="line">        Node* curr = root;</span><br><span class="line">        for (char w: word)&#123;</span><br><span class="line">            if (curr-&gt;children[w-&#x27;a&#x27;] == nullptr)&#123;</span><br><span class="line">                curr-&gt;children[w-&#x27;a&#x27;] = new Node();</span><br><span class="line">            &#125;</span><br><span class="line">            curr = curr-&gt;children[w-&#x27;a&#x27;];</span><br><span class="line">        &#125;</span><br><span class="line">        curr-&gt;is_end = true;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    bool search(string word) &#123;</span><br><span class="line">        this-&gt;n = word.size();</span><br><span class="line">        this-&gt;word = word;</span><br><span class="line">        return dfs(root, 0);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-
-<h1 id="方法二-Hash-Table-Python"><a href="#方法二-Hash-Table-Python" class="headerlink" title="方法二: Hash Table (Python)"></a>方法二: Hash Table (Python)</h1><p>重點</p>
-<ul>
-<li>注意要避開<code>#</code>因為他不是一個路徑，否則會報錯。</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">class WordDictionary:</span><br><span class="line">    def __init__(self):</span><br><span class="line">        self.root = &#123;&#125;</span><br><span class="line"></span><br><span class="line">    def addWord(self, word: str) -&gt; None:</span><br><span class="line">        curr = self.root</span><br><span class="line">        for w in word:</span><br><span class="line">            if w not in curr:</span><br><span class="line">                curr[w] = &#123;&#125;</span><br><span class="line">            curr = curr[w]</span><br><span class="line">        curr[&quot;#&quot;] = True</span><br><span class="line"></span><br><span class="line">    def search(self, word: str) -&gt; bool:</span><br><span class="line">        n = len(word)</span><br><span class="line"></span><br><span class="line">        def dfs(curr, start):</span><br><span class="line">            for i in range(start, n):</span><br><span class="line">                w = word[i]</span><br><span class="line">                if w == &quot;.&quot;:</span><br><span class="line">                    for c in curr:</span><br><span class="line">                        if c!=&quot;#&quot; and dfs(curr[c], i+1):</span><br><span class="line">                            return True</span><br><span class="line">                    return False</span><br><span class="line">                elif w in curr:</span><br><span class="line">                    curr = curr[w]</span><br><span class="line">                else:</span><br><span class="line">                    return False</span><br><span class="line">            return &quot;#&quot; in curr</span><br><span class="line"></span><br><span class="line">        return dfs(self.root, 0)</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>Data Structure</category>
-      </categories>
-      <tags>
-        <tag>trie</tag>
-        <tag>LeetCode</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hello Hexo！套用NexT主題打造個性化部落格頁面！(2)</title>
-    <url>/2023/03/15/Hello_Hexo_2/</url>
-    <content><![CDATA[<h1 id="NexT-介紹"><a href="#NexT-介紹" class="headerlink" title="NexT 介紹"></a>NexT 介紹</h1><p>NexT是一個相當受歡迎的Hexo主題，外觀簡潔、功能強大，且持續有在維護，今天會教大家如何套用NexT主題，並啟用標籤頁及站內搜尋等功能。<br>NexT 官網：<a href="https://theme-next.js.org/">https://theme-next.js.org/</a><br>NexT GitHub：<a href="https://github.com/next-theme/hexo-theme-next">https://github.com/next-theme/hexo-theme-next</a></p>
-<span id="more"></span>
-
-<h1 id="安裝-NexT"><a href="#安裝-NexT" class="headerlink" title="安裝 NexT"></a>安裝 NexT</h1><p>有兩個方法，第一個方法是透過npm</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm install hexo-theme-next</span><br></pre></td></tr></table></figure>
-<p>第二個方法是透過git</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git clone https://github.com/next-theme/hexo-theme-next themes/next</span><br></pre></td></tr></table></figure>
-<p>我個人是喜歡第二種方法(git)，因為資源為自動進到themes資料夾當中，如果使用第二種方法(npm)的話資源會跑到node_modules資料夾中，雖然在功能上不會有差異，但未來要對主題的config檔做調整時要找比較久。</p>
-<h1 id="套用主題"><a href="#套用主題" class="headerlink" title="套用主題"></a>套用主題</h1><p>到<strong>網頁</strong>的config檔(<code>/_config.yml</code>)，搜尋<strong>theme</strong>將主題設置成next就行了。<br><img src="/../images/20230315/config_theme.png" alt="config_theme"></p>
-<p>另外Next其實有提供4種版面可以做選擇，分別是：💟 <a href="https://theme-next.js.org/muse/">Muse</a> | 🔯 <a href="https://theme-next.js.org/mist/">Mist</a> | ♓️ <a href="https://theme-next.js.org/pisces/">Pisces</a> | ♊️ <a href="https://theme-next.js.org/">Gemini</a></p>
-<p>大家可以點擊連結看看自己喜歡哪種版面，預設是使用Muse，如果要做更改的話，到<strong>主題</strong>的config檔(<code>themes/next/_config.yml</code>)中搜尋<strong>Schemes</strong>，將喜歡的佈局取消註解就可以了，另外下面的<strong>darkmode</strong>改成true的話則是可以讓網頁變成黑色模式。<br><img src="/../images/20230315/next_schemes.png" alt="next_schemes"></p>
-<p>NexT也支援canvas背景動畫，我們可以在<strong>主題</strong>config檔搜尋<strong>canvas_ribbon</strong>，將下方的enable改為true，部屬後網頁背景就會出現酷炫的彩色絲帶動畫了～</p>
-<h1 id="添加頭像-avatar"><a href="#添加頭像-avatar" class="headerlink" title="添加頭像 avatar"></a>添加頭像 avatar</h1><ol>
-<li>把準備好的圖片放入<code>source/images</code>當中。</li>
-<li>在<strong>主題</strong>config檔搜尋<strong>avatar</strong>，修改成自己準備的圖片路徑或者修改圖片名稱使其一致。<blockquote>
-<p>rounded改成true的話頭像會是圓形，rotated改成true的話滑鼠移到頭像上時會有快速旋轉的動畫。<br><img src="/../images/20230315/next_avatar.png" alt="next_avatar"></p>
-</blockquote>
-</li>
-</ol>
-<h1 id="更改網站圖示-favicon"><a href="#更改網站圖示-favicon" class="headerlink" title="更改網站圖示 favicon"></a>更改網站圖示 favicon</h1><p>我們可以把網站圖示換成自己的圖片，官方文件中建議可以使用<a href="https://realfavicongenerator.net/">Favicon Generator</a>來生成客製化的網站圖示。</p>
-<ol>
-<li>把準備好的圖片放入<code>source/images</code>當中。</li>
-<li>在<strong>主題</strong>config檔搜尋<strong>favicon</strong>，修改成自己準備的圖片路徑或者修改圖片名稱使其一致。<br><img src="/../images/20230315/next_favicon.png" alt="next_favicon"></li>
-</ol>
-<h1 id="社群媒體連結-social-link"><a href="#社群媒體連結-social-link" class="headerlink" title="社群媒體連結 social link"></a>社群媒體連結 social link</h1><p>在<strong>主題</strong>config檔搜尋<strong>social</strong>，將自己的社群媒體連結填入並取消註解就可以了，下方的social_icon則可以設定是否顯示icon及icon外觀。<br><img src="/../images/20230315/next_social.png" alt="next_social"></p>
-<p>Hexo NexT使用<a href="https://fontawesome.com/icons">Font Awesome</a>提供的icons，因此我們可以為新的連結挑選適合的icon，接下來我們來新增一個Linkedin連結看看(包含icon)。</p>
-<ol>
-<li>先到Font Awesome上搜尋Linkedin，選擇自己喜歡的icon，複製綠色的那段文字。<br><img src="/../images/20230315/font_awesome_linkedin.png" alt="font_awesome_linkedin"></li>
-<li>依<code>標題: 連結 || 綠色文字</code>的格式在social下加入新的一行，舉例來說。<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Linkedin: https://www.linkedin.com/in/meng-chieh-liu-615952235/ || fa-brands fa-linkedin</span><br></pre></td></tr></table></figure></li>
-</ol>
-<h1 id="啟用功能選單-Menu"><a href="#啟用功能選單-Menu" class="headerlink" title="啟用功能選單 Menu"></a>啟用功能選單 Menu</h1><p>在<strong>主題</strong>config檔搜尋<strong>menu</strong>，可以看到NexT預先幫我們建立好許多功能選單，其中home跟archives是預設就開啟的，我們可以取消註解來啟用其他功能選單，但目前那些頁面還是空的喔！所以我們的下一步就是要建立相應的分頁。<br><img src="/../images/20230315/next_menu.png" alt="next_menu"></p>
-<p>這邊介紹如何建立tags&#x2F;categories頁面：</p>
-<ol>
-<li><p>建立新頁面</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo new page &quot;tags&quot;</span><br><span class="line">hexo new page &quot;categories&quot;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>找到<code>source/tags/index.md</code>檔案，在檔案中加入<code>type: &quot;tags&quot;</code>，注意這裡的tags要加<strong>雙引號</strong>！！！<br>(categories比照辦理)<br><img src="/../images/20230315/tags.png" alt="tags"></p>
-</li>
-<li><p>在post裡面加入tags&#x2F;categories，重新部署後這些tags&#x2F;categories就會出現對應的頁面上啦～<br><img src="/../images/20230315/post_tags.png" alt="post_tags"></p>
-</li>
-</ol>
-<h1 id="站內搜尋功能-local-search"><a href="#站內搜尋功能-local-search" class="headerlink" title="站內搜尋功能 local search"></a>站內搜尋功能 local search</h1><ol>
-<li><p>安裝<code>hexo-generator-searchdb</code>套件</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm install hexo-generator-searchdb</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>在<strong>主題</strong>config檔搜尋<strong>local_search</strong>，將enable調為true。<br><img src="/../images/20230315/next_local_search.png" alt="next_local_search"></p>
-</li>
-<li><p>在<strong>網頁</strong>config檔加入下面設置。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">search:</span><br><span class="line">  path: search.xml</span><br><span class="line">  field: post</span><br><span class="line">  format: html</span><br><span class="line">  limit: 10000</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>重新部署後就能開始使用站內搜尋啦～<br><img src="/../images/20230315/local_search.png" alt="local_search"></p>
-</li>
-</ol>
-<h1 id="預告"><a href="#預告" class="headerlink" title="預告"></a>預告</h1><p>下一篇文章將會帶大家做SEO，設定keywords與sitemap讓Google搜的到我們的部落格&#x2F;文章。</p>
-]]></content>
-      <categories>
-        <category>Hexo</category>
-      </categories>
-      <tags>
-        <tag>Hexo</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Implement Trie (字典樹)</title>
-    <url>/2023/03/18/trie/</url>
-    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>今天在寫LeetCode每日一題時遇到<a href="https://leetcode.com/problems/implement-trie-prefix-tree/description/">208. Implement Trie (Prefix Tree)</a>，之前因為覺得Trie好像很難所以一直不願面對，但這題就是要跟Trie的直球對決了想躲也躲不掉XD，Anyway，看了一下發現Trie其實蠻好理解的，今天就來認識一下Trie，然後看看這一題可以怎麼寫吧！(Python, C++)</p>
-<span id="more"></span>
-
-<h1 id="Trie-介紹"><a href="#Trie-介紹" class="headerlink" title="Trie 介紹"></a>Trie 介紹</h1><p>Trie的中文可以叫做字典樹、字首樹或前綴樹，顧名思義是一種樹狀結構，常被用來檢索文本中的單詞或前綴(prefix)。</p>
-<p>字典樹有幾個性質，這裡搭配下方圖片做介紹：</p>
-<ol>
-<li>每個節點代表一個字符，並且單字的結尾有標記，舉例來說單字”ten”會依序經過t、e、n三個節點，其中n是結尾(綠色)。</li>
-<li>節點是可以被共用的，舉例來說”sun”及”sup”就共用了s、u兩個節點。</li>
-<li>葉子節點一定是單字結尾，但非葉節點也可以是結尾，舉例來說”an”及”and”分別是兩個單字，其中n及d都是單字的結尾(綠色)。<br><img src="/../images/20230318/trie.png" alt="trie"><br>字典樹的優點是可以快速查找字符串，且可以按照字典序進行排序。但缺點是需要較大的空間來存儲，且插入和刪除操作相對較慢。</li>
-</ol>
-<h1 id="實作-Trie"><a href="#實作-Trie" class="headerlink" title="實作 Trie"></a>實作 Trie</h1><p>實作的內容就是一開始提到的LeetCode 208，簡單來說就是要做出初始化、插入、尋找及尋找前綴4個功能，詳細題目可以自己到LeetCode去看。</p>
-<p>值得一提的是，Trie 有兩種實作方法，第一個方法相當直覺，就是用指針連結各個節點來模擬出一個樹狀結構；第二個方法則是動態語言限定，我們可以直接用hash table來儲存字符，接下來分別用C++及Python來演示這兩種方法。</p>
-<h2 id="方法一-Pointers-C"><a href="#方法一-Pointers-C" class="headerlink" title="方法一: Pointers (C++)"></a>方法一: Pointers (C++)</h2><p>重點</p>
-<ul>
-<li>英文字母只有26個，所以可以直接使用array，以index(<code>w-&#39;a&#39;</code>)來表示字符。</li>
-<li>prefix的部分只要節點存在就OK，但search的部分還要檢查是不是結尾。</li>
-<li>另外定義一個struct而不是直接new原本的class，是因為struct的結構比class簡單的多(沒有function)，可以提升執行效率。</li>
-<li>使用靜態宣告(array)所以不用擔心memory leak。</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">struct Node&#123;</span><br><span class="line">  Node* children[26];</span><br><span class="line">  bool is_word = false;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">class Trie &#123;</span><br><span class="line">public:</span><br><span class="line">    Node* root;</span><br><span class="line">    Trie() &#123;</span><br><span class="line">        root = new Node();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    void insert(string word) &#123;</span><br><span class="line">        Node* curr = root;</span><br><span class="line">        for (char w: word) &#123;</span><br><span class="line">            if(curr-&gt;children[w-&#x27;a&#x27;] == nullptr)&#123;</span><br><span class="line">                curr-&gt;children[w-&#x27;a&#x27;] = new Node();</span><br><span class="line">            &#125;</span><br><span class="line">            curr = curr-&gt;children[w-&#x27;a&#x27;];</span><br><span class="line">        &#125;</span><br><span class="line">        curr-&gt;is_word = true;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    bool search(string word) &#123;</span><br><span class="line">        Node* curr = root;</span><br><span class="line">        for (char w: word) &#123;</span><br><span class="line">            if(curr == NULL || curr-&gt;children[w-&#x27;a&#x27;] == nullptr)&#123;</span><br><span class="line">                return false;</span><br><span class="line">            &#125;</span><br><span class="line">            curr = curr-&gt;children[w-&#x27;a&#x27;];</span><br><span class="line">        &#125;</span><br><span class="line">        return curr-&gt;is_word;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    bool startsWith(string prefix) &#123;</span><br><span class="line">        Node* curr = root;</span><br><span class="line">        for (char w: prefix) &#123;</span><br><span class="line">            if(curr-&gt;children[w-&#x27;a&#x27;] == nullptr)&#123;</span><br><span class="line">                return false;</span><br><span class="line">            &#125;</span><br><span class="line">            curr = curr-&gt;children[w-&#x27;a&#x27;];</span><br><span class="line">        &#125;</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-
-<h2 id="方法二-Hash-Table-Python"><a href="#方法二-Hash-Table-Python" class="headerlink" title="方法二: Hash Table (Python)"></a>方法二: Hash Table (Python)</h2><p>重點</p>
-<ul>
-<li>用特殊符號(#)來標記單字結尾。</li>
-<li>因為動態語言中的資料型態是動態決定的，所以Hash Table內可以同時儲存不同資料型態(存下一層&#x2F;存結尾)。</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">class Trie:</span><br><span class="line">    def __init__(self):</span><br><span class="line">        self._root = &#123;&#125;</span><br><span class="line"></span><br><span class="line">    def insert(self, word: str) -&gt; None:</span><br><span class="line">        curr = self._root</span><br><span class="line">        for w in word:</span><br><span class="line">            if w not in curr:</span><br><span class="line">                curr[w] = &#123;&#125;</span><br><span class="line">            curr = curr[w]</span><br><span class="line">        curr[&quot;#&quot;] = True</span><br><span class="line">        </span><br><span class="line">    def search(self, word: str) -&gt; bool:</span><br><span class="line">        curr = self._root</span><br><span class="line">        for w in word:</span><br><span class="line">            if w in curr:</span><br><span class="line">                curr = curr[w]</span><br><span class="line">            else:</span><br><span class="line">                return False</span><br><span class="line">        return curr.get(&quot;#&quot;, False)</span><br><span class="line"></span><br><span class="line">    def startsWith(self, prefix: str) -&gt; bool:</span><br><span class="line">        curr = self._root</span><br><span class="line">        for w in prefix:</span><br><span class="line">            if w in curr:</span><br><span class="line">                curr = curr[w]</span><br><span class="line">            else:</span><br><span class="line">                return False</span><br><span class="line">        return True</span><br></pre></td></tr></table></figure>
-
-<h1 id="相關文章"><a href="#相關文章" class="headerlink" title="相關文章"></a>相關文章</h1><p><a href="/2023/03/20/trie_2/">Trie (字典樹) - Design Add and Search Words Data Structure</a></p>
-<h1 id="結語"><a href="#結語" class="headerlink" title="結語"></a>結語</h1><p>Trie的基本觀念說實在還蠻簡單的，難應該是難在之後的應用，之後有機會看能不能更新一些進階的觀念，像是搜尋引擎之類的。</p>
-<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://www.youtube.com/watch?v=f48wGD-MuQw">https://www.youtube.com/watch?v=f48wGD-MuQw</a></p>
-]]></content>
-      <categories>
-        <category>Data Structure</category>
-      </categories>
-      <tags>
-        <tag>LeetCode</tag>
-        <tag>Trie</tag>
       </tags>
   </entry>
 </search>

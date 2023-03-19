@@ -90,7 +90,7 @@
   </url>
   
   <url>
-    <loc>https://mengchiehliu.github.io/tags/trie/</loc>
+    <loc>https://mengchiehliu.github.io/tags/Trie/</loc>
     <lastmod>2023-03-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -98,13 +98,6 @@
   
   <url>
     <loc>https://mengchiehliu.github.io/tags/LeetCode/</loc>
-    <lastmod>2023-03-19</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://mengchiehliu.github.io/tags/Trie/</loc>
     <lastmod>2023-03-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
