@@ -20,26 +20,34 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"mengchiehliu.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.15.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="讀會計但一直寫程式的人">
-<meta property="og:type" content="website">
-<meta property="og:title" content="米蟲的程式小窩">
-<meta property="og:url" content="https://mengchiehliu.github.io/index.html">
+    <meta name="description" content="介數中心性 Betweenness Centrality介數中心性（Betweenness Centrality）是社會網絡分析中常用的一種指標，用於度量一個節點在整個網絡中扮演了多重要的角色，簡單來說，介數中心性指標評估了一個節點在網絡中擔任了多少條最短路徑的中介者角色。 更白話一點，介數中心性看的是一個節點有多常被其他人經過，舉例來說：某些公車站點連接了不同的公車路線，這些公車站點對於連接整個">
+<meta property="og:type" content="article">
+<meta property="og:title" content="深入瞭解社會網絡分析中的介數中心性(Betweenness Centrality) - 計算方法與Python程式實作">
+<meta property="og:url" content="https://mengchiehliu.github.io/2023/03/29/betweenness-centrality/index.html">
 <meta property="og:site_name" content="米蟲的程式小窩">
-<meta property="og:description" content="讀會計但一直寫程式的人">
+<meta property="og:description" content="介數中心性 Betweenness Centrality介數中心性（Betweenness Centrality）是社會網絡分析中常用的一種指標，用於度量一個節點在整個網絡中扮演了多重要的角色，簡單來說，介數中心性指標評估了一個節點在網絡中擔任了多少條最短路徑的中介者角色。 更白話一點，介數中心性看的是一個節點有多常被其他人經過，舉例來說：某些公車站點連接了不同的公車路線，這些公車站點對於連接整個">
 <meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://mengchiehliu.github.io/images/20230329/formula.png">
+<meta property="og:image" content="https://mengchiehliu.github.io/images/20230329/simple_network.png">
+<meta property="og:image" content="https://mengchiehliu.github.io/images/20230329/normalization_formula.png">
+<meta property="og:image" content="https://mengchiehliu.github.io/images/20230329/binomial_coefficient.png">
+<meta property="og:image" content="https://mengchiehliu.github.io/images/20230329/pseudo_code.webp">
+<meta property="article:published_time" content="2023-03-29T14:27:34.000Z">
+<meta property="article:modified_time" content="2023-03-29T17:33:55.905Z">
 <meta property="article:author" content="MengChiehLiu">
-<meta property="article:tag" content="米蟲的程式小窩, MengChiehLiu, RiceBugJ">
+<meta property="article:tag" content="betweenness centrality, 介數中心性, Python, Social Network Analysis, Pseudo Code">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://mengchiehliu.github.io/images/20230329/formula.png">
 
 
-<link rel="canonical" href="https://mengchiehliu.github.io/">
+<link rel="canonical" href="https://mengchiehliu.github.io/2023/03/29/betweenness-centrality/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":true,"isPost":false,"lang":"zh-TW","comments":"","permalink":"","path":"index.html","title":""}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://mengchiehliu.github.io/2023/03/29/betweenness-centrality/","path":"2023/03/29/betweenness-centrality/","title":"深入瞭解社會網絡分析中的介數中心性(Betweenness Centrality) - 計算方法與Python程式實作"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>米蟲的程式小窩</title>
+<title>深入瞭解社會網絡分析中的介數中心性(Betweenness Centrality) - 計算方法與Python程式實作 | 米蟲的程式小窩</title>
   
 
 
@@ -72,7 +80,7 @@
 
     <a href="/" class="brand" rel="start">
       <i class="logo-line"></i>
-      <h1 class="site-title">米蟲的程式小窩</h1>
+      <p class="site-title">米蟲的程式小窩</p>
       <i class="logo-line"></i>
     </a>
       <p class="site-subtitle" itemprop="description">Keep Dream Alive</p>
@@ -126,7 +134,7 @@
   
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目錄
@@ -139,6 +147,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%8B%E6%95%B8%E4%B8%AD%E5%BF%83%E6%80%A7-Betweenness-Centrality"><span class="nav-number">1.</span> <span class="nav-text">介數中心性 Betweenness Centrality</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%AC%E5%BC%8F"><span class="nav-number">2.</span> <span class="nav-text">公式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Python-%E5%AF%A6%E4%BD%9C"><span class="nav-number">3.</span> <span class="nav-text">Python 實作</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%B5%90%E8%AA%9E"><span class="nav-number">4.</span> <span class="nav-text">結語</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -191,16 +200,17 @@
 
     </div>
 
-    <div class="main-inner index posts-expand">
+    <div class="main-inner post posts-expand">
 
-    
+
+  
 
 
 <div class="post-block">
   
   
 
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
     <link itemprop="mainEntityOfPage" href="https://mengchiehliu.github.io/2023/03/29/betweenness-centrality/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -214,13 +224,13 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 米蟲的程式小窩">
+      <meta itemprop="name" content="深入瞭解社會網絡分析中的介數中心性(Betweenness Centrality) - 計算方法與Python程式實作 | 米蟲的程式小窩">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/03/29/betweenness-centrality/" class="post-title-link" itemprop="url">深入瞭解社會網絡分析中的介數中心性(Betweenness Centrality) - 計算方法與Python程式實作</a>
-        </h2>
+        <h1 class="post-title" itemprop="name headline">
+          深入瞭解社會網絡分析中的介數中心性(Betweenness Centrality) - 計算方法與Python程式實作
+        </h1>
 
         <div class="post-meta-container">
           <div class="post-meta">
@@ -250,6 +260,13 @@
     </span>
 
   
+    <span class="post-meta-item" title="閱讀次數" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">閱讀次數：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
 </div>
 
         </div>
@@ -259,7 +276,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="介數中心性-Betweenness-Centrality"><a href="#介數中心性-Betweenness-Centrality" class="headerlink" title="介數中心性 Betweenness Centrality"></a>介數中心性 Betweenness Centrality</h1><p>介數中心性（Betweenness Centrality）是社會網絡分析中常用的一種指標，用於度量一個節點在整個網絡中扮演了多重要的角色，簡單來說，介數中心性指標評估了一個節點在網絡中擔任了多少條<strong>最短路徑</strong>的中介者角色。</p>
+        <h1 id="介數中心性-Betweenness-Centrality"><a href="#介數中心性-Betweenness-Centrality" class="headerlink" title="介數中心性 Betweenness Centrality"></a>介數中心性 Betweenness Centrality</h1><p>介數中心性（Betweenness Centrality）是社會網絡分析中常用的一種指標，用於度量一個節點在整個網絡中扮演了多重要的角色，簡單來說，介數中心性指標評估了一個節點在網絡中擔任了多少條<strong>最短路徑</strong>的中介者角色。</p>
 <p>更白話一點，介數中心性看的是一個節點有<strong>多常被其他人經過</strong>，舉例來說：某些公車站點連接了不同的公車路線，這些公車站點對於連接整個公車網絡起著重要的作用，如果這些公車站發生了任何問題，整個公車路線都會受到影響。這些公車站點就是具有高介數中心性的節點。</p>
 <h1 id="公式"><a href="#公式" class="headerlink" title="公式"></a>公式</h1><p>介數中心性公式：<br><img src="/../images/20230329/formula.png" alt="Betweenness Centrality Formula"></p>
 <p>其中，𝜎(sigma)表示最短路徑的數量，分母的意思是從點s到點w的最短路徑的數量，分子的意思是從點s到點w的最短路徑中經過v點的數量，聽起來有點抽象，我們用下面這張圖來解釋：</p>
@@ -300,7 +317,6 @@
 
 <h1 id="結語"><a href="#結語" class="headerlink" title="結語"></a>結語</h1><p>如果真的遇到要計算Betweenness Centrality的情況，當然還是直接用<code>networkx</code>套件裡的<code>betweenness_centrality</code>就好了啦，寫這篇單純是因為網路上都找不到有人說明算法的邏輯，所以希望寫這篇能幫助到其他想了解算法的人。<br>要注意上面的算法建立在所有edge的權重都是一樣的情況下，也就是點與點之間要馬是1要馬是0的binary關係，那如果edge有權重呢?方法其實也不太意外，就是把程式中計算最短路徑的部分換掉就好了，根據實際情況可以選擇Dijkstra或是Bellman–Ford等。</p>
 
-      
     </div>
 
     
@@ -308,379 +324,25 @@
     
 
     <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
+          <div class="post-tags">
+              <a href="/tags/betweenness-centrality-%E4%BB%8B%E6%95%B8%E4%B8%AD%E5%BF%83%E6%80%A7-Python-Social-Network-Analysis-Pseudo-Code/" rel="tag"># betweenness centrality, 介數中心性, Python, Social Network Analysis, Pseudo Code</a>
+          </div>
 
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://mengchiehliu.github.io/2023/03/20/trie-2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="MengChiehLiu">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="米蟲的程式小窩">
-      <meta itemprop="description" content="讀會計但一直寫程式的人">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 米蟲的程式小窩">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/03/20/trie-2/" class="post-title-link" itemprop="url">Trie (字典樹) - Design Add and Search Words Data Structure</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">發表於</span>
-
-      <time title="創建時間：2023-03-20 01:27:29" itemprop="dateCreated datePublished" datetime="2023-03-20T01:27:29+08:00">2023-03-20</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新於</span>
-      <time title="修改時間：2023-03-30 01:33:14" itemprop="dateModified" datetime="2023-03-30T01:33:14+08:00">2023-03-30</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分類於</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Data-Structure/" itemprop="url" rel="index"><span itemprop="name">Data Structure</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>寫完上一篇<a href="/2023/03/18/trie/">Implement Trie (字典樹)</a>後，沒過兩天LeetCode每日一題又出現Trie的題目了(笑)，題目是<a target="_blank" rel="noopener" href="https://leetcode.com/problems/design-add-and-search-words-data-structure/">211. Design Add and Search Words Data Structure</a>，簡單來說就是字典樹加上一點正規表達(regular expression)的概念，舉例來說trie裡有<code>bad</code>，那搜尋<code>b.d</code>的話也要回傳<code>true</code>，詳細題目一樣自己到LeetCode去看囉。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2023/03/20/trie-2/#more" rel="contents">
-                閱讀全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
         
-      
-    </div>
 
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://mengchiehliu.github.io/2023/03/18/trie/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="MengChiehLiu">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="米蟲的程式小窩">
-      <meta itemprop="description" content="讀會計但一直寫程式的人">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 米蟲的程式小窩">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/03/18/trie/" class="post-title-link" itemprop="url">Implement Trie (字典樹)</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">發表於</span>
-
-      <time title="創建時間：2023-03-18 02:58:39" itemprop="dateCreated datePublished" datetime="2023-03-18T02:58:39+08:00">2023-03-18</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新於</span>
-      <time title="修改時間：2023-03-30 01:34:04" itemprop="dateModified" datetime="2023-03-30T01:34:04+08:00">2023-03-30</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分類於</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Data-Structure/" itemprop="url" rel="index"><span itemprop="name">Data Structure</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>今天在寫LeetCode每日一題時遇到<a target="_blank" rel="noopener" href="https://leetcode.com/problems/implement-trie-prefix-tree/description/">208. Implement Trie (Prefix Tree)</a>，之前因為覺得Trie好像很難所以一直不願面對，但這題就是要跟Trie的直球對決了想躲也躲不掉XD，Anyway，看了一下發現Trie其實蠻好理解的，今天就來認識一下Trie，然後看看這一題可以怎麼寫吧！(Python, C++)</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2023/03/18/trie/#more" rel="contents">
-                閱讀全文 &raquo;
-              </a>
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/03/20/trie-2/" rel="prev" title="Trie (字典樹) - Design Add and Search Words Data Structure">
+                  <i class="fa fa-chevron-left"></i> Trie (字典樹) - Design Add and Search Words Data Structure
+                </a>
             </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://mengchiehliu.github.io/2023/03/15/Hello-Hexo-2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="MengChiehLiu">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="米蟲的程式小窩">
-      <meta itemprop="description" content="讀會計但一直寫程式的人">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 米蟲的程式小窩">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/03/15/Hello-Hexo-2/" class="post-title-link" itemprop="url">Hello Hexo！套用NexT主題打造個性化部落格頁面！(2)</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">發表於</span>
-
-      <time title="創建時間：2023-03-15 09:59:23" itemprop="dateCreated datePublished" datetime="2023-03-15T09:59:23+08:00">2023-03-15</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新於</span>
-      <time title="修改時間：2023-03-17 23:19:11" itemprop="dateModified" datetime="2023-03-17T23:19:11+08:00">2023-03-17</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分類於</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Hexo/" itemprop="url" rel="index"><span itemprop="name">Hexo</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="NexT-介紹"><a href="#NexT-介紹" class="headerlink" title="NexT 介紹"></a>NexT 介紹</h1><p>NexT是一個相當受歡迎的Hexo主題，外觀簡潔、功能強大，且持續有在維護，今天會教大家如何套用NexT主題，並啟用標籤頁及站內搜尋等功能。<br>NexT 官網：<a target="_blank" rel="noopener" href="https://theme-next.js.org/">https://theme-next.js.org/</a><br>NexT GitHub：<a target="_blank" rel="noopener" href="https://github.com/next-theme/hexo-theme-next">https://github.com/next-theme/hexo-theme-next</a></p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2023/03/15/Hello-Hexo-2/#more" rel="contents">
-                閱讀全文 &raquo;
-              </a>
+            <div class="post-nav-item">
             </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
+          </div>
     </footer>
   </article>
 </div>
 
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://mengchiehliu.github.io/2023/03/14/Hello-Hexo-1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="MengChiehLiu">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="米蟲的程式小窩">
-      <meta itemprop="description" content="讀會計但一直寫程式的人">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 米蟲的程式小窩">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/03/14/Hello-Hexo-1/" class="post-title-link" itemprop="url">Hello Hexo！用Hexo在GitHub Pages上架設個人部落格吧！(1)</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">發表於</span>
-
-      <time title="創建時間：2023-03-14 16:44:19" itemprop="dateCreated datePublished" datetime="2023-03-14T16:44:19+08:00">2023-03-14</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新於</span>
-      <time title="修改時間：2023-03-17 23:19:17" itemprop="dateModified" datetime="2023-03-17T23:19:17+08:00">2023-03-17</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分類於</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Hexo/" itemprop="url" rel="index"><span itemprop="name">Hexo</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="Hexo-介紹"><a href="#Hexo-介紹" class="headerlink" title="Hexo 介紹"></a>Hexo 介紹</h1><p>Hexo 是一個基於Node.js 的自動化部落格部署框架，有近400種網頁主題可供選擇，支援Markdown語言撰寫文章內容而且部署相當迅速，簡直是自己架設部落格的必備神器呀！什麼？你說之前沒用過Node.js怎麼辦？沒關係，因為我之前也沒用過XD。事實上，只要掌握幾個基本的指令，就能夠架出漂漂亮亮、功能齊全的個人部落格囉！就讓我們一起看下去吧～<br>Hexo 官網：<a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/">https://hexo.io/zh-cn/</a><br>Hexo GitHub：<a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo">https://github.com/hexojs/hexo</a></p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2023/03/14/Hello-Hexo-1/#more" rel="contents">
-                閱讀全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
 
 
 
