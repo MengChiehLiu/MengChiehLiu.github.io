@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://mengchiehliu.github.io/2023/03/18/trie/</loc>
+    <loc>https://mengchiehliu.github.io/2023/03/29/betweenness-centrality/</loc>
     
     <lastmod>2023-03-29</lastmod>
     
@@ -11,7 +11,7 @@
   </url>
   
   <url>
-    <loc>https://mengchiehliu.github.io/2023/03/29/betweenness-centrality/</loc>
+    <loc>https://mengchiehliu.github.io/2023/03/18/trie/</loc>
     
     <lastmod>2023-03-29</lastmod>
     
@@ -113,7 +113,7 @@
   </url>
   
   <url>
-    <loc>https://mengchiehliu.github.io/tags/betweenness-centrality-%E4%BB%8B%E6%95%B8%E4%B8%AD%E5%BF%83%E6%80%A7-Python-Social-Network-Analysis-Pseudo-Code/</loc>
+    <loc>https://mengchiehliu.github.io/tags/betweenness-centrality/</loc>
     <lastmod>2023-03-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
