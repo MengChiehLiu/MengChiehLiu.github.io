@@ -10,7 +10,7 @@
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
   <link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#222">
-  <link rel="manifest" href="/site.webmanifest">
+  <link rel="manifest" href="/images/site.webmanifest">
 
 <link rel="stylesheet" href="/css/main.css">
 
@@ -24,7 +24,7 @@
     <meta name="description" content="前言今天在寫LeetCode每日一題時遇到208. Implement Trie (Prefix Tree)，之前因為覺得Trie好像很難所以一直不願面對，但這題就是要跟Trie的直球對決了想躲也躲不掉XD，Anyway，看了一下發現Trie其實蠻好理解的，今天就來認識一下Trie，然後看看這一題可以怎麼寫吧！(Python, C++)">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Implement Trie (字典樹)">
-<meta property="og:url" content="https://mengchiehliu.github.io/2023/03/18/trie/index.html">
+<meta property="og:url" content="https://mengchiehliu.github.io/trie/index.html">
 <meta property="og:site_name" content="米蟲的程式小窩">
 <meta property="og:description" content="前言今天在寫LeetCode每日一題時遇到208. Implement Trie (Prefix Tree)，之前因為覺得Trie好像很難所以一直不願面對，但這題就是要跟Trie的直球對決了想躲也躲不掉XD，Anyway，看了一下發現Trie其實蠻好理解的，今天就來認識一下Trie，然後看看這一題可以怎麼寫吧！(Python, C++)">
 <meta property="og:locale" content="zh_TW">
@@ -38,11 +38,11 @@
 <meta name="twitter:image" content="https://mengchiehliu.github.io/images/20230318/trie.png">
 
 
-<link rel="canonical" href="https://mengchiehliu.github.io/2023/03/18/trie/">
+<link rel="canonical" href="https://mengchiehliu.github.io/trie/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://mengchiehliu.github.io/2023/03/18/trie/","path":"2023/03/18/trie/","title":"Implement Trie (字典樹)"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://mengchiehliu.github.io/trie/","path":"trie/","title":"Implement Trie (字典樹)"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
 <title>Implement Trie (字典樹) | 米蟲的程式小窩</title>
@@ -160,7 +160,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">5</span>
+          <span class="site-state-item-count">6</span>
           <span class="site-state-item-name">文章</span>
         </a>
       </div>
@@ -171,7 +171,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-count">5</span>
         <span class="site-state-item-name">標籤</span></a>
       </div>
   </nav>
@@ -193,6 +193,23 @@
     </div>
 
     
+        <div class="sidebar-inner sidebar-post-related">
+          <div class="animated">
+              <div class="links-of-blogroll-title"><i class="fa fa-signs-post fa-fw"></i>
+    相關文章
+  </div>
+  <ul class="popular-posts">
+    <li class="popular-posts-item">
+      <a class="popular-posts-link" href="/trie-2/" rel="bookmark">
+        <time class="popular-posts-time">2023-03-20</time>
+        <br>
+      Trie (字典樹) - Design Add and Search Words Data Structure
+      </a>
+    </li>
+  </ul>
+
+          </div>
+        </div>
   </aside>
 
 
@@ -209,7 +226,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
-    <link itemprop="mainEntityOfPage" href="https://mengchiehliu.github.io/2023/03/18/trie/">
+    <link itemprop="mainEntityOfPage" href="https://mengchiehliu.github.io/trie/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -239,13 +256,6 @@
       <span class="post-meta-item-text">發表於</span>
 
       <time title="創建時間：2023-03-18 02:58:39" itemprop="dateCreated datePublished" datetime="2023-03-18T02:58:39+08:00">2023-03-18</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新於</span>
-      <time title="修改時間：2023-03-30 01:34:04" itemprop="dateModified" datetime="2023-03-30T01:34:04+08:00">2023-03-30</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -316,20 +326,20 @@
 
     <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/Trie/" rel="tag"># Trie</a>
-              <a href="/tags/LeetCode/" rel="tag"># LeetCode</a>
+              <a href="/tags/Trie/" rel="tag"><i class="fa fa-tag"></i> Trie</a>
+              <a href="/tags/LeetCode/" rel="tag"><i class="fa fa-tag"></i> LeetCode</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2023/03/15/Hello-Hexo-2/" rel="prev" title="Hello Hexo！套用NexT主題打造個性化部落格頁面！(2)">
+                <a href="/Hello-Hexo-2/" rel="prev" title="Hello Hexo！套用NexT主題打造個性化部落格頁面！(2)">
                   <i class="fa fa-chevron-left"></i> Hello Hexo！套用NexT主題打造個性化部落格頁面！(2)
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2023/03/20/trie-2/" rel="next" title="Trie (字典樹) - Design Add and Search Words Data Structure">
+                <a href="/trie-2/" rel="next" title="Trie (字典樹) - Design Add and Search Words Data Structure">
                   Trie (字典樹) - Design Add and Search Words Data Structure <i class="fa fa-chevron-right"></i>
                 </a>
             </div>
@@ -343,6 +353,7 @@
 
 
 
+    <div class="comments utterances-container"></div>
 </div>
   </main>
 
@@ -411,6 +422,8 @@
 
 
 
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"MengChiehLiu/MengChiehLiu.github.io","issue_term":"pathname","theme":"github-light"}</script>
+<script src="/js/third-party/comments/utterances.js"></script>
 
 </body>
 </html>

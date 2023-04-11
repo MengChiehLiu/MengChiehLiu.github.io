@@ -10,7 +10,7 @@
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
   <link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#222">
-  <link rel="manifest" href="/site.webmanifest">
+  <link rel="manifest" href="/images/site.webmanifest">
 
 <link rel="stylesheet" href="/css/main.css">
 
@@ -29,7 +29,7 @@
 <meta property="og:description" content="讀會計但一直寫程式的人">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:author" content="MengChiehLiu">
-<meta property="article:tag" content="米蟲的程式小窩, MengChiehLiu, RiceBugJ">
+<meta property="article:tag" content="米蟲的程式小窩, MengChiehLiu, Meng-Chieh Liu, 劉孟頡, RiceBugJ, rice_bug_j">
 <meta name="twitter:card" content="summary">
 
 
@@ -154,7 +154,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">5</span>
+          <span class="site-state-item-count">6</span>
           <span class="site-state-item-name">文章</span>
         </a>
       </div>
@@ -165,7 +165,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-count">5</span>
         <span class="site-state-item-name">標籤</span></a>
       </div>
   </nav>
@@ -202,7 +202,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://mengchiehliu.github.io/2023/03/29/betweenness-centrality/">
+    <link itemprop="mainEntityOfPage" href="https://mengchiehliu.github.io/Hello-Hexo-3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -220,7 +220,93 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/03/29/betweenness-centrality/" class="post-title-link" itemprop="url">深入瞭解社會網絡分析中的介數中心性(Betweenness Centrality) - 計算方法與Python程式實作</a>
+          <a href="/Hello-Hexo-3/" class="post-title-link" itemprop="url">Hello Hexo！簡單三步驟搞定Google SEO和Bing SEO！(3)</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+
+      <time title="創建時間：2023-04-11 15:08:40" itemprop="dateCreated datePublished" datetime="2023-04-11T15:08:40+08:00">2023-04-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Hexo/" itemprop="url" rel="index"><span itemprop="name">Hexo</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p><img src="/../images/20230411/google_bing.png" alt="google and bing logo"></p>
+<p>好不容易架設好Hexo網站，下一個問題就是如何讓自己寫的文章被其他人看見，大家可以在Google搜尋中輸入<code>site: 你的網站url</code>，看看Google能不能找到你的網站，沒意外的話Google應該還找不到你的網站，換做是Bing也一樣，原因是這些搜尋引擎還不認識我們的網站，本篇文章會帶大家使用Google Search Console以及Bing Search Console來進行SEO。<br>(ps. 網路上已經有很多文章介紹Hexo的Google SEO，但在Bing與ChatGPT合作後，搜尋量有了明顯的提升，因此這篇文章除了介紹Google SEO外，也會介紹Bing SEO)</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/Hello-Hexo-3/#more" rel="contents">
+                閱讀全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://mengchiehliu.github.io/betweenness-centrality/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="MengChiehLiu">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="米蟲的程式小窩">
+      <meta itemprop="description" content="讀會計但一直寫程式的人">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 米蟲的程式小窩">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/betweenness-centrality/" class="post-title-link" itemprop="url">深入瞭解社會網絡分析中的介數中心性(Betweenness Centrality) - 計算方法與Python程式實作</a>
         </h2>
 
         <div class="post-meta-container">
@@ -232,13 +318,6 @@
       <span class="post-meta-item-text">發表於</span>
 
       <time title="創建時間：2023-03-29 22:27:34" itemprop="dateCreated datePublished" datetime="2023-03-29T22:27:34+08:00">2023-03-29</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新於</span>
-      <time title="修改時間：2023-03-31 02:04:56" itemprop="dateModified" datetime="2023-03-31T02:04:56+08:00">2023-03-31</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -265,7 +344,7 @@
 <p>更白話一點，介數中心性看的是一個節點有<strong>多常被其他人經過</strong>，舉例來說：某些公車站點連接了不同的公車路線，這些公車站點對於連接整個公車網絡起著重要的作用，如果這些公車站發生了任何問題，整個公車路線都會受到影響。這些公車站點就是具有高介數中心性的節點。</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2023/03/29/betweenness-centrality/#more" rel="contents">
+              <a class="btn" href="/betweenness-centrality/#more" rel="contents">
                 閱讀全文 &raquo;
               </a>
             </div>
@@ -296,7 +375,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://mengchiehliu.github.io/2023/03/20/trie-2/">
+    <link itemprop="mainEntityOfPage" href="https://mengchiehliu.github.io/trie-2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -314,7 +393,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/03/20/trie-2/" class="post-title-link" itemprop="url">Trie (字典樹) - Design Add and Search Words Data Structure</a>
+          <a href="/trie-2/" class="post-title-link" itemprop="url">Trie (字典樹) - Design Add and Search Words Data Structure</a>
         </h2>
 
         <div class="post-meta-container">
@@ -326,13 +405,6 @@
       <span class="post-meta-item-text">發表於</span>
 
       <time title="創建時間：2023-03-20 01:27:29" itemprop="dateCreated datePublished" datetime="2023-03-20T01:27:29+08:00">2023-03-20</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新於</span>
-      <time title="修改時間：2023-03-30 01:33:14" itemprop="dateModified" datetime="2023-03-30T01:33:14+08:00">2023-03-30</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -357,7 +429,7 @@
           <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>寫完上一篇<a href="/2023/03/18/trie/">Implement Trie (字典樹)</a>後，沒過兩天LeetCode每日一題又出現Trie的題目了(笑)，題目是<a target="_blank" rel="noopener" href="https://leetcode.com/problems/design-add-and-search-words-data-structure/">211. Design Add and Search Words Data Structure</a>，簡單來說就是字典樹加上一點正規表達(regular expression)的概念，舉例來說trie裡有<code>bad</code>，那搜尋<code>b.d</code>的話也要回傳<code>true</code>，詳細題目一樣自己到LeetCode去看囉。</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2023/03/20/trie-2/#more" rel="contents">
+              <a class="btn" href="/trie-2/#more" rel="contents">
                 閱讀全文 &raquo;
               </a>
             </div>
@@ -388,7 +460,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://mengchiehliu.github.io/2023/03/18/trie/">
+    <link itemprop="mainEntityOfPage" href="https://mengchiehliu.github.io/trie/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -406,7 +478,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/03/18/trie/" class="post-title-link" itemprop="url">Implement Trie (字典樹)</a>
+          <a href="/trie/" class="post-title-link" itemprop="url">Implement Trie (字典樹)</a>
         </h2>
 
         <div class="post-meta-container">
@@ -418,13 +490,6 @@
       <span class="post-meta-item-text">發表於</span>
 
       <time title="創建時間：2023-03-18 02:58:39" itemprop="dateCreated datePublished" datetime="2023-03-18T02:58:39+08:00">2023-03-18</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新於</span>
-      <time title="修改時間：2023-03-30 01:34:04" itemprop="dateModified" datetime="2023-03-30T01:34:04+08:00">2023-03-30</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -449,7 +514,7 @@
           <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>今天在寫LeetCode每日一題時遇到<a target="_blank" rel="noopener" href="https://leetcode.com/problems/implement-trie-prefix-tree/description/">208. Implement Trie (Prefix Tree)</a>，之前因為覺得Trie好像很難所以一直不願面對，但這題就是要跟Trie的直球對決了想躲也躲不掉XD，Anyway，看了一下發現Trie其實蠻好理解的，今天就來認識一下Trie，然後看看這一題可以怎麼寫吧！(Python, C++)</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2023/03/18/trie/#more" rel="contents">
+              <a class="btn" href="/trie/#more" rel="contents">
                 閱讀全文 &raquo;
               </a>
             </div>
@@ -480,7 +545,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://mengchiehliu.github.io/2023/03/15/Hello-Hexo-2/">
+    <link itemprop="mainEntityOfPage" href="https://mengchiehliu.github.io/Hello-Hexo-2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -498,7 +563,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/03/15/Hello-Hexo-2/" class="post-title-link" itemprop="url">Hello Hexo！套用NexT主題打造個性化部落格頁面！(2)</a>
+          <a href="/Hello-Hexo-2/" class="post-title-link" itemprop="url">Hello Hexo！套用NexT主題打造個性化部落格頁面！(2)</a>
         </h2>
 
         <div class="post-meta-container">
@@ -510,13 +575,6 @@
       <span class="post-meta-item-text">發表於</span>
 
       <time title="創建時間：2023-03-15 09:59:23" itemprop="dateCreated datePublished" datetime="2023-03-15T09:59:23+08:00">2023-03-15</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新於</span>
-      <time title="修改時間：2023-03-17 23:19:11" itemprop="dateModified" datetime="2023-03-17T23:19:11+08:00">2023-03-17</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -541,7 +599,7 @@
           <h1 id="NexT-介紹"><a href="#NexT-介紹" class="headerlink" title="NexT 介紹"></a>NexT 介紹</h1><p>NexT是一個相當受歡迎的Hexo主題，外觀簡潔、功能強大，且持續有在維護，今天會教大家如何套用NexT主題，並啟用標籤頁及站內搜尋等功能。<br>NexT 官網：<a target="_blank" rel="noopener" href="https://theme-next.js.org/">https://theme-next.js.org/</a><br>NexT GitHub：<a target="_blank" rel="noopener" href="https://github.com/next-theme/hexo-theme-next">https://github.com/next-theme/hexo-theme-next</a></p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2023/03/15/Hello-Hexo-2/#more" rel="contents">
+              <a class="btn" href="/Hello-Hexo-2/#more" rel="contents">
                 閱讀全文 &raquo;
               </a>
             </div>
@@ -572,7 +630,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://mengchiehliu.github.io/2023/03/14/Hello-Hexo-1/">
+    <link itemprop="mainEntityOfPage" href="https://mengchiehliu.github.io/Hello-Hexo-1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -590,7 +648,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/03/14/Hello-Hexo-1/" class="post-title-link" itemprop="url">Hello Hexo！用Hexo在GitHub Pages上架設個人部落格吧！(1)</a>
+          <a href="/Hello-Hexo-1/" class="post-title-link" itemprop="url">Hello Hexo！用Hexo在GitHub Pages上架設個人部落格吧！(1)</a>
         </h2>
 
         <div class="post-meta-container">
@@ -602,13 +660,6 @@
       <span class="post-meta-item-text">發表於</span>
 
       <time title="創建時間：2023-03-14 16:44:19" itemprop="dateCreated datePublished" datetime="2023-03-14T16:44:19+08:00">2023-03-14</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新於</span>
-      <time title="修改時間：2023-03-17 23:19:17" itemprop="dateModified" datetime="2023-03-17T23:19:17+08:00">2023-03-17</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -633,7 +684,7 @@
           <h1 id="Hexo-介紹"><a href="#Hexo-介紹" class="headerlink" title="Hexo 介紹"></a>Hexo 介紹</h1><p>Hexo 是一個基於Node.js 的自動化部落格部署框架，有近400種網頁主題可供選擇，支援Markdown語言撰寫文章內容而且部署相當迅速，簡直是自己架設部落格的必備神器呀！什麼？你說之前沒用過Node.js怎麼辦？沒關係，因為我之前也沒用過XD。事實上，只要掌握幾個基本的指令，就能夠架出漂漂亮亮、功能齊全的個人部落格囉！就讓我們一起看下去吧～<br>Hexo 官網：<a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/">https://hexo.io/zh-cn/</a><br>Hexo GitHub：<a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo">https://github.com/hexojs/hexo</a></p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2023/03/14/Hello-Hexo-1/#more" rel="contents">
+              <a class="btn" href="/Hello-Hexo-1/#more" rel="contents">
                 閱讀全文 &raquo;
               </a>
             </div>
@@ -725,6 +776,8 @@
 
 
 
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"MengChiehLiu/MengChiehLiu.github.io","issue_term":"pathname","theme":"github-light"}</script>
+<script src="/js/third-party/comments/utterances.js"></script>
 
 </body>
 </html>
