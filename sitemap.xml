@@ -115,13 +115,6 @@
   </url>
   
   <url>
-    <loc>https://mengchiehliu.github.io/tags/betweenness-centrality/</loc>
-    <lastmod>2023-04-11</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://mengchiehliu.github.io/tags/Trie/</loc>
     <lastmod>2023-04-11</lastmod>
     <changefreq>weekly</changefreq>
@@ -130,6 +123,13 @@
   
   <url>
     <loc>https://mengchiehliu.github.io/tags/LeetCode/</loc>
+    <lastmod>2023-04-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://mengchiehliu.github.io/tags/betweenness-centrality/</loc>
     <lastmod>2023-04-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -145,14 +145,14 @@
   </url>
   
   <url>
-    <loc>https://mengchiehliu.github.io/categories/Social-Network-Analysis/</loc>
+    <loc>https://mengchiehliu.github.io/categories/Data-Structure/</loc>
     <lastmod>2023-04-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://mengchiehliu.github.io/categories/Data-Structure/</loc>
+    <loc>https://mengchiehliu.github.io/categories/Social-Network-Analysis/</loc>
     <lastmod>2023-04-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
