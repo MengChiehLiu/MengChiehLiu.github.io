@@ -27,18 +27,18 @@
 <meta property="og:site_name" content="米蟲的程式小窩">
 <meta property="og:description" content="前言 好不容易架設好Hexo網站，下一個問題就是如何讓自己寫的文章被其他人看見，大家可以在Google搜尋中輸入site: 你的網站url，看看Google能不能找到你的網站，沒意外的話Google應該還找不到你的網站，換做是Bing也一樣，原因是這些搜尋引擎還不認識我們的網站，本篇文章會帶大家使用Google Search Console以及Bing Webmaster來進行SEO。(ps. 網">
 <meta property="og:locale" content="zh_TW">
-<meta property="og:image" content="https://mengchiehliu.github.io/images/20230411/google_bing.png">
-<meta property="og:image" content="https://mengchiehliu.github.io/images/20230411/google_search_console.png">
-<meta property="og:image" content="https://mengchiehliu.github.io/images/20230411/google_search_console_2.png">
-<meta property="og:image" content="https://mengchiehliu.github.io/images/20230411/google_search_console_3.png">
-<meta property="og:image" content="https://mengchiehliu.github.io/images/20230411/bing_webmaster.png">
+<meta property="og:image" content="https://mengchiehliu.github.io/images/2023/04/11/google_bing.png">
+<meta property="og:image" content="https://mengchiehliu.github.io/images/2023/04/11/google_search_console.png">
+<meta property="og:image" content="https://mengchiehliu.github.io/images/2023/04/11/google_search_console_2.png">
+<meta property="og:image" content="https://mengchiehliu.github.io/images/2023/04/11/google_search_console_3.png">
+<meta property="og:image" content="https://mengchiehliu.github.io/images/2023/04/11/bing_webmaster.png">
 <meta property="article:published_time" content="2023-04-11T07:08:40.000Z">
-<meta property="article:modified_time" content="2023-04-11T18:41:57.771Z">
+<meta property="article:modified_time" content="2023-04-16T16:33:30.323Z">
 <meta property="article:author" content="Meng-Chieh Liu">
 <meta property="article:tag" content="Hexo">
 <meta property="article:tag" content="SEO">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://mengchiehliu.github.io/images/20230411/google_bing.png">
+<meta name="twitter:image" content="https://mengchiehliu.github.io/images/2023/04/11/google_bing.png">
 
 
 <link rel="canonical" href="https://mengchiehliu.github.io/posts/Hello-Hexo-3/">
@@ -163,7 +163,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-count">8</span>
           <span class="site-state-item-name">文章</span>
         </a>
       </div>
@@ -174,7 +174,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-count">6</span>
         <span class="site-state-item-name">標籤</span></a>
       </div>
   </nav>
@@ -206,7 +206,7 @@
       <a class="popular-posts-link" href="/posts/Hello-Hexo-2/" rel="bookmark">
         <time class="popular-posts-time">2023-03-15</time>
         <br>
-      Hello Hexo！套用NexT主題打造個性化部落格頁面！(2)
+      Hello Hexo！套用NexT主題打造簡潔頁面！(2)
       </a>
     </li>
     <li class="popular-posts-item">
@@ -291,7 +291,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">文章字數：</span>
-      <span>702</span>
+      <span>749</span>
     </span>
     <span class="post-meta-item" title="所需閱讀時間">
       <span class="post-meta-item-icon">
@@ -309,7 +309,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p><img src="/../images/20230411/google_bing.png" alt="google and bing logo"></p>
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p><img src="/../images/2023/04/11/google_bing.png" alt="google and bing logo"></p>
 <p>好不容易架設好Hexo網站，下一個問題就是如何讓自己寫的文章被其他人看見，大家可以在Google搜尋中輸入<code>site: 你的網站url</code>，看看Google能不能找到你的網站，沒意外的話Google應該還找不到你的網站，換做是Bing也一樣，原因是這些搜尋引擎還不認識我們的網站，本篇文章會帶大家使用Google Search Console以及Bing Webmaster來進行SEO。<br>(ps. 網路上已經有很多文章介紹Hexo的Google SEO，但在Bing與ChatGPT合作後，搜尋量有了明顯的提升，因此這篇文章除了介紹Google SEO外，也會介紹Bing SEO)</p>
 <span id="more"></span>
 
@@ -317,22 +317,25 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-generator-sitemap</span><br></pre></td></tr></table></figure>
 
 <h1 id="Google-SEO"><a href="#Google-SEO" class="headerlink" title="Google SEO"></a>Google SEO</h1><p>我們要在<a target="_blank" rel="noopener" href="https://search.google.com/search-console/about">Google Search Console</a>來設定Google的SEO，</p>
-<h2 id="Step-1"><a href="#Step-1" class="headerlink" title="Step 1"></a>Step 1</h2><p>我們首先要驗證我們的網頁，選擇<strong>網站前置字元</strong>，將你的網站url複製上去(舉例:<code>https://MengChiehLiu.github.io/</code>)。<br><img src="/../images/20230411/google_search_console.png" alt="google search console - resource type"></p>
+<h2 id="Step-1"><a href="#Step-1" class="headerlink" title="Step 1"></a>Step 1</h2><p>我們首先要驗證我們的網頁，選擇<strong>網站前置字元</strong>，將你的網站url複製上去(舉例:<code>https://MengChiehLiu.github.io/</code>)。<br><img src="/../images/2023/04/11/google_search_console.png" alt="google search console - resource type"></p>
 <h2 id="Step-2"><a href="#Step-2" class="headerlink" title="Step 2"></a>Step 2</h2><p>我們使用建議的驗證方式，將html檔案下載下來，放到<code>/source</code>路徑下，我們要將檔案內容改成下面這樣:</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 加上這段 --&gt;</span></span><br><span class="line">---</span><br><span class="line">layout: false</span><br><span class="line">---</span><br><span class="line"><span class="comment">&lt;!-- 原本的 --&gt;</span></span><br><span class="line">google-site-verification: googled0a70fa73d09cd65.html</span><br></pre></td></tr></table></figure>
-<p>重新部署網頁後(這很重要!)就可以回到Google Search Console按下驗證。<br><img src="/../images/20230411/google_search_console_2.png" alt="google search console - html verification"></p>
-<h2 id="Step-3"><a href="#Step-3" class="headerlink" title="Step 3"></a>Step 3</h2><p>我們到Sitemap頁面中將加入<code>sitemap.xml</code>，這樣Google搜尋引擎就會定期到我們的sitemap去看我們的部落格有沒有更新了。<br><img src="/../images/20230411/google_search_console_3.png" alt="google search console - sitemap"></p>
-<h1 id="Bing-SEO"><a href="#Bing-SEO" class="headerlink" title="Bing SEO"></a>Bing SEO</h1><p>我們要在<a target="_blank" rel="noopener" href="https://www.bing.com/webmasters/about">Bing Webmaster</a>來設定Bing的SEO，Bing的SEO超級簡單，登入後直接從Google Search Console匯入網站資訊就好。<br><img src="/../images/20230411/bing_webmaster.png" alt="bing webmaster"></p>
+<p>重新部署網頁後(這很重要!)就可以回到Google Search Console按下驗證。<br><img src="/../images/2023/04/11/google_search_console_2.png" alt="google search console - html verification"></p>
+<h2 id="Step-3"><a href="#Step-3" class="headerlink" title="Step 3"></a>Step 3</h2><p>我們到Sitemap頁面中將加入<code>sitemap.xml</code>，這樣Google搜尋引擎就會定期到我們的sitemap去看我們的部落格有沒有更新了。<br><img src="/../images/2023/04/11/google_search_console_3.png" alt="google search console - sitemap"></p>
+<h1 id="Bing-SEO"><a href="#Bing-SEO" class="headerlink" title="Bing SEO"></a>Bing SEO</h1><p>我們要在<a target="_blank" rel="noopener" href="https://www.bing.com/webmasters/about">Bing Webmaster</a>來設定Bing的SEO，Bing的SEO超級簡單，登入後直接從Google Search Console匯入網站資訊就好。<br><img src="/../images/2023/04/11/bing_webmaster.png" alt="bing webmaster"></p>
 <h1 id="結語"><a href="#結語" class="headerlink" title="結語"></a>結語</h1><p>做完這些設定後，Google和Bing會需要一些時間把我們的網站納入搜尋引擎當中，這個過程可能會需要1~2天。<br>上面這些設定只是讓搜尋引擎找的到我們的網站，屬於最基本的SEO，其他如關鍵字以、網址長度也會影響到網站排名，但最重要的還是文章的品質，所以努力寫出好文章也是SEO的關鍵喔。</p>
 <blockquote>
 <p>關鍵字設定<br>可以直接將<code>scaffolds/post.md</code>改成下面格式，之後new post的時候會自動套用下面格式。</p>
 </blockquote>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: &#123;&#123; title &#125;&#125;</span><br><span class="line">date: &#123;&#123; date &#125;&#125;</span><br><span class="line">tags:</span><br><span class="line">    -</span><br><span class="line">    -</span><br><span class="line">categories: </span><br><span class="line">keywords: </span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: &#123;&#123; title &#125;&#125;</span><br><span class="line">date: &#123;&#123; date &#125;&#125;</span><br><span class="line">tags:</span><br><span class="line">    -</span><br><span class="line">    -</span><br><span class="line">categories: </span><br><span class="line">keywords:</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+<p>使用時注意關鍵字與關鍵字之間用逗號分開不留空格!例如:</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">keywords: Hexo,SEO,Google,Bing,Google Search Console,Bing Webmaster</span><br></pre></td></tr></table></figure>
+
 
 <blockquote>
-<p>網址長度<br>hexo預設使用<code>年/月/日/檔案名稱</code>來當作文章url，我們可以修改<code>/_config.yml</code>中的<code>permalink</code>來讓url更加精簡，詳細規則可以參考<a target="_blank" rel="noopener" href="https://hexo.io/zh-tw/docs/permalinks.html">hexo官方文檔</a>。</p>
+<p>網址長度<br>hexo預設使用<code>年/月/日/檔案名稱</code>來當作文章url，我們可以修改<code>/_config.yml</code>中的<code>permalink</code>來讓url更加精簡，詳細規則可以參考<a target="_blank" rel="noopener" href="https://hexo.io/zh-tw/docs/permalinks.html">hexo官方文檔</a>，我自己是改成下面這樣:</p>
 </blockquote>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">permalink:</span> <span class="string">:year/:month/:day/:title/</span> <span class="comment"># default</span></span><br><span class="line"><span class="attr">permalink:</span> <span class="string">:title/</span> <span class="comment"># shorter version</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">permalink:</span> <span class="string">:year/:month/:day/:title/</span> <span class="comment"># default</span></span><br><span class="line"><span class="attr">permalink:</span> <span class="string">posts/:title/</span> <span class="comment"># shorter version</span></span><br></pre></td></tr></table></figure>
     </div>
 
     
