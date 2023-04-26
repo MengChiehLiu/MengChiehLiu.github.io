@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#222">
+  <link rel="manifest" href="/images/site.webmanifest">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha256-/4UQcSmErDzPCMAiuOiWPVVsNN2s3ZY/NsmXNcj0IFc=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"mengchiehliu.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.15.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="前言 在社群網絡中分析中，有時候會想要找出網絡當中的社群(community detection)，一個最直觀的想法是直接對網絡進行分群，那麼分群結果就是各個community了。如果我們能夠計算各個節點之間的相似性，那麼我們當然可以直接套用傳統的分群方法，如cosine similiarity，但一來是相似度特徵可能很難取得，二來是這樣分群的話就沒有利用到網絡的結構了，這時我們可以改為使用基於圖">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spectral Clustering - 算法解析與numpy程式實作">
+<meta property="og:url" content="https://mengchiehliu.github.io/posts/spectral-clustering/index.html">
+<meta property="og:site_name" content="米蟲的程式小窩">
+<meta property="og:description" content="前言 在社群網絡中分析中，有時候會想要找出網絡當中的社群(community detection)，一個最直觀的想法是直接對網絡進行分群，那麼分群結果就是各個community了。如果我們能夠計算各個節點之間的相似性，那麼我們當然可以直接套用傳統的分群方法，如cosine similiarity，但一來是相似度特徵可能很難取得，二來是這樣分群的話就沒有利用到網絡的結構了，這時我們可以改為使用基於圖">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://mengchiehliu.github.io/images/2023/04/27/cluster_analysis.jpg">
+<meta property="og:image" content="https://mengchiehliu.github.io/images/2023/04/27/ratio_cut.png">
+<meta property="og:image" content="https://mengchiehliu.github.io/images/2023/04/27/ratio_cut_2.png">
+<meta property="article:published_time" content="2023-04-26T17:53:24.000Z">
+<meta property="article:modified_time" content="2023-04-26T19:26:29.060Z">
+<meta property="article:author" content="Meng-Chieh Liu">
+<meta property="article:tag" content="Spectral Clustering">
+<meta property="article:tag" content="Graph">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://mengchiehliu.github.io/images/2023/04/27/cluster_analysis.jpg">
+
+
+<link rel="canonical" href="https://mengchiehliu.github.io/posts/spectral-clustering/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://mengchiehliu.github.io/posts/spectral-clustering/","path":"posts/spectral-clustering/","title":"Spectral Clustering - 算法解析與numpy程式實作"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Spectral Clustering - 算法解析與numpy程式實作 | 米蟲的程式小窩</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">米蟲的程式小窩</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Keep Dream Alive</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜尋" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>關於</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜尋..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A4%A7%E7%B6%B1"><span class="nav-number">2.</span> <span class="nav-text">大綱</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%A7%E6%96%87"><span class="nav-number">3.</span> <span class="nav-text">內文</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Mini-cut-Approach"><span class="nav-number">3.1.</span> <span class="nav-text">Mini-cut Approach</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Balanced-cut-Approach"><span class="nav-number">3.2.</span> <span class="nav-text">Balanced-cut Approach</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Matrixs"><span class="nav-number">3.2.1.</span> <span class="nav-text">Matrixs</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Calculation"><span class="nav-number">3.2.2.</span> <span class="nav-text">Calculation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Minimize"><span class="nav-number">3.2.3.</span> <span class="nav-text">Minimize</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Spectral-Clustering"><span class="nav-number">3.3.</span> <span class="nav-text">Spectral Clustering</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%B5%90%E8%AA%9E"><span class="nav-number">4.</span> <span class="nav-text">結語</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Meng-Chieh Liu"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Meng-Chieh Liu</p>
+  <div class="site-description" itemprop="description">讀會計但一直寫程式的人</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">9</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/MengChiehLiu" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;MengChiehLiu" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.linkedin.com/in/meng-chieh-liu-615952235/" title="Linkedin → https:&#x2F;&#x2F;www.linkedin.com&#x2F;in&#x2F;meng-chieh-liu-615952235&#x2F;" rel="noopener me" target="_blank"><i class="fa-brands fa-linkedin fa-fw"></i>Linkedin</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:jk211896@gmail.com" title="E-Mail → mailto:jk211896@gmail.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://mengchiehliu.github.io/posts/spectral-clustering/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Meng-Chieh Liu">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="米蟲的程式小窩">
+      <meta itemprop="description" content="讀會計但一直寫程式的人">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Spectral Clustering - 算法解析與numpy程式實作 | 米蟲的程式小窩">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Spectral Clustering - 算法解析與numpy程式實作
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+
+      <time title="創建時間：2023-04-27 01:53:24" itemprop="dateCreated datePublished" datetime="2023-04-27T01:53:24+08:00">2023-04-27</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Social-Network-Analysis/" itemprop="url" rel="index"><span itemprop="name">Social Network Analysis</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="閱讀次數" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">閱讀次數：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>1.9k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>7 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p><img src="/../images/2023/04/27/cluster_analysis.jpg" alt="Spectral Clustering"></p>
+<p>在社群網絡中分析中，有時候會想要找出網絡當中的社群(community detection)，一個最直觀的想法是直接對網絡進行分群，那麼分群結果就是各個community了。<br>如果我們能夠計算各個節點之間的相似性，那麼我們當然可以直接套用傳統的分群方法，如cosine similiarity，但一來是相似度特徵可能很難取得，二來是這樣分群的話就沒有利用到網絡的結構了，這時我們可以改為使用基於圖論的分群方法。<br>今天這篇文章會帶大家簡單瞭解什麼是cut approach, balanced-cut approach以及其代表方法spectral clustering，並示範不依賴其他套件，僅使用numpy實作spectral clustering。</p>
+<span id="more"></span>
+
+<h1 id="大綱"><a href="#大綱" class="headerlink" title="大綱"></a>大綱</h1><ul>
+<li><a href="#Mini-cut-Approach">Mini-cut approach</a></li>
+<li><a href="#Balanced-cut-Approach">Balanced-cut approach</a></li>
+<li><a href="#Spectral-Clustering">Spectral clustering</a></li>
+</ul>
+<h1 id="內文"><a href="#內文" class="headerlink" title="內文"></a>內文</h1><h2 id="Mini-cut-Approach"><a href="#Mini-cut-Approach" class="headerlink" title="Mini-cut Approach"></a>Mini-cut Approach</h2><p>Cut approach，顧名思義是將網絡給切開來形成多個網絡，屬於partitional clustering的一種，每個節點只會屬於一個community，並且community之間也不會overlapping，而Mini-cut Approach則是希望在切割網絡時能最小化切掉的edge數量。<br>聽起來很直觀，但這樣切會有一個問題，那就是有可能會切出一些非常小的community，導致分群不夠balance。</p>
+<h2 id="Balanced-cut-Approach"><a href="#Balanced-cut-Approach" class="headerlink" title="Balanced-cut Approach"></a>Balanced-cut Approach</h2><p>為了解決Mini-cut Approach的缺點，Balanced-cut Approach在切割網絡時除了考量原本的edge，另外除以community的node數做加權調整，切割的目標從最小化edge數轉為最小化ratio cut，公式如下:<br><img src="/../images/2023/04/27/ratio_cut.png" alt="Ratio Cut formula"></p>
+<p>公式解釋: 分成k群(k要自己決定)，每次取一個群<code>Pi</code>出來看，分子部分表示將<code>Pi</code>切開的話會切到的edge數，分母部分表示<code>Pi</code>內部的node數，將k個群的結果加總起來就會是整個網路的ratio cut分數。</p>
+<h3 id="Matrixs"><a href="#Matrixs" class="headerlink" title="Matrixs"></a>Matrixs</h3><p>為了要計算Ratio Cut，我們先要來認識一下三種矩陣:</p>
+<ol>
+<li><p>Diagonal Degree Matrix 度數矩陣<br>Degree(度數)指的是一個node有多少個鄰居，將這些Degree轉換為對角矩陣(Diagonal Matrix)就得到Diagonal Degree Matrix。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">D = np.array([</span><br><span class="line">  [<span class="number">2</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>],</span><br><span class="line">  [<span class="number">0</span>, <span class="number">4</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>],</span><br><span class="line">  [<span class="number">0</span>, <span class="number">0</span>, <span class="number">2</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>],</span><br><span class="line">  [<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">3</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>],</span><br><span class="line">  [<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">2</span>, <span class="number">0</span>, <span class="number">0</span>],</span><br><span class="line">  [<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">3</span>, <span class="number">0</span>],</span><br><span class="line">  [<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">2</span>]])</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Adjacency Matrix 鄰接矩陣<br>只要是對Graph有些概念的人應該都對Adjacency Matrix不太陌生，Adjacency Matrix描述了node之間的關係，下面例子假設node之間的關係都是雙向的，所以會是個對稱矩陣。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">A = np.array([</span><br><span class="line">  [<span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>],</span><br><span class="line">  [<span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>],</span><br><span class="line">  [<span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>],</span><br><span class="line">  [<span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>],</span><br><span class="line">  [<span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>],</span><br><span class="line">  [<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>],</span><br><span class="line">  [<span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>]])</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Laplacian Matrix 調和矩陣(拉普拉斯矩陣)<br>Laplacian Matrix 的算法就是直接將Diagonal Degree Matrix 減去 Adjacency Matrix，聽起來可能讓人滿頭問號，為什麼要這麼做? 這邊先賣個關子，繼續看下去就知道了。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">L = np.array([</span><br><span class="line">  [ <span class="number">2</span>, -<span class="number">1</span>,  <span class="number">0</span>,  <span class="number">0</span>, -<span class="number">1</span>,  <span class="number">0</span>,  <span class="number">0</span>],</span><br><span class="line">  [-<span class="number">1</span>,  <span class="number">4</span>, -<span class="number">1</span>, -<span class="number">1</span>,  <span class="number">0</span>,  <span class="number">0</span>, -<span class="number">1</span>],</span><br><span class="line">  [ <span class="number">0</span>, -<span class="number">1</span>,  <span class="number">2</span>, -<span class="number">1</span>,  <span class="number">0</span>,  <span class="number">0</span>,  <span class="number">0</span>],</span><br><span class="line">  [ <span class="number">0</span>, -<span class="number">1</span>, -<span class="number">1</span>,  <span class="number">3</span>,  <span class="number">0</span>, -<span class="number">1</span>,  <span class="number">0</span>],</span><br><span class="line">  [-<span class="number">1</span>,  <span class="number">0</span>,  <span class="number">0</span>,  <span class="number">0</span>,  <span class="number">2</span>, -<span class="number">1</span>,  <span class="number">0</span>],</span><br><span class="line">  [ <span class="number">0</span>,  <span class="number">0</span>,  <span class="number">0</span>, -<span class="number">1</span>, -<span class="number">1</span>,  <span class="number">3</span>, -<span class="number">1</span>],</span><br><span class="line">  [ <span class="number">0</span>, -<span class="number">1</span>,  <span class="number">0</span>,  <span class="number">0</span>,  <span class="number">0</span>, -<span class="number">1</span>,  <span class="number">2</span>]])</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="Calculation"><a href="#Calculation" class="headerlink" title="Calculation"></a>Calculation</h3><p>現在先假設我們已經知道分群的結果了，並將結果以0,1的形式表示為一個matrix，令這個結果為X，下面結果是我隨便分的，分3群，<code>X[i][j]==1</code>表示node<code>i</code>屬於cluster<code>j</code>。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">X = np.array([</span><br><span class="line">  [<span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>],</span><br><span class="line">  [<span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>],</span><br><span class="line">  [<span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>],</span><br><span class="line">  [<span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>],</span><br><span class="line">  [<span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>],</span><br><span class="line">  [<span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>],</span><br><span class="line">  [<span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>]])</span><br></pre></td></tr></table></figure>
+<ol>
+<li><p>Diagonal Degree Matrix 解釋<br>我們先將X的轉置矩陣與D做內積(<code>X.T.dot(D)</code>):</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">array([[<span class="number">2</span>, <span class="number">4</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>],</span><br><span class="line">       [<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">2</span>],</span><br><span class="line">       [<span class="number">0</span>, <span class="number">0</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>]])</span><br></pre></td></tr></table></figure>
+<p>觀察一下結果會發現，這個矩陣就只是是把Degree填到對應的cluster中而已。<br>接著我們再把上面結果與X做內積(<code>X.T.dot(D).dot(X)</code>):</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">array([[<span class="number">6</span>, <span class="number">0</span>, <span class="number">0</span>],</span><br><span class="line">       [<span class="number">0</span>, <span class="number">7</span>, <span class="number">0</span>],</span><br><span class="line">       [<span class="number">0</span>, <span class="number">0</span>, <span class="number">5</span>]])</span><br></pre></td></tr></table></figure>
+<p>這個結果其實就表示<strong>每個cluster的degree總和</strong>。</p>
+</li>
+<li><p>Adjacency Matrix 解釋<br>接著我們直接將上面公式的D換成A(<code>X.T.dot(A).dot(X)</code>):</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">array([[<span class="number">2</span>, <span class="number">2</span>, <span class="number">2</span>],</span><br><span class="line">       [<span class="number">2</span>, <span class="number">4</span>, <span class="number">1</span>],</span><br><span class="line">       [<span class="number">2</span>, <span class="number">1</span>, <span class="number">2</span>]])</span><br></pre></td></tr></table></figure>
+<p>會發現結果表示在<strong>cluster與cluster間互相連接的edge數</strong>。</p>
+</li>
+<li><p>Laplacian Matrix 解釋<br>如果我們將兩個結果相減的話，會發現每一行的第i個元素(對角)就是我們想要計算的cut數(分子部分)!!!</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">array([[ <span class="number">4</span>, -<span class="number">2</span>, -<span class="number">2</span>],  <span class="comment"># i=0, 4</span></span><br><span class="line">       [-<span class="number">2</span>,  <span class="number">3</span>, -<span class="number">1</span>],  <span class="comment"># i=1, 3</span></span><br><span class="line">       [-<span class="number">2</span>, -<span class="number">1</span>,  <span class="number">3</span>]]) <span class="comment"># i=2, 3</span></span><br></pre></td></tr></table></figure>
+<p>接著我們另外計算每個cluster裡面共有多少個node，我們可以將X的轉置後與自己相乘(<code>X.T.dot(X)</code>):</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">array([[<span class="number">2</span>, <span class="number">0</span>, <span class="number">0</span>],</span><br><span class="line">       [<span class="number">0</span>, <span class="number">3</span>, <span class="number">0</span>],</span><br><span class="line">       [<span class="number">0</span>, <span class="number">0</span>, <span class="number">2</span>]])</span><br></pre></td></tr></table></figure>
+<p>最後將對角的結果相除後加起來就是算平均就得到Ratio Cut的分數啦~~~<br>(我這邊直接矩陣相除，大家可以自己算。)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">array([[ <span class="number">2.</span> , -inf, -inf],</span><br><span class="line">       [-inf,  <span class="number">1.</span> , -inf],</span><br><span class="line">       [-inf, -inf,  <span class="number">1.5</span>]])</span><br></pre></td></tr></table></figure></li>
+</ol>
+<p>根據上面矩陣運算的過程，我們能將公式重新整理為:<br><img src="/../images/2023/04/27/ratio_cut_2.png" alt="ratio cut formula extended"></p>
+<p>在第三行的部分，我們另外對X進行標準化(同除以分母)變成了<code>X prime</code>。</p>
+<h3 id="Minimize"><a href="#Minimize" class="headerlink" title="Minimize"></a>Minimize</h3><p>回到最一開始的問題，我們的目標是要最小化ratio cut的分數，方法就是透過上面的公式去求解<code>X prime</code>矩陣，難過的是，還記的X矩陣裡最一開始只能填入0跟1嗎，想要在這樣嚴格的限制下求出最佳解是個<strong>NP-hard</strong>的問題。<br>不過不要灰心，我們還是可以放寬條件，套用近似演算法，其中一種方法就是接下來要介紹的Spectral Clustering~~~</p>
+<h2 id="Spectral-Clustering"><a href="#Spectral-Clustering" class="headerlink" title="Spectral Clustering"></a>Spectral Clustering</h2><p>Spectral Clustering 基於ratio cut，不過X矩陣中可以填入的值變成介於0~1之間，在放寬條件後，這個最小化問題的解可以被證明是求解Laplacian Matrix的前k小個特徵值的特徵向量。</p>
+<ol>
+<li><p>Eigenvalue &amp; Eigenvactors<br>我們可以用<code>np.linalg.eig</code>來替我們計算特徵值與特徵向量，並使用<code>np.argsort</code>來替我們找出最小的k個特徵向量。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># calculate eigenvalue and eigenvector</span></span><br><span class="line">eig_value, eig_vector = np.linalg.eig(L)</span><br><span class="line"></span><br><span class="line"><span class="comment"># get eigenvector with smallest eigenvalue</span></span><br><span class="line">k = <span class="number">3</span></span><br><span class="line">top_k = np.argsort(eig_value)[:k]</span><br><span class="line">top_k_vector = eig_vector[:, top_k]</span><br></pre></td></tr></table></figure>
+<p>得到的結果如下:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">array([[ <span class="number">0.37796447</span>, -<span class="number">0.45244521</span>, -<span class="number">0.41243936</span>],</span><br><span class="line">       [ <span class="number">0.37796447</span>,  <span class="number">0.17351892</span>, -<span class="number">0.08541899</span>],</span><br><span class="line">       [ <span class="number">0.37796447</span>,  <span class="number">0.54280925</span>, -<span class="number">0.41243936</span>],</span><br><span class="line">       [ <span class="number">0.37796447</span>,  <span class="number">0.32598548</span>, -<span class="number">0.08541899</span>],</span><br><span class="line">       [ <span class="number">0.37796447</span>, -<span class="number">0.58986844</span>, -<span class="number">0.08541899</span>],</span><br><span class="line">       [ <span class="number">0.37796447</span>, -<span class="number">0.09036404</span>,  <span class="number">0.37705765</span>],</span><br><span class="line">       [ <span class="number">0.37796447</span>,  <span class="number">0.09036404</span>,  <span class="number">0.70407803</span>]])</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>K-means<br>由於得到的特徵值並無法直接拿來做解釋，因此Spectral Clustering另外使用了K-means來為這些特徵值做分群，因為最小的特徵值為0、特徵向量一定是常數，所以我們可以把它刪去，也就是說，如果我們想要分成k群，那我們至少需要使用k-1個特徵向量。<br>下面程式提供一個簡單的K-means範例，可以根據自己的需求另外設置停止條件。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">k_means</span>(<span class="params">X, k, max_iters=<span class="number">10000</span></span>):</span><br><span class="line">    <span class="comment"># randomly initialize centroids</span></span><br><span class="line">    centroids = X[np.random.choice(<span class="built_in">len</span>(X), k, replace=<span class="literal">False</span>)]</span><br><span class="line">    <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(max_iters):</span><br><span class="line">       <span class="comment"># calculate distances</span></span><br><span class="line">       distances = np.linalg.norm(X[:, np.newaxis] - centroids, axis=<span class="number">2</span>)</span><br><span class="line">       <span class="comment"># assign labels </span></span><br><span class="line">       labels = np.argmin(distances, axis=<span class="number">1</span>)</span><br><span class="line">       <span class="comment"># calculate new centroids</span></span><br><span class="line">       centroids = np.array([np.mean(X[labels == i], axis=<span class="number">0</span>) <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(k)])</span><br><span class="line">    <span class="keyword">return</span> labels</span><br><span class="line"></span><br><span class="line"><span class="comment"># remove first vector</span></span><br><span class="line">features = top_k_vector[:, <span class="number">1</span>:]</span><br><span class="line"><span class="comment"># do k-maens</span></span><br><span class="line">labels = k_means(features, k)</span><br></pre></td></tr></table></figure></li>
+</ol>
+<p>這樣就得到分群結果啦~~~(注意: 實際執行數字的順序可能不一樣)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">array([<span class="number">2</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">1</span>], dtype=int64)</span><br></pre></td></tr></table></figure>
+
+<h1 id="結語"><a href="#結語" class="headerlink" title="結語"></a>結語</h1><p>其實忽略到複雜的數學證明的話，Spectral Clustering的概念還挺直觀的，文章參考了台大資管系的陳建錦教授所使用的上課講義，經過本人吸收轉化撰寫而成。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>作者： </strong>Meng-Chieh Liu
+  </li>
+  <li class="post-copyright-link">
+      <strong>文章連結：</strong>
+      <a href="https://mengchiehliu.github.io/posts/spectral-clustering/" title="Spectral Clustering - 算法解析與numpy程式實作">https://mengchiehliu.github.io/posts/spectral-clustering/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版權聲明： </strong>本網誌所有文章除特別聲明外，均採用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 許可協議。轉載請註明出處！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Spectral-Clustering/" rel="tag"><i class="fa fa-tag"></i> Spectral Clustering</a>
+              <a href="/tags/Graph/" rel="tag"><i class="fa fa-tag"></i> Graph</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/posts/Hello-Hexo-5/" rel="prev" title="Hello Hexo！NexT 主題太單調？跟著這些美化步驟為部落格加入個人風格！(5)">
+                  <i class="fa fa-chevron-left"></i> Hello Hexo！NexT 主題太單調？跟著這些美化步驟為部落格加入個人風格！(5)
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Meng-Chieh Liu</span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="訪客總數">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="總瀏覽次數">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="回到頂端">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"MengChiehLiu/MengChiehLiu.github.io","issue_term":"pathname","theme":"github-light"}</script>
+<script src="/js/third-party/comments/utterances.js"></script>
+
+</body>
+</html>
