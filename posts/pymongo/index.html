@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#222">
+  <link rel="manifest" href="/images/site.webmanifest">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha256-/4UQcSmErDzPCMAiuOiWPVVsNN2s3ZY/NsmXNcj0IFc=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"mengchiehliu.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.15.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="前言 因為課堂專案的關係需要用到MongoDB所以小學了一下，發現MongoDB真的是很香，撇開資料庫易用性，光是MongoDB Atlas提供每位使用者免費10GB的雲端資料庫空間(免填信用卡)，就很值得你辦個帳號來玩一下了。這篇文章會簡單介紹一下MongoDB，以及如何用python PyMongo完成資料庫的CRUD操作。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MongoDB概念介紹 + PyMongo基本CRUD操作教學">
+<meta property="og:url" content="https://mengchiehliu.github.io/posts/pymongo/index.html">
+<meta property="og:site_name" content="米蟲的程式小窩">
+<meta property="og:description" content="前言 因為課堂專案的關係需要用到MongoDB所以小學了一下，發現MongoDB真的是很香，撇開資料庫易用性，光是MongoDB Atlas提供每位使用者免費10GB的雲端資料庫空間(免填信用卡)，就很值得你辦個帳號來玩一下了。這篇文章會簡單介紹一下MongoDB，以及如何用python PyMongo完成資料庫的CRUD操作。">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://mengchiehliu.github.io/images/2023/05/05/cover.png">
+<meta property="og:image" content="https://mengchiehliu.github.io/images/2023/05/05/mongodb_atlas_connect.png">
+<meta property="og:image" content="https://mengchiehliu.github.io/images/2023/05/05/mongodb_atlas_connection_string.png">
+<meta property="article:published_time" content="2023-05-05T12:40:15.000Z">
+<meta property="article:modified_time" content="2023-05-05T14:01:28.204Z">
+<meta property="article:author" content="Meng-Chieh Liu">
+<meta property="article:tag" content="MongoDB">
+<meta property="article:tag" content="PyMongo">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://mengchiehliu.github.io/images/2023/05/05/cover.png">
+
+
+<link rel="canonical" href="https://mengchiehliu.github.io/posts/pymongo/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://mengchiehliu.github.io/posts/pymongo/","path":"posts/pymongo/","title":"MongoDB概念介紹 + PyMongo基本CRUD操作教學"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>MongoDB概念介紹 + PyMongo基本CRUD操作教學 | 米蟲的程式小窩</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">米蟲的程式小窩</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Keep Dream Alive</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜尋" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>關於</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜尋..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MongoDB-Atlas"><span class="nav-number">2.</span> <span class="nav-text">MongoDB Atlas</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MongoDb-Introduction"><span class="nav-number">3.</span> <span class="nav-text">MongoDb Introduction</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Datebase-architecture"><span class="nav-number">3.1.</span> <span class="nav-text">Datebase architecture</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Document-Model"><span class="nav-number">3.2.</span> <span class="nav-text">Document Model</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Data-Modeling"><span class="nav-number">3.3.</span> <span class="nav-text">Data Modeling</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Relationship-types"><span class="nav-number">3.4.</span> <span class="nav-text">Relationship types</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CRUD-in-PyMongo"><span class="nav-number">4.</span> <span class="nav-text">CRUD in PyMongo</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Beforehand"><span class="nav-number">4.1.</span> <span class="nav-text">Beforehand</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Create"><span class="nav-number">4.2.</span> <span class="nav-text">Create</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Read"><span class="nav-number">4.3.</span> <span class="nav-text">Read</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Update"><span class="nav-number">4.4.</span> <span class="nav-text">Update</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Delete"><span class="nav-number">4.5.</span> <span class="nav-text">Delete</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#bulk-write"><span class="nav-number">4.6.</span> <span class="nav-text">bulk_write</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%B5%90%E8%AA%9E"><span class="nav-number">5.</span> <span class="nav-text">結語</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Meng-Chieh Liu"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Meng-Chieh Liu</p>
+  <div class="site-description" itemprop="description">讀會計但一直寫程式的人</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">10</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/MengChiehLiu" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;MengChiehLiu" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.linkedin.com/in/meng-chieh-liu-615952235/" title="Linkedin → https:&#x2F;&#x2F;www.linkedin.com&#x2F;in&#x2F;meng-chieh-liu-615952235&#x2F;" rel="noopener me" target="_blank"><i class="fa-brands fa-linkedin fa-fw"></i>Linkedin</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:jk211896@gmail.com" title="E-Mail → mailto:jk211896@gmail.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://mengchiehliu.github.io/posts/pymongo/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Meng-Chieh Liu">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="米蟲的程式小窩">
+      <meta itemprop="description" content="讀會計但一直寫程式的人">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="MongoDB概念介紹 + PyMongo基本CRUD操作教學 | 米蟲的程式小窩">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          MongoDB概念介紹 + PyMongo基本CRUD操作教學
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+
+      <time title="創建時間：2023-05-05 20:40:15" itemprop="dateCreated datePublished" datetime="2023-05-05T20:40:15+08:00">2023-05-05</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/MongoDB/" itemprop="url" rel="index"><span itemprop="name">MongoDB</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="閱讀次數" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">閱讀次數：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>2.6k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>10 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p><img src="/../images/2023/05/05/cover.png" alt="cover image"></p>
+<p>因為課堂專案的關係需要用到MongoDB所以小學了一下，發現MongoDB真的是很香，撇開資料庫易用性，光是MongoDB Atlas提供每位使用者免費10GB的雲端資料庫空間(免填信用卡)，就很值得你辦個帳號來玩一下了。這篇文章會簡單介紹一下MongoDB，以及如何用python PyMongo完成資料庫的CRUD操作。</p>
+<span id="more"></span>
+
+<h1 id="MongoDB-Atlas"><a href="#MongoDB-Atlas" class="headerlink" title="MongoDB Atlas"></a>MongoDB Atlas</h1><p>MongoDB Atlas是MongoDB的雲端資料庫平台服務，顧名思義你可以把你的資料存在雲端裡面，如果你是用drivers(ex: python, nodejs…)連線進去的話，基本上就是安裝個套件就搞定了，不用額外去下載或是設定一些雜七雜八的東西真的很方便，另外也因為是雲端服務，因此在團隊成員要連線進來也很容易，拿來run一個課堂專案是綽綽有餘了。</p>
+<p>因為文章重點會放在MongoDB的觀念與操作，這裡就提供一篇教學讓大家自己看: </p>
+<ul>
+<li><a target="_blank" href="https://www.tpisoftware.com/tpu/articleDetails/2758" title="{rel=&#39;nofollow&#39;}">如何快速地架好自己的MongoDB - MongoDB Atlas介紹</a></li>
+</ul>
+<p>其實就是跟著指示做，都挺直覺的，雲端供應商的部分我也是選GCP，因為有台灣的region，這邊唯一要注意的是可連線IP的部分，要把IP地址加入名單中才能成功與資料庫建立連線，有個小撇步是只要在名單中加入<code>0.0.0.0</code>，就可以無視當前IP位址隨便連了~</p>
+<h1 id="MongoDb-Introduction"><a href="#MongoDb-Introduction" class="headerlink" title="MongoDb Introduction"></a>MongoDb Introduction</h1><h2 id="Datebase-architecture"><a href="#Datebase-architecture" class="headerlink" title="Datebase architecture"></a>Datebase architecture</h2><p>MongoDB屬於<strong>General Purpose Document Database</strong>(文件資料庫)，先來了解一下幾個關鍵字:</p>
+<blockquote>
+<p><strong>Document</strong>: Basic unit of data<br><strong>Collection</strong>: A grouping of documents<br><strong>Database</strong>: A container for collections</p>
+</blockquote>
+<h2 id="Document-Model"><a href="#Document-Model" class="headerlink" title="Document Model"></a>Document Model</h2><p>document是MongoDB的基本資料單位，每個document都以BSON格式儲存(類似JSON格式，但多了一些特殊的資料型態)，與關連式資料庫不同，MongoDB有polymorphic documents的特性，沒有寫死的schema，使用時不需要事先定義欄位、資料型態，相反的你想怎麼存就怎麼存，同個collection裡的document可以長的完全不一樣，**BUT!!!**，有彈性不代表就可以亂存，還是要視實際的使用情境來設計schema才不會害到自己喔。</p>
+<h2 id="Data-Modeling"><a href="#Data-Modeling" class="headerlink" title="Data Modeling"></a>Data Modeling</h2><p>延續前面提到的schema，究竟該如何設計一個好的schema，MongoDB有提供兩個非常明確的原則</p>
+<blockquote>
+<p>Thinking about the application rather than thinking about how it’s stored.<br>Data accessed together should be stored todether.</p>
+</blockquote>
+<p>第一點是在說我們在設計資料庫schema時應該focus在「我們的application如何取用資料」，而不是「如何把資料存好」。<br>第二點則是與MongoDB的架構有關，因為資料都是以document為單位，因此把會一起使用到的資料都存在同一個document裡面，通常會比存在兩個分別的document裡面來的方便取用。</p>
+<h2 id="Relationship-types"><a href="#Relationship-types" class="headerlink" title="Relationship types"></a>Relationship types</h2><p>照上面這麼說的話，那簡單，全部塞進同個document就對了嗎? 其實也不對，因為每個documnet其實有16MB的size limit，所以我們還是要視情況來建立我們的關聯規則，以下介紹3種關聯規則以及MongoDB的建議的儲存方法。</p>
+<ol>
+<li>one to one<br>顧名思義就是一個對一個，以學生資料來說，每位學生都有自己獨特且唯一學號，這時候我們就沒必要把學號另外存在別的document，直接存在一起就好。<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &#x27;_id&#x27;: ObjectID(...),  # MongoDB預設的_id格式，沒有設定_id的話會自動assign</span><br><span class="line">  &#x27;Name&#x27;: &#x27;Jack&#x27;,</span><br><span class="line">  &#x27;Mobile&#x27;: &#x27;0800-000000&#x27;,</span><br><span class="line">  &#x27;ID&#x27;: &#x27;A0001&#x27;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>one to many<br>現在假設我們還需要存每位學生的家長資料，畢竟每個人的家長資料肯定是不重複的嘛，所以我們還是想存在同一個document裡，這時候我們可以使用<strong>Embedding</strong>的技巧，簡單來說就是巢狀結構加下去就對了XD。<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &#x27;_id&#x27;: ObjectID(...),</span><br><span class="line">  &#x27;Name&#x27;: &#x27;Jack&#x27;,</span><br><span class="line">  &#x27;Mobile&#x27;: &#x27;0800-000000&#x27;,</span><br><span class="line">  &#x27;ID&#x27;: &#x27;A0001&#x27;,</span><br><span class="line">  &#x27;Parents&#x27;: &#123;</span><br><span class="line">    &#x27;Dad&#x27;: &#123;&#x27;Name&#x27;: &#x27;Bob&#x27;, &#x27;Mobile&#x27;: &#x27;0800-000001&#x27;&#125;,</span><br><span class="line">    &#x27;Mom&#x27;: &#123;&#x27;Name&#x27;: &#x27;Amy&#x27;, &#x27;Mobile&#x27;: &#x27;0800-000002&#x27;&#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>many to many<br>繼續前面例子，每個學生每學期都會修很多課，並且同一堂課會有很多學生一起修，這時候我們如果用Embedding的話雖然很方便，但有點太浪費資料庫空間了，會出現很多重複的資料，這時我們可以視情況使用<strong>Referencing</strong>的技巧，基本上跟Embedding很像，改成存用來join的key。<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &#x27;_id&#x27;: ObjectID(...),</span><br><span class="line">  &#x27;Name&#x27;: &#x27;Jack&#x27;,</span><br><span class="line">  &#x27;Mobile&#x27;: &#x27;0800-000000&#x27;,</span><br><span class="line">  &#x27;ID&#x27;: &#x27;A0001&#x27;,</span><br><span class="line">    &#x27;Parents&#x27;: &#123;</span><br><span class="line">    &#x27;Dad&#x27;: &#123;&#x27;Name&#x27;: &#x27;Bob&#x27;, &#x27;Mobile&#x27;: &#x27;0800-000001&#x27;&#125;,</span><br><span class="line">    &#x27;Mom&#x27;: &#123;&#x27;Name&#x27;: &#x27;Amy&#x27;, &#x27;Mobile&#x27;: &#x27;0800-000002&#x27;&#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  &#x27;courses&#x27;: [ObjectID(...), ObjectID(...), ...]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<p>要注意的是Embedding跟Referencing的使用時機是看情況決定!不是one to many就一定要用Embedding，也不是many to many就一定要用Referencing，還要考慮<strong>資料規模</strong>，如果one to many，但連出去的資料非常龐大，那一樣要改用Referencing才存得下。</p>
+<h1 id="CRUD-in-PyMongo"><a href="#CRUD-in-PyMongo" class="headerlink" title="CRUD in PyMongo"></a>CRUD in PyMongo</h1><p>以防有人不知道CRUD是什麼，CRUD對應到database的4個基本操作Create、Read、Update、Delete，要在MongoDB操作CRUD有很多方法，除了使用MogoDB自己的CLI外，官方也提供豐富的<a target="_blank" href="https://www.mongodb.com/docs/drivers/" title="{rel=&#39;nofollow&#39;}">libraries</a>，以python來說就有兩個libraries，PyMongo負責處理同步連線、Motor負責處理非同步連線，接下來會介紹如何使用PyMongo來操作CRUD。</p>
+<h2 id="Beforehand"><a href="#Beforehand" class="headerlink" title="Beforehand"></a>Beforehand</h2><p>第一步當然是要先安裝套件:</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">! pip install pymongo</span><br></pre></td></tr></table></figure>
+
+<p>接著我們import套件並建立連線:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pymongo <span class="keyword">import</span> MongoClient</span><br><span class="line">client = MongoClient(CONNECTION_STRING)</span><br></pre></td></tr></table></figure>
+<p>其中，<code>CONNECTION_STRING</code>的格式長這樣，記得要換成自己的帳號、密碼:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mongodb+srv://&lt;user_name&gt;:&lt;password&gt;@thrifty.0xdedx2.mongodb.net/?retryWrites=true&amp;w=majority</span><br></pre></td></tr></table></figure>
+<p>這串東西好長喔記不起來怎麼辦? 進入mongodb atlas後，可以在 Connect → Drivers → python 裡找到<br><img src="/../images/2023/05/05/mongodb_atlas_connect.png" alt="mongodb atlas connect"><br><img src="/../images/2023/05/05/mongodb_atlas_connection_string.png" alt="mongodb atlas connection string"></p>
+<p>我們可以直接透過client物件來建立或取用database，可以使用key-value的方式或呼叫object的方式，舉例來說我想要create一個名叫test_database的database，那我可以用:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">database = client.test_database <span class="comment"># or</span></span><br><span class="line">database = client[<span class="string">&#x27;test_database&#x27;</span>]</span><br></pre></td></tr></table></figure>
+
+<p>同理，我們可以透過db物件來建立或取用collection:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">collection = database.test_collection <span class="comment"># or</span></span><br><span class="line">collection = database[<span class="string">&#x27;test_collection&#x27;</span>]</span><br></pre></td></tr></table></figure>
+<p>好了，事前工作準備完成!</p>
+<h2 id="Create"><a href="#Create" class="headerlink" title="Create"></a>Create</h2><p>在PyMongo中，我們可以使用<code>insert_one</code>&#x2F;<code>insert_many</code>來插入新的document:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 要插入的資料</span></span><br><span class="line">a = &#123;<span class="string">&#x27;name&#x27;</span>: <span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;gender&#x27;</span>: <span class="string">&#x27;male&#x27;</span>&#125;</span><br><span class="line">b = &#123;<span class="string">&#x27;name&#x27;</span>: <span class="string">&#x27;b&#x27;</span>, <span class="string">&#x27;gender&#x27;</span>: <span class="string">&#x27;male&#x27;</span>&#125;</span><br><span class="line">c = &#123;<span class="string">&#x27;name&#x27;</span>: <span class="string">&#x27;c&#x27;</span>, <span class="string">&#x27;gender&#x27;</span>: <span class="string">&#x27;female&#x27;</span>&#125;</span><br><span class="line"></span><br><span class="line">collection.insert_one(a)       <span class="comment"># 插入一個檔案</span></span><br><span class="line">collection.insert_many([b, c]) <span class="comment"># 插入多個檔案</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Read"><a href="#Read" class="headerlink" title="Read"></a>Read</h2><p>在PyMongo中，我們可以使用<code>find_one</code>或<code>find</code>來尋找一個或多個的document:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># find_one會回傳符合條件的第一筆資料(沒放條件的話就是collection的第一筆doc)</span></span><br><span class="line">collection.find_one()</span><br><span class="line"></span><br><span class="line"><span class="comment"># find會回傳所有符合條件的資料，並將其包裝為一個類似iterator的物件(沒放條件的話就是collection裡所有doc)</span></span><br><span class="line">docs = collection.find()</span><br><span class="line"><span class="comment"># 我們可以將該物件放入for迴圈中查看結果</span></span><br><span class="line"><span class="keyword">for</span> doc <span class="keyword">in</span> docs:</span><br><span class="line">  <span class="built_in">print</span>(doc)</span><br></pre></td></tr></table></figure>
+
+<p>我們可以在function中加入條件，來查找符合條件的資料，因為操作都差不多，所以接下來只用<code>find_one</code>做示範。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">collection.find_one(&#123;<span class="string">&#x27;name&#x27;</span>: <span class="string">&#x27;a&#x27;</span>&#125;)</span><br><span class="line">collection.find_one(&#123;<span class="string">&#x27;name&#x27;</span>: <span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;gender&#x27;</span>: <span class="string">&#x27;male&#x27;</span>&#125;) <span class="comment"># 可以放多個條件</span></span><br></pre></td></tr></table></figure>
+<p>上面的代碼會幫我們找到name等於a的資料，但其實這是一個簡化的寫法，MongoDB在進行條件篩選時通常會透過<strong>Comparison Operators</strong>的幫忙，實際上完整的寫法長這樣:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">collection.find_one(&#123;<span class="string">&#x27;name&#x27;</span>: &#123;<span class="string">&#x27;$eq&#x27;</span>: <span class="string">&#x27;a&#x27;</span>&#125;, <span class="string">&#x27;gender&#x27;</span>: &#123;<span class="string">&#x27;$eq&#x27;</span>: <span class="string">&#x27;male&#x27;</span>&#125;&#125;)</span><br></pre></td></tr></table></figure>
+<p>這裡的<code>$eq</code>就是equal to的意思，因為是最基本的操作所以可以直接不寫，另外還有很多用於條件判斷的operator，舉例來說:</p>
+<blockquote>
+<p><code>$gt</code> : greater to<br><code>$lt</code> : lower to<br><code>$gte</code> : greater or equal to<br><code>$lte</code> : lower or equal to<br><code>$ne</code> : not equal to</p>
+</blockquote>
+<p>除了<strong>Comparison Operators</strong>外，在處理多個條件時，我們通常需要使用<strong>Logical Operators</strong>來幫助我們做多條件的判斷，上面例子同樣因為是基本操作所以可以直接寫，實際上也可以這樣寫:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">collection.find_one(&#123;<span class="string">&#x27;$and&#x27;</span>: [&#123;<span class="string">&#x27;name&#x27;</span>: &#123;<span class="string">&#x27;$eq&#x27;</span>: <span class="string">&#x27;a&#x27;</span>&#125;&#125;, &#123;<span class="string">&#x27;gender&#x27;</span>: &#123;<span class="string">&#x27;$eq&#x27;</span>: <span class="string">&#x27;male&#x27;</span>&#125;&#125;]&#125;)</span><br></pre></td></tr></table></figure>
+<p>基本上跟一般程式語言的用法很像，常見的有:</p>
+<blockquote>
+<p><code>$or</code> : or<br><code>$not</code> : not</p>
+</blockquote>
+<p>上面只介紹了部分的query operators，想了解更多query operators可以參考<a target="_blank" href="https://www.mongodb.com/docs/manual/reference/operator/query/" title="{rel=&#39;nofollow&#39;}">這裡</a>。</p>
+<h2 id="Update"><a href="#Update" class="headerlink" title="Update"></a>Update</h2><p>PyMongo中用來更新document的function有三大類，分別是</p>
+<ol>
+<li><code>replace_one</code></li>
+<li><code>update_one</code>&#x2F;<code>update_many</code></li>
+</ol>
+<p>差別在於replace會把整個documnet都取代為新的，update則只會去更新document中被指定的部分。兩者在使用上都由三個部分組成，分別是filter、replacement&#x2F;update和options，其中filter是篩選的條件，寫法跟前面find一樣，replacement&#x2F;update是要更新的document&#x2F;部分document，options則是更新時可以設定的選項。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># template</span></span><br><span class="line">collection.replace_one(<span class="built_in">filter</span>, replacement, options) <span class="comment"># 取代符合條件的資料的第一筆資料</span></span><br><span class="line">collection.update_one(<span class="built_in">filter</span>, update, options)       <span class="comment"># 更新符合條件的第一筆資料</span></span><br><span class="line">collection.update_many(<span class="built_in">filter</span>, update, options)      <span class="comment"># 更新符合條件的所有資料</span></span><br></pre></td></tr></table></figure>
+<p>要特別留意的是，在update的部分一定要搭配使用<strong>Update Operators</strong>，否則會執行失敗!常用的operators有:</p>
+<blockquote>
+<p><code>$set</code> : set to new value<br><code>$push</code>: appends value to an array<br><code>$inc</code> : increased by value</p>
+</blockquote>
+<p>最後options部分，這邊只提最常被使用到的<code>upsert</code>(update+insert)，預設為<code>False</code>，如果將<code>upsert</code>設為<code>True</code>的話，那就算filter部分沒有找到符合的document，也會順便幫我們執行insert的動作。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 尋找name為d的document並取代為新documnet，因為沒有這個document而且upsert=True，所以會直接insert</span></span><br><span class="line">collection.replace_one(&#123;<span class="string">&#x27;name&#x27;</span>: <span class="string">&#x27;d&#x27;</span>&#125;, &#123;<span class="string">&#x27;name&#x27;</span>: <span class="string">&#x27;d&#x27;</span>, <span class="string">&#x27;arr&#x27;</span>: []&#125;, upsert=<span class="literal">True</span>)</span><br><span class="line"><span class="comment"># 將name重新命名</span></span><br><span class="line">collection.update_one(&#123;<span class="string">&#x27;name&#x27;</span>: <span class="string">&#x27;d&#x27;</span>&#125;, &#123;<span class="string">&#x27;$set&#x27;</span>: &#123;<span class="string">&#x27;name&#x27;</span>: <span class="string">&#x27;e&#x27;</span>&#125;&#125;)</span><br><span class="line"><span class="comment"># 把item推入array當中</span></span><br><span class="line">collection.update_one(&#123;<span class="string">&#x27;name&#x27;</span>: <span class="string">&#x27;e&#x27;</span>&#125;, &#123;<span class="string">&#x27;$push&#x27;</span>: &#123;<span class="string">&#x27;arr&#x27;</span>: <span class="string">&#x27;item&#x27;</span>&#125;&#125;)</span><br></pre></td></tr></table></figure>
+
+<h2 id="Delete"><a href="#Delete" class="headerlink" title="Delete"></a>Delete</h2><p>PyMongo中用來刪除document的function是<code>delete_one</code>與<code>delete_many</code>，用法跟find基本一樣~</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">collection.delete_one(&#123;<span class="string">&#x27;name&#x27;</span>: <span class="string">&#x27;a&#x27;</span>&#125;)  <span class="comment"># 刪除符合條件的第一筆資料</span></span><br><span class="line">collection.delete_many(&#123;<span class="string">&#x27;name&#x27;</span>: <span class="string">&#x27;a&#x27;</span>&#125;) <span class="comment"># 刪除符合條件的所有資料</span></span><br></pre></td></tr></table></figure>
+
+
+<h2 id="bulk-write"><a href="#bulk-write" class="headerlink" title="bulk_write"></a>bulk_write</h2><p>前面的操作都一次針對一個條件進行動作，假如我們想要快速地執行多個不同動作該怎麼辦呢? 這時我們可以將原先的CRUD指令包裝成Object，並透過<code>bulk_write</code>來進行批次操作。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pymongo <span class="keyword">import</span> InsertOne, DeleteMany, ReplaceOne, UpdateOne</span><br><span class="line">result = colection.bulk_write([</span><br><span class="line">    DeleteMany(&#123;&#125;),</span><br><span class="line">    InsertOne(&#123;<span class="string">&#x27;name&#x27;</span>: <span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;gender&#x27;</span>: <span class="string">&#x27;male&#x27;</span>&#125;),</span><br><span class="line">    InsertOne(&#123;<span class="string">&#x27;name&#x27;</span>: <span class="string">&#x27;b&#x27;</span>, <span class="string">&#x27;gender&#x27;</span>: <span class="string">&#x27;male&#x27;</span>&#125;),</span><br><span class="line">    InsertOne(&#123;<span class="string">&#x27;name&#x27;</span>: <span class="string">&#x27;c&#x27;</span>, <span class="string">&#x27;gender&#x27;</span>: <span class="string">&#x27;female&#x27;</span>&#125;),</span><br><span class="line">    ReplaceOne(&#123;<span class="string">&#x27;name&#x27;</span>: <span class="string">&#x27;d&#x27;</span>&#125;, &#123;<span class="string">&#x27;name&#x27;</span>: <span class="string">&#x27;d&#x27;</span>, <span class="string">&#x27;arr&#x27;</span>: []&#125;, upsert=<span class="literal">True</span>),</span><br><span class="line">    UpdateOne(&#123;<span class="string">&#x27;name&#x27;</span>: <span class="string">&#x27;d&#x27;</span>&#125;, &#123;<span class="string">&#x27;$set&#x27;</span>: &#123;<span class="string">&#x27;name&#x27;</span>: <span class="string">&#x27;e&#x27;</span>&#125;&#125;),</span><br><span class="line">    UpdateOne(&#123;<span class="string">&#x27;name&#x27;</span>: <span class="string">&#x27;e&#x27;</span>&#125;, &#123;<span class="string">&#x27;$push&#x27;</span>: &#123;<span class="string">&#x27;arr&#x27;</span>: <span class="string">&#x27;item&#x27;</span>&#125;&#125;)</span><br><span class="line">])</span><br></pre></td></tr></table></figure>
+
+<h1 id="結語"><a href="#結語" class="headerlink" title="結語"></a>結語</h1><p>MongoDB在網路上的教學資源真的很豐富，官方也有提供<a target="_blank" href="https://learn.mongodb.com/" title="{rel=&#39;nofollow&#39;}">免費課程</a>，想要上手真的不是一件難事，我都邊寫邊懷疑自己寫這篇到底有多大價值，因為網路上其他地方大概也都找的到類似的內容，不過抱持著當做筆記說不定哪天旺季會想回來看的精神，還是乖乖把他寫完了XDDD</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>作者： </strong>Meng-Chieh Liu
+  </li>
+  <li class="post-copyright-link">
+      <strong>文章連結：</strong>
+      <a href="https://mengchiehliu.github.io/posts/pymongo/" title="MongoDB概念介紹 + PyMongo基本CRUD操作教學">https://mengchiehliu.github.io/posts/pymongo/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版權聲明： </strong>本網誌所有文章除特別聲明外，均採用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 許可協議。轉載請註明出處！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/MongoDB/" rel="tag"><i class="fa fa-tag"></i> MongoDB</a>
+              <a href="/tags/PyMongo/" rel="tag"><i class="fa fa-tag"></i> PyMongo</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/posts/spectral-clustering/" rel="prev" title="Spectral Clustering - 算法解析與numpy程式實作">
+                  <i class="fa fa-chevron-left"></i> Spectral Clustering - 算法解析與numpy程式實作
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Meng-Chieh Liu</span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="訪客總數">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="總瀏覽次數">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="回到頂端">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"MengChiehLiu/MengChiehLiu.github.io","issue_term":"pathname","theme":"github-light"}</script>
+<script src="/js/third-party/comments/utterances.js"></script>
+
+</body>
+</html>
