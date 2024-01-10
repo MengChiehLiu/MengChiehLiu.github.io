@@ -29,15 +29,6 @@
   </url>
   
   <url>
-    <loc>https://mengchiehliu.github.io/posts/flask-gunicorn-supervisor-docker/</loc>
-    
-    <lastmod>2023-06-13</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://mengchiehliu.github.io/posts/pymongo/</loc>
     
     <lastmod>2023-05-05</lastmod>
@@ -190,6 +181,13 @@
   </url>
   
   <url>
+    <loc>https://mengchiehliu.github.io/tags/Spectral-Clustering/</loc>
+    <lastmod>2024-01-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://mengchiehliu.github.io/tags/%E8%B3%87%E6%96%99%E7%B5%90%E6%A7%8B/</loc>
     <lastmod>2024-01-10</lastmod>
     <changefreq>weekly</changefreq>
@@ -197,63 +195,7 @@
   </url>
   
   <url>
-    <loc>https://mengchiehliu.github.io/tags/Bloom-Filters/</loc>
-    <lastmod>2024-01-10</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://mengchiehliu.github.io/tags/flask/</loc>
-    <lastmod>2024-01-10</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://mengchiehliu.github.io/tags/gunicorn/</loc>
-    <lastmod>2024-01-10</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://mengchiehliu.github.io/tags/nginx/</loc>
-    <lastmod>2024-01-10</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://mengchiehliu.github.io/tags/supervisor/</loc>
-    <lastmod>2024-01-10</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://mengchiehliu.github.io/tags/docker/</loc>
-    <lastmod>2024-01-10</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://mengchiehliu.github.io/tags/MongoDB/</loc>
-    <lastmod>2024-01-10</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://mengchiehliu.github.io/tags/PyMongo/</loc>
-    <lastmod>2024-01-10</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://mengchiehliu.github.io/tags/Spectral-Clustering/</loc>
+    <loc>https://mengchiehliu.github.io/tags/Bloom-Filter/</loc>
     <lastmod>2024-01-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -268,6 +210,20 @@
   
   <url>
     <loc>https://mengchiehliu.github.io/tags/LeetCode/</loc>
+    <lastmod>2024-01-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://mengchiehliu.github.io/tags/MongoDB/</loc>
+    <lastmod>2024-01-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://mengchiehliu.github.io/tags/PyMongo/</loc>
     <lastmod>2024-01-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -291,13 +247,6 @@
   
   <url>
     <loc>https://mengchiehliu.github.io/categories/DSA/</loc>
-    <lastmod>2024-01-10</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://mengchiehliu.github.io/categories/Web-Design/</loc>
     <lastmod>2024-01-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
