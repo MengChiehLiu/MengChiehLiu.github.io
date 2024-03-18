@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://mengchiehliu.github.io/posts/java-learning-02/</loc>
+    
+    <lastmod>2024-03-18</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://mengchiehliu.github.io/posts/java-learning-01/</loc>
     
     <lastmod>2024-03-18</lastmod>
@@ -180,14 +189,14 @@
   </url>
   
   <url>
-    <loc>https://mengchiehliu.github.io/tags/SEO/</loc>
+    <loc>https://mengchiehliu.github.io/tags/NexT/</loc>
     <lastmod>2024-03-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://mengchiehliu.github.io/tags/NexT/</loc>
+    <loc>https://mengchiehliu.github.io/tags/SEO/</loc>
     <lastmod>2024-03-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -244,6 +253,13 @@
   
   <url>
     <loc>https://mengchiehliu.github.io/tags/PyMongo/</loc>
+    <lastmod>2024-03-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://mengchiehliu.github.io/tags/OOP/</loc>
     <lastmod>2024-03-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
