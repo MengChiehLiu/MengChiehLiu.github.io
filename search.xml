@@ -1,72 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Hello Hexo！套用NexT主題打造簡潔頁面！(2)</title>
-    <url>/posts/Hello-Hexo-2/</url>
-    <content><![CDATA[<h1 id="NexT-介紹"><a href="#NexT-介紹" class="headerlink" title="NexT 介紹"></a>NexT 介紹</h1><p>NexT是一個相當受歡迎的Hexo主題，外觀簡潔、功能強大，且持續有在維護，今天會教大家如何套用NexT主題，並啟用標籤頁及站內搜尋等功能。<br>NexT 官網：<a href="https://theme-next.js.org/">https://theme-next.js.org/</a><br>NexT GitHub：<a href="https://github.com/next-theme/hexo-theme-next">https://github.com/next-theme/hexo-theme-next</a></p>
-<span id="more"></span>
-
-<h1 id="安裝-NexT"><a href="#安裝-NexT" class="headerlink" title="安裝 NexT"></a>安裝 NexT</h1><p>有兩個方法，第一個方法是透過npm</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm install hexo-theme-next</span><br></pre></td></tr></table></figure>
-<p>第二個方法是透過git</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git clone https://github.com/next-theme/hexo-theme-next themes/next</span><br></pre></td></tr></table></figure>
-<p>我個人是喜歡第二種方法(git)，因為資源為自動進到themes資料夾當中，如果使用第二種方法(npm)的話資源會跑到node_modules資料夾中，雖然在功能上不會有差異，但未來要對主題的config檔做調整時要找比較久。</p>
-<h1 id="套用主題"><a href="#套用主題" class="headerlink" title="套用主題"></a>套用主題</h1><p>到<strong>網頁</strong>的config檔(<code>/_config.yml</code>)，搜尋<strong>theme</strong>將主題設置成next就行了。<br><img src="/../images/2023/03/15/config_theme.png" alt="config_theme"></p>
-<p>另外Next其實有提供4種版面可以做選擇，分別是：💟 <a href="https://theme-next.js.org/muse/">Muse</a> | 🔯 <a href="https://theme-next.js.org/mist/">Mist</a> | ♓️ <a href="https://theme-next.js.org/pisces/">Pisces</a> | ♊️ <a href="https://theme-next.js.org/">Gemini</a></p>
-<p>大家可以點擊連結看看自己喜歡哪種版面，預設是使用Muse，如果要做更改的話，到<strong>主題</strong>的config檔(<code>themes/next/_config.yml</code>)中搜尋<strong>Schemes</strong>，將喜歡的佈局取消註解就可以了，另外下面的<strong>darkmode</strong>改成true的話則是可以讓網頁變成黑色模式。<br><img src="/../images/2023/03/15/next_schemes.png" alt="next_schemes"></p>
-<p>NexT也支援canvas背景動畫，我們可以在<strong>主題</strong>config檔搜尋<strong>canvas_ribbon</strong>，將下方的enable改為true，部屬後網頁背景就會出現酷炫的彩色絲帶動畫了～</p>
-<h1 id="添加頭像-avatar"><a href="#添加頭像-avatar" class="headerlink" title="添加頭像 avatar"></a>添加頭像 avatar</h1><ol>
-<li>把準備好的圖片放入<code>themes/next/source/images</code>或<code>source/images</code>當中。</li>
-<li>在<strong>主題</strong>config檔搜尋<strong>avatar</strong>，修改成自己準備的圖片路徑或者修改圖片名稱使其一致。<blockquote>
-<p>rounded改成true的話頭像會是圓形，rotated改成true的話滑鼠移到頭像上時會有快速旋轉的動畫。<br><img src="/../images/2023/03/15/next_avatar.png" alt="next_avatar"></p>
-</blockquote>
-</li>
-</ol>
-<h1 id="更改網站圖示-favicon"><a href="#更改網站圖示-favicon" class="headerlink" title="更改網站圖示 favicon"></a>更改網站圖示 favicon</h1><p>我們可以把網站圖示換成自己的圖片，官方文件中建議可以使用<a href="https://realfavicongenerator.net/">Favicon Generator</a>來生成客製化的網站圖示。</p>
-<ol>
-<li>把準備好的圖片放入<code>themes/next/source/images</code>或<code>source/images</code>當中。</li>
-<li>在<strong>主題</strong>config檔搜尋<strong>favicon</strong>，修改成自己準備的圖片路徑或者修改圖片名稱使其一致。<br><img src="/../images/2023/03/15/next_favicon.png" alt="next_favicon"></li>
-</ol>
-<h1 id="社群媒體連結-social-link"><a href="#社群媒體連結-social-link" class="headerlink" title="社群媒體連結 social link"></a>社群媒體連結 social link</h1><p>在<strong>主題</strong>config檔搜尋<strong>social</strong>，將自己的社群媒體連結填入並取消註解就可以了，下方的social_icon則可以設定是否顯示icon及icon外觀。<br><img src="/../images/2023/03/15/next_social.png" alt="next_social"></p>
-<p>Hexo NexT使用<a href="https://fontawesome.com/icons">Font Awesome</a>提供的icons，因此我們可以為新的連結挑選適合的icon，接下來我們來新增一個Linkedin連結看看(包含icon)。</p>
-<ol>
-<li>先到Font Awesome上搜尋Linkedin，選擇自己喜歡的icon，複製綠色的那段文字。<br><img src="/../images/2023/03/15/font_awesome_linkedin.png" alt="font_awesome_linkedin"></li>
-<li>依<code>標題: 連結 || 綠色文字</code>的格式在social下加入新的一行，舉例來說。<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Linkedin: https://www.linkedin.com/in/meng-chieh-liu-615952235/ || fa-brands fa-linkedin</span><br></pre></td></tr></table></figure></li>
-</ol>
-<h1 id="啟用功能選單-Menu"><a href="#啟用功能選單-Menu" class="headerlink" title="啟用功能選單 Menu"></a>啟用功能選單 Menu</h1><p>在<strong>主題</strong>config檔搜尋<strong>menu</strong>，可以看到NexT預先幫我們建立好許多功能選單，其中home跟archives是預設就開啟的，我們可以取消註解來啟用其他功能選單，但目前那些頁面還是空的喔！所以我們的下一步就是要建立相應的分頁。<br><img src="/../images/2023/03/15/next_menu.png" alt="next_menu"></p>
-<p>這邊介紹如何建立tags&#x2F;categories頁面：</p>
-<ol>
-<li><p>建立新頁面</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo new page &quot;tags&quot;</span><br><span class="line">hexo new page &quot;categories&quot;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>找到<code>source/tags/index.md</code>檔案，在檔案中加入<code>type: &quot;tags&quot;</code>，注意這裡的tags要加<strong>雙引號</strong>！！！<br>(categories比照辦理)<br><img src="/../images/2023/03/15/tags.png" alt="tags"></p>
-</li>
-<li><p>在post裡面加入tags&#x2F;categories，重新部署後這些tags&#x2F;categories就會出現對應的頁面上啦～<br><img src="/../images/2023/03/15/post_tags.png" alt="post_tags"></p>
-</li>
-</ol>
-<h1 id="站內搜尋功能-local-search"><a href="#站內搜尋功能-local-search" class="headerlink" title="站內搜尋功能 local search"></a>站內搜尋功能 local search</h1><ol>
-<li><p>安裝<code>hexo-generator-searchdb</code>套件</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm install hexo-generator-searchdb</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>在<strong>主題</strong>config檔搜尋<strong>local_search</strong>，將enable調為true。<br><img src="/../images/2023/03/15/next_local_search.png" alt="next_local_search"></p>
-</li>
-<li><p>在<strong>網頁</strong>config檔加入下面設置。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">search:</span><br><span class="line">  path: search.xml</span><br><span class="line">  field: post</span><br><span class="line">  format: html</span><br><span class="line">  limit: 10000</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>重新部署後就能開始使用站內搜尋啦～<br><img src="/../images/2023/03/15/local_search.png" alt="local_search"></p>
-</li>
-</ol>
-<h1 id="預告"><a href="#預告" class="headerlink" title="預告"></a>預告</h1><p>下一篇文章將會帶大家做SEO，設定keywords與sitemap讓Google搜的到我們的部落格&#x2F;文章。</p>
-]]></content>
-      <categories>
-        <category>Hexo</category>
-      </categories>
-      <tags>
-        <tag>Hexo</tag>
-        <tag>NexT</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Hello Hexo！用Hexo在GitHub Pages上架設個人部落格吧！(1)</title>
     <url>/posts/Hello-Hexo-1/</url>
     <content><![CDATA[<h1 id="Hexo-介紹"><a href="#Hexo-介紹" class="headerlink" title="Hexo 介紹"></a>Hexo 介紹</h1><p>Hexo 是一個基於Node.js 的自動化部落格部署框架，有近400種網頁主題可供選擇，支援Markdown語言撰寫文章內容而且部署相當迅速，簡直是自己架設部落格的必備神器呀！什麼？你說之前沒用過Node.js怎麼辦？沒關係，因為我之前也沒用過XD。事實上，只要掌握幾個基本的指令，就能夠架出漂漂亮亮、功能齊全的個人部落格囉！就讓我們一起看下去吧～<br>Hexo 官網：<a href="https://hexo.io/zh-cn/">https://hexo.io/zh-cn/</a><br>Hexo GitHub：<a href="https://github.com/hexojs/hexo">https://github.com/hexojs/hexo</a></p>
@@ -178,6 +112,100 @@
       </tags>
   </entry>
   <entry>
+    <title>Hello Hexo！NexT 主題太單調？跟著這些美化步驟為部落格加入個人風格！(5)</title>
+    <url>/posts/Hello-Hexo-5/</url>
+    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p><img src="/../images/2023/04/17/cover.png" alt="cover"></p>
+<p>Hexo Next雖然已經將許多常見的設定整合到主題當中，但大家都採用一樣的設定的話其實挺無聊的，所以今天要在Hexo Next的基礎上帶大家來美化自己的部落格，為部落格加入<strong>個人風格</strong>，如果還不知道Hexo或者NexT是什麼可以參考我之前寫的<a href="/categories/Hexo/">Hello Hexo！</a>系列文章。 </p>
+<span id="more"></span>
+
+<h1 id="大綱"><a href="#大綱" class="headerlink" title="大綱"></a>大綱</h1><ul>
+<li><a href="#%E5%A5%97%E7%94%A8%E8%83%8C%E6%99%AF%E5%9C%96%E7%89%87">套用背景圖片</a></li>
+<li><a href="#%E8%AA%BF%E6%95%B4%E5%8D%80%E5%A1%8A%E9%80%8F%E6%98%8E%E5%BA%A6">調整區塊透明度</a></li>
+<li><a href="#%E8%A8%AD%E7%BD%AE%E5%8D%80%E5%A1%8A%E5%9C%93%E8%A7%92">設置區塊圓角</a></li>
+<li><a href="#%E6%96%87%E7%AB%A0%E5%8D%80%E5%A1%8A%E7%89%88%E9%9D%A2%E5%AF%AC%E5%BA%A6">文章區塊版面寬度</a></li>
+<li><a href="#%E7%A8%8B%E5%BC%8F%E7%A2%BC%E5%8D%80%E5%A1%8A%E4%B8%BB%E9%A1%8C">程式碼區塊主題</a></li>
+<li><a href="#%E8%AE%8A%E6%9B%B4%E6%96%87%E5%AD%97%E6%A8%A3%E5%BC%8F">變更文字樣式</a></li>
+<li><a href="#%E8%AE%8A%E6%9B%B4%E5%AD%97%E9%AB%94%E9%A1%9E%E5%9E%8B">變更字體類型</a></li>
+<li><a href="#%E5%9C%96%E7%89%87%E6%94%BE%E5%A4%A7%E6%AA%A2%E8%A6%96">圖片放大檢視</a></li>
+</ul>
+<h1 id="功能"><a href="#功能" class="headerlink" title="功能"></a>功能</h1><h2 id="套用背景圖片"><a href="#套用背景圖片" class="headerlink" title="套用背景圖片"></a>套用背景圖片</h2><ol>
+<li>準備一張圖片放到<code>themes/next/source/images/</code>路徑中。</li>
+<li>到<code>themes/next/_config.yml</code>中，找到<code>custom_file_path</code>，將<code>style</code>的註解取消掉。<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">custom_file_path:</span></span><br><span class="line">  <span class="comment">#head: source/_data/head.njk</span></span><br><span class="line">  <span class="comment">#header: source/_data/header.njk</span></span><br><span class="line">  <span class="comment">#sidebar: source/_data/sidebar.njk</span></span><br><span class="line">  <span class="comment">#postMeta: source/_data/post-meta.njk</span></span><br><span class="line">  <span class="comment">#postBodyEnd: source/_data/post-body-end.njk</span></span><br><span class="line">  <span class="comment">#footer: source/_data/footer.njk</span></span><br><span class="line">  <span class="comment">#bodyEnd: source/_data/body-end.njk</span></span><br><span class="line">  <span class="comment">#variable: source/_data/variables.styl</span></span><br><span class="line">  <span class="comment">#mixin: source/_data/mixins.styl</span></span><br><span class="line">  <span class="attr">style:</span> <span class="string">source/_data/styles.styl</span></span><br></pre></td></tr></table></figure></li>
+<li>在<code>source</code>內新增<code>_data</code>資料夾(<strong>注意是blog的，不是next裡面的!</strong>)，接著在裡面新增一個<code>styles.styl</code>文件。</li>
+<li>在<code>styles.styl</code>中加入:<figure class="highlight styl"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">body</span> &#123;</span><br><span class="line">  <span class="attribute">background</span>:<span class="built_in">url</span>(/images/background.jpg);  <span class="comment">// 背景圖片位置</span></span><br><span class="line">  <span class="attribute">background-repeat</span>: no-repeat;</span><br><span class="line">  <span class="attribute">background-attachment</span>: fixed;            <span class="comment">// 是否滾動，fixed固定</span></span><br><span class="line">  <span class="attribute">background-size</span>: cover;                  <span class="comment">// 填滿畫面</span></span><br><span class="line">  <span class="attribute">background-position</span>: center;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="調整區塊透明度"><a href="#調整區塊透明度" class="headerlink" title="調整區塊透明度"></a>調整區塊透明度</h2><p>套用背景圖片後，你可能會發現你的圖片大部分都被區塊擋住了!為了讓大家看到你美美的圖片，所以我們要來調整一下區跨的透明度，網路上很多調整透明度的方法都沒有用我試過了，最後在<a href="https://hui-shao.cn/next-transparent-background/" title="{rel=&#39;nofollow&#39;}">這篇文章</a>中找到讓我滿意的效果，這邊直接講結論，在<code>styles.styl</code>加入:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">:root &#123;</span><br><span class="line">  --content-bg-color:#ffffffe6;  // 白色半透明</span><br><span class="line">  --content-bg-color:#000000e6;  // 黑色半透明，兩者擇一</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>補充: 上面的設定是直接將區塊換成指定顏色，如果有開啟深色模式可以用黑色半透明，如果沒有的話可以用白色半透明，但切記不要混者用，否則文字會看不清楚。</p>
+</blockquote>
+<h2 id="設置區塊圓角"><a href="#設置區塊圓角" class="headerlink" title="設置區塊圓角"></a>設置區塊圓角</h2><ol>
+<li><p>到<code>themes/next/_config.yml</code>中，找到<code>custom_file_path</code>，將<code>variable</code>的註解也取消掉。</p>
+<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">custom_file_path:</span></span><br><span class="line">  <span class="comment">#head: source/_data/head.njk</span></span><br><span class="line">  <span class="comment">#header: source/_data/header.njk</span></span><br><span class="line">  <span class="comment">#sidebar: source/_data/sidebar.njk</span></span><br><span class="line">  <span class="comment">#postMeta: source/_data/post-meta.njk</span></span><br><span class="line">  <span class="comment">#postBodyEnd: source/_data/post-body-end.njk</span></span><br><span class="line">  <span class="comment">#footer: source/_data/footer.njk</span></span><br><span class="line">  <span class="comment">#bodyEnd: source/_data/body-end.njk</span></span><br><span class="line">  <span class="attr">variable:</span> <span class="string">source/_data/variables.styl</span></span><br><span class="line">  <span class="comment">#mixin: source/_data/mixins.styl</span></span><br><span class="line">  <span class="attr">style:</span> <span class="string">source/_data/styles.styl</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在<code>source</code>內新增<code>_data</code>資料夾(<strong>注意是blog的，不是next裡面的!</strong>)，接著在裡面新增一個<code>variables.styl</code>文件。</p>
+</li>
+<li><p>在<code>variables.styl</code>中加入:</p>
+<figure class="highlight styl"><table><tr><td class="code"><pre><span class="line"><span class="variable">$border</span>-radius-inner     = <span class="number">30px</span> <span class="number">30px</span> <span class="number">30px</span> <span class="number">30px</span>;  <span class="comment">// (內角) 左上 右上 右下 左下</span></span><br><span class="line"><span class="variable">$border</span>-radius           = <span class="number">30px</span>;                 <span class="comment">// (外角) 只填一個數字表示4個角</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="文章區塊版面寬度"><a href="#文章區塊版面寬度" class="headerlink" title="文章區塊版面寬度"></a>文章區塊版面寬度</h2><p>我們先來看一下預設的寬度(指的是網頁版，手機或平板都是用響應式網頁):</p>
+<ul>
+<li>Muse &#x2F; Mist<figure class="highlight styl"><table><tr><td class="code"><pre><span class="line"><span class="variable">$content</span>-desktop         = <span class="number">700px</span>   <span class="comment">// when screen width &lt; 1200px</span></span><br><span class="line"><span class="variable">$content</span>-desktop-large   = <span class="number">800px</span>   <span class="comment">// when screen width &gt;= 1200px</span></span><br><span class="line"><span class="variable">$content</span>-desktop-largest = <span class="number">900px</span>   <span class="comment">// when screen width &gt;= 1600px</span></span><br></pre></td></tr></table></figure></li>
+<li>Pisces &#x2F; Gemini<figure class="highlight styl"><table><tr><td class="code"><pre><span class="line"><span class="variable">$content</span>-desktop         = <span class="string">&#x27;calc(100% - %s)&#x27;</span> % <span class="built_in">unit</span>(<span class="variable">$content</span>-desktop-<span class="attribute">padding</span> / <span class="number">2</span>, <span class="string">&#x27;px&#x27;</span>)</span><br><span class="line"><span class="variable">$content</span>-desktop-large   = <span class="number">1160px</span></span><br><span class="line"><span class="variable">$content</span>-desktop-largest = <span class="number">73%</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>可以看到不同主題的寬度定義方式不太一樣，如果要更改的話，我們可以到<code>variables.styl</code>中把預設的寬度覆蓋掉，舉例來說我使用Gemini，下面是我採用的設定:</p>
+<figure class="highlight styl"><table><tr><td class="code"><pre><span class="line"><span class="variable">$content</span>-desktop         = <span class="number">90%</span>  <span class="comment">// 可以用百分比</span></span><br><span class="line"><span class="variable">$content</span>-desktop-large   = <span class="number">80%</span>  <span class="comment">// 也可用絕對數值 ex: 1000px</span></span><br></pre></td></tr></table></figure>
+
+
+<h2 id="程式碼區塊主題"><a href="#程式碼區塊主題" class="headerlink" title="程式碼區塊主題"></a>程式碼區塊主題</h2><p>Hexo提供了<code>highlight.js</code>以及<code>prism.js</code>兩種程式碼區塊主題engine，可以參考<a href="https://theme-next.js.org/highlight/" title="{rel=&#39;nofollow&#39;}">NexT Highlight Theme Preview</a>來做挑選，以下已我自己套用<code>highlight.js</code>中的<code>night-owl</code>主題為例。</p>
+<ol>
+<li><p>到<code>_config.yml</code>中(不是next裡的)，找到<code>highlight</code>，將<code>enable</code>改成true。</p>
+<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">highlight:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">line_number:</span> <span class="literal">true</span>   <span class="comment"># 是否顯示行數</span></span><br><span class="line">  <span class="attr">auto_detect:</span> <span class="literal">false</span>  <span class="comment"># 是否自動偵測語言(建議不要開，聽說很吃效能)</span></span><br><span class="line">  <span class="attr">tab_replace:</span> <span class="string">&#x27;&#x27;</span></span><br><span class="line">  <span class="attr">wrap:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">hljs:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">prismjs:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">false</span>       <span class="comment"># 如果是用prismjs的話那就是這裡改true，不要同時開兩個</span></span><br><span class="line">  <span class="attr">preprocess:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">line_number:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">tab_replace:</span> <span class="string">&#x27;&#x27;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>到<code>themes/next/_config.yml</code>中，找到<code>codeblock</code>，根據是否開啟深色模式來填入主題名稱。</p>
+<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">codeblock:</span></span><br><span class="line">  <span class="attr">theme:</span>                      <span class="comment"># highlight.js 改這</span></span><br><span class="line">    <span class="attr">light:</span> <span class="string">night-owl</span>          <span class="comment"># (範例)淺色模式下套用night-owl </span></span><br><span class="line">    <span class="attr">dark:</span> <span class="string">stackoverflow-dark</span></span><br><span class="line">  <span class="attr">prism:</span>                      <span class="comment"># prism.js 改這</span></span><br><span class="line">    <span class="attr">light:</span> <span class="string">prism</span></span><br><span class="line">    <span class="attr">dark:</span> <span class="string">prism-dark</span></span><br><span class="line">  <span class="attr">copy_button:</span></span><br><span class="line">    <span class="attr">enable:</span> <span class="literal">false</span>             <span class="comment"># 是否顯示複製按鈕</span></span><br><span class="line">    <span class="attr">style:</span>                    <span class="comment"># 風格(Available values: default | flat | mac)</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="變更文字樣式"><a href="#變更文字樣式" class="headerlink" title="變更文字樣式"></a>變更文字樣式</h2><p>這部分主要是分享我在網路上找到的，覺得很不錯的設定，以下修改都是加在<code>source/_data/styles.styl</code>中。</p>
+<ol>
+<li><p>短網址樣式</p>
+<figure class="highlight styl"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">code</span> &#123;</span><br><span class="line">    <span class="attribute">color</span>: <span class="number">#c7254e</span>; <span class="comment">//文字顏色</span></span><br><span class="line">    <span class="attribute">background</span>: <span class="number">#f9f2f4</span>; <span class="comment">//底色</span></span><br><span class="line">    <span class="attribute">margin</span>: <span class="number">2px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>內文連結樣式</p>
+<figure class="highlight styl"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.post-body</span> <span class="selector-tag">p</span> a&#123;</span><br><span class="line">  <span class="attribute">color</span>: <span class="number">#0593d3</span>;</span><br><span class="line">  <span class="attribute">border-bottom</span>: none;</span><br><span class="line">  <span class="attribute">border-bottom</span>: <span class="number">1px</span> solid <span class="number">#0593d3</span>;</span><br><span class="line">  <span class="selector-pseudo">&amp;:hover</span> &#123;</span><br><span class="line">    <span class="attribute">color</span>: <span class="number">#fc6423</span>;</span><br><span class="line">    <span class="attribute">border-bottom</span>: none;</span><br><span class="line">    <span class="attribute">border-bottom</span>: <span class="number">1px</span> solid <span class="number">#fc6423</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>修改選中文字底色</p>
+<figure class="highlight styl"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* webkit, opera, IE9 */</span></span><br><span class="line"><span class="selector-pseudo">::selection</span> &#123; </span><br><span class="line">    <span class="attribute">background</span>: <span class="number">#00c4b6</span>;</span><br><span class="line">    <span class="attribute">color</span>: <span class="number">#f7f7f7</span>; </span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* firefox */</span></span><br><span class="line">::-moz-selection &#123; </span><br><span class="line">    <span class="attribute">background</span>: <span class="number">#00c4b6</span>;</span><br><span class="line">    <span class="attribute">color</span>: <span class="number">#f7f7f7</span>;    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>修改頁腳配色</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">//頁腳統計文字顏色</span><br><span class="line">.footer&#123;</span><br><span class="line">  color: #F0D784</span><br><span class="line">&#125;</span><br><span class="line">//修改頁腳備案鏈接顏色</span><br><span class="line">.footer a&#123;</span><br><span class="line">  color: #F0D784</span><br><span class="line">&#125;</span><br><span class="line">//修改頁腳統計人數的顏色</span><br><span class="line">.footer .with-love&#123;</span><br><span class="line">  color: #F0D784</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="變更字體類型"><a href="#變更字體類型" class="headerlink" title="變更字體類型"></a>變更字體類型</h2><p>NexT可以直接使用<a href="https://fonts.google.com/" title="{rel=&#39;nofollow&#39;}">Google Fonts</a>提供的字體，但如果你使用的是繁體中文的話，你會發現其實也就只有兩種可以選而已XDDD，NexT預設是使用<strong>微軟正黑體</strong>，另外一種是<strong>唐宋思源體</strong>，我們今天就來試者把字體換成唐宋思源體看看吧!</p>
+<ol>
+<li>到<code>themes/next/_config.yml</code>中，找到<code>font</code>將<code>enable</code>改成<code>true</code>，接著更改<code>global</code>的設定(後面的不用改)。<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">font:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span>              <span class="comment"># 設成true</span></span><br><span class="line">  <span class="attr">host:</span> </span><br><span class="line">  <span class="attr">global:</span></span><br><span class="line">    <span class="attr">external:</span> <span class="literal">true</span>          <span class="comment"># 設成true</span></span><br><span class="line">    <span class="attr">family:</span> <span class="string">Noto</span> <span class="string">Serif</span> <span class="string">TC</span>   <span class="comment"># 唐宋思源體(TC: Traditional Chinese)</span></span><br><span class="line">    <span class="attr">size:</span>                   <span class="comment"># 字體大小，默認為1（16px）</span></span><br></pre></td></tr></table></figure></li>
+<li>這邊特別說明<code>host</code>部分，在台灣基本上是不用設，但因為預設的host是Google的api，所以大陸地區的用戶在看我們的網站時可能會遇到一些穩定性上的問題?如果你部落格的target是整個大中華地區的話可以另外設個host，這邊提供<a href="https://github.com/cdnjs/cdnjs" title="{rel=&#39;nofollow&#39;}">cdnjs</a>的鏡像api給有需要的人:<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">host:</span> <span class="string">https://fonts.loli.net</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<blockquote>
+<p>補充: 你可能會想問「如果我想要用的字體Google Fonts沒有提供怎麼辦?」，其實也是有辦法使用本地的字體喔，不過這部分稍微麻煩一丟丟，所以之後另外寫一篇文章介紹!</p>
+</blockquote>
+<h2 id="圖片放大檢視"><a href="#圖片放大檢視" class="headerlink" title="圖片放大檢視"></a>圖片放大檢視</h2><p>NexT目前提供兩種片放大檢視的工具，分別是<a href="https://fancyapps.com/fancybox/" title="{rel=&#39;nofollow&#39;}">FancyBox</a>以及<a href="https://medium-zoom.francoischalifour.com/" title="{rel=&#39;nofollow&#39;}">Medium Zoom</a>，可以看一下自己喜歡哪種。</p>
+<p>到<code>themes/next/_config.yml</code>中找到<code>fancybox</code>&#x2F;<code>mediumzoom</code>，將其改為<code>true</code>，注意不要同時開啟兩個功能!!!</p>
+<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">fancybox:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">mediumzoom:</span> <span class="literal">false</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>補充: FancyBox的功能比較多且可以顯示註解，不過有<a href="https://github.com/ppoffice/hexo-theme-icarus/issues/868" title="{rel=&#39;nofollow&#39;}">issue</a>表示FancyBox對於行動裝置似乎不是很友好? 不知道改了沒，Medium Zoom就跟Medium放大圖片的功能一樣，介面比較簡潔。</p>
+</blockquote>
+<h1 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h1><p>文章內容大多是網路上的資料整理而來，再加上自己的採坑經驗，如果有遺漏來源的話再麻煩告知補上!</p>
+<ul>
+<li><a href="https://zenreal.github.io/posts/44730/" title="{rel=&#39;nofollow&#39;}">最新 Hexo NexT v7.4.1 主題優化</a></li>
+<li><a href="https://hui-shao.cn/next-transparent-background/" title="{rel=&#39;nofollow&#39;}">Hexo + NexT8主题配置透明背景过程踩坑小记</a></li>
+<li><a href="https://spartazhc.github.io/2020/06/03/Next%E4%B8%BB%E9%A2%98%E5%AD%97%E4%BD%93%E9%85%8D%E7%BD%AE/" title="{rel=&#39;nofollow&#39;}">Next主题字体配置</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>Hexo</category>
+      </categories>
+  </entry>
+  <entry>
     <title>Hello Hexo！簡單三步驟搞定Google SEO和Bing SEO！(3)</title>
     <url>/posts/Hello-Hexo-3/</url>
     <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p><img src="/../images/2023/04/11/google_bing.png" alt="google and bing logo"></p>
@@ -213,6 +241,72 @@
       <tags>
         <tag>Hexo</tag>
         <tag>SEO</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hello Hexo！套用NexT主題打造簡潔頁面！(2)</title>
+    <url>/posts/Hello-Hexo-2/</url>
+    <content><![CDATA[<h1 id="NexT-介紹"><a href="#NexT-介紹" class="headerlink" title="NexT 介紹"></a>NexT 介紹</h1><p>NexT是一個相當受歡迎的Hexo主題，外觀簡潔、功能強大，且持續有在維護，今天會教大家如何套用NexT主題，並啟用標籤頁及站內搜尋等功能。<br>NexT 官網：<a href="https://theme-next.js.org/">https://theme-next.js.org/</a><br>NexT GitHub：<a href="https://github.com/next-theme/hexo-theme-next">https://github.com/next-theme/hexo-theme-next</a></p>
+<span id="more"></span>
+
+<h1 id="安裝-NexT"><a href="#安裝-NexT" class="headerlink" title="安裝 NexT"></a>安裝 NexT</h1><p>有兩個方法，第一個方法是透過npm</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm install hexo-theme-next</span><br></pre></td></tr></table></figure>
+<p>第二個方法是透過git</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git clone https://github.com/next-theme/hexo-theme-next themes/next</span><br></pre></td></tr></table></figure>
+<p>我個人是喜歡第二種方法(git)，因為資源為自動進到themes資料夾當中，如果使用第二種方法(npm)的話資源會跑到node_modules資料夾中，雖然在功能上不會有差異，但未來要對主題的config檔做調整時要找比較久。</p>
+<h1 id="套用主題"><a href="#套用主題" class="headerlink" title="套用主題"></a>套用主題</h1><p>到<strong>網頁</strong>的config檔(<code>/_config.yml</code>)，搜尋<strong>theme</strong>將主題設置成next就行了。<br><img src="/../images/2023/03/15/config_theme.png" alt="config_theme"></p>
+<p>另外Next其實有提供4種版面可以做選擇，分別是：💟 <a href="https://theme-next.js.org/muse/">Muse</a> | 🔯 <a href="https://theme-next.js.org/mist/">Mist</a> | ♓️ <a href="https://theme-next.js.org/pisces/">Pisces</a> | ♊️ <a href="https://theme-next.js.org/">Gemini</a></p>
+<p>大家可以點擊連結看看自己喜歡哪種版面，預設是使用Muse，如果要做更改的話，到<strong>主題</strong>的config檔(<code>themes/next/_config.yml</code>)中搜尋<strong>Schemes</strong>，將喜歡的佈局取消註解就可以了，另外下面的<strong>darkmode</strong>改成true的話則是可以讓網頁變成黑色模式。<br><img src="/../images/2023/03/15/next_schemes.png" alt="next_schemes"></p>
+<p>NexT也支援canvas背景動畫，我們可以在<strong>主題</strong>config檔搜尋<strong>canvas_ribbon</strong>，將下方的enable改為true，部屬後網頁背景就會出現酷炫的彩色絲帶動畫了～</p>
+<h1 id="添加頭像-avatar"><a href="#添加頭像-avatar" class="headerlink" title="添加頭像 avatar"></a>添加頭像 avatar</h1><ol>
+<li>把準備好的圖片放入<code>themes/next/source/images</code>或<code>source/images</code>當中。</li>
+<li>在<strong>主題</strong>config檔搜尋<strong>avatar</strong>，修改成自己準備的圖片路徑或者修改圖片名稱使其一致。<blockquote>
+<p>rounded改成true的話頭像會是圓形，rotated改成true的話滑鼠移到頭像上時會有快速旋轉的動畫。<br><img src="/../images/2023/03/15/next_avatar.png" alt="next_avatar"></p>
+</blockquote>
+</li>
+</ol>
+<h1 id="更改網站圖示-favicon"><a href="#更改網站圖示-favicon" class="headerlink" title="更改網站圖示 favicon"></a>更改網站圖示 favicon</h1><p>我們可以把網站圖示換成自己的圖片，官方文件中建議可以使用<a href="https://realfavicongenerator.net/">Favicon Generator</a>來生成客製化的網站圖示。</p>
+<ol>
+<li>把準備好的圖片放入<code>themes/next/source/images</code>或<code>source/images</code>當中。</li>
+<li>在<strong>主題</strong>config檔搜尋<strong>favicon</strong>，修改成自己準備的圖片路徑或者修改圖片名稱使其一致。<br><img src="/../images/2023/03/15/next_favicon.png" alt="next_favicon"></li>
+</ol>
+<h1 id="社群媒體連結-social-link"><a href="#社群媒體連結-social-link" class="headerlink" title="社群媒體連結 social link"></a>社群媒體連結 social link</h1><p>在<strong>主題</strong>config檔搜尋<strong>social</strong>，將自己的社群媒體連結填入並取消註解就可以了，下方的social_icon則可以設定是否顯示icon及icon外觀。<br><img src="/../images/2023/03/15/next_social.png" alt="next_social"></p>
+<p>Hexo NexT使用<a href="https://fontawesome.com/icons">Font Awesome</a>提供的icons，因此我們可以為新的連結挑選適合的icon，接下來我們來新增一個Linkedin連結看看(包含icon)。</p>
+<ol>
+<li>先到Font Awesome上搜尋Linkedin，選擇自己喜歡的icon，複製綠色的那段文字。<br><img src="/../images/2023/03/15/font_awesome_linkedin.png" alt="font_awesome_linkedin"></li>
+<li>依<code>標題: 連結 || 綠色文字</code>的格式在social下加入新的一行，舉例來說。<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Linkedin: https://www.linkedin.com/in/meng-chieh-liu-615952235/ || fa-brands fa-linkedin</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h1 id="啟用功能選單-Menu"><a href="#啟用功能選單-Menu" class="headerlink" title="啟用功能選單 Menu"></a>啟用功能選單 Menu</h1><p>在<strong>主題</strong>config檔搜尋<strong>menu</strong>，可以看到NexT預先幫我們建立好許多功能選單，其中home跟archives是預設就開啟的，我們可以取消註解來啟用其他功能選單，但目前那些頁面還是空的喔！所以我們的下一步就是要建立相應的分頁。<br><img src="/../images/2023/03/15/next_menu.png" alt="next_menu"></p>
+<p>這邊介紹如何建立tags&#x2F;categories頁面：</p>
+<ol>
+<li><p>建立新頁面</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo new page &quot;tags&quot;</span><br><span class="line">hexo new page &quot;categories&quot;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>找到<code>source/tags/index.md</code>檔案，在檔案中加入<code>type: &quot;tags&quot;</code>，注意這裡的tags要加<strong>雙引號</strong>！！！<br>(categories比照辦理)<br><img src="/../images/2023/03/15/tags.png" alt="tags"></p>
+</li>
+<li><p>在post裡面加入tags&#x2F;categories，重新部署後這些tags&#x2F;categories就會出現對應的頁面上啦～<br><img src="/../images/2023/03/15/post_tags.png" alt="post_tags"></p>
+</li>
+</ol>
+<h1 id="站內搜尋功能-local-search"><a href="#站內搜尋功能-local-search" class="headerlink" title="站內搜尋功能 local search"></a>站內搜尋功能 local search</h1><ol>
+<li><p>安裝<code>hexo-generator-searchdb</code>套件</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm install hexo-generator-searchdb</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在<strong>主題</strong>config檔搜尋<strong>local_search</strong>，將enable調為true。<br><img src="/../images/2023/03/15/next_local_search.png" alt="next_local_search"></p>
+</li>
+<li><p>在<strong>網頁</strong>config檔加入下面設置。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">search:</span><br><span class="line">  path: search.xml</span><br><span class="line">  field: post</span><br><span class="line">  format: html</span><br><span class="line">  limit: 10000</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>重新部署後就能開始使用站內搜尋啦～<br><img src="/../images/2023/03/15/local_search.png" alt="local_search"></p>
+</li>
+</ol>
+<h1 id="預告"><a href="#預告" class="headerlink" title="預告"></a>預告</h1><p>下一篇文章將會帶大家做SEO，設定keywords與sitemap讓Google搜的到我們的部落格&#x2F;文章。</p>
+]]></content>
+      <categories>
+        <category>Hexo</category>
+      </categories>
+      <tags>
+        <tag>Hexo</tag>
+        <tag>NexT</tag>
       </tags>
   </entry>
   <entry>
@@ -362,128 +456,198 @@
       </tags>
   </entry>
   <entry>
-    <title>系統架構筆記 - 垂直擴展、水平擴展</title>
-    <url>/posts/scaling/</url>
-    <content><![CDATA[<p><img src="/../images/2024/01/17/scaling.png" alt="scaling"></p>
-<p>這篇文章會介紹垂直擴展以及水平擴展，並以資料庫的水平擴展為延伸，介紹讀寫分離與資料庫切分 (Sharding)。</p>
+    <title>資料結構筆記 - 布隆過濾器 Bloom Filter</title>
+    <url>/posts/bloom-filter/</url>
+    <content><![CDATA[<p><img src="/../images/2024/01/10/bloom-filter-new.png" alt="bloom-filter"></p>
+<h1 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h1><ul>
+<li>用途: 用來快速判斷元素是否存在於一個集合中</li>
+<li>優點: 快速、節省空間</li>
+<li>缺點: 可能有 false positive (不存在但判定為存在)</li>
+<li>應用: <ul>
+<li>Check Duplicate: name、email 等是否已被使用</li>
+<li>Filters: 過濾惡意請求 (ex: <a href="https://www.explainthis.io/zh-hant/swe/cache-mechanism">Cache penetration</a>)、垃圾郵件等</li>
+</ul>
+</li>
+</ul>
 <span id="more"></span>
 
-<h1 id="垂直擴展"><a href="#垂直擴展" class="headerlink" title="垂直擴展"></a>垂直擴展</h1><p>這台機器不行那我就換一台更好的。<br>其實就是升級硬體，好處就是簡單直接，能用垂擴展解決那就優先考慮垂直擴展吧。但垂直擴展是有極限的，而且越好的機器越貴，這時就可以考慮水平擴展。</p>
-<h1 id="水平擴展"><a href="#水平擴展" class="headerlink" title="水平擴展"></a>水平擴展</h1><p>一台機器不行那我就多用幾台。<br>要實現伺服器的水平擴展比較容易，不外乎就是多開幾台機器，然後做好 load balance，這裡重點介紹<strong>資料庫</strong>的水平擴展，大致上可以分為兩個策略：</p>
-<h2 id="讀寫分離"><a href="#讀寫分離" class="headerlink" title="讀寫分離"></a>讀寫分離</h2><p>在原本的資料庫 (主節點) 外添加幾個從資料庫 (從節點) ，向主節點寫入資料，讀取時則優先自從節點讀取。讀寫分離會遇到幾個問題： </p>
+<h1 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h1><p>對元素使用 k 個 Hash Functions，將其映射到長度為 m 的 Array 中，寫入時將映射到的 k 個位置標示為 1，檢查時如果映射到的 k 個位置都命中，表示該元素<strong>可能存在</strong>。</p>
 <ol>
-<li><strong>最終一致性問題</strong><br>  由於從節點的數據是自主節點同步過來，因此中間勢必存在一時間差，可能導致從節點的數據不是最即時的數據，因此從節點的數據僅滿足最終一致性。</li>
-<li><strong>單個主節點</strong><br>  由於主節點仍然只有一個，如果遇到需要大量寫入的作業仍然會出現堵塞，這時候可能要考慮多個主節點的架構，不過就跟前一點一樣會遇到資料同步的問題，還需要考慮同時有多個寫入情況下的 race condition。</li>
+<li><p>由預期的 <strong>False positive rate (p)</strong> 以及存入的<strong>資料筆數 (n)</strong> 來求出 <strong>Array Size (m)</strong> 以及 <strong>Hash Functions數 (k)</strong></p>
+<ul>
+<li><strong>False positive rate</strong><br>  <img src="/../images/2024/01/10/false-positive-probability.png" alt="false-positive-probability"></li>
+<li><strong>Array size</strong><br>  <img src="/../images/2024/01/10/array-size.png" alt="array-size"></li>
+<li><strong>Number of hash functions</strong><br>  <img src="/../images/2024/01/10/number-of-hash-functions.png" alt="number-of-hash-functions"></li>
+</ul>
+</li>
+<li><p>選擇 Hash function<br>可以使用 <strong>Non-Cryptographic Hash</strong> (非密碼雜湊函數)，雖然有 collision 的可能，但足夠好了，而且比較快。<br>例如: MurmurHash、FarmHash、SpookyHash</p>
+</li>
 </ol>
-<h2 id="資料庫切分-Partitioning-x2F-Sharding"><a href="#資料庫切分-Partitioning-x2F-Sharding" class="headerlink" title="資料庫切分 (Partitioning &#x2F; Sharding)"></a>資料庫切分 (Partitioning &#x2F; Sharding)</h2><p>將一個資料庫 (大資料表) 分割為多個小資料表，並將其儲存在不同節點上，又可以分為<strong>垂直切分</strong>與<strong>水平切分</strong>：<br><img src="/../images/2024/01/17/sharding.png" alt="sharding"></p>
-<h3 id="垂直切分"><a href="#垂直切分" class="headerlink" title="垂直切分"></a>垂直切分</h3><p>按照欄位來進行切分，通常可以按照業務功能來做切割，如電商平台中的買家資訊與賣家資訊就可以分開儲存。</p>
-<h3 id="水平切分"><a href="#水平切分" class="headerlink" title="水平切分"></a>水平切分</h3><p>按照列來進行切分，主要有兩種切分方法：</p>
-<ol>
-<li><strong>按一定範圍切分</strong><br>舉例來說 ID &lt;&#x3D; 10000 為第一個表，接著每 10000 筆資料為一個表，這個做法的好處是<strong>容易新增表</strong>，壞處是<strong>較差的附載平衡</strong>，因為新資料與舊資料的活躍度可能有很大的差異。</li>
-<li><strong>使用哈希表切分</strong><br>將 ID 放入一個 Hash Function 中，如 <code>10 % 3 = 1</code>，根據 Hash 結果找到對應的表，好處是有<strong>較佳的附載平衡</strong>，缺點是<strong>不容易新增表</strong>，新增一個表通常涉及到<strong>修改 Hash Function</strong> 以及原先表的<strong>數據遷移</strong>。</li>
-</ol>
-<h1 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h1><p><a href="https://www.digitalocean.com/community/tutorials/understanding-database-sharding">Understanding Database Sharding</a><br><a href="https://blog.csdn.net/Dongguabai/article/details/83578092">高并发（水平扩展，垂直扩展）</a><br><a href="https://www.twblogs.net/a/5c99f60fbd9eee434fc6c4d5">數據庫的向上擴展和橫向擴展（即水平擴展：讀寫分離、垂直切分、水平切分）</a></p>
+<h1 id="實作"><a href="#實作" class="headerlink" title="實作"></a>實作</h1><p><strong>非原創!</strong> 基本上是下面參考文章中的程式碼，寫的很不錯所以只有小小修改一下。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Python 3 program to build Bloom Filter </span></span><br><span class="line"><span class="comment"># Install mmh3 and bitarray 3rd party module first </span></span><br><span class="line"><span class="comment"># pip install mmh3 </span></span><br><span class="line"><span class="comment"># pip install bitarray </span></span><br><span class="line"><span class="keyword">import</span> math </span><br><span class="line"><span class="keyword">import</span> mmh3 </span><br><span class="line"><span class="keyword">from</span> bitarray <span class="keyword">import</span> bitarray </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">BloomFilter</span>(<span class="title class_ inherited__">object</span>): </span><br><span class="line"></span><br><span class="line">	<span class="string">&#x27;&#x27;&#x27; </span></span><br><span class="line"><span class="string">	Class for Bloom filter, using murmur3 hash function </span></span><br><span class="line"><span class="string">	&#x27;&#x27;&#x27;</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, items_count, fp_prob</span>): </span><br><span class="line">		<span class="string">&#x27;&#x27;&#x27; </span></span><br><span class="line"><span class="string">		items_count : int </span></span><br><span class="line"><span class="string">			Number of items expected to be stored in bloom filter </span></span><br><span class="line"><span class="string">		fp_prob : float </span></span><br><span class="line"><span class="string">			False Positive probability in decimal </span></span><br><span class="line"><span class="string">		&#x27;&#x27;&#x27;</span></span><br><span class="line">		<span class="comment"># False possible probability in decimal </span></span><br><span class="line">		self.fp_prob = fp_prob </span><br><span class="line"></span><br><span class="line">		<span class="comment"># Size of bit array to use </span></span><br><span class="line">		self.size = self.get_size(items_count, fp_prob) </span><br><span class="line"></span><br><span class="line">		<span class="comment"># number of hash functions to use </span></span><br><span class="line">		self.hash_count = self.get_hash_count(self.size, items_count) </span><br><span class="line"></span><br><span class="line">		<span class="comment"># Bit array of given size, default all 0 </span></span><br><span class="line">		self.bit_array = bitarray(self.size) </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	<span class="keyword">def</span> <span class="title function_">add</span>(<span class="params">self, item</span>): </span><br><span class="line">		<span class="string">&#x27;&#x27;&#x27; </span></span><br><span class="line"><span class="string">		Add an item in the filter </span></span><br><span class="line"><span class="string">		&#x27;&#x27;&#x27;</span></span><br><span class="line">		digests = [] </span><br><span class="line">		<span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(self.hash_count): </span><br><span class="line"></span><br><span class="line">			<span class="comment"># create digest for given item. </span></span><br><span class="line">			<span class="comment"># i work as seed to mmh3.hash() function </span></span><br><span class="line">			<span class="comment"># With different seed, digest created is different </span></span><br><span class="line">			digest = mmh3.<span class="built_in">hash</span>(item, i) % self.size </span><br><span class="line">			digests.append(digest) </span><br><span class="line"></span><br><span class="line">			<span class="comment"># set the bit True in bit_array </span></span><br><span class="line">			self.bit_array[digest] = <span class="literal">True</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">def</span> <span class="title function_">check</span>(<span class="params">self, item</span>): </span><br><span class="line">		<span class="string">&#x27;&#x27;&#x27; </span></span><br><span class="line"><span class="string">		Check for existence of an item in filter </span></span><br><span class="line"><span class="string">		&#x27;&#x27;&#x27;</span></span><br><span class="line">		<span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(self.hash_count): </span><br><span class="line">			digest = mmh3.<span class="built_in">hash</span>(item, i) % self.size </span><br><span class="line">			<span class="keyword">if</span> self.bit_array[digest] == <span class="literal">False</span>: </span><br><span class="line"></span><br><span class="line">				<span class="comment"># if any of bit is False then,its not present </span></span><br><span class="line">				<span class="comment"># in filter </span></span><br><span class="line">				<span class="comment"># else there is probability that it exist </span></span><br><span class="line">				<span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">		<span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line"></span><br><span class="line"><span class="meta">	@staticmethod</span></span><br><span class="line">	<span class="keyword">def</span> <span class="title function_">get_size</span>(<span class="params">n, p</span>): </span><br><span class="line">		<span class="string">&#x27;&#x27;&#x27; </span></span><br><span class="line"><span class="string">		Return the size of bit array(m) to used using </span></span><br><span class="line"><span class="string">		following formula </span></span><br><span class="line"><span class="string">		m = -(n * lg(p)) / (lg(2)^2) </span></span><br><span class="line"><span class="string">		n : int </span></span><br><span class="line"><span class="string">			number of items expected to be stored in filter </span></span><br><span class="line"><span class="string">		p : float </span></span><br><span class="line"><span class="string">			False Positive probability in decimal </span></span><br><span class="line"><span class="string">		&#x27;&#x27;&#x27;</span></span><br><span class="line">		m = -(n * math.log(p))/(math.log(<span class="number">2</span>)**<span class="number">2</span>) </span><br><span class="line">		<span class="keyword">return</span> <span class="built_in">int</span>(m) </span><br><span class="line"></span><br><span class="line"><span class="meta">	@staticmethod</span></span><br><span class="line">	<span class="keyword">def</span> <span class="title function_">get_hash_count</span>(<span class="params">m, n</span>): </span><br><span class="line">		<span class="string">&#x27;&#x27;&#x27; </span></span><br><span class="line"><span class="string">		Return the hash function(k) to be used using </span></span><br><span class="line"><span class="string">		following formula </span></span><br><span class="line"><span class="string">		k = (m/n) * lg(2) </span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">		m : int </span></span><br><span class="line"><span class="string">			size of bit array </span></span><br><span class="line"><span class="string">		n : int </span></span><br><span class="line"><span class="string">			number of items expected to be stored in filter </span></span><br><span class="line"><span class="string">		&#x27;&#x27;&#x27;</span></span><br><span class="line">		k = (m/n) * math.log(<span class="number">2</span>) </span><br><span class="line">		<span class="keyword">return</span> <span class="built_in">int</span>(k)</span><br></pre></td></tr></table></figure>
+
+<p>看一下成果</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">n = <span class="number">100000</span> <span class="comment"># Number of items to add </span></span><br><span class="line">p = <span class="number">0.05</span> <span class="comment"># False positive probability </span></span><br><span class="line">  </span><br><span class="line">bloomf = BloomFilter(n,p) </span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Array size: &#123;&#125;&quot;</span>.<span class="built_in">format</span>(bloomf.size)) </span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Number of hash functions: &#123;&#125;&quot;</span>.<span class="built_in">format</span>(bloomf.hash_count)) </span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;False positive probability: &#123;&#125;&quot;</span>.<span class="built_in">format</span>(bloomf.fp_prob)) </span><br><span class="line"></span><br><span class="line"><span class="comment"># Add items</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">	bloomf.add(<span class="built_in">str</span>(i))</span><br><span class="line"></span><br><span class="line"><span class="comment"># Check false positive rate on Test data</span></span><br><span class="line">fp = <span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n, <span class="number">2</span>*n):</span><br><span class="line">	<span class="keyword">if</span> bloomf.check(<span class="built_in">str</span>(i)):</span><br><span class="line">		fp += <span class="number">1</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;False positive rate on test data: &#123;:.4f&#125;&quot;</span>.<span class="built_in">format</span>(fp/n)) </span><br></pre></td></tr></table></figure>
+
+<p>可以看到實際的 FP Rate 與我們設定的非常接近。<br><img src="/../images/2024/01/10/filter-result.png" alt="filter-result"></p>
+<h1 id="參考文章"><a href="#參考文章" class="headerlink" title="參考文章"></a>參考文章</h1><p><a href="https://www.geeksforgeeks.org/bloom-filters-introduction-and-python-implementation/">Bloom Filters – Introduction and Implementation</a></p>
+]]></content>
+      <categories>
+        <category>DSA</category>
+      </categories>
+      <tags>
+        <tag>資料結構</tag>
+        <tag>Bloom Filter</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>系統架構筆記 - 常見的五種部署策略</title>
+    <url>/posts/deployment-strategies/</url>
+    <content><![CDATA[<p><img src="/../images/2024/01/16/strategies.png" alt="strategies"></p>
+<p>這篇文章簡單紀錄了常見的五種部署策略: Big Bang Deployment、Rolling Deployment (滾動部署)、Blue-Green Deployment (藍綠部署)、Canary Deployment (金絲雀部署) 與 Shadow Deployment (影子部署)。</p>
+<span id="more"></span>
+
+<h1 id="Big-Bang-Deployment"><a href="#Big-Bang-Deployment" class="headerlink" title="Big Bang Deployment"></a>Big Bang Deployment</h1><p>名字聽起來很 Dramatic 的部署策略，將舊版本完全下線後部署新版本。</p>
+<ul>
+<li>優點: <ul>
+<li>easy、一次性完成</li>
+</ul>
+</li>
+<li>缺點: <ul>
+<li>有 downtime，一般生產環境下不會使用</li>
+</ul>
+</li>
+</ul>
+<h1 id="Rolling-Deployment-滾動部署"><a href="#Rolling-Deployment-滾動部署" class="headerlink" title="Rolling Deployment (滾動部署)"></a>Rolling Deployment (滾動部署)</h1><p><img src="/../images/2024/01/16/rolling.png" alt="rolling"></p>
+<p>將舊版本逐步 (one by one) 更新為新版本，在這個過程中，舊版本和新版本會共存一段時間。</p>
+<ul>
+<li>優點: <ul>
+<li>no downtime</li>
+</ul>
+</li>
+<li>缺點: <ul>
+<li>新舊版本間沒有隔離，可能需要處理版本之間的相容性與數據一致性</li>
+<li>rollback 也是逐步滾回去，複雜且耗時</li>
+</ul>
+</li>
+</ul>
+<h1 id="Blue-Green-Deployment-藍綠部署"><a href="#Blue-Green-Deployment-藍綠部署" class="headerlink" title="Blue-Green Deployment (藍綠部署)"></a>Blue-Green Deployment (藍綠部署)</h1><p><img src="/../images/2024/01/16/blue-green.png" alt="blue-green"></p>
+<p>同時維護兩個平行的環境，一個為主要環境 (Blue)，另一個為即將上線的新版本 (Green)，於測試環境測試完新版本後，直接將兩個環境的流量做切換。</p>
+<ul>
+<li>優點: <ul>
+<li>no downtime</li>
+<li>直接切換流量即可完成版本切換，rollback 也是</li>
+</ul>
+</li>
+<li>缺點: <ul>
+<li>要同時維護兩個環境，成本高</li>
+</ul>
+</li>
+</ul>
+<h1 id="Canary-Deployment-金絲雀部署"><a href="#Canary-Deployment-金絲雀部署" class="headerlink" title="Canary Deployment (金絲雀部署)"></a>Canary Deployment (金絲雀部署)</h1><p><img src="/../images/2024/01/16/canary.png" alt="canary"></p>
+<p>將新版本釋出給少量用戶做測試，測試沒問題後才將剩下的部署為新版本。</p>
+<ul>
+<li>優點: <ul>
+<li>no downtime</li>
+<li>能於生產環境中評估新版本效能，降低新版本風險</li>
+<li>rollback 較容易</li>
+</ul>
+</li>
+<li>缺點: <ul>
+<li>部署時間較長</li>
+<li>某些問題無法靠少量用戶就發現</li>
+</ul>
+</li>
+<li>與 Rolling Deployment 的差異<ul>
+<li>Canary Deployment 是階段式的過程，先部署少部分，確定沒問題才擴大部署</li>
+<li>Rolling Deployment 則連續的過程，一次對整個系統做升級，只是過程上是逐步部署</li>
+</ul>
+</li>
+</ul>
+<h1 id="Shadow-Deployment-影子部署"><a href="#Shadow-Deployment-影子部署" class="headerlink" title="Shadow Deployment (影子部署)"></a>Shadow Deployment (影子部署)</h1><p>同時維護兩個平行的環境，新版本在幕後運行 (in the shadow)，使用者的 request 會被複製一份到新版本用於測試</p>
+<ul>
+<li>優點:<ul>
+<li>不會對使用者造成實際影響，同時能測試新版本效能</li>
+</ul>
+</li>
+<li>缺點<ul>
+<li>實作上比較困難</li>
+<li>成本高</li>
+</ul>
+</li>
+</ul>
+<h2 id="其他-Feature-Toggle"><a href="#其他-Feature-Toggle" class="headerlink" title="其他: Feature Toggle"></a>其他: Feature Toggle</h2><p><img src="/../images/2024/01/16/feature-toggle.png" alt="feature-toggle"></p>
+<p>封面的圖片裡還有提到一個 Feature Toggle，概念是在程式中設計一個開關來控制新功能的狀態，可以針對特定用戶開啟，用來觀察新功能的效能、反饋如何，通常是用來做 A&#x2F;B Test，本質上跟前面提到的幾個部署方法有點差異。</p>
 ]]></content>
       <categories>
         <category>system design</category>
       </categories>
       <tags>
-        <tag>scaling</tag>
+        <tag>deployment strategy</tag>
       </tags>
   </entry>
   <entry>
-    <title>Hello Hexo！NexT 主題太單調？跟著這些美化步驟為部落格加入個人風格！(5)</title>
-    <url>/posts/Hello-Hexo-5/</url>
-    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p><img src="/../images/2023/04/17/cover.png" alt="cover"></p>
-<p>Hexo Next雖然已經將許多常見的設定整合到主題當中，但大家都採用一樣的設定的話其實挺無聊的，所以今天要在Hexo Next的基礎上帶大家來美化自己的部落格，為部落格加入<strong>個人風格</strong>，如果還不知道Hexo或者NexT是什麼可以參考我之前寫的<a href="/categories/Hexo/">Hello Hexo！</a>系列文章。 </p>
+    <title>Java 自學筆記 01 - Basics</title>
+    <url>/posts/java-learning-01/</url>
+    <content><![CDATA[<h2 id="JVM-JRE-amp-JDK"><a href="#JVM-JRE-amp-JDK" class="headerlink" title="JVM, JRE &amp; JDK"></a>JVM, JRE &amp; JDK</h2><p><img src="/../images/2024/03/18/JVM_JRE_JDK.png" alt="JVM, JRE &amp; JDK"></p>
+<h3 id="Java-vs-C"><a href="#Java-vs-C" class="headerlink" title="Java vs C"></a>Java vs C</h3><p>當開發 C 或 C++ 程式時，通常會先將原始碼透過編譯器轉換成目標機器可以理解的 Object Code。這個 Object Code 是特定於目標機器架構的，因此在不同的硬體平台上可能會產生不同的機器碼。因此，當將程式移植到不同的機器或架構時，通常需要重新編譯原始碼以生成適用於該特定平台的新 Object Code。</p>
 <span id="more"></span>
 
-<h1 id="大綱"><a href="#大綱" class="headerlink" title="大綱"></a>大綱</h1><ul>
-<li><a href="#%E5%A5%97%E7%94%A8%E8%83%8C%E6%99%AF%E5%9C%96%E7%89%87">套用背景圖片</a></li>
-<li><a href="#%E8%AA%BF%E6%95%B4%E5%8D%80%E5%A1%8A%E9%80%8F%E6%98%8E%E5%BA%A6">調整區塊透明度</a></li>
-<li><a href="#%E8%A8%AD%E7%BD%AE%E5%8D%80%E5%A1%8A%E5%9C%93%E8%A7%92">設置區塊圓角</a></li>
-<li><a href="#%E6%96%87%E7%AB%A0%E5%8D%80%E5%A1%8A%E7%89%88%E9%9D%A2%E5%AF%AC%E5%BA%A6">文章區塊版面寬度</a></li>
-<li><a href="#%E7%A8%8B%E5%BC%8F%E7%A2%BC%E5%8D%80%E5%A1%8A%E4%B8%BB%E9%A1%8C">程式碼區塊主題</a></li>
-<li><a href="#%E8%AE%8A%E6%9B%B4%E6%96%87%E5%AD%97%E6%A8%A3%E5%BC%8F">變更文字樣式</a></li>
-<li><a href="#%E8%AE%8A%E6%9B%B4%E5%AD%97%E9%AB%94%E9%A1%9E%E5%9E%8B">變更字體類型</a></li>
-<li><a href="#%E5%9C%96%E7%89%87%E6%94%BE%E5%A4%A7%E6%AA%A2%E8%A6%96">圖片放大檢視</a></li>
-</ul>
-<h1 id="功能"><a href="#功能" class="headerlink" title="功能"></a>功能</h1><h2 id="套用背景圖片"><a href="#套用背景圖片" class="headerlink" title="套用背景圖片"></a>套用背景圖片</h2><ol>
-<li>準備一張圖片放到<code>themes/next/source/images/</code>路徑中。</li>
-<li>到<code>themes/next/_config.yml</code>中，找到<code>custom_file_path</code>，將<code>style</code>的註解取消掉。<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">custom_file_path:</span></span><br><span class="line">  <span class="comment">#head: source/_data/head.njk</span></span><br><span class="line">  <span class="comment">#header: source/_data/header.njk</span></span><br><span class="line">  <span class="comment">#sidebar: source/_data/sidebar.njk</span></span><br><span class="line">  <span class="comment">#postMeta: source/_data/post-meta.njk</span></span><br><span class="line">  <span class="comment">#postBodyEnd: source/_data/post-body-end.njk</span></span><br><span class="line">  <span class="comment">#footer: source/_data/footer.njk</span></span><br><span class="line">  <span class="comment">#bodyEnd: source/_data/body-end.njk</span></span><br><span class="line">  <span class="comment">#variable: source/_data/variables.styl</span></span><br><span class="line">  <span class="comment">#mixin: source/_data/mixins.styl</span></span><br><span class="line">  <span class="attr">style:</span> <span class="string">source/_data/styles.styl</span></span><br></pre></td></tr></table></figure></li>
-<li>在<code>source</code>內新增<code>_data</code>資料夾(<strong>注意是blog的，不是next裡面的!</strong>)，接著在裡面新增一個<code>styles.styl</code>文件。</li>
-<li>在<code>styles.styl</code>中加入:<figure class="highlight styl"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">body</span> &#123;</span><br><span class="line">  <span class="attribute">background</span>:<span class="built_in">url</span>(/images/background.jpg);  <span class="comment">// 背景圖片位置</span></span><br><span class="line">  <span class="attribute">background-repeat</span>: no-repeat;</span><br><span class="line">  <span class="attribute">background-attachment</span>: fixed;            <span class="comment">// 是否滾動，fixed固定</span></span><br><span class="line">  <span class="attribute">background-size</span>: cover;                  <span class="comment">// 填滿畫面</span></span><br><span class="line">  <span class="attribute">background-position</span>: center;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ol>
-<h2 id="調整區塊透明度"><a href="#調整區塊透明度" class="headerlink" title="調整區塊透明度"></a>調整區塊透明度</h2><p>套用背景圖片後，你可能會發現你的圖片大部分都被區塊擋住了!為了讓大家看到你美美的圖片，所以我們要來調整一下區跨的透明度，網路上很多調整透明度的方法都沒有用我試過了，最後在<a href="https://hui-shao.cn/next-transparent-background/" title="{rel=&#39;nofollow&#39;}">這篇文章</a>中找到讓我滿意的效果，這邊直接講結論，在<code>styles.styl</code>加入:</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">:root &#123;</span><br><span class="line">  --content-bg-color:#ffffffe6;  // 白色半透明</span><br><span class="line">  --content-bg-color:#000000e6;  // 黑色半透明，兩者擇一</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>補充: 上面的設定是直接將區塊換成指定顏色，如果有開啟深色模式可以用黑色半透明，如果沒有的話可以用白色半透明，但切記不要混者用，否則文字會看不清楚。</p>
-</blockquote>
-<h2 id="設置區塊圓角"><a href="#設置區塊圓角" class="headerlink" title="設置區塊圓角"></a>設置區塊圓角</h2><ol>
-<li><p>到<code>themes/next/_config.yml</code>中，找到<code>custom_file_path</code>，將<code>variable</code>的註解也取消掉。</p>
-<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">custom_file_path:</span></span><br><span class="line">  <span class="comment">#head: source/_data/head.njk</span></span><br><span class="line">  <span class="comment">#header: source/_data/header.njk</span></span><br><span class="line">  <span class="comment">#sidebar: source/_data/sidebar.njk</span></span><br><span class="line">  <span class="comment">#postMeta: source/_data/post-meta.njk</span></span><br><span class="line">  <span class="comment">#postBodyEnd: source/_data/post-body-end.njk</span></span><br><span class="line">  <span class="comment">#footer: source/_data/footer.njk</span></span><br><span class="line">  <span class="comment">#bodyEnd: source/_data/body-end.njk</span></span><br><span class="line">  <span class="attr">variable:</span> <span class="string">source/_data/variables.styl</span></span><br><span class="line">  <span class="comment">#mixin: source/_data/mixins.styl</span></span><br><span class="line">  <span class="attr">style:</span> <span class="string">source/_data/styles.styl</span></span><br></pre></td></tr></table></figure>
+<h3 id="JVM-Java-Virtual-Machine"><a href="#JVM-Java-Virtual-Machine" class="headerlink" title="JVM (Java Virtual Machine)"></a>JVM (Java Virtual Machine)</h3><p>Java 通過 JVM 來解決跨平台的問題，程式在編譯時是先翻譯成 JVM 的 Byte code，執行時才由 JVM 轉換為機器碼，由於不是直接編譯成機械碼，這表示只要新的平台有安裝 JVM，就不用重新編譯一遍了。<br>某方面來說 JVM 算是一種 interpreter，負責執行 Byte code。<br><img src="/../images/2024/03/18/JVM.png" alt="JVM"></p>
+<h3 id="JRE-Java-Runtime-Environment"><a href="#JRE-Java-Runtime-Environment" class="headerlink" title="JRE (Java Runtime Environment)"></a>JRE (Java Runtime Environment)</h3><p>JRE 包含了執行 Java 程式所需的所有檔案和庫，包括 JVM、Class Libraries、Java API 等，也就是說單單是執行而不需要開發的話安裝 JRE 就夠了。</p>
+<h3 id="JDK-Java-Development-Kit"><a href="#JDK-Java-Development-Kit" class="headerlink" title="JDK (Java Development Kit)"></a>JDK (Java Development Kit)</h3><p>JDK 是一個完整的 Java 開發套件，包括了 JRE、編譯器 (javac) 以及開發所需要的各種工具和庫。</p>
+<h2 id="Hello-Java"><a href="#Hello-Java" class="headerlink" title="Hello Java"></a>Hello Java</h2><ul>
+<li><p>Hello.java</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Hello</span> <span class="comment">//Class 的名稱要跟檔名一模一樣</span></span><br><span class="line">&#123;</span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span></span><br><span class="line">   &#123;</span><br><span class="line">      System.out.println(<span class="string">&quot;Hello Java&quot;</span>);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>在<code>source</code>內新增<code>_data</code>資料夾(<strong>注意是blog的，不是next裡面的!</strong>)，接著在裡面新增一個<code>variables.styl</code>文件。</p>
-</li>
-<li><p>在<code>variables.styl</code>中加入:</p>
-<figure class="highlight styl"><table><tr><td class="code"><pre><span class="line"><span class="variable">$border</span>-radius-inner     = <span class="number">30px</span> <span class="number">30px</span> <span class="number">30px</span> <span class="number">30px</span>;  <span class="comment">// (內角) 左上 右上 右下 左下</span></span><br><span class="line"><span class="variable">$border</span>-radius           = <span class="number">30px</span>;                 <span class="comment">// (外角) 只填一個數字表示4個角</span></span><br></pre></td></tr></table></figure></li>
-</ol>
-<h2 id="文章區塊版面寬度"><a href="#文章區塊版面寬度" class="headerlink" title="文章區塊版面寬度"></a>文章區塊版面寬度</h2><p>我們先來看一下預設的寬度(指的是網頁版，手機或平板都是用響應式網頁):</p>
-<ul>
-<li>Muse &#x2F; Mist<figure class="highlight styl"><table><tr><td class="code"><pre><span class="line"><span class="variable">$content</span>-desktop         = <span class="number">700px</span>   <span class="comment">// when screen width &lt; 1200px</span></span><br><span class="line"><span class="variable">$content</span>-desktop-large   = <span class="number">800px</span>   <span class="comment">// when screen width &gt;= 1200px</span></span><br><span class="line"><span class="variable">$content</span>-desktop-largest = <span class="number">900px</span>   <span class="comment">// when screen width &gt;= 1600px</span></span><br></pre></td></tr></table></figure></li>
-<li>Pisces &#x2F; Gemini<figure class="highlight styl"><table><tr><td class="code"><pre><span class="line"><span class="variable">$content</span>-desktop         = <span class="string">&#x27;calc(100% - %s)&#x27;</span> % <span class="built_in">unit</span>(<span class="variable">$content</span>-desktop-<span class="attribute">padding</span> / <span class="number">2</span>, <span class="string">&#x27;px&#x27;</span>)</span><br><span class="line"><span class="variable">$content</span>-desktop-large   = <span class="number">1160px</span></span><br><span class="line"><span class="variable">$content</span>-desktop-largest = <span class="number">73%</span></span><br></pre></td></tr></table></figure></li>
+<li><p>compile</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">javac Hello.java</span></span><br></pre></td></tr></table></figure></li>
+<li><p>run</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">java Hello</span></span><br></pre></td></tr></table></figure></li>
 </ul>
-<p>可以看到不同主題的寬度定義方式不太一樣，如果要更改的話，我們可以到<code>variables.styl</code>中把預設的寬度覆蓋掉，舉例來說我使用Gemini，下面是我採用的設定:</p>
-<figure class="highlight styl"><table><tr><td class="code"><pre><span class="line"><span class="variable">$content</span>-desktop         = <span class="number">90%</span>  <span class="comment">// 可以用百分比</span></span><br><span class="line"><span class="variable">$content</span>-desktop-large   = <span class="number">80%</span>  <span class="comment">// 也可用絕對數值 ex: 1000px</span></span><br></pre></td></tr></table></figure>
+<h2 id="Data-Type"><a href="#Data-Type" class="headerlink" title="Data Type"></a>Data Type</h2><p><img src="/../images/2024/03/18/java_data_type.png" alt="Java Data Type"></p>
+<h3 id="資料型態轉換"><a href="#資料型態轉換" class="headerlink" title="資料型態轉換"></a>資料型態轉換</h3><ul>
+<li><p>浮點數大於整數<br>  double &gt; float &gt; long &gt; int &gt; short &gt; byte</p>
+</li>
+<li><p>小轉大OK，大轉小error<br>  <img src="/../images/2024/03/18/java_casting.png" alt="Java Casting"></p>
+</li>
+<li><p>大轉小可以強制轉換，但可能失真</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> <span class="variable">n1</span> <span class="operator">=</span> <span class="number">1024</span>;</span><br><span class="line"><span class="type">byte</span> <span class="variable">n2</span> <span class="operator">=</span> (<span class="type">byte</span>)n1; <span class="comment">// 不一樣 (2進位高位被截斷)</span></span><br></pre></td></tr></table></figure></li>
+<li><p>字串轉數字</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> <span class="variable">n1</span> <span class="operator">=</span> Integer.parseInt(<span class="string">&quot;1234&quot;</span>)</span><br><span class="line"><span class="type">long</span> <span class="variable">n2</span> <span class="operator">=</span> Long.parseLong(<span class="string">&quot;1234&quot;</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>數字轉字串</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">s1</span> <span class="operator">=</span> String.valueOf(<span class="number">1234</span>);</span><br><span class="line"><span class="type">String</span> <span class="variable">s2</span> <span class="operator">=</span> String.valueOf(<span class="number">1.234</span>);</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="標準輸入"><a href="#標準輸入" class="headerlink" title="標準輸入"></a>標準輸入</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"><span class="type">Scanner</span> <span class="variable">s</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Scanner</span>(System.in);</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="variable">x</span> <span class="operator">=</span> s.nextInt();</span><br><span class="line"><span class="type">String</span> <span class="variable">text</span> <span class="operator">=</span> s.next();</span><br></pre></td></tr></table></figure>
+
+<h2 id="Array"><a href="#Array" class="headerlink" title="Array"></a>Array</h2><p>Java 的陣列跟 C 不一樣，不是以連續的記憶體表達陣列，而是以一種 object 的形式實作，因此多維的陣列係由前一層指向後一層，所以不同層的 Array 長度可以不一樣 !!!</p>
+<p><img src="/../images/2024/03/18/java_array.png" alt="Java Array"></p>
+<p>Array 的宣告與初始化方法。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span>[][] x = <span class="keyword">new</span> <span class="title class_">int</span>[<span class="number">2</span>][<span class="number">2</span>];</span><br><span class="line">x = &#123;&#123;<span class="number">1</span>,<span class="number">2</span>&#125;,&#123;<span class="number">3</span>,<span class="number">4</span>&#125;&#125;;</span><br><span class="line">x.length <span class="comment">// x的長度</span></span><br></pre></td></tr></table></figure>
 
 
-<h2 id="程式碼區塊主題"><a href="#程式碼區塊主題" class="headerlink" title="程式碼區塊主題"></a>程式碼區塊主題</h2><p>Hexo提供了<code>highlight.js</code>以及<code>prism.js</code>兩種程式碼區塊主題engine，可以參考<a href="https://theme-next.js.org/highlight/" title="{rel=&#39;nofollow&#39;}">NexT Highlight Theme Preview</a>來做挑選，以下已我自己套用<code>highlight.js</code>中的<code>night-owl</code>主題為例。</p>
-<ol>
-<li><p>到<code>_config.yml</code>中(不是next裡的)，找到<code>highlight</code>，將<code>enable</code>改成true。</p>
-<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">highlight:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">line_number:</span> <span class="literal">true</span>   <span class="comment"># 是否顯示行數</span></span><br><span class="line">  <span class="attr">auto_detect:</span> <span class="literal">false</span>  <span class="comment"># 是否自動偵測語言(建議不要開，聽說很吃效能)</span></span><br><span class="line">  <span class="attr">tab_replace:</span> <span class="string">&#x27;&#x27;</span></span><br><span class="line">  <span class="attr">wrap:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">hljs:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">prismjs:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">false</span>       <span class="comment"># 如果是用prismjs的話那就是這裡改true，不要同時開兩個</span></span><br><span class="line">  <span class="attr">preprocess:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">line_number:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">tab_replace:</span> <span class="string">&#x27;&#x27;</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>到<code>themes/next/_config.yml</code>中，找到<code>codeblock</code>，根據是否開啟深色模式來填入主題名稱。</p>
-<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">codeblock:</span></span><br><span class="line">  <span class="attr">theme:</span>                      <span class="comment"># highlight.js 改這</span></span><br><span class="line">    <span class="attr">light:</span> <span class="string">night-owl</span>          <span class="comment"># (範例)淺色模式下套用night-owl </span></span><br><span class="line">    <span class="attr">dark:</span> <span class="string">stackoverflow-dark</span></span><br><span class="line">  <span class="attr">prism:</span>                      <span class="comment"># prism.js 改這</span></span><br><span class="line">    <span class="attr">light:</span> <span class="string">prism</span></span><br><span class="line">    <span class="attr">dark:</span> <span class="string">prism-dark</span></span><br><span class="line">  <span class="attr">copy_button:</span></span><br><span class="line">    <span class="attr">enable:</span> <span class="literal">false</span>             <span class="comment"># 是否顯示複製按鈕</span></span><br><span class="line">    <span class="attr">style:</span>                    <span class="comment"># 風格(Available values: default | flat | mac)</span></span><br></pre></td></tr></table></figure></li>
-</ol>
-<h2 id="變更文字樣式"><a href="#變更文字樣式" class="headerlink" title="變更文字樣式"></a>變更文字樣式</h2><p>這部分主要是分享我在網路上找到的，覺得很不錯的設定，以下修改都是加在<code>source/_data/styles.styl</code>中。</p>
-<ol>
-<li><p>短網址樣式</p>
-<figure class="highlight styl"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">code</span> &#123;</span><br><span class="line">    <span class="attribute">color</span>: <span class="number">#c7254e</span>; <span class="comment">//文字顏色</span></span><br><span class="line">    <span class="attribute">background</span>: <span class="number">#f9f2f4</span>; <span class="comment">//底色</span></span><br><span class="line">    <span class="attribute">margin</span>: <span class="number">2px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>內文連結樣式</p>
-<figure class="highlight styl"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.post-body</span> <span class="selector-tag">p</span> a&#123;</span><br><span class="line">  <span class="attribute">color</span>: <span class="number">#0593d3</span>;</span><br><span class="line">  <span class="attribute">border-bottom</span>: none;</span><br><span class="line">  <span class="attribute">border-bottom</span>: <span class="number">1px</span> solid <span class="number">#0593d3</span>;</span><br><span class="line">  <span class="selector-pseudo">&amp;:hover</span> &#123;</span><br><span class="line">    <span class="attribute">color</span>: <span class="number">#fc6423</span>;</span><br><span class="line">    <span class="attribute">border-bottom</span>: none;</span><br><span class="line">    <span class="attribute">border-bottom</span>: <span class="number">1px</span> solid <span class="number">#fc6423</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>修改選中文字底色</p>
-<figure class="highlight styl"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* webkit, opera, IE9 */</span></span><br><span class="line"><span class="selector-pseudo">::selection</span> &#123; </span><br><span class="line">    <span class="attribute">background</span>: <span class="number">#00c4b6</span>;</span><br><span class="line">    <span class="attribute">color</span>: <span class="number">#f7f7f7</span>; </span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* firefox */</span></span><br><span class="line">::-moz-selection &#123; </span><br><span class="line">    <span class="attribute">background</span>: <span class="number">#00c4b6</span>;</span><br><span class="line">    <span class="attribute">color</span>: <span class="number">#f7f7f7</span>;    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>修改頁腳配色</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">//頁腳統計文字顏色</span><br><span class="line">.footer&#123;</span><br><span class="line">  color: #F0D784</span><br><span class="line">&#125;</span><br><span class="line">//修改頁腳備案鏈接顏色</span><br><span class="line">.footer a&#123;</span><br><span class="line">  color: #F0D784</span><br><span class="line">&#125;</span><br><span class="line">//修改頁腳統計人數的顏色</span><br><span class="line">.footer .with-love&#123;</span><br><span class="line">  color: #F0D784</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ol>
-<h2 id="變更字體類型"><a href="#變更字體類型" class="headerlink" title="變更字體類型"></a>變更字體類型</h2><p>NexT可以直接使用<a href="https://fonts.google.com/" title="{rel=&#39;nofollow&#39;}">Google Fonts</a>提供的字體，但如果你使用的是繁體中文的話，你會發現其實也就只有兩種可以選而已XDDD，NexT預設是使用<strong>微軟正黑體</strong>，另外一種是<strong>唐宋思源體</strong>，我們今天就來試者把字體換成唐宋思源體看看吧!</p>
-<ol>
-<li>到<code>themes/next/_config.yml</code>中，找到<code>font</code>將<code>enable</code>改成<code>true</code>，接著更改<code>global</code>的設定(後面的不用改)。<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">font:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span>              <span class="comment"># 設成true</span></span><br><span class="line">  <span class="attr">host:</span> </span><br><span class="line">  <span class="attr">global:</span></span><br><span class="line">    <span class="attr">external:</span> <span class="literal">true</span>          <span class="comment"># 設成true</span></span><br><span class="line">    <span class="attr">family:</span> <span class="string">Noto</span> <span class="string">Serif</span> <span class="string">TC</span>   <span class="comment"># 唐宋思源體(TC: Traditional Chinese)</span></span><br><span class="line">    <span class="attr">size:</span>                   <span class="comment"># 字體大小，默認為1（16px）</span></span><br></pre></td></tr></table></figure></li>
-<li>這邊特別說明<code>host</code>部分，在台灣基本上是不用設，但因為預設的host是Google的api，所以大陸地區的用戶在看我們的網站時可能會遇到一些穩定性上的問題?如果你部落格的target是整個大中華地區的話可以另外設個host，這邊提供<a href="https://github.com/cdnjs/cdnjs" title="{rel=&#39;nofollow&#39;}">cdnjs</a>的鏡像api給有需要的人:<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">host:</span> <span class="string">https://fonts.loli.net</span></span><br></pre></td></tr></table></figure></li>
-</ol>
-<blockquote>
-<p>補充: 你可能會想問「如果我想要用的字體Google Fonts沒有提供怎麼辦?」，其實也是有辦法使用本地的字體喔，不過這部分稍微麻煩一丟丟，所以之後另外寫一篇文章介紹!</p>
-</blockquote>
-<h2 id="圖片放大檢視"><a href="#圖片放大檢視" class="headerlink" title="圖片放大檢視"></a>圖片放大檢視</h2><p>NexT目前提供兩種片放大檢視的工具，分別是<a href="https://fancyapps.com/fancybox/" title="{rel=&#39;nofollow&#39;}">FancyBox</a>以及<a href="https://medium-zoom.francoischalifour.com/" title="{rel=&#39;nofollow&#39;}">Medium Zoom</a>，可以看一下自己喜歡哪種。</p>
-<p>到<code>themes/next/_config.yml</code>中找到<code>fancybox</code>&#x2F;<code>mediumzoom</code>，將其改為<code>true</code>，注意不要同時開啟兩個功能!!!</p>
-<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">fancybox:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">mediumzoom:</span> <span class="literal">false</span></span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>補充: FancyBox的功能比較多且可以顯示註解，不過有<a href="https://github.com/ppoffice/hexo-theme-icarus/issues/868" title="{rel=&#39;nofollow&#39;}">issue</a>表示FancyBox對於行動裝置似乎不是很友好? 不知道改了沒，Medium Zoom就跟Medium放大圖片的功能一樣，介面比較簡潔。</p>
-</blockquote>
-<h1 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h1><p>文章內容大多是網路上的資料整理而來，再加上自己的採坑經驗，如果有遺漏來源的話再麻煩告知補上!</p>
-<ul>
-<li><a href="https://zenreal.github.io/posts/44730/" title="{rel=&#39;nofollow&#39;}">最新 Hexo NexT v7.4.1 主題優化</a></li>
-<li><a href="https://hui-shao.cn/next-transparent-background/" title="{rel=&#39;nofollow&#39;}">Hexo + NexT8主题配置透明背景过程踩坑小记</a></li>
-<li><a href="https://spartazhc.github.io/2020/06/03/Next%E4%B8%BB%E9%A2%98%E5%AD%97%E4%BD%93%E9%85%8D%E7%BD%AE/" title="{rel=&#39;nofollow&#39;}">Next主题字体配置</a></li>
+<h2 id="Class-and-Object"><a href="#Class-and-Object" class="headerlink" title="Class and Object"></a>Class and Object</h2><ul>
+<li>Object 產生時一定要呼叫的方法，稱為 Constructor (建構子)</li>
+<li>Objec 消滅需要呼叫的方法，稱為 Destructor (解構子)</li>
+<li>表達 Object 內部狀態的變數，稱為 Object Variable (物件變數成員)</li>
+<li>Object 可以接收的訊息，稱為 Object Method (物件方法成員)</li>
+<li>上述兩個可總稱為 Object Member</li>
+<li>屬於 Class 的變數，稱為Class Variable (類別變數)</li>
+<li>屬於 Class 的方法，稱為 Class Method (類別方法)</li>
+<li>上述兩個可總稱為 Class Member</li>
+<li>和其他 Class 間的繼承關係</li>
 </ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Vehicle</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> speed; <span class="comment">// Object Variable</span></span><br><span class="line">    <span class="keyword">private</span> String direction; <span class="comment">// Object Variable, direction is a reference to String Object</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="type">int</span> <span class="variable">numVehicle</span> <span class="operator">=</span> <span class="number">0</span>; <span class="comment">// Class Variable</span></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Vehicle</span><span class="params">()</span> &#123; <span class="comment">// Constructor, called when new a Object</span></span><br><span class="line">        <span class="built_in">this</span>(<span class="number">0</span>,<span class="string">&quot;north&quot;</span>); <span class="comment">// call another constructor to do initialization</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Vehicle</span><span class="params">(<span class="type">int</span> s, String dir)</span> &#123; <span class="comment">// Another Constructor. Use overloading to define two constructors</span></span><br><span class="line">        <span class="type">float</span> speed; <span class="comment">// define a local variable</span></span><br><span class="line">        speed = s; <span class="comment">// the speed here refers to the above local variable</span></span><br><span class="line">        <span class="built_in">this</span>.speed = s; <span class="comment">// If we want to set object variable, use this.speed to refer object variable speed</span></span><br><span class="line">        direction = dir; <span class="comment">// dir is a reference to object, not the object itself</span></span><br><span class="line">        numVehicle++;   <span class="comment">// increase the Vehicle number</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">finalize</span><span class="params">()</span> &#123; <span class="comment">// Destructor, called when the object is garbage collected by JVM</span></span><br><span class="line">        System.out.println(<span class="string">&quot;finalize has been called&quot;</span>);</span><br><span class="line">        numVehicle--;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">setSpeed</span><span class="params">(<span class="type">int</span> newSpeed)</span> &#123; <span class="comment">// Object Method</span></span><br><span class="line">        <span class="built_in">this</span>.speed = newSpeed;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">setDir</span><span class="params">(String dir)</span> &#123; <span class="comment">// Object Method</span></span><br><span class="line">        <span class="built_in">this</span>.direction = dir;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">int</span> <span class="title function_">getSpeed</span><span class="params">()</span> &#123; <span class="comment">// Object Method</span></span><br><span class="line">        <span class="keyword">return</span> speed;</span><br><span class="line">    &#125;</span><br><span class="line">    String <span class="title function_">getDir</span><span class="params">()</span> &#123; <span class="comment">// Object Method</span></span><br><span class="line">        <span class="keyword">return</span> direction;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="type">int</span> <span class="title function_">totalVehicle</span><span class="params">()</span> &#123; <span class="comment">// Class Method</span></span><br><span class="line">        <span class="keyword">return</span> numVehicle;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h2><p><a href="https://www.geeksforgeeks.org/differences-jdk-jre-jvm/">https://www.geeksforgeeks.org/differences-jdk-jre-jvm/</a><br><a href="https://programming.im.ncnu.edu.tw/J_index.html">https://programming.im.ncnu.edu.tw/J_index.html</a></p>
 ]]></content>
       <categories>
-        <category>Hexo</category>
+        <category>Java Learning</category>
       </categories>
+      <tags>
+        <tag>Java</tag>
+      </tags>
   </entry>
   <entry>
     <title>MongoDB概念介紹 + PyMongo基本CRUD操作教學</title>
@@ -583,120 +747,33 @@
       </tags>
   </entry>
   <entry>
-    <title>Spectral Clustering - 算法解析與numpy程式實作</title>
-    <url>/posts/spectral-clustering/</url>
-    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p><img src="/../images/2023/04/27/cluster_analysis.jpg" alt="Spectral Clustering"></p>
-<p>在社群網絡中分析中，有時候會想要找出網絡當中的社群(community detection)，一個最直觀的想法是直接對網絡進行分群，那麼分群結果就是各個community了。<br>如果我們能夠計算各個節點之間的相似性，那麼我們當然可以直接套用傳統的分群方法，如cosine similiarity，但一來是相似度特徵可能很難取得，二來是這樣分群的話就沒有利用到網絡的結構了，這時我們可以改為使用基於圖論的分群方法。<br>今天這篇文章會帶大家簡單瞭解什麼是cut approach, balanced-cut approach以及其代表方法spectral clustering，並示範不依賴其他套件，僅使用numpy實作spectral clustering。</p>
+    <title>系統架構筆記 - 垂直擴展、水平擴展</title>
+    <url>/posts/scaling/</url>
+    <content><![CDATA[<p><img src="/../images/2024/01/17/scaling.png" alt="scaling"></p>
+<p>這篇文章會介紹垂直擴展以及水平擴展，並以資料庫的水平擴展為延伸，介紹讀寫分離與資料庫切分 (Sharding)。</p>
 <span id="more"></span>
 
-<h1 id="大綱"><a href="#大綱" class="headerlink" title="大綱"></a>大綱</h1><ul>
-<li><a href="#Mini-cut-Approach">Mini-cut approach</a></li>
-<li><a href="#Balanced-cut-Approach">Balanced-cut approach</a></li>
-<li><a href="#Spectral-Clustering">Spectral clustering</a></li>
-</ul>
-<h1 id="內文"><a href="#內文" class="headerlink" title="內文"></a>內文</h1><h2 id="Mini-cut-Approach"><a href="#Mini-cut-Approach" class="headerlink" title="Mini-cut Approach"></a>Mini-cut Approach</h2><p>Cut approach，顧名思義是將網絡給切開來形成多個網絡，屬於partitional clustering的一種，每個節點只會屬於一個community，並且community之間也不會overlapping，而Mini-cut Approach則是希望在切割網絡時能最小化切掉的edge數量。<br>聽起來很直觀，但這樣切會有一個問題，那就是有可能會切出一些非常小的community，導致分群不夠balance。</p>
-<h2 id="Balanced-cut-Approach"><a href="#Balanced-cut-Approach" class="headerlink" title="Balanced-cut Approach"></a>Balanced-cut Approach</h2><p>為了解決Mini-cut Approach的缺點，Balanced-cut Approach在切割網絡時除了考量原本的edge，另外除以community的node數做加權調整，切割的目標從最小化edge數轉為最小化ratio cut，公式如下:<br><img src="/../images/2023/04/27/ratio_cut.png" alt="Ratio Cut formula"></p>
-<p>公式解釋: 分成k群(k要自己決定)，每次取一個群<code>Pi</code>出來看，分子部分表示將<code>Pi</code>切開的話會切到的edge數，分母部分表示<code>Pi</code>內部的node數，將k個群的結果加總起來就會是整個網路的ratio cut分數。</p>
-<h3 id="Matrixs"><a href="#Matrixs" class="headerlink" title="Matrixs"></a>Matrixs</h3><p>為了要計算Ratio Cut，我們先要來認識一下三種矩陣:</p>
+<h1 id="垂直擴展"><a href="#垂直擴展" class="headerlink" title="垂直擴展"></a>垂直擴展</h1><p>這台機器不行那我就換一台更好的。<br>其實就是升級硬體，好處就是簡單直接，能用垂擴展解決那就優先考慮垂直擴展吧。但垂直擴展是有極限的，而且越好的機器越貴，這時就可以考慮水平擴展。</p>
+<h1 id="水平擴展"><a href="#水平擴展" class="headerlink" title="水平擴展"></a>水平擴展</h1><p>一台機器不行那我就多用幾台。<br>要實現伺服器的水平擴展比較容易，不外乎就是多開幾台機器，然後做好 load balance，這裡重點介紹<strong>資料庫</strong>的水平擴展，大致上可以分為兩個策略：</p>
+<h2 id="讀寫分離"><a href="#讀寫分離" class="headerlink" title="讀寫分離"></a>讀寫分離</h2><p>在原本的資料庫 (主節點) 外添加幾個從資料庫 (從節點) ，向主節點寫入資料，讀取時則優先自從節點讀取。讀寫分離會遇到幾個問題： </p>
 <ol>
-<li><p>Diagonal Degree Matrix 度數矩陣<br>Degree(度數)指的是一個node有多少個鄰居，將這些Degree轉換為對角矩陣(Diagonal Matrix)就得到Diagonal Degree Matrix。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">D = np.array([</span><br><span class="line">  [<span class="number">2</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>],</span><br><span class="line">  [<span class="number">0</span>, <span class="number">4</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>],</span><br><span class="line">  [<span class="number">0</span>, <span class="number">0</span>, <span class="number">2</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>],</span><br><span class="line">  [<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">3</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>],</span><br><span class="line">  [<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">2</span>, <span class="number">0</span>, <span class="number">0</span>],</span><br><span class="line">  [<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">3</span>, <span class="number">0</span>],</span><br><span class="line">  [<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">2</span>]])</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Adjacency Matrix 鄰接矩陣<br>只要是對Graph有些概念的人應該都對Adjacency Matrix不太陌生，Adjacency Matrix描述了node之間的關係，下面例子假設node之間的關係都是雙向的，所以會是個對稱矩陣。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">A = np.array([</span><br><span class="line">  [<span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>],</span><br><span class="line">  [<span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>],</span><br><span class="line">  [<span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>],</span><br><span class="line">  [<span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>],</span><br><span class="line">  [<span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>],</span><br><span class="line">  [<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>],</span><br><span class="line">  [<span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>]])</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Laplacian Matrix 調和矩陣(拉普拉斯矩陣)<br>Laplacian Matrix 的算法就是直接將Diagonal Degree Matrix 減去 Adjacency Matrix，聽起來可能讓人滿頭問號，為什麼要這麼做? 這邊先賣個關子，繼續看下去就知道了。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">L = np.array([</span><br><span class="line">  [ <span class="number">2</span>, -<span class="number">1</span>,  <span class="number">0</span>,  <span class="number">0</span>, -<span class="number">1</span>,  <span class="number">0</span>,  <span class="number">0</span>],</span><br><span class="line">  [-<span class="number">1</span>,  <span class="number">4</span>, -<span class="number">1</span>, -<span class="number">1</span>,  <span class="number">0</span>,  <span class="number">0</span>, -<span class="number">1</span>],</span><br><span class="line">  [ <span class="number">0</span>, -<span class="number">1</span>,  <span class="number">2</span>, -<span class="number">1</span>,  <span class="number">0</span>,  <span class="number">0</span>,  <span class="number">0</span>],</span><br><span class="line">  [ <span class="number">0</span>, -<span class="number">1</span>, -<span class="number">1</span>,  <span class="number">3</span>,  <span class="number">0</span>, -<span class="number">1</span>,  <span class="number">0</span>],</span><br><span class="line">  [-<span class="number">1</span>,  <span class="number">0</span>,  <span class="number">0</span>,  <span class="number">0</span>,  <span class="number">2</span>, -<span class="number">1</span>,  <span class="number">0</span>],</span><br><span class="line">  [ <span class="number">0</span>,  <span class="number">0</span>,  <span class="number">0</span>, -<span class="number">1</span>, -<span class="number">1</span>,  <span class="number">3</span>, -<span class="number">1</span>],</span><br><span class="line">  [ <span class="number">0</span>, -<span class="number">1</span>,  <span class="number">0</span>,  <span class="number">0</span>,  <span class="number">0</span>, -<span class="number">1</span>,  <span class="number">2</span>]])</span><br></pre></td></tr></table></figure></li>
+<li><strong>最終一致性問題</strong><br>  由於從節點的數據是自主節點同步過來，因此中間勢必存在一時間差，可能導致從節點的數據不是最即時的數據，因此從節點的數據僅滿足最終一致性。</li>
+<li><strong>單個主節點</strong><br>  由於主節點仍然只有一個，如果遇到需要大量寫入的作業仍然會出現堵塞，這時候可能要考慮多個主節點的架構，不過就跟前一點一樣會遇到資料同步的問題，還需要考慮同時有多個寫入情況下的 race condition。</li>
 </ol>
-<h3 id="Calculation"><a href="#Calculation" class="headerlink" title="Calculation"></a>Calculation</h3><p>現在先假設我們已經知道分群的結果了，並將結果以0,1的形式表示為一個matrix，令這個結果為X，下面結果是我隨便分的，分3群，<code>X[i][j]==1</code>表示node<code>i</code>屬於cluster<code>j</code>。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">X = np.array([</span><br><span class="line">  [<span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>],</span><br><span class="line">  [<span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>],</span><br><span class="line">  [<span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>],</span><br><span class="line">  [<span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>],</span><br><span class="line">  [<span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>],</span><br><span class="line">  [<span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>],</span><br><span class="line">  [<span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>]])</span><br></pre></td></tr></table></figure>
+<h2 id="資料庫切分-Partitioning-x2F-Sharding"><a href="#資料庫切分-Partitioning-x2F-Sharding" class="headerlink" title="資料庫切分 (Partitioning &#x2F; Sharding)"></a>資料庫切分 (Partitioning &#x2F; Sharding)</h2><p>將一個資料庫 (大資料表) 分割為多個小資料表，並將其儲存在不同節點上，又可以分為<strong>垂直切分</strong>與<strong>水平切分</strong>：<br><img src="/../images/2024/01/17/sharding.png" alt="sharding"></p>
+<h3 id="垂直切分"><a href="#垂直切分" class="headerlink" title="垂直切分"></a>垂直切分</h3><p>按照欄位來進行切分，通常可以按照業務功能來做切割，如電商平台中的買家資訊與賣家資訊就可以分開儲存。</p>
+<h3 id="水平切分"><a href="#水平切分" class="headerlink" title="水平切分"></a>水平切分</h3><p>按照列來進行切分，主要有兩種切分方法：</p>
 <ol>
-<li><p>Diagonal Degree Matrix 解釋<br>我們先將X的轉置矩陣與D做內積(<code>X.T.dot(D)</code>):</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">array([[<span class="number">2</span>, <span class="number">4</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>],</span><br><span class="line">       [<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">2</span>],</span><br><span class="line">       [<span class="number">0</span>, <span class="number">0</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>]])</span><br></pre></td></tr></table></figure>
-<p>觀察一下結果會發現，這個矩陣就只是是把Degree填到對應的cluster中而已。<br>接著我們再把上面結果與X做內積(<code>X.T.dot(D).dot(X)</code>):</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">array([[<span class="number">6</span>, <span class="number">0</span>, <span class="number">0</span>],</span><br><span class="line">       [<span class="number">0</span>, <span class="number">7</span>, <span class="number">0</span>],</span><br><span class="line">       [<span class="number">0</span>, <span class="number">0</span>, <span class="number">5</span>]])</span><br></pre></td></tr></table></figure>
-<p>這個結果其實就表示<strong>每個cluster的degree總和</strong>。</p>
-</li>
-<li><p>Adjacency Matrix 解釋<br>接著我們直接將上面公式的D換成A(<code>X.T.dot(A).dot(X)</code>):</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">array([[<span class="number">2</span>, <span class="number">2</span>, <span class="number">2</span>],</span><br><span class="line">       [<span class="number">2</span>, <span class="number">4</span>, <span class="number">1</span>],</span><br><span class="line">       [<span class="number">2</span>, <span class="number">1</span>, <span class="number">2</span>]])</span><br></pre></td></tr></table></figure>
-<p>會發現結果表示在<strong>cluster與cluster間互相連接的edge數</strong>。</p>
-</li>
-<li><p>Laplacian Matrix 解釋<br>如果我們將兩個結果相減的話，會發現每一行的第i個元素(對角)就是我們想要計算的cut數(分子部分)!!!</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">array([[ <span class="number">4</span>, -<span class="number">2</span>, -<span class="number">2</span>],  <span class="comment"># i=0, 4</span></span><br><span class="line">       [-<span class="number">2</span>,  <span class="number">3</span>, -<span class="number">1</span>],  <span class="comment"># i=1, 3</span></span><br><span class="line">       [-<span class="number">2</span>, -<span class="number">1</span>,  <span class="number">3</span>]]) <span class="comment"># i=2, 3</span></span><br></pre></td></tr></table></figure>
-<p>接著我們另外計算每個cluster裡面共有多少個node，我們可以將X的轉置後與自己相乘(<code>X.T.dot(X)</code>):</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">array([[<span class="number">2</span>, <span class="number">0</span>, <span class="number">0</span>],</span><br><span class="line">       [<span class="number">0</span>, <span class="number">3</span>, <span class="number">0</span>],</span><br><span class="line">       [<span class="number">0</span>, <span class="number">0</span>, <span class="number">2</span>]])</span><br></pre></td></tr></table></figure>
-<p>最後將對角的結果相除後加起來就是算平均就得到Ratio Cut的分數啦~~~<br>(我這邊直接矩陣相除，大家可以自己算。)</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">array([[ <span class="number">2.</span> , -inf, -inf],</span><br><span class="line">       [-inf,  <span class="number">1.</span> , -inf],</span><br><span class="line">       [-inf, -inf,  <span class="number">1.5</span>]])</span><br></pre></td></tr></table></figure></li>
+<li><strong>按一定範圍切分</strong><br>舉例來說 ID &lt;&#x3D; 10000 為第一個表，接著每 10000 筆資料為一個表，這個做法的好處是<strong>容易新增表</strong>，壞處是<strong>較差的附載平衡</strong>，因為新資料與舊資料的活躍度可能有很大的差異。</li>
+<li><strong>使用哈希表切分</strong><br>將 ID 放入一個 Hash Function 中，如 <code>10 % 3 = 1</code>，根據 Hash 結果找到對應的表，好處是有<strong>較佳的附載平衡</strong>，缺點是<strong>不容易新增表</strong>，新增一個表通常涉及到<strong>修改 Hash Function</strong> 以及原先表的<strong>數據遷移</strong>。</li>
 </ol>
-<p>根據上面矩陣運算的過程，我們能將公式重新整理為:<br><img src="/../images/2023/04/27/ratio_cut_2.png" alt="ratio cut formula extended"></p>
-<p>在第三行的部分，我們另外對X進行標準化(同除以分母)變成了<code>X prime</code>。</p>
-<h3 id="Minimize"><a href="#Minimize" class="headerlink" title="Minimize"></a>Minimize</h3><p>回到最一開始的問題，我們的目標是要最小化ratio cut的分數，方法就是透過上面的公式去求解<code>X prime</code>矩陣，難過的是，還記的X矩陣裡最一開始只能填入0跟1嗎，想要在這樣嚴格的限制下求出最佳解是個<strong>NP-hard</strong>的問題。<br>不過不要灰心，我們還是可以放寬條件，套用近似演算法，其中一種方法就是接下來要介紹的Spectral Clustering~~~</p>
-<h2 id="Spectral-Clustering"><a href="#Spectral-Clustering" class="headerlink" title="Spectral Clustering"></a>Spectral Clustering</h2><p>Spectral Clustering 基於ratio cut，不過X矩陣中可以填入的值變成介於0~1之間，在放寬條件後，這個最小化問題的解可以被證明是求解Laplacian Matrix的前k小個特徵值的特徵向量。</p>
-<ol>
-<li><p>Eigenvalue &amp; Eigenvactors<br>我們可以用<code>np.linalg.eig</code>來替我們計算特徵值與特徵向量，並使用<code>np.argsort</code>來替我們找出最小的k個特徵向量。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># calculate eigenvalue and eigenvector</span></span><br><span class="line">eig_value, eig_vector = np.linalg.eig(L)</span><br><span class="line"></span><br><span class="line"><span class="comment"># get eigenvector with smallest eigenvalue</span></span><br><span class="line">k = <span class="number">3</span></span><br><span class="line">top_k = np.argsort(eig_value)[:k]</span><br><span class="line">top_k_vector = eig_vector[:, top_k]</span><br></pre></td></tr></table></figure>
-<p>得到的結果如下:</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">array([[ <span class="number">0.37796447</span>, -<span class="number">0.45244521</span>, -<span class="number">0.41243936</span>],</span><br><span class="line">       [ <span class="number">0.37796447</span>,  <span class="number">0.17351892</span>, -<span class="number">0.08541899</span>],</span><br><span class="line">       [ <span class="number">0.37796447</span>,  <span class="number">0.54280925</span>, -<span class="number">0.41243936</span>],</span><br><span class="line">       [ <span class="number">0.37796447</span>,  <span class="number">0.32598548</span>, -<span class="number">0.08541899</span>],</span><br><span class="line">       [ <span class="number">0.37796447</span>, -<span class="number">0.58986844</span>, -<span class="number">0.08541899</span>],</span><br><span class="line">       [ <span class="number">0.37796447</span>, -<span class="number">0.09036404</span>,  <span class="number">0.37705765</span>],</span><br><span class="line">       [ <span class="number">0.37796447</span>,  <span class="number">0.09036404</span>,  <span class="number">0.70407803</span>]])</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>K-means<br>由於得到的特徵值並無法直接拿來做解釋，因此Spectral Clustering另外使用了K-means來為這些特徵值做分群，因為最小的特徵值為0、特徵向量一定是常數，所以我們可以把它刪去，也就是說，如果我們想要分成k群，那我們至少需要使用k-1個特徵向量。<br>下面程式提供一個簡單的K-means範例，可以根據自己的需求另外設置停止條件。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">k_means</span>(<span class="params">X, k, max_iters=<span class="number">10000</span></span>):</span><br><span class="line">    <span class="comment"># randomly initialize centroids</span></span><br><span class="line">    centroids = X[np.random.choice(<span class="built_in">len</span>(X), k, replace=<span class="literal">False</span>)]</span><br><span class="line">    <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(max_iters):</span><br><span class="line">       <span class="comment"># calculate distances</span></span><br><span class="line">       distances = np.linalg.norm(X[:, np.newaxis] - centroids, axis=<span class="number">2</span>)</span><br><span class="line">       <span class="comment"># assign labels </span></span><br><span class="line">       labels = np.argmin(distances, axis=<span class="number">1</span>)</span><br><span class="line">       <span class="comment"># calculate new centroids</span></span><br><span class="line">       centroids = np.array([np.mean(X[labels == i], axis=<span class="number">0</span>) <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(k)])</span><br><span class="line">    <span class="keyword">return</span> labels</span><br><span class="line"></span><br><span class="line"><span class="comment"># remove first vector</span></span><br><span class="line">features = top_k_vector[:, <span class="number">1</span>:]</span><br><span class="line"><span class="comment"># do k-maens</span></span><br><span class="line">labels = k_means(features, k)</span><br></pre></td></tr></table></figure></li>
-</ol>
-<p>這樣就得到分群結果啦~~~(注意: 實際執行數字的順序可能不一樣)</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">array([<span class="number">2</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">1</span>], dtype=int64)</span><br></pre></td></tr></table></figure>
-
-<h1 id="結語"><a href="#結語" class="headerlink" title="結語"></a>結語</h1><p>其實忽略到複雜的數學證明的話，Spectral Clustering的概念還挺直觀的，文章參考了台大資管系的陳建錦教授所使用的上課講義，經過本人吸收轉化撰寫而成。</p>
+<h1 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h1><p><a href="https://www.digitalocean.com/community/tutorials/understanding-database-sharding">Understanding Database Sharding</a><br><a href="https://blog.csdn.net/Dongguabai/article/details/83578092">高并发（水平扩展，垂直扩展）</a><br><a href="https://www.twblogs.net/a/5c99f60fbd9eee434fc6c4d5">數據庫的向上擴展和橫向擴展（即水平擴展：讀寫分離、垂直切分、水平切分）</a></p>
 ]]></content>
       <categories>
-        <category>Social Network Analysis</category>
+        <category>system design</category>
       </categories>
       <tags>
-        <tag>Graph</tag>
-        <tag>Spectral Clustering</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>資料結構筆記 - 布隆過濾器 Bloom Filter</title>
-    <url>/posts/bloom-filter/</url>
-    <content><![CDATA[<p><img src="/../images/2024/01/10/bloom-filter-new.png" alt="bloom-filter"></p>
-<h1 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h1><ul>
-<li>用途: 用來快速判斷元素是否存在於一個集合中</li>
-<li>優點: 快速、節省空間</li>
-<li>缺點: 可能有 false positive (不存在但判定為存在)</li>
-<li>應用: <ul>
-<li>Check Duplicate: name、email 等是否已被使用</li>
-<li>Filters: 過濾惡意請求 (ex: <a href="https://www.explainthis.io/zh-hant/swe/cache-mechanism">Cache penetration</a>)、垃圾郵件等</li>
-</ul>
-</li>
-</ul>
-<span id="more"></span>
-
-<h1 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h1><p>對元素使用 k 個 Hash Functions，將其映射到長度為 m 的 Array 中，寫入時將映射到的 k 個位置標示為 1，檢查時如果映射到的 k 個位置都命中，表示該元素<strong>可能存在</strong>。</p>
-<ol>
-<li><p>由預期的 <strong>False positive rate (p)</strong> 以及存入的<strong>資料筆數 (n)</strong> 來求出 <strong>Array Size (m)</strong> 以及 <strong>Hash Functions數 (k)</strong></p>
-<ul>
-<li><strong>False positive rate</strong><br>  <img src="/../images/2024/01/10/false-positive-probability.png" alt="false-positive-probability"></li>
-<li><strong>Array size</strong><br>  <img src="/../images/2024/01/10/array-size.png" alt="array-size"></li>
-<li><strong>Number of hash functions</strong><br>  <img src="/../images/2024/01/10/number-of-hash-functions.png" alt="number-of-hash-functions"></li>
-</ul>
-</li>
-<li><p>選擇 Hash function<br>可以使用 <strong>Non-Cryptographic Hash</strong> (非密碼雜湊函數)，雖然有 collision 的可能，但足夠好了，而且比較快。<br>例如: MurmurHash、FarmHash、SpookyHash</p>
-</li>
-</ol>
-<h1 id="實作"><a href="#實作" class="headerlink" title="實作"></a>實作</h1><p><strong>非原創!</strong> 基本上是下面參考文章中的程式碼，寫的很不錯所以只有小小修改一下。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Python 3 program to build Bloom Filter </span></span><br><span class="line"><span class="comment"># Install mmh3 and bitarray 3rd party module first </span></span><br><span class="line"><span class="comment"># pip install mmh3 </span></span><br><span class="line"><span class="comment"># pip install bitarray </span></span><br><span class="line"><span class="keyword">import</span> math </span><br><span class="line"><span class="keyword">import</span> mmh3 </span><br><span class="line"><span class="keyword">from</span> bitarray <span class="keyword">import</span> bitarray </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">BloomFilter</span>(<span class="title class_ inherited__">object</span>): </span><br><span class="line"></span><br><span class="line">	<span class="string">&#x27;&#x27;&#x27; </span></span><br><span class="line"><span class="string">	Class for Bloom filter, using murmur3 hash function </span></span><br><span class="line"><span class="string">	&#x27;&#x27;&#x27;</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, items_count, fp_prob</span>): </span><br><span class="line">		<span class="string">&#x27;&#x27;&#x27; </span></span><br><span class="line"><span class="string">		items_count : int </span></span><br><span class="line"><span class="string">			Number of items expected to be stored in bloom filter </span></span><br><span class="line"><span class="string">		fp_prob : float </span></span><br><span class="line"><span class="string">			False Positive probability in decimal </span></span><br><span class="line"><span class="string">		&#x27;&#x27;&#x27;</span></span><br><span class="line">		<span class="comment"># False possible probability in decimal </span></span><br><span class="line">		self.fp_prob = fp_prob </span><br><span class="line"></span><br><span class="line">		<span class="comment"># Size of bit array to use </span></span><br><span class="line">		self.size = self.get_size(items_count, fp_prob) </span><br><span class="line"></span><br><span class="line">		<span class="comment"># number of hash functions to use </span></span><br><span class="line">		self.hash_count = self.get_hash_count(self.size, items_count) </span><br><span class="line"></span><br><span class="line">		<span class="comment"># Bit array of given size, default all 0 </span></span><br><span class="line">		self.bit_array = bitarray(self.size) </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	<span class="keyword">def</span> <span class="title function_">add</span>(<span class="params">self, item</span>): </span><br><span class="line">		<span class="string">&#x27;&#x27;&#x27; </span></span><br><span class="line"><span class="string">		Add an item in the filter </span></span><br><span class="line"><span class="string">		&#x27;&#x27;&#x27;</span></span><br><span class="line">		digests = [] </span><br><span class="line">		<span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(self.hash_count): </span><br><span class="line"></span><br><span class="line">			<span class="comment"># create digest for given item. </span></span><br><span class="line">			<span class="comment"># i work as seed to mmh3.hash() function </span></span><br><span class="line">			<span class="comment"># With different seed, digest created is different </span></span><br><span class="line">			digest = mmh3.<span class="built_in">hash</span>(item, i) % self.size </span><br><span class="line">			digests.append(digest) </span><br><span class="line"></span><br><span class="line">			<span class="comment"># set the bit True in bit_array </span></span><br><span class="line">			self.bit_array[digest] = <span class="literal">True</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">def</span> <span class="title function_">check</span>(<span class="params">self, item</span>): </span><br><span class="line">		<span class="string">&#x27;&#x27;&#x27; </span></span><br><span class="line"><span class="string">		Check for existence of an item in filter </span></span><br><span class="line"><span class="string">		&#x27;&#x27;&#x27;</span></span><br><span class="line">		<span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(self.hash_count): </span><br><span class="line">			digest = mmh3.<span class="built_in">hash</span>(item, i) % self.size </span><br><span class="line">			<span class="keyword">if</span> self.bit_array[digest] == <span class="literal">False</span>: </span><br><span class="line"></span><br><span class="line">				<span class="comment"># if any of bit is False then,its not present </span></span><br><span class="line">				<span class="comment"># in filter </span></span><br><span class="line">				<span class="comment"># else there is probability that it exist </span></span><br><span class="line">				<span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">		<span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line"></span><br><span class="line"><span class="meta">	@staticmethod</span></span><br><span class="line">	<span class="keyword">def</span> <span class="title function_">get_size</span>(<span class="params">n, p</span>): </span><br><span class="line">		<span class="string">&#x27;&#x27;&#x27; </span></span><br><span class="line"><span class="string">		Return the size of bit array(m) to used using </span></span><br><span class="line"><span class="string">		following formula </span></span><br><span class="line"><span class="string">		m = -(n * lg(p)) / (lg(2)^2) </span></span><br><span class="line"><span class="string">		n : int </span></span><br><span class="line"><span class="string">			number of items expected to be stored in filter </span></span><br><span class="line"><span class="string">		p : float </span></span><br><span class="line"><span class="string">			False Positive probability in decimal </span></span><br><span class="line"><span class="string">		&#x27;&#x27;&#x27;</span></span><br><span class="line">		m = -(n * math.log(p))/(math.log(<span class="number">2</span>)**<span class="number">2</span>) </span><br><span class="line">		<span class="keyword">return</span> <span class="built_in">int</span>(m) </span><br><span class="line"></span><br><span class="line"><span class="meta">	@staticmethod</span></span><br><span class="line">	<span class="keyword">def</span> <span class="title function_">get_hash_count</span>(<span class="params">m, n</span>): </span><br><span class="line">		<span class="string">&#x27;&#x27;&#x27; </span></span><br><span class="line"><span class="string">		Return the hash function(k) to be used using </span></span><br><span class="line"><span class="string">		following formula </span></span><br><span class="line"><span class="string">		k = (m/n) * lg(2) </span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">		m : int </span></span><br><span class="line"><span class="string">			size of bit array </span></span><br><span class="line"><span class="string">		n : int </span></span><br><span class="line"><span class="string">			number of items expected to be stored in filter </span></span><br><span class="line"><span class="string">		&#x27;&#x27;&#x27;</span></span><br><span class="line">		k = (m/n) * math.log(<span class="number">2</span>) </span><br><span class="line">		<span class="keyword">return</span> <span class="built_in">int</span>(k)</span><br></pre></td></tr></table></figure>
-
-<p>看一下成果</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">n = <span class="number">100000</span> <span class="comment"># Number of items to add </span></span><br><span class="line">p = <span class="number">0.05</span> <span class="comment"># False positive probability </span></span><br><span class="line">  </span><br><span class="line">bloomf = BloomFilter(n,p) </span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Array size: &#123;&#125;&quot;</span>.<span class="built_in">format</span>(bloomf.size)) </span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Number of hash functions: &#123;&#125;&quot;</span>.<span class="built_in">format</span>(bloomf.hash_count)) </span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;False positive probability: &#123;&#125;&quot;</span>.<span class="built_in">format</span>(bloomf.fp_prob)) </span><br><span class="line"></span><br><span class="line"><span class="comment"># Add items</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">	bloomf.add(<span class="built_in">str</span>(i))</span><br><span class="line"></span><br><span class="line"><span class="comment"># Check false positive rate on Test data</span></span><br><span class="line">fp = <span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n, <span class="number">2</span>*n):</span><br><span class="line">	<span class="keyword">if</span> bloomf.check(<span class="built_in">str</span>(i)):</span><br><span class="line">		fp += <span class="number">1</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;False positive rate on test data: &#123;:.4f&#125;&quot;</span>.<span class="built_in">format</span>(fp/n)) </span><br></pre></td></tr></table></figure>
-
-<p>可以看到實際的 FP Rate 與我們設定的非常接近。<br><img src="/../images/2024/01/10/filter-result.png" alt="filter-result"></p>
-<h1 id="參考文章"><a href="#參考文章" class="headerlink" title="參考文章"></a>參考文章</h1><p><a href="https://www.geeksforgeeks.org/bloom-filters-introduction-and-python-implementation/">Bloom Filters – Introduction and Implementation</a></p>
-]]></content>
-      <categories>
-        <category>DSA</category>
-      </categories>
-      <tags>
-        <tag>資料結構</tag>
-        <tag>Bloom Filter</tag>
+        <tag>scaling</tag>
       </tags>
   </entry>
   <entry>
@@ -784,89 +861,75 @@
       </tags>
   </entry>
   <entry>
-    <title>系統架構筆記 - 常見的五種部署策略</title>
-    <url>/posts/deployment-strategies/</url>
-    <content><![CDATA[<p><img src="/../images/2024/01/16/strategies.png" alt="strategies"></p>
-<p>這篇文章簡單紀錄了常見的五種部署策略: Big Bang Deployment、Rolling Deployment (滾動部署)、Blue-Green Deployment (藍綠部署)、Canary Deployment (金絲雀部署) 與 Shadow Deployment (影子部署)。</p>
+    <title>Spectral Clustering - 算法解析與numpy程式實作</title>
+    <url>/posts/spectral-clustering/</url>
+    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p><img src="/../images/2023/04/27/cluster_analysis.jpg" alt="Spectral Clustering"></p>
+<p>在社群網絡中分析中，有時候會想要找出網絡當中的社群(community detection)，一個最直觀的想法是直接對網絡進行分群，那麼分群結果就是各個community了。<br>如果我們能夠計算各個節點之間的相似性，那麼我們當然可以直接套用傳統的分群方法，如cosine similiarity，但一來是相似度特徵可能很難取得，二來是這樣分群的話就沒有利用到網絡的結構了，這時我們可以改為使用基於圖論的分群方法。<br>今天這篇文章會帶大家簡單瞭解什麼是cut approach, balanced-cut approach以及其代表方法spectral clustering，並示範不依賴其他套件，僅使用numpy實作spectral clustering。</p>
 <span id="more"></span>
 
-<h1 id="Big-Bang-Deployment"><a href="#Big-Bang-Deployment" class="headerlink" title="Big Bang Deployment"></a>Big Bang Deployment</h1><p>名字聽起來很 Dramatic 的部署策略，將舊版本完全下線後部署新版本。</p>
-<ul>
-<li>優點: <ul>
-<li>easy、一次性完成</li>
+<h1 id="大綱"><a href="#大綱" class="headerlink" title="大綱"></a>大綱</h1><ul>
+<li><a href="#Mini-cut-Approach">Mini-cut approach</a></li>
+<li><a href="#Balanced-cut-Approach">Balanced-cut approach</a></li>
+<li><a href="#Spectral-Clustering">Spectral clustering</a></li>
 </ul>
+<h1 id="內文"><a href="#內文" class="headerlink" title="內文"></a>內文</h1><h2 id="Mini-cut-Approach"><a href="#Mini-cut-Approach" class="headerlink" title="Mini-cut Approach"></a>Mini-cut Approach</h2><p>Cut approach，顧名思義是將網絡給切開來形成多個網絡，屬於partitional clustering的一種，每個節點只會屬於一個community，並且community之間也不會overlapping，而Mini-cut Approach則是希望在切割網絡時能最小化切掉的edge數量。<br>聽起來很直觀，但這樣切會有一個問題，那就是有可能會切出一些非常小的community，導致分群不夠balance。</p>
+<h2 id="Balanced-cut-Approach"><a href="#Balanced-cut-Approach" class="headerlink" title="Balanced-cut Approach"></a>Balanced-cut Approach</h2><p>為了解決Mini-cut Approach的缺點，Balanced-cut Approach在切割網絡時除了考量原本的edge，另外除以community的node數做加權調整，切割的目標從最小化edge數轉為最小化ratio cut，公式如下:<br><img src="/../images/2023/04/27/ratio_cut.png" alt="Ratio Cut formula"></p>
+<p>公式解釋: 分成k群(k要自己決定)，每次取一個群<code>Pi</code>出來看，分子部分表示將<code>Pi</code>切開的話會切到的edge數，分母部分表示<code>Pi</code>內部的node數，將k個群的結果加總起來就會是整個網路的ratio cut分數。</p>
+<h3 id="Matrixs"><a href="#Matrixs" class="headerlink" title="Matrixs"></a>Matrixs</h3><p>為了要計算Ratio Cut，我們先要來認識一下三種矩陣:</p>
+<ol>
+<li><p>Diagonal Degree Matrix 度數矩陣<br>Degree(度數)指的是一個node有多少個鄰居，將這些Degree轉換為對角矩陣(Diagonal Matrix)就得到Diagonal Degree Matrix。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">D = np.array([</span><br><span class="line">  [<span class="number">2</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>],</span><br><span class="line">  [<span class="number">0</span>, <span class="number">4</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>],</span><br><span class="line">  [<span class="number">0</span>, <span class="number">0</span>, <span class="number">2</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>],</span><br><span class="line">  [<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">3</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>],</span><br><span class="line">  [<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">2</span>, <span class="number">0</span>, <span class="number">0</span>],</span><br><span class="line">  [<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">3</span>, <span class="number">0</span>],</span><br><span class="line">  [<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">2</span>]])</span><br></pre></td></tr></table></figure>
 </li>
-<li>缺點: <ul>
-<li>有 downtime，一般生產環境下不會使用</li>
-</ul>
+<li><p>Adjacency Matrix 鄰接矩陣<br>只要是對Graph有些概念的人應該都對Adjacency Matrix不太陌生，Adjacency Matrix描述了node之間的關係，下面例子假設node之間的關係都是雙向的，所以會是個對稱矩陣。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">A = np.array([</span><br><span class="line">  [<span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>],</span><br><span class="line">  [<span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>],</span><br><span class="line">  [<span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>],</span><br><span class="line">  [<span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>],</span><br><span class="line">  [<span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>],</span><br><span class="line">  [<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>],</span><br><span class="line">  [<span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>]])</span><br></pre></td></tr></table></figure>
 </li>
-</ul>
-<h1 id="Rolling-Deployment-滾動部署"><a href="#Rolling-Deployment-滾動部署" class="headerlink" title="Rolling Deployment (滾動部署)"></a>Rolling Deployment (滾動部署)</h1><p><img src="/../images/2024/01/16/rolling.png" alt="rolling"></p>
-<p>將舊版本逐步 (one by one) 更新為新版本，在這個過程中，舊版本和新版本會共存一段時間。</p>
-<ul>
-<li>優點: <ul>
-<li>no downtime</li>
-</ul>
+<li><p>Laplacian Matrix 調和矩陣(拉普拉斯矩陣)<br>Laplacian Matrix 的算法就是直接將Diagonal Degree Matrix 減去 Adjacency Matrix，聽起來可能讓人滿頭問號，為什麼要這麼做? 這邊先賣個關子，繼續看下去就知道了。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">L = np.array([</span><br><span class="line">  [ <span class="number">2</span>, -<span class="number">1</span>,  <span class="number">0</span>,  <span class="number">0</span>, -<span class="number">1</span>,  <span class="number">0</span>,  <span class="number">0</span>],</span><br><span class="line">  [-<span class="number">1</span>,  <span class="number">4</span>, -<span class="number">1</span>, -<span class="number">1</span>,  <span class="number">0</span>,  <span class="number">0</span>, -<span class="number">1</span>],</span><br><span class="line">  [ <span class="number">0</span>, -<span class="number">1</span>,  <span class="number">2</span>, -<span class="number">1</span>,  <span class="number">0</span>,  <span class="number">0</span>,  <span class="number">0</span>],</span><br><span class="line">  [ <span class="number">0</span>, -<span class="number">1</span>, -<span class="number">1</span>,  <span class="number">3</span>,  <span class="number">0</span>, -<span class="number">1</span>,  <span class="number">0</span>],</span><br><span class="line">  [-<span class="number">1</span>,  <span class="number">0</span>,  <span class="number">0</span>,  <span class="number">0</span>,  <span class="number">2</span>, -<span class="number">1</span>,  <span class="number">0</span>],</span><br><span class="line">  [ <span class="number">0</span>,  <span class="number">0</span>,  <span class="number">0</span>, -<span class="number">1</span>, -<span class="number">1</span>,  <span class="number">3</span>, -<span class="number">1</span>],</span><br><span class="line">  [ <span class="number">0</span>, -<span class="number">1</span>,  <span class="number">0</span>,  <span class="number">0</span>,  <span class="number">0</span>, -<span class="number">1</span>,  <span class="number">2</span>]])</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="Calculation"><a href="#Calculation" class="headerlink" title="Calculation"></a>Calculation</h3><p>現在先假設我們已經知道分群的結果了，並將結果以0,1的形式表示為一個matrix，令這個結果為X，下面結果是我隨便分的，分3群，<code>X[i][j]==1</code>表示node<code>i</code>屬於cluster<code>j</code>。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">X = np.array([</span><br><span class="line">  [<span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>],</span><br><span class="line">  [<span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>],</span><br><span class="line">  [<span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>],</span><br><span class="line">  [<span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>],</span><br><span class="line">  [<span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>],</span><br><span class="line">  [<span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>],</span><br><span class="line">  [<span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>]])</span><br></pre></td></tr></table></figure>
+<ol>
+<li><p>Diagonal Degree Matrix 解釋<br>我們先將X的轉置矩陣與D做內積(<code>X.T.dot(D)</code>):</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">array([[<span class="number">2</span>, <span class="number">4</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>],</span><br><span class="line">       [<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">2</span>],</span><br><span class="line">       [<span class="number">0</span>, <span class="number">0</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>]])</span><br></pre></td></tr></table></figure>
+<p>觀察一下結果會發現，這個矩陣就只是是把Degree填到對應的cluster中而已。<br>接著我們再把上面結果與X做內積(<code>X.T.dot(D).dot(X)</code>):</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">array([[<span class="number">6</span>, <span class="number">0</span>, <span class="number">0</span>],</span><br><span class="line">       [<span class="number">0</span>, <span class="number">7</span>, <span class="number">0</span>],</span><br><span class="line">       [<span class="number">0</span>, <span class="number">0</span>, <span class="number">5</span>]])</span><br></pre></td></tr></table></figure>
+<p>這個結果其實就表示<strong>每個cluster的degree總和</strong>。</p>
 </li>
-<li>缺點: <ul>
-<li>新舊版本間沒有隔離，可能需要處理版本之間的相容性與數據一致性</li>
-<li>rollback 也是逐步滾回去，複雜且耗時</li>
-</ul>
+<li><p>Adjacency Matrix 解釋<br>接著我們直接將上面公式的D換成A(<code>X.T.dot(A).dot(X)</code>):</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">array([[<span class="number">2</span>, <span class="number">2</span>, <span class="number">2</span>],</span><br><span class="line">       [<span class="number">2</span>, <span class="number">4</span>, <span class="number">1</span>],</span><br><span class="line">       [<span class="number">2</span>, <span class="number">1</span>, <span class="number">2</span>]])</span><br></pre></td></tr></table></figure>
+<p>會發現結果表示在<strong>cluster與cluster間互相連接的edge數</strong>。</p>
 </li>
-</ul>
-<h1 id="Blue-Green-Deployment-藍綠部署"><a href="#Blue-Green-Deployment-藍綠部署" class="headerlink" title="Blue-Green Deployment (藍綠部署)"></a>Blue-Green Deployment (藍綠部署)</h1><p><img src="/../images/2024/01/16/blue-green.png" alt="blue-green"></p>
-<p>同時維護兩個平行的環境，一個為主要環境 (Blue)，另一個為即將上線的新版本 (Green)，於測試環境測試完新版本後，直接將兩個環境的流量做切換。</p>
-<ul>
-<li>優點: <ul>
-<li>no downtime</li>
-<li>直接切換流量即可完成版本切換，rollback 也是</li>
-</ul>
+<li><p>Laplacian Matrix 解釋<br>如果我們將兩個結果相減的話，會發現每一行的第i個元素(對角)就是我們想要計算的cut數(分子部分)!!!</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">array([[ <span class="number">4</span>, -<span class="number">2</span>, -<span class="number">2</span>],  <span class="comment"># i=0, 4</span></span><br><span class="line">       [-<span class="number">2</span>,  <span class="number">3</span>, -<span class="number">1</span>],  <span class="comment"># i=1, 3</span></span><br><span class="line">       [-<span class="number">2</span>, -<span class="number">1</span>,  <span class="number">3</span>]]) <span class="comment"># i=2, 3</span></span><br></pre></td></tr></table></figure>
+<p>接著我們另外計算每個cluster裡面共有多少個node，我們可以將X的轉置後與自己相乘(<code>X.T.dot(X)</code>):</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">array([[<span class="number">2</span>, <span class="number">0</span>, <span class="number">0</span>],</span><br><span class="line">       [<span class="number">0</span>, <span class="number">3</span>, <span class="number">0</span>],</span><br><span class="line">       [<span class="number">0</span>, <span class="number">0</span>, <span class="number">2</span>]])</span><br></pre></td></tr></table></figure>
+<p>最後將對角的結果相除後加起來就是算平均就得到Ratio Cut的分數啦~~~<br>(我這邊直接矩陣相除，大家可以自己算。)</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">array([[ <span class="number">2.</span> , -inf, -inf],</span><br><span class="line">       [-inf,  <span class="number">1.</span> , -inf],</span><br><span class="line">       [-inf, -inf,  <span class="number">1.5</span>]])</span><br></pre></td></tr></table></figure></li>
+</ol>
+<p>根據上面矩陣運算的過程，我們能將公式重新整理為:<br><img src="/../images/2023/04/27/ratio_cut_2.png" alt="ratio cut formula extended"></p>
+<p>在第三行的部分，我們另外對X進行標準化(同除以分母)變成了<code>X prime</code>。</p>
+<h3 id="Minimize"><a href="#Minimize" class="headerlink" title="Minimize"></a>Minimize</h3><p>回到最一開始的問題，我們的目標是要最小化ratio cut的分數，方法就是透過上面的公式去求解<code>X prime</code>矩陣，難過的是，還記的X矩陣裡最一開始只能填入0跟1嗎，想要在這樣嚴格的限制下求出最佳解是個<strong>NP-hard</strong>的問題。<br>不過不要灰心，我們還是可以放寬條件，套用近似演算法，其中一種方法就是接下來要介紹的Spectral Clustering~~~</p>
+<h2 id="Spectral-Clustering"><a href="#Spectral-Clustering" class="headerlink" title="Spectral Clustering"></a>Spectral Clustering</h2><p>Spectral Clustering 基於ratio cut，不過X矩陣中可以填入的值變成介於0~1之間，在放寬條件後，這個最小化問題的解可以被證明是求解Laplacian Matrix的前k小個特徵值的特徵向量。</p>
+<ol>
+<li><p>Eigenvalue &amp; Eigenvactors<br>我們可以用<code>np.linalg.eig</code>來替我們計算特徵值與特徵向量，並使用<code>np.argsort</code>來替我們找出最小的k個特徵向量。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># calculate eigenvalue and eigenvector</span></span><br><span class="line">eig_value, eig_vector = np.linalg.eig(L)</span><br><span class="line"></span><br><span class="line"><span class="comment"># get eigenvector with smallest eigenvalue</span></span><br><span class="line">k = <span class="number">3</span></span><br><span class="line">top_k = np.argsort(eig_value)[:k]</span><br><span class="line">top_k_vector = eig_vector[:, top_k]</span><br></pre></td></tr></table></figure>
+<p>得到的結果如下:</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">array([[ <span class="number">0.37796447</span>, -<span class="number">0.45244521</span>, -<span class="number">0.41243936</span>],</span><br><span class="line">       [ <span class="number">0.37796447</span>,  <span class="number">0.17351892</span>, -<span class="number">0.08541899</span>],</span><br><span class="line">       [ <span class="number">0.37796447</span>,  <span class="number">0.54280925</span>, -<span class="number">0.41243936</span>],</span><br><span class="line">       [ <span class="number">0.37796447</span>,  <span class="number">0.32598548</span>, -<span class="number">0.08541899</span>],</span><br><span class="line">       [ <span class="number">0.37796447</span>, -<span class="number">0.58986844</span>, -<span class="number">0.08541899</span>],</span><br><span class="line">       [ <span class="number">0.37796447</span>, -<span class="number">0.09036404</span>,  <span class="number">0.37705765</span>],</span><br><span class="line">       [ <span class="number">0.37796447</span>,  <span class="number">0.09036404</span>,  <span class="number">0.70407803</span>]])</span><br></pre></td></tr></table></figure>
 </li>
-<li>缺點: <ul>
-<li>要同時維護兩個環境，成本高</li>
-</ul>
-</li>
-</ul>
-<h1 id="Canary-Deployment-金絲雀部署"><a href="#Canary-Deployment-金絲雀部署" class="headerlink" title="Canary Deployment (金絲雀部署)"></a>Canary Deployment (金絲雀部署)</h1><p><img src="/../images/2024/01/16/canary.png" alt="canary"></p>
-<p>將新版本釋出給少量用戶做測試，測試沒問題後才將剩下的部署為新版本。</p>
-<ul>
-<li>優點: <ul>
-<li>no downtime</li>
-<li>能於生產環境中評估新版本效能，降低新版本風險</li>
-<li>rollback 較容易</li>
-</ul>
-</li>
-<li>缺點: <ul>
-<li>部署時間較長</li>
-<li>某些問題無法靠少量用戶就發現</li>
-</ul>
-</li>
-<li>與 Rolling Deployment 的差異<ul>
-<li>Canary Deployment 是階段式的過程，先部署少部分，確定沒問題才擴大部署</li>
-<li>Rolling Deployment 則連續的過程，一次對整個系統做升級，只是過程上是逐步部署</li>
-</ul>
-</li>
-</ul>
-<h1 id="Shadow-Deployment-影子部署"><a href="#Shadow-Deployment-影子部署" class="headerlink" title="Shadow Deployment (影子部署)"></a>Shadow Deployment (影子部署)</h1><p>同時維護兩個平行的環境，新版本在幕後運行 (in the shadow)，使用者的 request 會被複製一份到新版本用於測試</p>
-<ul>
-<li>優點:<ul>
-<li>不會對使用者造成實際影響，同時能測試新版本效能</li>
-</ul>
-</li>
-<li>缺點<ul>
-<li>實作上比較困難</li>
-<li>成本高</li>
-</ul>
-</li>
-</ul>
-<h2 id="其他-Feature-Toggle"><a href="#其他-Feature-Toggle" class="headerlink" title="其他: Feature Toggle"></a>其他: Feature Toggle</h2><p><img src="/../images/2024/01/16/feature-toggle.png" alt="feature-toggle"></p>
-<p>封面的圖片裡還有提到一個 Feature Toggle，概念是在程式中設計一個開關來控制新功能的狀態，可以針對特定用戶開啟，用來觀察新功能的效能、反饋如何，通常是用來做 A&#x2F;B Test，本質上跟前面提到的幾個部署方法有點差異。</p>
+<li><p>K-means<br>由於得到的特徵值並無法直接拿來做解釋，因此Spectral Clustering另外使用了K-means來為這些特徵值做分群，因為最小的特徵值為0、特徵向量一定是常數，所以我們可以把它刪去，也就是說，如果我們想要分成k群，那我們至少需要使用k-1個特徵向量。<br>下面程式提供一個簡單的K-means範例，可以根據自己的需求另外設置停止條件。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">k_means</span>(<span class="params">X, k, max_iters=<span class="number">10000</span></span>):</span><br><span class="line">    <span class="comment"># randomly initialize centroids</span></span><br><span class="line">    centroids = X[np.random.choice(<span class="built_in">len</span>(X), k, replace=<span class="literal">False</span>)]</span><br><span class="line">    <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(max_iters):</span><br><span class="line">       <span class="comment"># calculate distances</span></span><br><span class="line">       distances = np.linalg.norm(X[:, np.newaxis] - centroids, axis=<span class="number">2</span>)</span><br><span class="line">       <span class="comment"># assign labels </span></span><br><span class="line">       labels = np.argmin(distances, axis=<span class="number">1</span>)</span><br><span class="line">       <span class="comment"># calculate new centroids</span></span><br><span class="line">       centroids = np.array([np.mean(X[labels == i], axis=<span class="number">0</span>) <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(k)])</span><br><span class="line">    <span class="keyword">return</span> labels</span><br><span class="line"></span><br><span class="line"><span class="comment"># remove first vector</span></span><br><span class="line">features = top_k_vector[:, <span class="number">1</span>:]</span><br><span class="line"><span class="comment"># do k-maens</span></span><br><span class="line">labels = k_means(features, k)</span><br></pre></td></tr></table></figure></li>
+</ol>
+<p>這樣就得到分群結果啦~~~(注意: 實際執行數字的順序可能不一樣)</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">array([<span class="number">2</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">1</span>], dtype=int64)</span><br></pre></td></tr></table></figure>
+
+<h1 id="結語"><a href="#結語" class="headerlink" title="結語"></a>結語</h1><p>其實忽略到複雜的數學證明的話，Spectral Clustering的概念還挺直觀的，文章參考了台大資管系的陳建錦教授所使用的上課講義，經過本人吸收轉化撰寫而成。</p>
 ]]></content>
       <categories>
-        <category>system design</category>
+        <category>Social Network Analysis</category>
       </categories>
       <tags>
-        <tag>deployment strategy</tag>
+        <tag>Graph</tag>
+        <tag>Spectral Clustering</tag>
       </tags>
   </entry>
 </search>
