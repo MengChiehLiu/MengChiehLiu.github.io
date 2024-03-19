@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#222">
+  <link rel="manifest" href="/images/site.webmanifest">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha256-/4UQcSmErDzPCMAiuOiWPVVsNN2s3ZY/NsmXNcj0IFc=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"mengchiehliu.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.15.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="SetSet 的關係圖如下: 比較常用的:  HashSet: 不保證保存順序，速度最快 LinkedHashSet: 保存順序與存入順序相同 TreeSet: 依元素的大小排序，存入的元素必須是可比較的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java 自學筆記 05 - Set &amp; Map">
+<meta property="og:url" content="https://mengchiehliu.github.io/posts/java-learning-05/index.html">
+<meta property="og:site_name" content="米蟲的程式小窩">
+<meta property="og:description" content="SetSet 的關係圖如下: 比較常用的:  HashSet: 不保證保存順序，速度最快 LinkedHashSet: 保存順序與存入順序相同 TreeSet: 依元素的大小排序，存入的元素必須是可比較的">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://mengchiehliu.github.io/images/2024/03/19/java_set_interface.png">
+<meta property="og:image" content="https://mengchiehliu.github.io/images/2024/03/19/set_operation.png">
+<meta property="og:image" content="https://mengchiehliu.github.io/images/2024/03/19/java_map_interface.png">
+<meta property="article:published_time" content="2024-03-19T14:21:46.000Z">
+<meta property="article:modified_time" content="2024-03-19T16:31:46.695Z">
+<meta property="article:author" content="Meng-Chieh Liu">
+<meta property="article:tag" content="Java">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://mengchiehliu.github.io/images/2024/03/19/java_set_interface.png">
+
+
+<link rel="canonical" href="https://mengchiehliu.github.io/posts/java-learning-05/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://mengchiehliu.github.io/posts/java-learning-05/","path":"posts/java-learning-05/","title":"Java 自學筆記 05 - Set & Map"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Java 自學筆記 05 - Set & Map | 米蟲的程式小窩</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">米蟲的程式小窩</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Viva La Vida</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜尋" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>關於</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜尋..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Set"><span class="nav-number">1.</span> <span class="nav-text">Set</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Basic-Usage"><span class="nav-number">1.1.</span> <span class="nav-text">Basic Usage</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Iterations"><span class="nav-number">1.2.</span> <span class="nav-text">Iterations</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Set-Operations"><span class="nav-number">1.3.</span> <span class="nav-text">Set Operations</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Map"><span class="nav-number">2.</span> <span class="nav-text">Map</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Basic-Usage-1"><span class="nav-number">2.1.</span> <span class="nav-text">Basic Usage</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Keys-and-Values"><span class="nav-number">2.2.</span> <span class="nav-text">Keys and Values</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Iterations-1"><span class="nav-number">2.3.</span> <span class="nav-text">Iterations</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Map-Operations"><span class="nav-number">2.4.</span> <span class="nav-text">Map Operations</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="nav-number">3.</span> <span class="nav-text">參考資料</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Meng-Chieh Liu"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Meng-Chieh Liu</p>
+  <div class="site-description" itemprop="description">讀會計但一直寫程式的人</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">18</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/MengChiehLiu" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;MengChiehLiu" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.linkedin.com/in/meng-chieh-liu-615952235/" title="Linkedin → https:&#x2F;&#x2F;www.linkedin.com&#x2F;in&#x2F;meng-chieh-liu-615952235&#x2F;" rel="noopener me" target="_blank"><i class="fa-brands fa-linkedin fa-fw"></i>Linkedin</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:jk211896@gmail.com" title="E-Mail → mailto:jk211896@gmail.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+        <div class="sidebar-inner sidebar-post-related">
+          <div class="animated">
+              <div class="links-of-blogroll-title"><i class="fa fa-signs-post fa-fw"></i>
+    相關文章
+  </div>
+  <ul class="popular-posts">
+    <li class="popular-posts-item">
+      <a class="popular-posts-link" href="/posts/java-learning-03/" rel="bookmark">
+        <time class="popular-posts-time">2024-03-19</time>
+        <br>
+      Java 自學筆記 03 - Interface & Abstract
+      </a>
+    </li>
+    <li class="popular-posts-item">
+      <a class="popular-posts-link" href="/posts/java-learning-04/" rel="bookmark">
+        <time class="popular-posts-time">2024-03-19</time>
+        <br>
+      Java 自學筆記 04 - List & Queue
+      </a>
+    </li>
+  </ul>
+
+          </div>
+        </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://mengchiehliu.github.io/posts/java-learning-05/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Meng-Chieh Liu">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="米蟲的程式小窩">
+      <meta itemprop="description" content="讀會計但一直寫程式的人">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Java 自學筆記 05 - Set & Map | 米蟲的程式小窩">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Java 自學筆記 05 - Set & Map
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+
+      <time title="創建時間：2024-03-19 22:21:46" itemprop="dateCreated datePublished" datetime="2024-03-19T22:21:46+08:00">2024-03-19</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Java-Learning/" itemprop="url" rel="index"><span itemprop="name">Java Learning</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="閱讀次數" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">閱讀次數：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>612</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>3 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="Set"><a href="#Set" class="headerlink" title="Set"></a>Set</h2><p>Set 的關係圖如下:<br><img src="/../images/2024/03/19/java_set_interface.png" alt="Java Set Interface"></p>
+<p>比較常用的:</p>
+<ul>
+<li><strong>HashSet</strong>: 不保證保存順序，速度最快</li>
+<li><strong>LinkedHashSet</strong>: 保存順序與存入順序相同</li>
+<li><strong>TreeSet</strong>: 依元素的大小排序，存入的元素必須是可比較的</li>
+</ul>
+<span id="more"></span>
+
+<h3 id="Basic-Usage"><a href="#Basic-Usage" class="headerlink" title="Basic Usage"></a>Basic Usage</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">Set&lt;String&gt; set = <span class="keyword">new</span> <span class="title class_">HashSet</span>&lt;&gt;(); </span><br><span class="line"><span class="comment">// Set&lt;String&gt; set = new LinkedHashSet&lt;&gt;(); </span></span><br><span class="line"><span class="comment">// Set&lt;String&gt; set = new TreeSet&lt;&gt;();</span></span><br><span class="line"></span><br><span class="line">set.add(<span class="string">&quot;Jack&quot;</span>);</span><br><span class="line">set.add(<span class="string">&quot;Emma&quot;</span>);   </span><br><span class="line">set.add(<span class="string">&quot;Kevin&quot;</span>);   </span><br><span class="line">set.add(<span class="string">&quot;Jack&quot;</span>);</span><br><span class="line"></span><br><span class="line">set.contains(<span class="string">&quot;Tom&quot;</span>) <span class="comment">// False</span></span><br><span class="line">set.remove(<span class="string">&quot;Tom&quot;</span>); <span class="comment">// False</span></span><br><span class="line"></span><br><span class="line">set.size(); <span class="comment">// 3 ([Kevin, Jack, Emma])</span></span><br><span class="line">set.isEmpty(); <span class="comment">// False</span></span><br><span class="line"><span class="comment">// set.clear();</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Iterations"><a href="#Iterations" class="headerlink" title="Iterations"></a>Iterations</h3><p>Iterator 是老用法了不太推薦，用 for 跟 forEach 好多了</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Iterator&lt;String&gt; newSet = set.iterator();     </span><br><span class="line"><span class="keyword">while</span> (newSet.hasNext()) &#123;   </span><br><span class="line">    System.out.println(newSet.next());   </span><br><span class="line">&#125;  </span><br><span class="line"><span class="comment">// or</span></span><br><span class="line"><span class="keyword">for</span> (String name: set)&#123;</span><br><span class="line">    System.out.println(name); </span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// or</span></span><br><span class="line">set.forEach((name)-&gt;&#123;</span><br><span class="line">    System.out.println(name);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h3 id="Set-Operations"><a href="#Set-Operations" class="headerlink" title="Set Operations"></a>Set Operations</h3><p>set 很適合用來做交集聯集等操作。</p>
+<p><img src="/../images/2024/03/19/set_operation.png" alt="Set Operation"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">String[] source = &#123;<span class="string">&quot;Jack&quot;</span>, <span class="string">&quot;Tom&quot;</span>&#125;;</span><br><span class="line">Set&lt;String&gt; set2 = <span class="keyword">new</span> <span class="title class_">HashSet</span>&lt;&gt;(Arrays.asList(source)); </span><br><span class="line"></span><br><span class="line"><span class="comment">// union</span></span><br><span class="line">set.addAll(set2); <span class="comment">// [Kevin, Tom, Jack, Emma]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// intersection</span></span><br><span class="line">set.retainAll(set2); <span class="comment">// [Jack]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// difference (自己那邊)</span></span><br><span class="line">set.removeAll(set2); <span class="comment">// [Kevin, Emma]</span></span><br></pre></td></tr></table></figure>
+
+
+<h2 id="Map"><a href="#Map" class="headerlink" title="Map"></a>Map</h2><p>Map 的關係圖下:<br><img src="/../images/2024/03/19/java_map_interface.png" alt="Java Map Interface"></p>
+<blockquote>
+<p>上圖最左邊的 Hashtable 跟 Vector 一樣是老舊的語法，透過 <code>synchronized</code> 同步以實現線程安全，性能不佳，大多時候都可以被取代掉，真的要確保線程安全可以改用 <code>ConcurrentHashMap</code>。</p>
+</blockquote>
+<p>同樣有三種常用的 Map，各自的特色跟對應到的 Set 一模一樣，只是改成存鍵值對:</p>
+<ul>
+<li><strong>HashMap</strong>: 不保證保存順序，速度最快</li>
+<li><strong>LinkedHashMap</strong>: 保存順序與存入順序相同</li>
+<li><strong>TreeMap</strong>: 依元素的大小排序，存入的元素必須是可比較的</li>
+</ul>
+<h3 id="Basic-Usage-1"><a href="#Basic-Usage-1" class="headerlink" title="Basic Usage"></a>Basic Usage</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">Map&lt;String, Integer&gt; map = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line"><span class="comment">// Map&lt;String, Integer&gt; set = new LinkedHashMap&lt;&gt;(); </span></span><br><span class="line"><span class="comment">// Map&lt;String, Integer&gt; set = new TreeMap&lt;&gt;();</span></span><br><span class="line"></span><br><span class="line">map.put(<span class="string">&quot;apple&quot;</span>, <span class="number">3</span>);</span><br><span class="line">map.put(<span class="string">&quot;banana&quot;</span>, <span class="number">2</span>);</span><br><span class="line">map.put(<span class="string">&quot;orange&quot;</span>, <span class="number">4</span>);  <span class="comment">// return null</span></span><br><span class="line">map.put(<span class="string">&quot;orange&quot;</span>, <span class="number">5</span>); <span class="comment">// return 4 (previous value)</span></span><br><span class="line">System.out.println(map); <span class="comment">// &#123;banana=2, orange=5, apple=3&#125;</span></span><br><span class="line"></span><br><span class="line">map.get(<span class="string">&quot;apple&quot;</span>); <span class="comment">// return 3</span></span><br><span class="line">map.get(<span class="string">&quot;peach&quot;</span>); <span class="comment">// return null</span></span><br><span class="line">map.getOrDefault(<span class="string">&quot;peach&quot;</span>, <span class="number">0</span>); <span class="comment">// return default 0</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// map.remove(&quot;apple&quot;); // return 3</span></span><br><span class="line">map.remove(<span class="string">&quot;peach&quot;</span>); <span class="comment">// return null</span></span><br><span class="line"></span><br><span class="line">map.isEmpty(); <span class="comment">// return false</span></span><br><span class="line">map.size(); <span class="comment">// return 3</span></span><br><span class="line"><span class="comment">// map.clear(); </span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Keys-and-Values"><a href="#Keys-and-Values" class="headerlink" title="Keys and Values"></a>Keys and Values</h3><p>取用方式基本上類似於 python 的 <code>keys()</code> 和 <code>values()</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// get keys</span></span><br><span class="line">Set&lt;String&gt; keys = map.keySet();</span><br><span class="line">System.out.println(keys); <span class="comment">// [banana, orange, apple]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// get values</span></span><br><span class="line">Collection&lt;Integer&gt; values = map.values();</span><br><span class="line">System.out.println(values); <span class="comment">// [2, 5, 3]</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Iterations-1"><a href="#Iterations-1" class="headerlink" title="Iterations"></a>Iterations</h3><p>遍歷 Map 有很多方法，這裡示範三種：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1. keySet()，</span></span><br><span class="line"><span class="keyword">for</span> (String key: map.keySet())&#123;</span><br><span class="line">    System.out.println(<span class="string">&quot;key=&quot;</span> + key + <span class="string">&quot;, value=&quot;</span> + map.get(key));</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 2. entrySet()，類愈 python 的 items()</span></span><br><span class="line"><span class="keyword">for</span> (Map.Entry&lt;String, Integer&gt; entry: map.entrySet())&#123;</span><br><span class="line">    System.out.println(<span class="string">&quot;key=&quot;</span> + entry.getKey() + <span class="string">&quot;, value=&quot;</span> + entry.getValue());</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 3. forEach()，建議使用</span></span><br><span class="line">map.forEach((key, value) -&gt; &#123;</span><br><span class="line">    System.out.println(<span class="string">&quot;key=&quot;</span> + key + <span class="string">&quot;, value=&quot;</span> + value);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h3 id="Map-Operations"><a href="#Map-Operations" class="headerlink" title="Map Operations"></a>Map Operations</h3><p>跟 Set 一樣 Map 也可以做 operations，很酷的是我們對 <code>keySet()</code> 進行操作時，其實也會影響到 Map 本身。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">Map&lt;String, Integer&gt; map2 = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;()&#123;&#123;</span><br><span class="line">    put(<span class="string">&quot;orange&quot;</span>, <span class="number">1</span>);</span><br><span class="line">    put(<span class="string">&quot;lemon&quot;</span>, <span class="number">1</span>);</span><br><span class="line">    put(<span class="string">&quot;starwberry&quot;</span>, <span class="number">2</span>);</span><br><span class="line">&#125;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// union</span></span><br><span class="line">map.putAll(map2); </span><br><span class="line">System.out.println(map); <span class="comment">// &#123;banana=2, orange=1, apple=3, lemon=1, starwberry=2&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// intersection</span></span><br><span class="line">map.keySet().retainAll(map2.keySet());</span><br><span class="line">System.out.println(map); <span class="comment">// &#123;orange=5&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// difference (left half)</span></span><br><span class="line">map.keySet().removeAll(map2.keySet());</span><br><span class="line">System.out.println(map); <span class="comment">// &#123;banana=2, apple=3&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h2><p><a target="_blank" rel="noopener" href="https://www.javatpoint.com/set-in-java">Set in Java - Javapoint</a><br><a target="_blank" rel="noopener" href="https://www.javatpoint.com/java-map">Java Map - Javapoint</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>作者： </strong>Meng-Chieh Liu
+  </li>
+  <li class="post-copyright-link">
+      <strong>文章連結：</strong>
+      <a href="https://mengchiehliu.github.io/posts/java-learning-05/" title="Java 自學筆記 05 - Set &amp; Map">https://mengchiehliu.github.io/posts/java-learning-05/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版權聲明： </strong>本網誌所有文章除特別聲明外，均採用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 許可協議。轉載請註明出處！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Java/" rel="tag"><i class="fa fa-tag"></i> Java</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/posts/java-learning-04/" rel="prev" title="Java 自學筆記 04 - List & Queue">
+                  <i class="fa fa-chevron-left"></i> Java 自學筆記 04 - List & Queue
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Meng-Chieh Liu</span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="訪客總數">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="總瀏覽次數">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="回到頂端">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"MengChiehLiu/MengChiehLiu.github.io","issue_term":"pathname","theme":"github-light"}</script>
+<script src="/js/third-party/comments/utterances.js"></script>
+
+</body>
+</html>
