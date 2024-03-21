@@ -30,7 +30,7 @@
 <meta property="og:image" content="https://mengchiehliu.github.io/images/2024/01/17/scaling.png">
 <meta property="og:image" content="https://mengchiehliu.github.io/images/2024/01/17/sharding.png">
 <meta property="article:published_time" content="2024-01-17T09:16:08.000Z">
-<meta property="article:modified_time" content="2024-03-19T14:55:59.429Z">
+<meta property="article:modified_time" content="2024-03-21T13:57:47.966Z">
 <meta property="article:author" content="Meng-Chieh Liu">
 <meta property="article:tag" content="Scaling">
 <meta name="twitter:card" content="summary">
@@ -144,7 +144,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9E%82%E7%9B%B4%E6%93%B4%E5%B1%95"><span class="nav-number">1.</span> <span class="nav-text">垂直擴展</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B0%B4%E5%B9%B3%E6%93%B4%E5%B1%95"><span class="nav-number">2.</span> <span class="nav-text">水平擴展</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%80%E5%AF%AB%E5%88%86%E9%9B%A2"><span class="nav-number">2.1.</span> <span class="nav-text">讀寫分離</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B3%87%E6%96%99%E5%BA%AB%E5%88%87%E5%88%86-Partitioning-x2F-Sharding"><span class="nav-number">2.2.</span> <span class="nav-text">資料庫切分 (Partitioning &#x2F; Sharding)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9E%82%E7%9B%B4%E5%88%87%E5%88%86"><span class="nav-number">2.2.1.</span> <span class="nav-text">垂直切分</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B0%B4%E5%B9%B3%E5%88%87%E5%88%86"><span class="nav-number">2.2.2.</span> <span class="nav-text">水平切分</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="nav-number">3.</span> <span class="nav-text">參考資料</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9E%82%E7%9B%B4%E6%93%B4%E5%B1%95"><span class="nav-number">1.</span> <span class="nav-text"> 垂直擴展</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B0%B4%E5%B9%B3%E6%93%B4%E5%B1%95"><span class="nav-number">2.</span> <span class="nav-text"> 水平擴展</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%80%E5%AF%AB%E5%88%86%E9%9B%A2"><span class="nav-number">2.1.</span> <span class="nav-text"> 讀寫分離</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B3%87%E6%96%99%E5%BA%AB%E5%88%87%E5%88%86-partitioning-sharding"><span class="nav-number">2.2.</span> <span class="nav-text"> 資料庫切分 (Partitioning &#x2F; Sharding)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9E%82%E7%9B%B4%E5%88%87%E5%88%86"><span class="nav-number">2.2.1.</span> <span class="nav-text"> 垂直切分</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B0%B4%E5%B9%B3%E5%88%87%E5%88%86"><span class="nav-number">2.2.2.</span> <span class="nav-text"> 水平切分</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="nav-number">3.</span> <span class="nav-text"> 參考資料</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -159,18 +159,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">20</span>
+          <span class="site-state-item-count">21</span>
           <span class="site-state-item-name">文章</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-count">7</span>
         <span class="site-state-item-name">分類</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-count">18</span>
         <span class="site-state-item-name">標籤</span></a>
       </div>
   </nav>
@@ -281,25 +281,40 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <p><img src="/../images/2024/01/17/scaling.png" alt="scaling"></p>
+        <p><img src="../../images/2024/01/17/scaling.png" alt="scaling" /></p>
 <p>這篇文章會介紹垂直擴展以及水平擴展，並以資料庫的水平擴展為延伸，介紹讀寫分離與資料庫切分 (Sharding)。</p>
 <span id="more"></span>
-
-<h1 id="垂直擴展"><a href="#垂直擴展" class="headerlink" title="垂直擴展"></a>垂直擴展</h1><p>這台機器不行那我就換一台更好的。<br>其實就是升級硬體，好處就是簡單直接，能用垂擴展解決那就優先考慮垂直擴展吧。但垂直擴展是有極限的，而且越好的機器越貴，這時就可以考慮水平擴展。</p>
-<h1 id="水平擴展"><a href="#水平擴展" class="headerlink" title="水平擴展"></a>水平擴展</h1><p>一台機器不行那我就多用幾台。<br>要實現伺服器的水平擴展比較容易，不外乎就是多開幾台機器，然後做好 load balance，這裡重點介紹<strong>資料庫</strong>的水平擴展，大致上可以分為兩個策略：</p>
-<h2 id="讀寫分離"><a href="#讀寫分離" class="headerlink" title="讀寫分離"></a>讀寫分離</h2><p>在原本的資料庫 (主節點) 外添加幾個從資料庫 (從節點) ，向主節點寫入資料，讀取時則優先自從節點讀取。讀寫分離會遇到幾個問題： </p>
+<h1 id="垂直擴展"><a class="markdownIt-Anchor" href="#垂直擴展"></a> 垂直擴展</h1>
+<p>這台機器不行那我就換一台更好的。<br />
+其實就是升級硬體，好處就是簡單直接，能用垂擴展解決那就優先考慮垂直擴展吧。但垂直擴展是有極限的，而且越好的機器越貴，這時就可以考慮水平擴展。</p>
+<h1 id="水平擴展"><a class="markdownIt-Anchor" href="#水平擴展"></a> 水平擴展</h1>
+<p>一台機器不行那我就多用幾台。<br />
+要實現伺服器的水平擴展比較容易，不外乎就是多開幾台機器，然後做好 load balance，這裡重點介紹<strong>資料庫</strong>的水平擴展，大致上可以分為兩個策略：</p>
+<h2 id="讀寫分離"><a class="markdownIt-Anchor" href="#讀寫分離"></a> 讀寫分離</h2>
+<p>在原本的資料庫 (主節點) 外添加幾個從資料庫 (從節點) ，向主節點寫入資料，讀取時則優先自從節點讀取。讀寫分離會遇到幾個問題：</p>
 <ol>
-<li><strong>最終一致性問題</strong><br>  由於從節點的數據是自主節點同步過來，因此中間勢必存在一時間差，可能導致從節點的數據不是最即時的數據，因此從節點的數據僅滿足最終一致性。</li>
-<li><strong>單個主節點</strong><br>  由於主節點仍然只有一個，如果遇到需要大量寫入的作業仍然會出現堵塞，這時候可能要考慮多個主節點的架構，不過就跟前一點一樣會遇到資料同步的問題，還需要考慮同時有多個寫入情況下的 race condition。</li>
+<li><strong>最終一致性問題</strong><br />
+由於從節點的數據是自主節點同步過來，因此中間勢必存在一時間差，可能導致從節點的數據不是最即時的數據，因此從節點的數據僅滿足最終一致性。</li>
+<li><strong>單個主節點</strong><br />
+由於主節點仍然只有一個，如果遇到需要大量寫入的作業仍然會出現堵塞，這時候可能要考慮多個主節點的架構，不過就跟前一點一樣會遇到資料同步的問題，還需要考慮同時有多個寫入情況下的 race condition。</li>
 </ol>
-<h2 id="資料庫切分-Partitioning-x2F-Sharding"><a href="#資料庫切分-Partitioning-x2F-Sharding" class="headerlink" title="資料庫切分 (Partitioning &#x2F; Sharding)"></a>資料庫切分 (Partitioning &#x2F; Sharding)</h2><p>將一個資料庫 (大資料表) 分割為多個小資料表，並將其儲存在不同節點上，又可以分為<strong>垂直切分</strong>與<strong>水平切分</strong>：<br><img src="/../images/2024/01/17/sharding.png" alt="sharding"></p>
-<h3 id="垂直切分"><a href="#垂直切分" class="headerlink" title="垂直切分"></a>垂直切分</h3><p>按照欄位來進行切分，通常可以按照業務功能來做切割，如電商平台中的買家資訊與賣家資訊就可以分開儲存。</p>
-<h3 id="水平切分"><a href="#水平切分" class="headerlink" title="水平切分"></a>水平切分</h3><p>按照列來進行切分，主要有兩種切分方法：</p>
+<h2 id="資料庫切分-partitioning-sharding"><a class="markdownIt-Anchor" href="#資料庫切分-partitioning-sharding"></a> 資料庫切分 (Partitioning / Sharding)</h2>
+<p>將一個資料庫 (大資料表) 分割為多個小資料表，並將其儲存在不同節點上，又可以分為<strong>垂直切分</strong>與<strong>水平切分</strong>：<br />
+<img src="../../images/2024/01/17/sharding.png" alt="sharding" /></p>
+<h3 id="垂直切分"><a class="markdownIt-Anchor" href="#垂直切分"></a> 垂直切分</h3>
+<p>按照欄位來進行切分，通常可以按照業務功能來做切割，如電商平台中的買家資訊與賣家資訊就可以分開儲存。</p>
+<h3 id="水平切分"><a class="markdownIt-Anchor" href="#水平切分"></a> 水平切分</h3>
+<p>按照列來進行切分，主要有兩種切分方法：</p>
 <ol>
-<li><strong>按一定範圍切分</strong><br>舉例來說 ID &lt;&#x3D; 10000 為第一個表，接著每 10000 筆資料為一個表，這個做法的好處是<strong>容易新增表</strong>，壞處是<strong>較差的附載平衡</strong>，因為新資料與舊資料的活躍度可能有很大的差異。</li>
-<li><strong>使用哈希表切分</strong><br>將 ID 放入一個 Hash Function 中，如 <code>10 % 3 = 1</code>，根據 Hash 結果找到對應的表，好處是有<strong>較佳的附載平衡</strong>，缺點是<strong>不容易新增表</strong>，新增一個表通常涉及到<strong>修改 Hash Function</strong> 以及原先表的<strong>數據遷移</strong>。</li>
+<li><strong>按一定範圍切分</strong><br />
+舉例來說 ID &lt;= 10000 為第一個表，接著每 10000 筆資料為一個表，這個做法的好處是<strong>容易新增表</strong>，壞處是<strong>較差的附載平衡</strong>，因為新資料與舊資料的活躍度可能有很大的差異。</li>
+<li><strong>使用哈希表切分</strong><br />
+將 ID 放入一個 Hash Function 中，如 <code>10 % 3 = 1</code>，根據 Hash 結果找到對應的表，好處是有<strong>較佳的附載平衡</strong>，缺點是<strong>不容易新增表</strong>，新增一個表通常涉及到<strong>修改 Hash Function</strong> 以及原先表的<strong>數據遷移</strong>。</li>
 </ol>
-<h1 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h1><p><a target="_blank" rel="noopener" href="https://www.digitalocean.com/community/tutorials/understanding-database-sharding">Understanding Database Sharding</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/Dongguabai/article/details/83578092">高并发（水平扩展，垂直扩展）</a><br><a target="_blank" rel="noopener" href="https://www.twblogs.net/a/5c99f60fbd9eee434fc6c4d5">數據庫的向上擴展和橫向擴展（即水平擴展：讀寫分離、垂直切分、水平切分）</a></p>
+<h1 id="參考資料"><a class="markdownIt-Anchor" href="#參考資料"></a> 參考資料</h1>
+<p><a target="_blank" rel="noopener" href="https://www.digitalocean.com/community/tutorials/understanding-database-sharding">Understanding Database Sharding</a><br />
+<a target="_blank" rel="noopener" href="https://blog.csdn.net/Dongguabai/article/details/83578092">高并发（水平扩展，垂直扩展）</a><br />
+<a target="_blank" rel="noopener" href="https://www.twblogs.net/a/5c99f60fbd9eee434fc6c4d5">數據庫的向上擴展和橫向擴展（即水平擴展：讀寫分離、垂直切分、水平切分）</a></p>
 
     </div>
 
@@ -417,6 +432,11 @@
   <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
 
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.4/katex.min.css" integrity="sha256-gMRN4/6qeELzO1wbFa8qQLU8kfuF2dnAPiUoI0ATjx8=" crossorigin="anonymous">
 
 
 <script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"MengChiehLiu/MengChiehLiu.github.io","issue_term":"pathname","theme":"github-light"}</script>

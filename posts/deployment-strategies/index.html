@@ -33,7 +33,7 @@
 <meta property="og:image" content="https://mengchiehliu.github.io/images/2024/01/16/canary.png">
 <meta property="og:image" content="https://mengchiehliu.github.io/images/2024/01/16/feature-toggle.png">
 <meta property="article:published_time" content="2024-01-16T09:22:09.000Z">
-<meta property="article:modified_time" content="2024-03-19T14:56:04.624Z">
+<meta property="article:modified_time" content="2024-03-21T13:56:47.625Z">
 <meta property="article:author" content="Meng-Chieh Liu">
 <meta property="article:tag" content="Deployment">
 <meta name="twitter:card" content="summary">
@@ -147,7 +147,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Big-Bang-Deployment"><span class="nav-number">1.</span> <span class="nav-text">Big Bang Deployment</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Rolling-Deployment-%E6%BB%BE%E5%8B%95%E9%83%A8%E7%BD%B2"><span class="nav-number">2.</span> <span class="nav-text">Rolling Deployment (滾動部署)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Blue-Green-Deployment-%E8%97%8D%E7%B6%A0%E9%83%A8%E7%BD%B2"><span class="nav-number">3.</span> <span class="nav-text">Blue-Green Deployment (藍綠部署)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Canary-Deployment-%E9%87%91%E7%B5%B2%E9%9B%80%E9%83%A8%E7%BD%B2"><span class="nav-number">4.</span> <span class="nav-text">Canary Deployment (金絲雀部署)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Shadow-Deployment-%E5%BD%B1%E5%AD%90%E9%83%A8%E7%BD%B2"><span class="nav-number">5.</span> <span class="nav-text">Shadow Deployment (影子部署)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B6%E4%BB%96-Feature-Toggle"><span class="nav-number">5.1.</span> <span class="nav-text">其他: Feature Toggle</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#big-bang-deployment"><span class="nav-number">1.</span> <span class="nav-text"> Big Bang Deployment</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#rolling-deployment-%E6%BB%BE%E5%8B%95%E9%83%A8%E7%BD%B2"><span class="nav-number">2.</span> <span class="nav-text"> Rolling Deployment (滾動部署)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#blue-green-deployment-%E8%97%8D%E7%B6%A0%E9%83%A8%E7%BD%B2"><span class="nav-number">3.</span> <span class="nav-text"> Blue-Green Deployment (藍綠部署)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#canary-deployment-%E9%87%91%E7%B5%B2%E9%9B%80%E9%83%A8%E7%BD%B2"><span class="nav-number">4.</span> <span class="nav-text"> Canary Deployment (金絲雀部署)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#shadow-deployment-%E5%BD%B1%E5%AD%90%E9%83%A8%E7%BD%B2"><span class="nav-number">5.</span> <span class="nav-text"> Shadow Deployment (影子部署)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B6%E4%BB%96-feature-toggle"><span class="nav-number">5.1.</span> <span class="nav-text"> 其他: Feature Toggle</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -162,18 +162,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">20</span>
+          <span class="site-state-item-count">21</span>
           <span class="site-state-item-name">文章</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-count">7</span>
         <span class="site-state-item-name">分類</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-count">18</span>
         <span class="site-state-item-name">標籤</span></a>
       </div>
   </nav>
@@ -284,81 +284,97 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <p><img src="/../images/2024/01/16/strategies.png" alt="strategies"></p>
+        <p><img src="../../images/2024/01/16/strategies.png" alt="strategies" /></p>
 <p>這篇文章簡單紀錄了常見的五種部署策略: Big Bang Deployment、Rolling Deployment (滾動部署)、Blue-Green Deployment (藍綠部署)、Canary Deployment (金絲雀部署) 與 Shadow Deployment (影子部署)。</p>
 <span id="more"></span>
-
-<h1 id="Big-Bang-Deployment"><a href="#Big-Bang-Deployment" class="headerlink" title="Big Bang Deployment"></a>Big Bang Deployment</h1><p>名字聽起來很 Dramatic 的部署策略，將舊版本完全下線後部署新版本。</p>
+<h1 id="big-bang-deployment"><a class="markdownIt-Anchor" href="#big-bang-deployment"></a> Big Bang Deployment</h1>
+<p>名字聽起來很 Dramatic 的部署策略，將舊版本完全下線後部署新版本。</p>
 <ul>
-<li>優點: <ul>
+<li>優點:
+<ul>
 <li>easy、一次性完成</li>
 </ul>
 </li>
-<li>缺點: <ul>
+<li>缺點:
+<ul>
 <li>有 downtime，一般生產環境下不會使用</li>
 </ul>
 </li>
 </ul>
-<h1 id="Rolling-Deployment-滾動部署"><a href="#Rolling-Deployment-滾動部署" class="headerlink" title="Rolling Deployment (滾動部署)"></a>Rolling Deployment (滾動部署)</h1><p><img src="/../images/2024/01/16/rolling.png" alt="rolling"></p>
+<h1 id="rolling-deployment-滾動部署"><a class="markdownIt-Anchor" href="#rolling-deployment-滾動部署"></a> Rolling Deployment (滾動部署)</h1>
+<p><img src="../../images/2024/01/16/rolling.png" alt="rolling" /></p>
 <p>將舊版本逐步 (one by one) 更新為新版本，在這個過程中，舊版本和新版本會共存一段時間。</p>
 <ul>
-<li>優點: <ul>
+<li>優點:
+<ul>
 <li>no downtime</li>
 </ul>
 </li>
-<li>缺點: <ul>
+<li>缺點:
+<ul>
 <li>新舊版本間沒有隔離，可能需要處理版本之間的相容性與數據一致性</li>
 <li>rollback 也是逐步滾回去，複雜且耗時</li>
 </ul>
 </li>
 </ul>
-<h1 id="Blue-Green-Deployment-藍綠部署"><a href="#Blue-Green-Deployment-藍綠部署" class="headerlink" title="Blue-Green Deployment (藍綠部署)"></a>Blue-Green Deployment (藍綠部署)</h1><p><img src="/../images/2024/01/16/blue-green.png" alt="blue-green"></p>
+<h1 id="blue-green-deployment-藍綠部署"><a class="markdownIt-Anchor" href="#blue-green-deployment-藍綠部署"></a> Blue-Green Deployment (藍綠部署)</h1>
+<p><img src="../../images/2024/01/16/blue-green.png" alt="blue-green" /></p>
 <p>同時維護兩個平行的環境，一個為主要環境 (Blue)，另一個為即將上線的新版本 (Green)，於測試環境測試完新版本後，直接將兩個環境的流量做切換。</p>
 <ul>
-<li>優點: <ul>
+<li>優點:
+<ul>
 <li>no downtime</li>
 <li>直接切換流量即可完成版本切換，rollback 也是</li>
 </ul>
 </li>
-<li>缺點: <ul>
+<li>缺點:
+<ul>
 <li>要同時維護兩個環境，成本高</li>
 </ul>
 </li>
 </ul>
-<h1 id="Canary-Deployment-金絲雀部署"><a href="#Canary-Deployment-金絲雀部署" class="headerlink" title="Canary Deployment (金絲雀部署)"></a>Canary Deployment (金絲雀部署)</h1><p><img src="/../images/2024/01/16/canary.png" alt="canary"></p>
+<h1 id="canary-deployment-金絲雀部署"><a class="markdownIt-Anchor" href="#canary-deployment-金絲雀部署"></a> Canary Deployment (金絲雀部署)</h1>
+<p><img src="../../images/2024/01/16/canary.png" alt="canary" /></p>
 <p>將新版本釋出給少量用戶做測試，測試沒問題後才將剩下的部署為新版本。</p>
 <ul>
-<li>優點: <ul>
+<li>優點:
+<ul>
 <li>no downtime</li>
 <li>能於生產環境中評估新版本效能，降低新版本風險</li>
 <li>rollback 較容易</li>
 </ul>
 </li>
-<li>缺點: <ul>
+<li>缺點:
+<ul>
 <li>部署時間較長</li>
 <li>某些問題無法靠少量用戶就發現</li>
 </ul>
 </li>
-<li>與 Rolling Deployment 的差異<ul>
+<li>與 Rolling Deployment 的差異
+<ul>
 <li>Canary Deployment 是階段式的過程，先部署少部分，確定沒問題才擴大部署</li>
 <li>Rolling Deployment 則連續的過程，一次對整個系統做升級，只是過程上是逐步部署</li>
 </ul>
 </li>
 </ul>
-<h1 id="Shadow-Deployment-影子部署"><a href="#Shadow-Deployment-影子部署" class="headerlink" title="Shadow Deployment (影子部署)"></a>Shadow Deployment (影子部署)</h1><p>同時維護兩個平行的環境，新版本在幕後運行 (in the shadow)，使用者的 request 會被複製一份到新版本用於測試</p>
+<h1 id="shadow-deployment-影子部署"><a class="markdownIt-Anchor" href="#shadow-deployment-影子部署"></a> Shadow Deployment (影子部署)</h1>
+<p>同時維護兩個平行的環境，新版本在幕後運行 (in the shadow)，使用者的 request 會被複製一份到新版本用於測試</p>
 <ul>
-<li>優點:<ul>
+<li>優點:
+<ul>
 <li>不會對使用者造成實際影響，同時能測試新版本效能</li>
 </ul>
 </li>
-<li>缺點<ul>
+<li>缺點
+<ul>
 <li>實作上比較困難</li>
 <li>成本高</li>
 </ul>
 </li>
 </ul>
-<h2 id="其他-Feature-Toggle"><a href="#其他-Feature-Toggle" class="headerlink" title="其他: Feature Toggle"></a>其他: Feature Toggle</h2><p><img src="/../images/2024/01/16/feature-toggle.png" alt="feature-toggle"></p>
-<p>封面的圖片裡還有提到一個 Feature Toggle，概念是在程式中設計一個開關來控制新功能的狀態，可以針對特定用戶開啟，用來觀察新功能的效能、反饋如何，通常是用來做 A&#x2F;B Test，本質上跟前面提到的幾個部署方法有點差異。</p>
+<h2 id="其他-feature-toggle"><a class="markdownIt-Anchor" href="#其他-feature-toggle"></a> 其他: Feature Toggle</h2>
+<p><img src="../../images/2024/01/16/feature-toggle.png" alt="feature-toggle" /></p>
+<p>封面的圖片裡還有提到一個 Feature Toggle，概念是在程式中設計一個開關來控制新功能的狀態，可以針對特定用戶開啟，用來觀察新功能的效能、反饋如何，通常是用來做 A/B Test，本質上跟前面提到的幾個部署方法有點差異。</p>
 
     </div>
 
@@ -476,6 +492,11 @@
   <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
 
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.4/katex.min.css" integrity="sha256-gMRN4/6qeELzO1wbFa8qQLU8kfuF2dnAPiUoI0ATjx8=" crossorigin="anonymous">
 
 
 <script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"MengChiehLiu/MengChiehLiu.github.io","issue_term":"pathname","theme":"github-light"}</script>

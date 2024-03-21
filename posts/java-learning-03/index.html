@@ -29,7 +29,7 @@
 <meta property="og:locale" content="zh_TW">
 <meta property="og:image" content="https://mengchiehliu.github.io/images/2024/03/19/java_interface_abstract.png">
 <meta property="article:published_time" content="2024-03-19T14:18:12.000Z">
-<meta property="article:modified_time" content="2024-03-19T16:30:26.655Z">
+<meta property="article:modified_time" content="2024-03-21T13:57:30.464Z">
 <meta property="article:author" content="Meng-Chieh Liu">
 <meta property="article:tag" content="Java">
 <meta property="article:tag" content="OOP">
@@ -144,7 +144,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Interface-%E4%BB%8B%E9%9D%A2"><span class="nav-number">1.</span> <span class="nav-text">Interface (介面)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%A3%E5%91%8A-interface"><span class="nav-number">1.1.</span> <span class="nav-text">宣告 interface</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Interface-%E7%9A%84%E7%B9%BC%E6%89%BF"><span class="nav-number">1.2.</span> <span class="nav-text">Interface 的繼承</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Class-%E5%AF%A6%E4%BD%9C-Interface"><span class="nav-number">1.3.</span> <span class="nav-text">Class 實作 Interface</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Abstarct-%E6%8A%BD%E8%B1%A1"><span class="nav-number">2.</span> <span class="nav-text">Abstarct (抽象)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="nav-number">3.</span> <span class="nav-text">參考資料</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#interface-%E4%BB%8B%E9%9D%A2"><span class="nav-number">1.</span> <span class="nav-text"> Interface (介面)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%A3%E5%91%8A-interface"><span class="nav-number">1.1.</span> <span class="nav-text"> 宣告 interface</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#interface-%E7%9A%84%E7%B9%BC%E6%89%BF"><span class="nav-number">1.2.</span> <span class="nav-text"> Interface 的繼承</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#class-%E5%AF%A6%E4%BD%9C-interface"><span class="nav-number">1.3.</span> <span class="nav-text"> Class 實作 Interface</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#abstarct-%E6%8A%BD%E8%B1%A1"><span class="nav-number">2.</span> <span class="nav-text"> Abstarct (抽象)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="nav-number">3.</span> <span class="nav-text"> 參考資料</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -159,18 +159,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">20</span>
+          <span class="site-state-item-count">21</span>
           <span class="site-state-item-name">文章</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-count">7</span>
         <span class="site-state-item-name">分類</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-count">18</span>
         <span class="site-state-item-name">標籤</span></a>
       </div>
   </nav>
@@ -319,21 +319,24 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <p><img src="/../images/2024/03/19/java_interface_abstract.png" alt="Interface &amp; Abstract"></p>
-<p>OOP 除了有 Encapsulation、Inheritance 與 Polymorphism 三大要素外，<strong>Interface</strong> 與 <strong>Abstract</strong> 也是 OOP 中的重要概念。 </p>
+        <p><img src="../../images/2024/03/19/java_interface_abstract.png" alt="Interface &amp; Abstract" /></p>
+<p>OOP 除了有 Encapsulation、Inheritance 與 Polymorphism 三大要素外，<strong>Interface</strong> 與 <strong>Abstract</strong> 也是 OOP 中的重要概念。</p>
 <span id="more"></span>
-
-<h2 id="Interface-介面"><a href="#Interface-介面" class="headerlink" title="Interface (介面)"></a>Interface (介面)</h2><p>因為 java 的 class 不能多重繼承，所以發展出 Interface:</p>
-<h3 id="宣告-interface"><a href="#宣告-interface" class="headerlink" title="宣告 interface"></a>宣告 interface</h3><p>interface 裡的變數都是 <strong>piblic</strong>、<strong>static</strong> 以及 <strong>final</strong> 的<br>interface 裡的方法則是 <strong>public</strong> 以及 <strong>abstract</strong> 的</p>
+<h2 id="interface-介面"><a class="markdownIt-Anchor" href="#interface-介面"></a> Interface (介面)</h2>
+<p>因為 java 的 class 不能多重繼承，所以發展出 Interface:</p>
+<h3 id="宣告-interface"><a class="markdownIt-Anchor" href="#宣告-interface"></a> 宣告 interface</h3>
+<p>interface 裡的變數都是 <strong>piblic</strong>、<strong>static</strong> 以及 <strong>final</strong> 的<br />
+interface 裡的方法則是 <strong>public</strong> 以及 <strong>abstract</strong> 的</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">Listener</span> &#123;</span><br><span class="line">    <span class="type">double</span> <span class="variable">PI</span> <span class="operator">=</span> <span class="number">3.14149</span>; <span class="comment">// 同public static final</span></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">listen</span><span class="params">()</span>; <span class="comment">// 同public abstract</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">Runnalbe</span> &#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">PERIOD</span> <span class="operator">=</span> <span class="number">10</span>;</span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span>; <span class="comment">// 注意這裡只有 ()，沒有 &#123;&#125;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">AnotherRun</span> &#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">PERIOD</span> <span class="operator">=</span> <span class="number">20</span>;</span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span>;</span><br><span class="line">    <span class="type">int</span> <span class="title function_">run</span><span class="params">(<span class="type">int</span>)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="Interface-的繼承"><a href="#Interface-的繼承" class="headerlink" title="Interface 的繼承"></a>Interface 的繼承</h3><p>Interface 可以多重繼承</p>
+<h3 id="interface-的繼承"><a class="markdownIt-Anchor" href="#interface-的繼承"></a> Interface 的繼承</h3>
+<p>Interface 可以多重繼承</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">ActionListener</span> <span class="keyword">extends</span> <span class="title class_">Listener</span> &#123;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">MultiInterface</span> <span class="keyword">extends</span> <span class="title class_">Listener</span>, Runnalbe &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="Class-實作-Interface"><a href="#Class-實作-Interface" class="headerlink" title="Class 實作 Interface"></a>Class 實作 Interface</h3><p><strong>相同變數名稱</strong>: 用 interfaceA.var 以及 interfaceB.var 區分<br><strong>相同函數名稱</strong>: 實作一次就好</p>
+<h3 id="class-實作-interface"><a class="markdownIt-Anchor" href="#class-實作-interface"></a> Class 實作 Interface</h3>
+<p><strong>相同變數名稱</strong>: 用 interfaceA.var 以及 interfaceB.var 區分<br />
+<strong>相同函數名稱</strong>: 實作一次就好</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">A</span> <span class="keyword">implements</span> <span class="title class_">Listener</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">listen</span><span class="params">()</span> &#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">B</span> <span class="keyword">implements</span> <span class="title class_">Listener</span>, Runnable &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">listen</span><span class="params">()</span> &#123;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">C</span> <span class="keyword">implements</span> <span class="title class_">MultiInterface</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">listen</span><span class="params">()</span> &#123;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">D</span> <span class="keyword">extends</span> <span class="title class_">A</span> <span class="keyword">implements</span> <span class="title class_">Runnable</span>, AnotherRun &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">run</span><span class="params">(<span class="type">int</span> period)</span> &#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="Abstarct-抽象"><a href="#Abstarct-抽象" class="headerlink" title="Abstarct (抽象)"></a>Abstarct (抽象)</h2><p>只有參數宣告，沒有實作的方法，稱為abstract method。</p>
+<h2 id="abstarct-抽象"><a class="markdownIt-Anchor" href="#abstarct-抽象"></a> Abstarct (抽象)</h2>
+<p>只有參數宣告，沒有實作的方法，稱為abstract method。</p>
 <ul>
 <li><strong>具有 abstract method 的 class 必須宣告為 abstract class。</strong></li>
 <li>繼承 abstract class 的子類別必須 <strong>override 所有父類別的 abstract method</strong>，否則子類別也必須宣告為 abstract class。</li>
@@ -341,9 +344,8 @@
 <li><strong>不能直接 new abstract class</strong>，只能 new 其非 abstract class 的子類別。</li>
 </ul>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title class_">AbstractExample</span> &#123;</span><br><span class="line">    <span class="type">int</span> x;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="keyword">abstract</span> <span class="title function_">abstractMethod</span><span class="params">()</span> &#123;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">AbstractExample</span><span class="params">()</span> &#123;</span><br><span class="line">        x = <span class="number">5</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SubClass</span> <span class="keyword">extends</span> <span class="title class_">AbstractExample</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">abstractMethod</span><span class="params">()</span> &#123; <span class="comment">// must override this method, or SubClass be declared as abstract class</span></span><br><span class="line">        x = <span class="number">10</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Main</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] argv)</span> &#123;</span><br><span class="line">        <span class="type">AbstractExample</span> <span class="variable">a</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SubClass</span>(); <span class="comment">// correct</span></span><br><span class="line">        a.abstractMethod(); <span class="comment">// virtual function, call SubClass&#x27;s abstractMethod</span></span><br><span class="line">        a = <span class="keyword">new</span> <span class="title class_">AbstractExample</span>(); <span class="comment">// Compile error, you can&#x27;t new abstract class</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-<h2 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h2><p><a target="_blank" rel="noopener" href="https://programming.im.ncnu.edu.tw/J_index.html">https://programming.im.ncnu.edu.tw/J_index.html</a></p>
+<h2 id="參考資料"><a class="markdownIt-Anchor" href="#參考資料"></a> 參考資料</h2>
+<p><a target="_blank" rel="noopener" href="https://programming.im.ncnu.edu.tw/J_index.html">https://programming.im.ncnu.edu.tw/J_index.html</a></p>
 
     </div>
 
@@ -462,6 +464,11 @@
   <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
 
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.4/katex.min.css" integrity="sha256-gMRN4/6qeELzO1wbFa8qQLU8kfuF2dnAPiUoI0ATjx8=" crossorigin="anonymous">
 
 
 <script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"MengChiehLiu/MengChiehLiu.github.io","issue_term":"pathname","theme":"github-light"}</script>

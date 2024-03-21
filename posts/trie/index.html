@@ -20,16 +20,16 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"mengchiehliu.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.15.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="前言今天在寫LeetCode每日一題時遇到208. Implement Trie (Prefix Tree)，之前因為覺得Trie好像很難所以一直不願面對，但這題就是要跟Trie的直球對決了想躲也躲不掉XD，Anyway，看了一下發現Trie其實蠻好理解的，今天就來認識一下Trie，然後看看這一題可以怎麼寫吧！(Python, C++)">
+    <meta name="description" content="前言 今天在寫LeetCode每日一題時遇到208. Implement Trie (Prefix Tree)，之前因為覺得Trie好像很難所以一直不願面對，但這題就是要跟Trie的直球對決了想躲也躲不掉XD，Anyway，看了一下發現Trie其實蠻好理解的，今天就來認識一下Trie，然後看看這一題可以怎麼寫吧！(Python, C++)">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Implement Trie (字典樹)">
 <meta property="og:url" content="https://mengchiehliu.github.io/posts/trie/index.html">
 <meta property="og:site_name" content="米蟲的程式小窩">
-<meta property="og:description" content="前言今天在寫LeetCode每日一題時遇到208. Implement Trie (Prefix Tree)，之前因為覺得Trie好像很難所以一直不願面對，但這題就是要跟Trie的直球對決了想躲也躲不掉XD，Anyway，看了一下發現Trie其實蠻好理解的，今天就來認識一下Trie，然後看看這一題可以怎麼寫吧！(Python, C++)">
+<meta property="og:description" content="前言 今天在寫LeetCode每日一題時遇到208. Implement Trie (Prefix Tree)，之前因為覺得Trie好像很難所以一直不願面對，但這題就是要跟Trie的直球對決了想躲也躲不掉XD，Anyway，看了一下發現Trie其實蠻好理解的，今天就來認識一下Trie，然後看看這一題可以怎麼寫吧！(Python, C++)">
 <meta property="og:locale" content="zh_TW">
 <meta property="og:image" content="https://mengchiehliu.github.io/images/2023/03/18/trie.png">
 <meta property="article:published_time" content="2023-03-17T18:58:39.000Z">
-<meta property="article:modified_time" content="2024-03-19T14:22:34.280Z">
+<meta property="article:modified_time" content="2024-03-21T13:57:55.472Z">
 <meta property="article:author" content="Meng-Chieh Liu">
 <meta property="article:tag" content="Trie">
 <meta property="article:tag" content="LeetCode">
@@ -144,7 +144,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Trie-%E4%BB%8B%E7%B4%B9"><span class="nav-number">2.</span> <span class="nav-text">Trie 介紹</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AF%A6%E4%BD%9C-Trie"><span class="nav-number">3.</span> <span class="nav-text">實作 Trie</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E4%B8%80-Pointers-C"><span class="nav-number">3.1.</span> <span class="nav-text">方法一: Pointers (C++)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E4%BA%8C-Hash-Table-Python"><span class="nav-number">3.2.</span> <span class="nav-text">方法二: Hash Table (Python)</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%9B%B8%E9%97%9C%E6%96%87%E7%AB%A0"><span class="nav-number">4.</span> <span class="nav-text">相關文章</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%B5%90%E8%AA%9E"><span class="nav-number">5.</span> <span class="nav-text">結語</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Reference"><span class="nav-number">6.</span> <span class="nav-text">Reference</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text"> 前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#trie-%E4%BB%8B%E7%B4%B9"><span class="nav-number">2.</span> <span class="nav-text"> Trie 介紹</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AF%A6%E4%BD%9C-trie"><span class="nav-number">3.</span> <span class="nav-text"> 實作 Trie</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E4%B8%80-pointers-c"><span class="nav-number">3.1.</span> <span class="nav-text"> 方法一: Pointers (C++)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E4%BA%8C-hash-table-python"><span class="nav-number">3.2.</span> <span class="nav-text"> 方法二: Hash Table (Python)</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%9B%B8%E9%97%9C%E6%96%87%E7%AB%A0"><span class="nav-number">4.</span> <span class="nav-text"> 相關文章</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%B5%90%E8%AA%9E"><span class="nav-number">5.</span> <span class="nav-text"> 結語</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#reference"><span class="nav-number">6.</span> <span class="nav-text"> Reference</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -159,18 +159,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">20</span>
+          <span class="site-state-item-count">21</span>
           <span class="site-state-item-name">文章</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-count">7</span>
         <span class="site-state-item-name">分類</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-count">18</span>
         <span class="site-state-item-name">標籤</span></a>
       </div>
   </nav>
@@ -210,6 +210,13 @@
         <time class="popular-posts-time">2024-01-10</time>
         <br>
       資料結構筆記 - 布隆過濾器 Bloom Filter
+      </a>
+    </li>
+    <li class="popular-posts-item">
+      <a class="popular-posts-link" href="/posts/irr-with-newton-method/" rel="bookmark">
+        <time class="popular-posts-time">2024-03-21</time>
+        <br>
+      Python 隨便寫 - 用牛頓法 (Newton's method) 計算內部報酬率 (IRR)
       </a>
     </li>
   </ul>
@@ -305,39 +312,44 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>今天在寫LeetCode每日一題時遇到<a target="_blank" rel="noopener" href="https://leetcode.com/problems/implement-trie-prefix-tree/description/">208. Implement Trie (Prefix Tree)</a>，之前因為覺得Trie好像很難所以一直不願面對，但這題就是要跟Trie的直球對決了想躲也躲不掉XD，Anyway，看了一下發現Trie其實蠻好理解的，今天就來認識一下Trie，然後看看這一題可以怎麼寫吧！(Python, C++)</p>
+        <h1 id="前言"><a class="markdownIt-Anchor" href="#前言"></a> 前言</h1>
+<p>今天在寫LeetCode每日一題時遇到<a target="_blank" rel="noopener" href="https://leetcode.com/problems/implement-trie-prefix-tree/description/">208. Implement Trie (Prefix Tree)</a>，之前因為覺得Trie好像很難所以一直不願面對，但這題就是要跟Trie的直球對決了想躲也躲不掉XD，Anyway，看了一下發現Trie其實蠻好理解的，今天就來認識一下Trie，然後看看這一題可以怎麼寫吧！(Python, C++)</p>
 <span id="more"></span>
-
-<h1 id="Trie-介紹"><a href="#Trie-介紹" class="headerlink" title="Trie 介紹"></a>Trie 介紹</h1><p>Trie的中文可以叫做字典樹、字首樹或前綴樹，顧名思義是一種樹狀結構，常被用來檢索文本中的單詞或前綴(prefix)。</p>
+<h1 id="trie-介紹"><a class="markdownIt-Anchor" href="#trie-介紹"></a> Trie 介紹</h1>
+<p>Trie的中文可以叫做字典樹、字首樹或前綴樹，顧名思義是一種樹狀結構，常被用來檢索文本中的單詞或前綴(prefix)。</p>
 <p>字典樹有幾個性質，這裡搭配下方圖片做介紹：</p>
 <ol>
-<li>每個節點代表一個字符，並且單字的結尾有標記，舉例來說單字”ten”會依序經過t、e、n三個節點，其中n是結尾(綠色)。</li>
-<li>節點是可以被共用的，舉例來說”sun”及”sup”就共用了s、u兩個節點。</li>
-<li>葉子節點一定是單字結尾，但非葉節點也可以是結尾，舉例來說”an”及”and”分別是兩個單字，其中n及d都是單字的結尾(綠色)。</li>
+<li>每個節點代表一個字符，並且單字的結尾有標記，舉例來說單字&quot;ten&quot;會依序經過t、e、n三個節點，其中n是結尾(綠色)。</li>
+<li>節點是可以被共用的，舉例來說&quot;sun&quot;及&quot;sup&quot;就共用了s、u兩個節點。</li>
+<li>葉子節點一定是單字結尾，但非葉節點也可以是結尾，舉例來說&quot;an&quot;及&quot;and&quot;分別是兩個單字，其中n及d都是單字的結尾(綠色)。</li>
 </ol>
-<p><img src="/../images/2023/03/18/trie.png" alt="trie"><br>字典樹的優點是可以快速查找字符串，且可以按照字典序進行排序。但缺點是需要較大的空間來存儲，且插入和刪除操作相對較慢。</p>
-<h1 id="實作-Trie"><a href="#實作-Trie" class="headerlink" title="實作 Trie"></a>實作 Trie</h1><p>實作的內容就是一開始提到的LeetCode 208，簡單來說就是要做出初始化、插入、尋找及尋找前綴4個功能，詳細題目可以自己到LeetCode去看。</p>
+<p><img src="../../images/2023/03/18/trie.png" alt="trie" /><br />
+字典樹的優點是可以快速查找字符串，且可以按照字典序進行排序。但缺點是需要較大的空間來存儲，且插入和刪除操作相對較慢。</p>
+<h1 id="實作-trie"><a class="markdownIt-Anchor" href="#實作-trie"></a> 實作 Trie</h1>
+<p>實作的內容就是一開始提到的LeetCode 208，簡單來說就是要做出初始化、插入、尋找及尋找前綴4個功能，詳細題目可以自己到LeetCode去看。</p>
 <p>值得一提的是，Trie 有兩種實作方法，第一個方法相當直覺，就是用指針連結各個節點來模擬出一個樹狀結構；第二個方法則是動態語言限定，我們可以直接用hash table來儲存字符，接下來分別用C++及Python來演示這兩種方法。</p>
-<h2 id="方法一-Pointers-C"><a href="#方法一-Pointers-C" class="headerlink" title="方法一: Pointers (C++)"></a>方法一: Pointers (C++)</h2><p>重點</p>
+<h2 id="方法一-pointers-c"><a class="markdownIt-Anchor" href="#方法一-pointers-c"></a> 方法一: Pointers (C++)</h2>
+<p>重點</p>
 <ul>
-<li>英文字母只有26個，所以可以直接使用array，以index(<code>w-&#39;a&#39;</code>)來表示字符。</li>
+<li>英文字母只有26個，所以可以直接使用array，以index(<code>w-'a'</code>)來表示字符。</li>
 <li>prefix的部分只要節點存在就OK，但search的部分還要檢查是不是結尾。</li>
 <li>另外定義一個struct而不是直接new原本的class，是因為struct的結構比class簡單的多(沒有function)，可以提升執行效率。</li>
 <li>使用靜態宣告(array)所以不用擔心memory leak。</li>
 </ul>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">Node</span>&#123;</span><br><span class="line">  Node* children[<span class="number">26</span>];</span><br><span class="line">  <span class="type">bool</span> is_word = <span class="literal">false</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Trie</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    Node* root;</span><br><span class="line">    <span class="built_in">Trie</span>() &#123;</span><br><span class="line">        root = <span class="keyword">new</span> <span class="built_in">Node</span>();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">insert</span><span class="params">(string word)</span> </span>&#123;</span><br><span class="line">        Node* curr = root;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">char</span> w: word) &#123;</span><br><span class="line">            <span class="keyword">if</span>(curr-&gt;children[w-<span class="string">&#x27;a&#x27;</span>] == <span class="literal">nullptr</span>)&#123;</span><br><span class="line">                curr-&gt;children[w-<span class="string">&#x27;a&#x27;</span>] = <span class="keyword">new</span> <span class="built_in">Node</span>();</span><br><span class="line">            &#125;</span><br><span class="line">            curr = curr-&gt;children[w-<span class="string">&#x27;a&#x27;</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        curr-&gt;is_word = <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">search</span><span class="params">(string word)</span> </span>&#123;</span><br><span class="line">        Node* curr = root;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">char</span> w: word) &#123;</span><br><span class="line">            <span class="keyword">if</span>(curr == <span class="literal">NULL</span> || curr-&gt;children[w-<span class="string">&#x27;a&#x27;</span>] == <span class="literal">nullptr</span>)&#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            curr = curr-&gt;children[w-<span class="string">&#x27;a&#x27;</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> curr-&gt;is_word;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">startsWith</span><span class="params">(string prefix)</span> </span>&#123;</span><br><span class="line">        Node* curr = root;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">char</span> w: prefix) &#123;</span><br><span class="line">            <span class="keyword">if</span>(curr-&gt;children[w-<span class="string">&#x27;a&#x27;</span>] == <span class="literal">nullptr</span>)&#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            curr = curr-&gt;children[w-<span class="string">&#x27;a&#x27;</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-
-<h2 id="方法二-Hash-Table-Python"><a href="#方法二-Hash-Table-Python" class="headerlink" title="方法二: Hash Table (Python)"></a>方法二: Hash Table (Python)</h2><p>重點</p>
+<h2 id="方法二-hash-table-python"><a class="markdownIt-Anchor" href="#方法二-hash-table-python"></a> 方法二: Hash Table (Python)</h2>
+<p>重點</p>
 <ul>
 <li>用特殊符號(#)來標記單字結尾。</li>
-<li>因為動態語言中的資料型態是動態決定的，所以Hash Table內可以同時儲存不同資料型態(存下一層&#x2F;存結尾)。</li>
+<li>因為動態語言中的資料型態是動態決定的，所以Hash Table內可以同時儲存不同資料型態(存下一層/存結尾)。</li>
 </ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Trie</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self</span>):</span><br><span class="line">        self._root = &#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">insert</span>(<span class="params">self, word: <span class="built_in">str</span></span>) -&gt; <span class="literal">None</span>:</span><br><span class="line">        curr = self._root</span><br><span class="line">        <span class="keyword">for</span> w <span class="keyword">in</span> word:</span><br><span class="line">            <span class="keyword">if</span> w <span class="keyword">not</span> <span class="keyword">in</span> curr:</span><br><span class="line">                curr[w] = &#123;&#125;</span><br><span class="line">            curr = curr[w]</span><br><span class="line">        curr[<span class="string">&quot;#&quot;</span>] = <span class="literal">True</span></span><br><span class="line">        </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">search</span>(<span class="params">self, word: <span class="built_in">str</span></span>) -&gt; <span class="built_in">bool</span>:</span><br><span class="line">        curr = self._root</span><br><span class="line">        <span class="keyword">for</span> w <span class="keyword">in</span> word:</span><br><span class="line">            <span class="keyword">if</span> w <span class="keyword">in</span> curr:</span><br><span class="line">                curr = curr[w]</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">        <span class="keyword">return</span> curr.get(<span class="string">&quot;#&quot;</span>, <span class="literal">False</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">startsWith</span>(<span class="params">self, prefix: <span class="built_in">str</span></span>) -&gt; <span class="built_in">bool</span>:</span><br><span class="line">        curr = self._root</span><br><span class="line">        <span class="keyword">for</span> w <span class="keyword">in</span> prefix:</span><br><span class="line">            <span class="keyword">if</span> w <span class="keyword">in</span> curr:</span><br><span class="line">                curr = curr[w]</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">True</span></span><br></pre></td></tr></table></figure>
-
-<h1 id="相關文章"><a href="#相關文章" class="headerlink" title="相關文章"></a>相關文章</h1><p><a href="/posts/trie-2/">Trie (字典樹) - Design Add and Search Words Data Structure</a></p>
-<h1 id="結語"><a href="#結語" class="headerlink" title="結語"></a>結語</h1><p>Trie的基本觀念說實在還蠻簡單的，難應該是難在之後的應用，之後有機會看能不能更新一些進階的觀念，像是搜尋引擎之類的。</p>
-<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=f48wGD-MuQw">https://www.youtube.com/watch?v=f48wGD-MuQw</a></p>
+<h1 id="相關文章"><a class="markdownIt-Anchor" href="#相關文章"></a> 相關文章</h1>
+<p><a href="/posts/trie-2/">Trie (字典樹) - Design Add and Search Words Data Structure</a></p>
+<h1 id="結語"><a class="markdownIt-Anchor" href="#結語"></a> 結語</h1>
+<p>Trie的基本觀念說實在還蠻簡單的，難應該是難在之後的應用，之後有機會看能不能更新一些進階的觀念，像是搜尋引擎之類的。</p>
+<h1 id="reference"><a class="markdownIt-Anchor" href="#reference"></a> Reference</h1>
+<p><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=f48wGD-MuQw">https://www.youtube.com/watch?v=f48wGD-MuQw</a></p>
 
     </div>
 
@@ -456,6 +468,11 @@
   <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
 
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.4/katex.min.css" integrity="sha256-gMRN4/6qeELzO1wbFa8qQLU8kfuF2dnAPiUoI0ATjx8=" crossorigin="anonymous">
 
 
 <script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"MengChiehLiu/MengChiehLiu.github.io","issue_term":"pathname","theme":"github-light"}</script>

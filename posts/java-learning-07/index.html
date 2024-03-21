@@ -20,17 +20,17 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"mengchiehliu.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.15.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="在 Java 的多線程操作中，Concurrent Queue 是一種非常重要的容器，在共享資源的同時也能夠幫我們進行流程控制。Java 的 Concurrent Queue 可以分為兩類，分別是 Blocking Queue 以及 Non Blocking Queue，兩種都是線程安全的，文章的最後會用 Blocking Queue 來實作 Consumer Producer Problem !">
+    <meta name="description" content="在 Java 的多線程操作中，Concurrent Queue 是一種非常重要的容器，在共享資源的同時也能夠幫我們進行流程控制。 Java 的 Concurrent Queue 可以分為兩類，分別是 Blocking Queue 以及 Non Blocking Queue，兩種都是線程安全的，文章的最後會用 Blocking Queue 來實作 Producer Consumer Problem">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Java 自學筆記 07 - Concurrent Queue (w&#x2F; Consumer Producer Problem)">
+<meta property="og:title" content="Java 自學筆記 07 - Concurrent Queue (w&#x2F; Producer Consumer Problem)">
 <meta property="og:url" content="https://mengchiehliu.github.io/posts/java-learning-07/index.html">
 <meta property="og:site_name" content="米蟲的程式小窩">
-<meta property="og:description" content="在 Java 的多線程操作中，Concurrent Queue 是一種非常重要的容器，在共享資源的同時也能夠幫我們進行流程控制。Java 的 Concurrent Queue 可以分為兩類，分別是 Blocking Queue 以及 Non Blocking Queue，兩種都是線程安全的，文章的最後會用 Blocking Queue 來實作 Consumer Producer Problem !">
+<meta property="og:description" content="在 Java 的多線程操作中，Concurrent Queue 是一種非常重要的容器，在共享資源的同時也能夠幫我們進行流程控制。 Java 的 Concurrent Queue 可以分為兩類，分別是 Blocking Queue 以及 Non Blocking Queue，兩種都是線程安全的，文章的最後會用 Blocking Queue 來實作 Producer Consumer Problem">
 <meta property="og:locale" content="zh_TW">
 <meta property="og:image" content="https://mengchiehliu.github.io/images/2024/03/20/consumer_producer.png">
 <meta property="og:image" content="https://mengchiehliu.github.io/images/2024/03/20/blocking_queue.png">
 <meta property="article:published_time" content="2024-03-20T15:24:22.000Z">
-<meta property="article:modified_time" content="2024-03-20T15:26:24.146Z">
+<meta property="article:modified_time" content="2024-03-21T13:56:24.482Z">
 <meta property="article:author" content="Meng-Chieh Liu">
 <meta property="article:tag" content="Java">
 <meta property="article:tag" content="Multi-thread">
@@ -42,10 +42,10 @@
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://mengchiehliu.github.io/posts/java-learning-07/","path":"posts/java-learning-07/","title":"Java 自學筆記 07 - Concurrent Queue (w/ Consumer Producer Problem)"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://mengchiehliu.github.io/posts/java-learning-07/","path":"posts/java-learning-07/","title":"Java 自學筆記 07 - Concurrent Queue (w/ Producer Consumer Problem)"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>Java 自學筆記 07 - Concurrent Queue (w/ Consumer Producer Problem) | 米蟲的程式小窩</title>
+<title>Java 自學筆記 07 - Concurrent Queue (w/ Producer Consumer Problem) | 米蟲的程式小窩</title>
   
 
 
@@ -145,7 +145,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Non-Blocking-Queue"><span class="nav-number">1.</span> <span class="nav-text">Non Blocking Queue</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Blocking-Queue"><span class="nav-number">2.</span> <span class="nav-text">Blocking Queue</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Consumer-Producer-Problem"><span class="nav-number">3.</span> <span class="nav-text">Consumer Producer Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="nav-number">4.</span> <span class="nav-text">參考資料</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#non-blocking-queue"><span class="nav-number">1.</span> <span class="nav-text"> Non Blocking Queue</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#blocking-queue"><span class="nav-number">2.</span> <span class="nav-text"> Blocking Queue</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#producer-consumer-problem"><span class="nav-number">3.</span> <span class="nav-text"> Producer Consumer Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="nav-number">4.</span> <span class="nav-text"> 參考資料</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -160,18 +160,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">20</span>
+          <span class="site-state-item-count">21</span>
           <span class="site-state-item-name">文章</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-count">7</span>
         <span class="site-state-item-name">分類</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-count">18</span>
         <span class="site-state-item-name">標籤</span></a>
       </div>
   </nav>
@@ -246,12 +246,12 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="Java 自學筆記 07 - Concurrent Queue (w/ Consumer Producer Problem) | 米蟲的程式小窩">
+      <meta itemprop="name" content="Java 自學筆記 07 - Concurrent Queue (w/ Producer Consumer Problem) | 米蟲的程式小窩">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Java 自學筆記 07 - Concurrent Queue (w/ Consumer Producer Problem)
+          Java 自學筆記 07 - Concurrent Queue (w/ Producer Consumer Problem)
         </h1>
 
         <div class="post-meta-container">
@@ -306,37 +306,41 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <p>在 Java 的多線程操作中，Concurrent Queue 是一種非常重要的容器，在共享資源的同時也能夠幫我們進行流程控制。<br>Java 的 Concurrent Queue 可以分為兩類，分別是 <strong>Blocking Queue</strong> 以及 <strong>Non Blocking Queue</strong>，兩種都是線程安全的，文章的最後會用 Blocking Queue 來實作 <strong>Consumer Producer Problem</strong> !</p>
-<p><img src="/../images/2024/03/20/consumer_producer.png" alt="Consumer Producer"></p>
+        <p>在 Java 的多線程操作中，Concurrent Queue 是一種非常重要的容器，在共享資源的同時也能夠幫我們進行流程控制。<br />
+Java 的 Concurrent Queue 可以分為兩類，分別是 <strong>Blocking Queue</strong> 以及 <strong>Non Blocking Queue</strong>，兩種都是線程安全的，文章的最後會用 Blocking Queue 來實作 <strong>Producer Consumer Problem</strong> !</p>
+<p><img src="../../images/2024/03/20/consumer_producer.png" alt="Consumer Producer" /></p>
 <span id="more"></span>
-
-<h2 id="Non-Blocking-Queue"><a href="#Non-Blocking-Queue" class="headerlink" title="Non Blocking Queue"></a>Non Blocking Queue</h2><p>Non Blocking Queue 其實就是一般的 Queue，對 Queue 進行操作要馬成功要馬失敗，無論如何會立刻知道結果。<br><strong>ConcurrentLinkedQueue</strong> 使用 <strong>CAS (Compare-And-Swap)</strong> 的機制來實現同步功能，對於響應式的應用來說，等待時間通常是不被允許的，這時候 Non Blocking Queue 會是好選擇。</p>
+<h2 id="non-blocking-queue"><a class="markdownIt-Anchor" href="#non-blocking-queue"></a> Non Blocking Queue</h2>
+<p>Non Blocking Queue 其實就是一般的 Queue，對 Queue 進行操作要馬成功要馬失敗，無論如何會立刻知道結果。<br />
+<strong>ConcurrentLinkedQueue</strong> 使用 <strong>CAS (Compare-And-Swap)</strong> 的機制來實現同步功能，對於響應式的應用來說，等待時間通常是不被允許的，這時候 Non Blocking Queue 會是好選擇。</p>
 <blockquote>
-<p><strong>什麼是 CAS (Compare-And-Swap) ?</strong><br>CAS 是原子操作的一種 (atomic)，它的基本思想是比較目標內存位置的值與預期值，只有在相等的情況下才將該位置的值更新為新值。<br>以 queue 的插入來說，首先要記錄 queue 尾部位置，每次操作時去檢查現在的位置跟所記錄的是否一樣，如果改變了就重來一遍，沒變的話就插入並記錄下新的尾部位置。</p>
+<p><strong>什麼是 CAS (Compare-And-Swap) ?</strong><br />
+CAS 是原子操作的一種 (atomic)，它的基本思想是比較目標內存位置的值與預期值，只有在相等的情況下才將該位置的值更新為新值。<br />
+以 queue 的插入來說，首先要記錄 queue 尾部位置，每次操作時去檢查現在的位置跟所記錄的是否一樣，如果改變了就重來一遍，沒變的話就插入並記錄下新的尾部位置。</p>
 </blockquote>
-<h2 id="Blocking-Queue"><a href="#Blocking-Queue" class="headerlink" title="Blocking Queue"></a>Blocking Queue</h2><p>Blocking Queue 相比於 Non Blocking Queue 多了<strong>阻塞等待</strong>的動作，大部分的 Concurrent Queue 都是屬於 Blocking Queue，如 <strong>ArrayBlockingQueue</strong>、<strong>LinkedBlockingQueue</strong> 等，其阻塞是基於 <strong>Lock</strong> 來實現的，具體來說 Blocking Queue 多了四種操作:</p>
-<p><img src="/../images/2024/03/20/blocking_queue.png" alt="Blocking Queue"></p>
+<h2 id="blocking-queue"><a class="markdownIt-Anchor" href="#blocking-queue"></a> Blocking Queue</h2>
+<p>Blocking Queue 相比於 Non Blocking Queue 多了<strong>阻塞等待</strong>的動作，大部分的 Concurrent Queue 都是屬於 Blocking Queue，如 <strong>ArrayBlockingQueue</strong>、<strong>LinkedBlockingQueue</strong> 等，其阻塞是基於 <strong>Lock</strong> 來實現的，具體來說 Blocking Queue 多了四種操作:</p>
+<p><img src="../../images/2024/03/20/blocking_queue.png" alt="Blocking Queue" /></p>
 <ul>
 <li><strong>put(e)</strong>: 從尾部放入元素，如果佇列已滿則阻塞等待，直到出現空位並放入。</li>
 <li><strong>take(e)</strong>: 從頭部取出元素，如果佇列為空則阻塞等待，直到出現元素並取出。</li>
 <li><strong>offer(e, 時間, 時間單位)</strong>: 從尾部放入元素，如果佇列已滿則阻塞等待一段時間，超過時間則停止等待並回傳 false。</li>
 <li><strong>poll(e, 時間, 時間單位)</strong>: 從頭部取出元素，如果佇列已滿則阻塞等待一段時間，超過時間則停止等待並回傳 false。</li>
 </ul>
-<h2 id="Consumer-Producer-Problem"><a href="#Consumer-Producer-Problem" class="headerlink" title="Consumer Producer Problem"></a>Consumer Producer Problem</h2><p>用一個簡單的 Consumer Producer Problem 來練習：</p>
-<p><em>6 Producers * 5 messages –&gt; 3 Consumers * 10 messages</em></p>
+<h2 id="producer-consumer-problem"><a class="markdownIt-Anchor" href="#producer-consumer-problem"></a> Producer Consumer Problem</h2>
+<p>用一個簡單的 Producer Consumer Problem 來練習：</p>
+<p><em>6 Producers * 5 messages --&gt; 3 Consumers * 10 messages</em></p>
 <ul>
 <li>使用 <strong>LinkedBlockingQueue</strong> 作為傳遞訊息的容器</li>
 <li>Producer 使用 <code>put()</code> 將訊息放入 queue，因為沒有限制長度所以基本不會阻塞</li>
 <li>Consumer 使用 <code>take()</code> 將訊息從 queue 中取出，因為 要等 Producer 產出訊息所以會阻塞</li>
 </ul>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.TimeUnit;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.BlockingQueue;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.LinkedBlockingQueue;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 隨機 Sleep 一段時間</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">RandomSleep</span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">Random</span> <span class="variable">rand</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Random</span>();</span><br><span class="line"></span><br><span class="line">    RandomSleep(<span class="type">int</span> second)&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            TimeUnit.MILLISECONDS.sleep(rand.nextInt(second));</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Producer</span> <span class="keyword">extends</span> <span class="title class_">Thread</span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> idx;</span><br><span class="line">    <span class="keyword">private</span> BlockingQueue&lt;Integer&gt; queue;</span><br><span class="line">    </span><br><span class="line">    Producer(<span class="type">int</span> idx, BlockingQueue&lt;Integer&gt; queue)&#123;</span><br><span class="line">        <span class="built_in">this</span>.idx = idx;</span><br><span class="line">        <span class="built_in">this</span>.queue = queue;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">0</span>; i&lt;<span class="number">5</span>; i++)&#123;  <span class="comment">//  5 messages</span></span><br><span class="line">            <span class="keyword">try</span>&#123;</span><br><span class="line">                <span class="keyword">new</span> <span class="title class_">RandomSleep</span>(<span class="number">500</span>); <span class="comment">// time to produce a message</span></span><br><span class="line">                queue.put(idx);</span><br><span class="line">            &#125;<span class="keyword">catch</span>(InterruptedException e)&#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Consumer</span> <span class="keyword">extends</span> <span class="title class_">Thread</span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> idx;</span><br><span class="line">    <span class="keyword">private</span> BlockingQueue&lt;Integer&gt; queue;</span><br><span class="line">    <span class="keyword">private</span> Queue&lt;Integer&gt; reveived = <span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    Consumer(<span class="type">int</span> idx, BlockingQueue&lt;Integer&gt; queue)&#123;</span><br><span class="line">        <span class="built_in">this</span>.idx = idx;</span><br><span class="line">        <span class="built_in">this</span>.queue = queue;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">while</span> (reveived.size() &lt; <span class="number">10</span>)&#123;  <span class="comment">// 10 messages</span></span><br><span class="line">            <span class="keyword">try</span>&#123;</span><br><span class="line">                reveived.offer(queue.take());</span><br><span class="line">            &#125;<span class="keyword">catch</span>(InterruptedException e)&#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="string">&quot;Consumer &quot;</span> + idx + <span class="string">&quot; received: &quot;</span> + reveived);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ConsumerProducerProblem</span>&#123;</span><br><span class="line">    <span class="keyword">static</span> BlockingQueue&lt;Integer&gt; queue = <span class="keyword">new</span> <span class="title class_">LinkedBlockingQueue</span>&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">1</span>; i&lt;<span class="number">7</span>; i++)&#123;</span><br><span class="line">            <span class="keyword">new</span> <span class="title class_">Producer</span>(i, queue).start();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">1</span>; i&lt;<span class="number">4</span>; i++)&#123;</span><br><span class="line">            <span class="keyword">new</span> <span class="title class_">Consumer</span>(i, queue).start();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p>執行結果如下，每次跑都會不太一樣：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Consumer 2 received: [1, 3, 4, 2, 4, 5, 4, 1, 3, 3]</span><br><span class="line">Consumer 1 received: [6, 1, 3, 5, 1, 2, 4, 6, 4, 2]</span><br><span class="line">Consumer 3 received: [2, 6, 5, 5, 5, 1, 2, 6, 3, 6]</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h2><p><a target="_blank" rel="noopener" href="https://www.baeldung.com/java-concurrent-queues">A Guide to Concurrent Queues in Java</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/lzxlfly/article/details/86710382">LinkedBlockingQueue与ConcurrentLinkedQueue的区别</a></p>
+<h2 id="參考資料"><a class="markdownIt-Anchor" href="#參考資料"></a> 參考資料</h2>
+<p><a target="_blank" rel="noopener" href="https://www.baeldung.com/java-concurrent-queues">A Guide to Concurrent Queues in Java</a><br />
+<a target="_blank" rel="noopener" href="https://blog.csdn.net/lzxlfly/article/details/86710382">LinkedBlockingQueue与ConcurrentLinkedQueue的区别</a></p>
 
     </div>
 
@@ -354,7 +358,7 @@
   </li>
   <li class="post-copyright-link">
       <strong>文章連結：</strong>
-      <a href="https://mengchiehliu.github.io/posts/java-learning-07/" title="Java 自學筆記 07 - Concurrent Queue (w&#x2F; Consumer Producer Problem)">https://mengchiehliu.github.io/posts/java-learning-07/</a>
+      <a href="https://mengchiehliu.github.io/posts/java-learning-07/" title="Java 自學筆記 07 - Concurrent Queue (w&#x2F; Producer Consumer Problem)">https://mengchiehliu.github.io/posts/java-learning-07/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版權聲明： </strong>本網誌所有文章除特別聲明外，均採用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 許可協議。轉載請註明出處！
@@ -376,6 +380,9 @@
                 </a>
             </div>
             <div class="post-nav-item">
+                <a href="/posts/irr-with-newton-method/" rel="next" title="Python 隨便寫 - 用牛頓法 (Newton's method) 計算內部報酬率 (IRR)">
+                  Python 隨便寫 - 用牛頓法 (Newton's method) 計算內部報酬率 (IRR) <i class="fa fa-chevron-right"></i>
+                </a>
             </div>
           </div>
     </footer>
@@ -452,6 +459,11 @@
   <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
 
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.4/katex.min.css" integrity="sha256-gMRN4/6qeELzO1wbFa8qQLU8kfuF2dnAPiUoI0ATjx8=" crossorigin="anonymous">
 
 
 <script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"MengChiehLiu/MengChiehLiu.github.io","issue_term":"pathname","theme":"github-light"}</script>
