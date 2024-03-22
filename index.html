@@ -153,7 +153,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">21</span>
+          <span class="site-state-item-count">22</span>
           <span class="site-state-item-name">文章</span>
         </a>
       </div>
@@ -164,7 +164,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-count">19</span>
         <span class="site-state-item-name">標籤</span></a>
       </div>
   </nav>
@@ -192,6 +192,121 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://mengchiehliu.github.io/posts/java-learning-08/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Meng-Chieh Liu">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="米蟲的程式小窩">
+      <meta itemprop="description" content="讀會計但一直寫程式的人">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 米蟲的程式小窩">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/java-learning-08/" class="post-title-link" itemprop="url">Java 自學筆記 08 - ExecutorService & Future</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+
+      <time title="創建時間：2024-03-22 23:07:05" itemprop="dateCreated datePublished" datetime="2024-03-22T23:07:05+08:00">2024-03-22</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Java-Learning/" itemprop="url" rel="index"><span itemprop="name">Java Learning</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>561</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>2 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>在 <a href="/posts/java-learning-08">Java 自學筆記 07 - Concurrent Queue</a> 中我們使用 concurrent queue 來實作 <strong>Producer Consumer Problem</strong>，將生產者產出的 task 丟給 queue，消費者一有空閒就會去 queue 中拿新的 task 出來，實際上這就是 <strong>Thread Pool</strong> 的概念，不過過程中我們是自己去創建與管理 thread 和 queue，而 Java 其實提供了許多跟 Thread Pool 有關的介面，讓我們能夠更簡單的實現這些功能。</p>
+<h2 id="executorservice"><a class="markdownIt-Anchor" href="#executorservice"></a> ExecutorService</h2>
+<p><img src="/images/2024/03/22/executor_service.png" alt="Executor Service" /></p>
+<p><strong>ExecutorService</strong> 是 Java 中用於管理 Thread Pool 的 Interface，我們可以使用 <strong>Executors</strong> 類別下的 method 來去實作一個 ExecutorService，常見的方法有:</p>
+<ul>
+<li><strong>newSingleThreadExecutor()</strong>: 創建一個單個工作線程的線程池。</li>
+<li><strong>newFixedThreadPool(int n)</strong>: 創建一個 n 個線程的線程池。</li>
+<li><strong>newCachedThreadPool()</strong>: 創建一個可根據需要自動擴展的線程池。</li>
+</ul>
+<p>常用操作：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// new a ExecutorService</span></span><br><span class="line"><span class="type">ExecutorService</span> <span class="variable">executor</span> <span class="operator">=</span> Executors.newFixedThreadPool(<span class="number">3</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// submit runnable tasks to ExecutorService</span></span><br><span class="line">executor.submit(<span class="keyword">new</span> <span class="title class_">RunnableTask</span>());</span><br><span class="line"></span><br><span class="line"><span class="comment">// submit callable tasks to ExecutorService</span></span><br><span class="line">executor.submit(<span class="keyword">new</span> <span class="title class_">CallableTask</span>());</span><br><span class="line"></span><br><span class="line"><span class="comment">// shutdown ExecutorService</span></span><br><span class="line">executor.shutdown();     <span class="comment">// smooth shutdown</span></span><br><span class="line">executor.shutdownNow();  <span class="comment">// force shutdown</span></span><br></pre></td></tr></table></figure>
+<p>從上面的程式碼中可以發現， ExecutorService 除了跟 Thread 一樣可以執行 <strong>Runnable</strong> 外，還多了一個 <strong>Callable</strong>，兩者非常相似，差別只在於 Callable 會回傳東西而 Runnable 不會，實作 Callable 的方法如下:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">CallableTask</span> <span class="keyword">implements</span> <span class="title class_">Callable</span>&lt;Integer&gt; &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> Integer <span class="title function_">call</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>call()</code> 屬於 abstract method，一定要 override 掉，另外就是要注意泛型的資料型態。</p>
+<h2 id="future"><a class="markdownIt-Anchor" href="#future"></a> Future</h2>
+<p><code>submit()</code> 方法會返回一個 <strong>Future</strong> 物件，簡單來說 Future 是一個未來會得到的結果，以 submit 一個 Callable  來的話，其 Futrue 就是未來的某一時間點我們會得到 Callable 的返回值。越看覺得越熟悉，這就是 javascript 裡的 promise 跟非同步的概念呀 !<br />
+我們可以使用 <code>get()</code> 方法來取得結果，當呼叫 <code>get()</code> 時，主進程會被阻擋，直到 get() 取得返回值才會繼續，舉例來說：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.concurrent.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">CallableTask</span> <span class="keyword">implements</span> <span class="title class_">Callable</span>&lt;String&gt; &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">call</span><span class="params">()</span> <span class="keyword">throws</span> InterruptedException&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Task started.&quot;</span>);</span><br><span class="line">        Thread.sleep(<span class="number">3000</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Task finished.&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ThreadPool</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException, ExecutionException&#123;</span><br><span class="line">        <span class="type">ExecutorService</span> <span class="variable">executor</span> <span class="operator">=</span> Executors.newFixedThreadPool(<span class="number">3</span>);</span><br><span class="line"></span><br><span class="line">        Future&lt;String&gt; future = executor.submit(<span class="keyword">new</span> <span class="title class_">CallableTask</span>());</span><br><span class="line">        System.out.println(<span class="string">&quot;Main thread keeps running.&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// main thread is blocked until task return</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">str</span> <span class="operator">=</span> future.get();</span><br><span class="line">        System.out.println(str);;</span><br><span class="line">        </span><br><span class="line">        System.out.println(<span class="string">&quot;Main thread continues.&quot;</span>);</span><br><span class="line"></span><br><span class="line">        executor.shutdown();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>執行結果如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Main thread keeps running.</span><br><span class="line">Task started.</span><br><span class="line">Task finished.</span><br><span class="line">Main thread continues.</span><br></pre></td></tr></table></figure>
+<h2 id="參考資料"><a class="markdownIt-Anchor" href="#參考資料"></a> 參考資料</h2>
+<p><a target="_blank" rel="noopener" href="https://popcornylu.gitbooks.io/java_multithread/content/">Java多執行緒的基本知識</a><br />
+<a target="_blank" rel="noopener" href="https://javarevisited.blogspot.com/2017/02/difference-between-executor-executorservice-and-executors-in-java.html#axzz7ZGX8FDUO">Difference between Executor, ExecutorService and Executers class in Java</a></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1096,107 +1211,6 @@ Java 的 Concurrent Queue 可以分為兩類，分別是 <strong>Blocking Queue<
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/posts/scaling/#more" rel="contents">
-                閱讀全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://mengchiehliu.github.io/posts/deployment-strategies/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Meng-Chieh Liu">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="米蟲的程式小窩">
-      <meta itemprop="description" content="讀會計但一直寫程式的人">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 米蟲的程式小窩">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/deployment-strategies/" class="post-title-link" itemprop="url">系統架構筆記 - 常見的五種部署策略</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">發表於</span>
-
-      <time title="創建時間：2024-01-16 17:22:09" itemprop="dateCreated datePublished" datetime="2024-01-16T17:22:09+08:00">2024-01-16</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分類於</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/System-Design/" itemprop="url" rel="index"><span itemprop="name">System Design</span></a>
-        </span>
-    </span>
-
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="文章字數">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">文章字數：</span>
-      <span>619</span>
-    </span>
-    <span class="post-meta-item" title="所需閱讀時間">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
-      <span>3 分鐘</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p><img src="../../images/2024/01/16/strategies.png" alt="strategies" /></p>
-<p>這篇文章簡單紀錄了常見的五種部署策略: Big Bang Deployment、Rolling Deployment (滾動部署)、Blue-Green Deployment (藍綠部署)、Canary Deployment (金絲雀部署) 與 Shadow Deployment (影子部署)。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/posts/deployment-strategies/#more" rel="contents">
                 閱讀全文 &raquo;
               </a>
             </div>

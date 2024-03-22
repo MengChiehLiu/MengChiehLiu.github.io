@@ -307,6 +307,162 @@ NexT GitHub：<a href="https://github.com/next-theme/hexo-theme-next">https://gi
       </tags>
   </entry>
   <entry>
+    <title>資料結構筆記 - 布隆過濾器 Bloom Filter</title>
+    <url>/posts/bloom-filter/</url>
+    <content><![CDATA[<p><img src="../../images/2024/01/10/bloom-filter-new.png" alt="bloom-filter" /></p>
+<h1 id="summary"><a class="markdownIt-Anchor" href="#summary"></a> Summary</h1>
+<ul>
+<li>用途: 用來快速判斷元素是否存在於一個集合中</li>
+<li>優點: 快速、節省空間</li>
+<li>缺點: 可能有 false positive (不存在但判定為存在)</li>
+<li>應用:
+<ul>
+<li>Check Duplicate: name、email 等是否已被使用</li>
+<li>Filters: 過濾惡意請求 (ex: <a href="https://www.explainthis.io/zh-hant/swe/cache-mechanism">Cache penetration</a>)、垃圾郵件等</li>
+</ul>
+</li>
+</ul>
+<span id="more"></span>
+<h1 id="原理"><a class="markdownIt-Anchor" href="#原理"></a> 原理</h1>
+<p>對元素使用 k 個 Hash Functions，將其映射到長度為 m 的 Array 中，寫入時將映射到的 k 個位置標示為 1，檢查時如果映射到的 k 個位置都命中，表示該元素<strong>可能存在</strong>。</p>
+<ol>
+<li>
+<p>由預期的 <strong>False positive rate (p)</strong> 以及存入的<strong>資料筆數 (n)</strong> 來求出 <strong>Array Size (m)</strong> 以及 <strong>Hash Functions數 (k)</strong></p>
+<ul>
+<li><strong>False positive rate</strong><br />
+<img src="../../images/2024/01/10/false-positive-probability.png" alt="false-positive-probability" /></li>
+<li><strong>Array size</strong><br />
+<img src="../../images/2024/01/10/array-size.png" alt="array-size" /></li>
+<li><strong>Number of hash functions</strong><br />
+<img src="../../images/2024/01/10/number-of-hash-functions.png" alt="number-of-hash-functions" /></li>
+</ul>
+</li>
+<li>
+<p>選擇 Hash function<br />
+可以使用 <strong>Non-Cryptographic Hash</strong> (非密碼雜湊函數)，雖然有 collision 的可能，但足夠好了，而且比較快。<br />
+例如: MurmurHash、FarmHash、SpookyHash</p>
+</li>
+</ol>
+<h1 id="實作"><a class="markdownIt-Anchor" href="#實作"></a> 實作</h1>
+<p><strong>非原創!</strong> 基本上是下面參考文章中的程式碼，寫的很不錯所以只有小小修改一下。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Python 3 program to build Bloom Filter </span></span><br><span class="line"><span class="comment"># Install mmh3 and bitarray 3rd party module first </span></span><br><span class="line"><span class="comment"># pip install mmh3 </span></span><br><span class="line"><span class="comment"># pip install bitarray </span></span><br><span class="line"><span class="keyword">import</span> math </span><br><span class="line"><span class="keyword">import</span> mmh3 </span><br><span class="line"><span class="keyword">from</span> bitarray <span class="keyword">import</span> bitarray </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">BloomFilter</span>(<span class="title class_ inherited__">object</span>): </span><br><span class="line"></span><br><span class="line">	<span class="string">&#x27;&#x27;&#x27; </span></span><br><span class="line"><span class="string">	Class for Bloom filter, using murmur3 hash function </span></span><br><span class="line"><span class="string">	&#x27;&#x27;&#x27;</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, items_count, fp_prob</span>): </span><br><span class="line">		<span class="string">&#x27;&#x27;&#x27; </span></span><br><span class="line"><span class="string">		items_count : int </span></span><br><span class="line"><span class="string">			Number of items expected to be stored in bloom filter </span></span><br><span class="line"><span class="string">		fp_prob : float </span></span><br><span class="line"><span class="string">			False Positive probability in decimal </span></span><br><span class="line"><span class="string">		&#x27;&#x27;&#x27;</span></span><br><span class="line">		<span class="comment"># False possible probability in decimal </span></span><br><span class="line">		self.fp_prob = fp_prob </span><br><span class="line"></span><br><span class="line">		<span class="comment"># Size of bit array to use </span></span><br><span class="line">		self.size = self.get_size(items_count, fp_prob) </span><br><span class="line"></span><br><span class="line">		<span class="comment"># number of hash functions to use </span></span><br><span class="line">		self.hash_count = self.get_hash_count(self.size, items_count) </span><br><span class="line"></span><br><span class="line">		<span class="comment"># Bit array of given size, default all 0 </span></span><br><span class="line">		self.bit_array = bitarray(self.size) </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	<span class="keyword">def</span> <span class="title function_">add</span>(<span class="params">self, item</span>): </span><br><span class="line">		<span class="string">&#x27;&#x27;&#x27; </span></span><br><span class="line"><span class="string">		Add an item in the filter </span></span><br><span class="line"><span class="string">		&#x27;&#x27;&#x27;</span></span><br><span class="line">		digests = [] </span><br><span class="line">		<span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(self.hash_count): </span><br><span class="line"></span><br><span class="line">			<span class="comment"># create digest for given item. </span></span><br><span class="line">			<span class="comment"># i work as seed to mmh3.hash() function </span></span><br><span class="line">			<span class="comment"># With different seed, digest created is different </span></span><br><span class="line">			digest = mmh3.<span class="built_in">hash</span>(item, i) % self.size </span><br><span class="line">			digests.append(digest) </span><br><span class="line"></span><br><span class="line">			<span class="comment"># set the bit True in bit_array </span></span><br><span class="line">			self.bit_array[digest] = <span class="literal">True</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">def</span> <span class="title function_">check</span>(<span class="params">self, item</span>): </span><br><span class="line">		<span class="string">&#x27;&#x27;&#x27; </span></span><br><span class="line"><span class="string">		Check for existence of an item in filter </span></span><br><span class="line"><span class="string">		&#x27;&#x27;&#x27;</span></span><br><span class="line">		<span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(self.hash_count): </span><br><span class="line">			digest = mmh3.<span class="built_in">hash</span>(item, i) % self.size </span><br><span class="line">			<span class="keyword">if</span> self.bit_array[digest] == <span class="literal">False</span>: </span><br><span class="line"></span><br><span class="line">				<span class="comment"># if any of bit is False then,its not present </span></span><br><span class="line">				<span class="comment"># in filter </span></span><br><span class="line">				<span class="comment"># else there is probability that it exist </span></span><br><span class="line">				<span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">		<span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line"></span><br><span class="line"><span class="meta">	@staticmethod</span></span><br><span class="line">	<span class="keyword">def</span> <span class="title function_">get_size</span>(<span class="params">n, p</span>): </span><br><span class="line">		<span class="string">&#x27;&#x27;&#x27; </span></span><br><span class="line"><span class="string">		Return the size of bit array(m) to used using </span></span><br><span class="line"><span class="string">		following formula </span></span><br><span class="line"><span class="string">		m = -(n * lg(p)) / (lg(2)^2) </span></span><br><span class="line"><span class="string">		n : int </span></span><br><span class="line"><span class="string">			number of items expected to be stored in filter </span></span><br><span class="line"><span class="string">		p : float </span></span><br><span class="line"><span class="string">			False Positive probability in decimal </span></span><br><span class="line"><span class="string">		&#x27;&#x27;&#x27;</span></span><br><span class="line">		m = -(n * math.log(p))/(math.log(<span class="number">2</span>)**<span class="number">2</span>) </span><br><span class="line">		<span class="keyword">return</span> <span class="built_in">int</span>(m) </span><br><span class="line"></span><br><span class="line"><span class="meta">	@staticmethod</span></span><br><span class="line">	<span class="keyword">def</span> <span class="title function_">get_hash_count</span>(<span class="params">m, n</span>): </span><br><span class="line">		<span class="string">&#x27;&#x27;&#x27; </span></span><br><span class="line"><span class="string">		Return the hash function(k) to be used using </span></span><br><span class="line"><span class="string">		following formula </span></span><br><span class="line"><span class="string">		k = (m/n) * lg(2) </span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">		m : int </span></span><br><span class="line"><span class="string">			size of bit array </span></span><br><span class="line"><span class="string">		n : int </span></span><br><span class="line"><span class="string">			number of items expected to be stored in filter </span></span><br><span class="line"><span class="string">		&#x27;&#x27;&#x27;</span></span><br><span class="line">		k = (m/n) * math.log(<span class="number">2</span>) </span><br><span class="line">		<span class="keyword">return</span> <span class="built_in">int</span>(k)</span><br></pre></td></tr></table></figure>
+<p>看一下成果</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">n = <span class="number">100000</span> <span class="comment"># Number of items to add </span></span><br><span class="line">p = <span class="number">0.05</span> <span class="comment"># False positive probability </span></span><br><span class="line">  </span><br><span class="line">bloomf = BloomFilter(n,p) </span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Array size: &#123;&#125;&quot;</span>.<span class="built_in">format</span>(bloomf.size)) </span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Number of hash functions: &#123;&#125;&quot;</span>.<span class="built_in">format</span>(bloomf.hash_count)) </span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;False positive probability: &#123;&#125;&quot;</span>.<span class="built_in">format</span>(bloomf.fp_prob)) </span><br><span class="line"></span><br><span class="line"><span class="comment"># Add items</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">	bloomf.add(<span class="built_in">str</span>(i))</span><br><span class="line"></span><br><span class="line"><span class="comment"># Check false positive rate on Test data</span></span><br><span class="line">fp = <span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n, <span class="number">2</span>*n):</span><br><span class="line">	<span class="keyword">if</span> bloomf.check(<span class="built_in">str</span>(i)):</span><br><span class="line">		fp += <span class="number">1</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;False positive rate on test data: &#123;:.4f&#125;&quot;</span>.<span class="built_in">format</span>(fp/n)) </span><br></pre></td></tr></table></figure>
+<p>可以看到實際的 FP Rate 與我們設定的非常接近。<br />
+<img src="../../images/2024/01/10/filter-result.png" alt="filter-result" /></p>
+<h1 id="參考文章"><a class="markdownIt-Anchor" href="#參考文章"></a> 參考文章</h1>
+<p><a href="https://www.geeksforgeeks.org/bloom-filters-introduction-and-python-implementation/">Bloom Filters – Introduction and Implementation</a></p>
+]]></content>
+      <categories>
+        <category>DSA</category>
+      </categories>
+      <tags>
+        <tag>Bloom Filter</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>系統架構筆記 - 常見的五種部署策略</title>
+    <url>/posts/deployment-strategies/</url>
+    <content><![CDATA[<p><img src="../../images/2024/01/16/strategies.png" alt="strategies" /></p>
+<p>這篇文章簡單紀錄了常見的五種部署策略: Big Bang Deployment、Rolling Deployment (滾動部署)、Blue-Green Deployment (藍綠部署)、Canary Deployment (金絲雀部署) 與 Shadow Deployment (影子部署)。</p>
+<span id="more"></span>
+<h1 id="big-bang-deployment"><a class="markdownIt-Anchor" href="#big-bang-deployment"></a> Big Bang Deployment</h1>
+<p>名字聽起來很 Dramatic 的部署策略，將舊版本完全下線後部署新版本。</p>
+<ul>
+<li>優點:
+<ul>
+<li>easy、一次性完成</li>
+</ul>
+</li>
+<li>缺點:
+<ul>
+<li>有 downtime，一般生產環境下不會使用</li>
+</ul>
+</li>
+</ul>
+<h1 id="rolling-deployment-滾動部署"><a class="markdownIt-Anchor" href="#rolling-deployment-滾動部署"></a> Rolling Deployment (滾動部署)</h1>
+<p><img src="../../images/2024/01/16/rolling.png" alt="rolling" /></p>
+<p>將舊版本逐步 (one by one) 更新為新版本，在這個過程中，舊版本和新版本會共存一段時間。</p>
+<ul>
+<li>優點:
+<ul>
+<li>no downtime</li>
+</ul>
+</li>
+<li>缺點:
+<ul>
+<li>新舊版本間沒有隔離，可能需要處理版本之間的相容性與數據一致性</li>
+<li>rollback 也是逐步滾回去，複雜且耗時</li>
+</ul>
+</li>
+</ul>
+<h1 id="blue-green-deployment-藍綠部署"><a class="markdownIt-Anchor" href="#blue-green-deployment-藍綠部署"></a> Blue-Green Deployment (藍綠部署)</h1>
+<p><img src="../../images/2024/01/16/blue-green.png" alt="blue-green" /></p>
+<p>同時維護兩個平行的環境，一個為主要環境 (Blue)，另一個為即將上線的新版本 (Green)，於測試環境測試完新版本後，直接將兩個環境的流量做切換。</p>
+<ul>
+<li>優點:
+<ul>
+<li>no downtime</li>
+<li>直接切換流量即可完成版本切換，rollback 也是</li>
+</ul>
+</li>
+<li>缺點:
+<ul>
+<li>要同時維護兩個環境，成本高</li>
+</ul>
+</li>
+</ul>
+<h1 id="canary-deployment-金絲雀部署"><a class="markdownIt-Anchor" href="#canary-deployment-金絲雀部署"></a> Canary Deployment (金絲雀部署)</h1>
+<p><img src="../../images/2024/01/16/canary.png" alt="canary" /></p>
+<p>將新版本釋出給少量用戶做測試，測試沒問題後才將剩下的部署為新版本。</p>
+<ul>
+<li>優點:
+<ul>
+<li>no downtime</li>
+<li>能於生產環境中評估新版本效能，降低新版本風險</li>
+<li>rollback 較容易</li>
+</ul>
+</li>
+<li>缺點:
+<ul>
+<li>部署時間較長</li>
+<li>某些問題無法靠少量用戶就發現</li>
+</ul>
+</li>
+<li>與 Rolling Deployment 的差異
+<ul>
+<li>Canary Deployment 是階段式的過程，先部署少部分，確定沒問題才擴大部署</li>
+<li>Rolling Deployment 則連續的過程，一次對整個系統做升級，只是過程上是逐步部署</li>
+</ul>
+</li>
+</ul>
+<h1 id="shadow-deployment-影子部署"><a class="markdownIt-Anchor" href="#shadow-deployment-影子部署"></a> Shadow Deployment (影子部署)</h1>
+<p>同時維護兩個平行的環境，新版本在幕後運行 (in the shadow)，使用者的 request 會被複製一份到新版本用於測試</p>
+<ul>
+<li>優點:
+<ul>
+<li>不會對使用者造成實際影響，同時能測試新版本效能</li>
+</ul>
+</li>
+<li>缺點
+<ul>
+<li>實作上比較困難</li>
+<li>成本高</li>
+</ul>
+</li>
+</ul>
+<h2 id="其他-feature-toggle"><a class="markdownIt-Anchor" href="#其他-feature-toggle"></a> 其他: Feature Toggle</h2>
+<p><img src="../../images/2024/01/16/feature-toggle.png" alt="feature-toggle" /></p>
+<p>封面的圖片裡還有提到一個 Feature Toggle，概念是在程式中設計一個開關來控制新功能的狀態，可以針對特定用戶開啟，用來觀察新功能的效能、反饋如何，通常是用來做 A/B Test，本質上跟前面提到的幾個部署方法有點差異。</p>
+]]></content>
+      <categories>
+        <category>System Design</category>
+      </categories>
+      <tags>
+        <tag>Deployment</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Hello Hexo！功能全部開起來看起來就很厲害了吧？NexT常見設定整理 (4)</title>
     <url>/posts/Hello-Hexo-4/</url>
     <content><![CDATA[<h1 id="前言"><a class="markdownIt-Anchor" href="#前言"></a> 前言</h1>
@@ -389,60 +545,6 @@ Fast ≈ 350<br />
       <tags>
         <tag>Hexo</tag>
         <tag>NexT</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>資料結構筆記 - 布隆過濾器 Bloom Filter</title>
-    <url>/posts/bloom-filter/</url>
-    <content><![CDATA[<p><img src="../../images/2024/01/10/bloom-filter-new.png" alt="bloom-filter" /></p>
-<h1 id="summary"><a class="markdownIt-Anchor" href="#summary"></a> Summary</h1>
-<ul>
-<li>用途: 用來快速判斷元素是否存在於一個集合中</li>
-<li>優點: 快速、節省空間</li>
-<li>缺點: 可能有 false positive (不存在但判定為存在)</li>
-<li>應用:
-<ul>
-<li>Check Duplicate: name、email 等是否已被使用</li>
-<li>Filters: 過濾惡意請求 (ex: <a href="https://www.explainthis.io/zh-hant/swe/cache-mechanism">Cache penetration</a>)、垃圾郵件等</li>
-</ul>
-</li>
-</ul>
-<span id="more"></span>
-<h1 id="原理"><a class="markdownIt-Anchor" href="#原理"></a> 原理</h1>
-<p>對元素使用 k 個 Hash Functions，將其映射到長度為 m 的 Array 中，寫入時將映射到的 k 個位置標示為 1，檢查時如果映射到的 k 個位置都命中，表示該元素<strong>可能存在</strong>。</p>
-<ol>
-<li>
-<p>由預期的 <strong>False positive rate (p)</strong> 以及存入的<strong>資料筆數 (n)</strong> 來求出 <strong>Array Size (m)</strong> 以及 <strong>Hash Functions數 (k)</strong></p>
-<ul>
-<li><strong>False positive rate</strong><br />
-<img src="../../images/2024/01/10/false-positive-probability.png" alt="false-positive-probability" /></li>
-<li><strong>Array size</strong><br />
-<img src="../../images/2024/01/10/array-size.png" alt="array-size" /></li>
-<li><strong>Number of hash functions</strong><br />
-<img src="../../images/2024/01/10/number-of-hash-functions.png" alt="number-of-hash-functions" /></li>
-</ul>
-</li>
-<li>
-<p>選擇 Hash function<br />
-可以使用 <strong>Non-Cryptographic Hash</strong> (非密碼雜湊函數)，雖然有 collision 的可能，但足夠好了，而且比較快。<br />
-例如: MurmurHash、FarmHash、SpookyHash</p>
-</li>
-</ol>
-<h1 id="實作"><a class="markdownIt-Anchor" href="#實作"></a> 實作</h1>
-<p><strong>非原創!</strong> 基本上是下面參考文章中的程式碼，寫的很不錯所以只有小小修改一下。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Python 3 program to build Bloom Filter </span></span><br><span class="line"><span class="comment"># Install mmh3 and bitarray 3rd party module first </span></span><br><span class="line"><span class="comment"># pip install mmh3 </span></span><br><span class="line"><span class="comment"># pip install bitarray </span></span><br><span class="line"><span class="keyword">import</span> math </span><br><span class="line"><span class="keyword">import</span> mmh3 </span><br><span class="line"><span class="keyword">from</span> bitarray <span class="keyword">import</span> bitarray </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">BloomFilter</span>(<span class="title class_ inherited__">object</span>): </span><br><span class="line"></span><br><span class="line">	<span class="string">&#x27;&#x27;&#x27; </span></span><br><span class="line"><span class="string">	Class for Bloom filter, using murmur3 hash function </span></span><br><span class="line"><span class="string">	&#x27;&#x27;&#x27;</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, items_count, fp_prob</span>): </span><br><span class="line">		<span class="string">&#x27;&#x27;&#x27; </span></span><br><span class="line"><span class="string">		items_count : int </span></span><br><span class="line"><span class="string">			Number of items expected to be stored in bloom filter </span></span><br><span class="line"><span class="string">		fp_prob : float </span></span><br><span class="line"><span class="string">			False Positive probability in decimal </span></span><br><span class="line"><span class="string">		&#x27;&#x27;&#x27;</span></span><br><span class="line">		<span class="comment"># False possible probability in decimal </span></span><br><span class="line">		self.fp_prob = fp_prob </span><br><span class="line"></span><br><span class="line">		<span class="comment"># Size of bit array to use </span></span><br><span class="line">		self.size = self.get_size(items_count, fp_prob) </span><br><span class="line"></span><br><span class="line">		<span class="comment"># number of hash functions to use </span></span><br><span class="line">		self.hash_count = self.get_hash_count(self.size, items_count) </span><br><span class="line"></span><br><span class="line">		<span class="comment"># Bit array of given size, default all 0 </span></span><br><span class="line">		self.bit_array = bitarray(self.size) </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	<span class="keyword">def</span> <span class="title function_">add</span>(<span class="params">self, item</span>): </span><br><span class="line">		<span class="string">&#x27;&#x27;&#x27; </span></span><br><span class="line"><span class="string">		Add an item in the filter </span></span><br><span class="line"><span class="string">		&#x27;&#x27;&#x27;</span></span><br><span class="line">		digests = [] </span><br><span class="line">		<span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(self.hash_count): </span><br><span class="line"></span><br><span class="line">			<span class="comment"># create digest for given item. </span></span><br><span class="line">			<span class="comment"># i work as seed to mmh3.hash() function </span></span><br><span class="line">			<span class="comment"># With different seed, digest created is different </span></span><br><span class="line">			digest = mmh3.<span class="built_in">hash</span>(item, i) % self.size </span><br><span class="line">			digests.append(digest) </span><br><span class="line"></span><br><span class="line">			<span class="comment"># set the bit True in bit_array </span></span><br><span class="line">			self.bit_array[digest] = <span class="literal">True</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">def</span> <span class="title function_">check</span>(<span class="params">self, item</span>): </span><br><span class="line">		<span class="string">&#x27;&#x27;&#x27; </span></span><br><span class="line"><span class="string">		Check for existence of an item in filter </span></span><br><span class="line"><span class="string">		&#x27;&#x27;&#x27;</span></span><br><span class="line">		<span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(self.hash_count): </span><br><span class="line">			digest = mmh3.<span class="built_in">hash</span>(item, i) % self.size </span><br><span class="line">			<span class="keyword">if</span> self.bit_array[digest] == <span class="literal">False</span>: </span><br><span class="line"></span><br><span class="line">				<span class="comment"># if any of bit is False then,its not present </span></span><br><span class="line">				<span class="comment"># in filter </span></span><br><span class="line">				<span class="comment"># else there is probability that it exist </span></span><br><span class="line">				<span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">		<span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line"></span><br><span class="line"><span class="meta">	@staticmethod</span></span><br><span class="line">	<span class="keyword">def</span> <span class="title function_">get_size</span>(<span class="params">n, p</span>): </span><br><span class="line">		<span class="string">&#x27;&#x27;&#x27; </span></span><br><span class="line"><span class="string">		Return the size of bit array(m) to used using </span></span><br><span class="line"><span class="string">		following formula </span></span><br><span class="line"><span class="string">		m = -(n * lg(p)) / (lg(2)^2) </span></span><br><span class="line"><span class="string">		n : int </span></span><br><span class="line"><span class="string">			number of items expected to be stored in filter </span></span><br><span class="line"><span class="string">		p : float </span></span><br><span class="line"><span class="string">			False Positive probability in decimal </span></span><br><span class="line"><span class="string">		&#x27;&#x27;&#x27;</span></span><br><span class="line">		m = -(n * math.log(p))/(math.log(<span class="number">2</span>)**<span class="number">2</span>) </span><br><span class="line">		<span class="keyword">return</span> <span class="built_in">int</span>(m) </span><br><span class="line"></span><br><span class="line"><span class="meta">	@staticmethod</span></span><br><span class="line">	<span class="keyword">def</span> <span class="title function_">get_hash_count</span>(<span class="params">m, n</span>): </span><br><span class="line">		<span class="string">&#x27;&#x27;&#x27; </span></span><br><span class="line"><span class="string">		Return the hash function(k) to be used using </span></span><br><span class="line"><span class="string">		following formula </span></span><br><span class="line"><span class="string">		k = (m/n) * lg(2) </span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">		m : int </span></span><br><span class="line"><span class="string">			size of bit array </span></span><br><span class="line"><span class="string">		n : int </span></span><br><span class="line"><span class="string">			number of items expected to be stored in filter </span></span><br><span class="line"><span class="string">		&#x27;&#x27;&#x27;</span></span><br><span class="line">		k = (m/n) * math.log(<span class="number">2</span>) </span><br><span class="line">		<span class="keyword">return</span> <span class="built_in">int</span>(k)</span><br></pre></td></tr></table></figure>
-<p>看一下成果</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">n = <span class="number">100000</span> <span class="comment"># Number of items to add </span></span><br><span class="line">p = <span class="number">0.05</span> <span class="comment"># False positive probability </span></span><br><span class="line">  </span><br><span class="line">bloomf = BloomFilter(n,p) </span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Array size: &#123;&#125;&quot;</span>.<span class="built_in">format</span>(bloomf.size)) </span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Number of hash functions: &#123;&#125;&quot;</span>.<span class="built_in">format</span>(bloomf.hash_count)) </span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;False positive probability: &#123;&#125;&quot;</span>.<span class="built_in">format</span>(bloomf.fp_prob)) </span><br><span class="line"></span><br><span class="line"><span class="comment"># Add items</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">	bloomf.add(<span class="built_in">str</span>(i))</span><br><span class="line"></span><br><span class="line"><span class="comment"># Check false positive rate on Test data</span></span><br><span class="line">fp = <span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n, <span class="number">2</span>*n):</span><br><span class="line">	<span class="keyword">if</span> bloomf.check(<span class="built_in">str</span>(i)):</span><br><span class="line">		fp += <span class="number">1</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;False positive rate on test data: &#123;:.4f&#125;&quot;</span>.<span class="built_in">format</span>(fp/n)) </span><br></pre></td></tr></table></figure>
-<p>可以看到實際的 FP Rate 與我們設定的非常接近。<br />
-<img src="../../images/2024/01/10/filter-result.png" alt="filter-result" /></p>
-<h1 id="參考文章"><a class="markdownIt-Anchor" href="#參考文章"></a> 參考文章</h1>
-<p><a href="https://www.geeksforgeeks.org/bloom-filters-introduction-and-python-implementation/">Bloom Filters – Introduction and Implementation</a></p>
-]]></content>
-      <categories>
-        <category>DSA</category>
-      </categories>
-      <tags>
-        <tag>Bloom Filter</tag>
       </tags>
   </entry>
   <entry>
@@ -568,108 +670,6 @@ Fast ≈ 350<br />
       </tags>
   </entry>
   <entry>
-    <title>系統架構筆記 - 常見的五種部署策略</title>
-    <url>/posts/deployment-strategies/</url>
-    <content><![CDATA[<p><img src="../../images/2024/01/16/strategies.png" alt="strategies" /></p>
-<p>這篇文章簡單紀錄了常見的五種部署策略: Big Bang Deployment、Rolling Deployment (滾動部署)、Blue-Green Deployment (藍綠部署)、Canary Deployment (金絲雀部署) 與 Shadow Deployment (影子部署)。</p>
-<span id="more"></span>
-<h1 id="big-bang-deployment"><a class="markdownIt-Anchor" href="#big-bang-deployment"></a> Big Bang Deployment</h1>
-<p>名字聽起來很 Dramatic 的部署策略，將舊版本完全下線後部署新版本。</p>
-<ul>
-<li>優點:
-<ul>
-<li>easy、一次性完成</li>
-</ul>
-</li>
-<li>缺點:
-<ul>
-<li>有 downtime，一般生產環境下不會使用</li>
-</ul>
-</li>
-</ul>
-<h1 id="rolling-deployment-滾動部署"><a class="markdownIt-Anchor" href="#rolling-deployment-滾動部署"></a> Rolling Deployment (滾動部署)</h1>
-<p><img src="../../images/2024/01/16/rolling.png" alt="rolling" /></p>
-<p>將舊版本逐步 (one by one) 更新為新版本，在這個過程中，舊版本和新版本會共存一段時間。</p>
-<ul>
-<li>優點:
-<ul>
-<li>no downtime</li>
-</ul>
-</li>
-<li>缺點:
-<ul>
-<li>新舊版本間沒有隔離，可能需要處理版本之間的相容性與數據一致性</li>
-<li>rollback 也是逐步滾回去，複雜且耗時</li>
-</ul>
-</li>
-</ul>
-<h1 id="blue-green-deployment-藍綠部署"><a class="markdownIt-Anchor" href="#blue-green-deployment-藍綠部署"></a> Blue-Green Deployment (藍綠部署)</h1>
-<p><img src="../../images/2024/01/16/blue-green.png" alt="blue-green" /></p>
-<p>同時維護兩個平行的環境，一個為主要環境 (Blue)，另一個為即將上線的新版本 (Green)，於測試環境測試完新版本後，直接將兩個環境的流量做切換。</p>
-<ul>
-<li>優點:
-<ul>
-<li>no downtime</li>
-<li>直接切換流量即可完成版本切換，rollback 也是</li>
-</ul>
-</li>
-<li>缺點:
-<ul>
-<li>要同時維護兩個環境，成本高</li>
-</ul>
-</li>
-</ul>
-<h1 id="canary-deployment-金絲雀部署"><a class="markdownIt-Anchor" href="#canary-deployment-金絲雀部署"></a> Canary Deployment (金絲雀部署)</h1>
-<p><img src="../../images/2024/01/16/canary.png" alt="canary" /></p>
-<p>將新版本釋出給少量用戶做測試，測試沒問題後才將剩下的部署為新版本。</p>
-<ul>
-<li>優點:
-<ul>
-<li>no downtime</li>
-<li>能於生產環境中評估新版本效能，降低新版本風險</li>
-<li>rollback 較容易</li>
-</ul>
-</li>
-<li>缺點:
-<ul>
-<li>部署時間較長</li>
-<li>某些問題無法靠少量用戶就發現</li>
-</ul>
-</li>
-<li>與 Rolling Deployment 的差異
-<ul>
-<li>Canary Deployment 是階段式的過程，先部署少部分，確定沒問題才擴大部署</li>
-<li>Rolling Deployment 則連續的過程，一次對整個系統做升級，只是過程上是逐步部署</li>
-</ul>
-</li>
-</ul>
-<h1 id="shadow-deployment-影子部署"><a class="markdownIt-Anchor" href="#shadow-deployment-影子部署"></a> Shadow Deployment (影子部署)</h1>
-<p>同時維護兩個平行的環境，新版本在幕後運行 (in the shadow)，使用者的 request 會被複製一份到新版本用於測試</p>
-<ul>
-<li>優點:
-<ul>
-<li>不會對使用者造成實際影響，同時能測試新版本效能</li>
-</ul>
-</li>
-<li>缺點
-<ul>
-<li>實作上比較困難</li>
-<li>成本高</li>
-</ul>
-</li>
-</ul>
-<h2 id="其他-feature-toggle"><a class="markdownIt-Anchor" href="#其他-feature-toggle"></a> 其他: Feature Toggle</h2>
-<p><img src="../../images/2024/01/16/feature-toggle.png" alt="feature-toggle" /></p>
-<p>封面的圖片裡還有提到一個 Feature Toggle，概念是在程式中設計一個開關來控制新功能的狀態，可以針對特定用戶開啟，用來觀察新功能的效能、反饋如何，通常是用來做 A/B Test，本質上跟前面提到的幾個部署方法有點差異。</p>
-]]></content>
-      <categories>
-        <category>System Design</category>
-      </categories>
-      <tags>
-        <tag>Deployment</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>深入瞭解社會網絡分析中的介數中心性(Betweenness Centrality) - 計算方法與Python程式實作</title>
     <url>/posts/betweenness-centrality/</url>
     <content><![CDATA[<h1 id="介紹"><a class="markdownIt-Anchor" href="#介紹"></a> 介紹</h1>
@@ -772,6 +772,111 @@ C: centrality，介數中心性 (sum of delta)</p>
       <tags>
         <tag>Betweenness Centrality</tag>
         <tag>Graph</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Java 自學筆記 02 - OOP</title>
+    <url>/posts/java-learning-02/</url>
+    <content><![CDATA[<p><img src="../../images/2024/03/18/java_oop.png" alt="Java OOP" /></p>
+<p>Java 是一個物件導向的程式語言，重點在於如何定義物件之間的互動，Object Oriented Programming (OOP) 的三大特性分別是: <strong>Encapsulation (封裝)</strong>、<strong>Inheritance (繼承)</strong> 與 <strong>Polymorphism (多型)</strong> 。</p>
+<span id="more"></span>
+<h2 id="encapsulation-封裝"><a class="markdownIt-Anchor" href="#encapsulation-封裝"></a> Encapsulation (封裝)</h2>
+<p>所謂封裝(Encapsulation)，是指class A的設計者可以指定其他的class能否存取A的某個member。</p>
+<h3 id="access-modifier"><a class="markdownIt-Anchor" href="#access-modifier"></a> Access Modifier</h3>
+<p>類別中每個 member 的權限都是分開控制的，存取範圍的大小是public &gt; protected &gt; package &gt; private。</p>
+<ul>
+<li><strong>private</strong>: 只有A自己才可以存取，使用keyword <strong>private</strong></li>
+<li><strong>package (default)</strong>: 只有和A同一個package的class才可以存取，沒有相對應的keyword</li>
+<li><strong>protected</strong>: 只有同一個package或是A的子類別才可以存取，使用keyword <strong>protected</strong></li>
+<li><strong>public</strong>: 所有的class都可以存取，使用keyword <strong>public</strong></li>
+</ul>
+<h3 id="package"><a class="markdownIt-Anchor" href="#package"></a> Package</h3>
+<p>對應到資料夾名稱，不同層的資料夾視為不同封包:</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> math;</span><br><span class="line"><span class="keyword">package</span> math.geometry;</span><br></pre></td></tr></table></figure>
+<p>要使用封包內的類別:</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> math.BasicMath;</span><br><span class="line"><span class="keyword">import</span> math.geometry.*;</span><br></pre></td></tr></table></figure>
+<h2 id="inheritance-繼承"><a class="markdownIt-Anchor" href="#inheritance-繼承"></a> Inheritance (繼承)</h2>
+<p>Java使用關鍵字extends來表達繼承，若class宣告時沒有指定extends，則Java會自動extends <strong>java.lang.Object</strong>。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Animal</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">moveMethod</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Unspecified&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Bird</span> <span class="keyword">extends</span> <span class="title class_">Animal</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">moveMethod</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Fly&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="override-覆寫"><a class="markdownIt-Anchor" href="#override-覆寫"></a> Override (覆寫)</h3>
+<p>子類別重新定義它所能看到的父類別中的 method (如 public、protected，如果子類別和父類別在同一個 package 裡，則沒有修飾字的method也可以)，稱為override。</p>
+<ul>
+<li>如果子類別看不到父類別的方法 (如父類別的 private 方法，或子父類別不在同一個 package 而子類別定義了父類別內的 package method)，則就算定義了同樣的 method 也不是override</li>
+<li>重複定義 static method 也不算 override</li>
+<li>子類別不可縮小父類別方法的存取範圍</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">C2</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">a</span><span class="params">()</span> &#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">C1</span> <span class="keyword">extends</span> <span class="title class_">C2</span> &#123;</span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">a</span><span class="params">()</span> &#123; <span class="comment">// Compile Error，不得縮小存取範圍</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="final-修飾字"><a class="markdownIt-Anchor" href="#final-修飾字"></a> final 修飾字</h3>
+<p>final 除可用來修飾變數外，也可放在class和object method前面:</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">class</span> <span class="title class_">FinalClass</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title function_">finalMethod</span><span class="params">()</span> &#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>final放在class前面表示class不可被繼承，放在object method表示不可被Override。</p>
+<h2 id="polymorphism-多形"><a class="markdownIt-Anchor" href="#polymorphism-多形"></a> Polymorphism (多形)</h2>
+<h3 id="upcasting-向上轉型"><a class="markdownIt-Anchor" href="#upcasting-向上轉型"></a> UpCasting (向上轉型)</h3>
+<p>子類別可以向上相容於父類別，舉例來說，Bird 是一種 Animal，所以可以順利向上轉型。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Animal a;</span><br><span class="line">Bird b;</span><br><span class="line">a = b; <span class="comment">// upcasting, Bird is a kind of Animal</span></span><br></pre></td></tr></table></figure>
+<h3 id="downcasting-向下轉型"><a class="markdownIt-Anchor" href="#downcasting-向下轉型"></a> DownCasting (向下轉型)</h3>
+<p>相反的，父類別並不能像下相容子類別，因為 Animal 並不一定都是 Bird，如果要向下轉型必須要強制casting。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">Animal</span> <span class="variable">a</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Bird</span>(); <span class="comment">// upcasting</span></span><br><span class="line">Bird b;</span><br><span class="line">b = (Bird)a; <span class="comment">// downcasting, compile correct</span></span><br><span class="line"><span class="keyword">if</span> (a <span class="keyword">instanceof</span> Bird) &#123; <span class="comment">// true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>InheritanceExample.java</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">InheritanceExample</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] argv)</span> &#123;</span><br><span class="line">        Animal a1, a2, a3, a4;</span><br><span class="line">        Bird b;</span><br><span class="line">        Dog d;</span><br><span class="line">        Fish f;</span><br><span class="line">        a2 = a1 = <span class="keyword">new</span> <span class="title class_">Animal</span>();</span><br><span class="line">        b = <span class="keyword">new</span> <span class="title class_">Bird</span>();</span><br><span class="line">        d = <span class="keyword">new</span> <span class="title class_">Dog</span>();</span><br><span class="line">        f = <span class="keyword">new</span> <span class="title class_">Fish</span>();</span><br><span class="line">        System.out.println(a1.moveMethod());</span><br><span class="line">        System.out.println(b.moveMethod());</span><br><span class="line">        System.out.println(d.moveMethod());</span><br><span class="line">        System.out.println(f.moveMethod());</span><br><span class="line">        a1 = b; <span class="comment">// Correct, we call this upcasting</span></span><br><span class="line">        b = a1; <span class="comment">// Compile Error, type not compatible</span></span><br><span class="line">        b = (Bird)a1; <span class="comment">// downcasting, Compile Correct</span></span><br><span class="line">        a2 = b; <span class="comment">// Correct,we call this upcasting</span></span><br><span class="line">        d = a2; <span class="comment">// Compile Error, type not compatible</span></span><br><span class="line">        d = (Dog)a2; <span class="comment">// Compile Correct, but runtime error</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="instanceof-關鍵字"><a class="markdownIt-Anchor" href="#instanceof-關鍵字"></a> instanceof 關鍵字</h2>
+<p>用來判斷某 reference 所指到的物件與類別是否相容 (including upcasting):</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Object ref;</span><br><span class="line">ref = <span class="keyword">new</span> <span class="title class_">Bird</span>();</span><br><span class="line"><span class="keyword">if</span> (ref <span class="keyword">instanceof</span> Animal) &#123; <span class="comment">// correct</span></span><br><span class="line">    System.out.println(<span class="string">&quot;ref is currently pointing to an Animal Object.&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="virtual-function虛擬函數"><a class="markdownIt-Anchor" href="#virtual-function虛擬函數"></a> Virtual Function(虛擬函數)</h3>
+<p>當父類別 reference 到子類別的 object，ex: <code>Animal a = new Bird()</code>，如果子類別 override 父類別的 method，java 會呼叫子類別的方法，也就是 Virtual Function，(如果是呼叫父類別的方法就是 Non-Virtual Function)。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">InheritanceExample</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] argv)</span> &#123;</span><br><span class="line">        Animal a1;</span><br><span class="line">        a1 = <span class="keyword">new</span> <span class="title class_">Animal</span>();</span><br><span class="line">        System.out.println(a1.moveMethod()); <span class="comment">// print out &quot;Unspecified&quot;</span></span><br><span class="line">        a1 = <span class="keyword">new</span> <span class="title class_">Bird</span>(); <span class="comment">// polymorphism</span></span><br><span class="line">        System.out.println(a1.moveMethod()); <span class="comment">// print out &quot;Fly&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>要注意 override 的範圍，只有被 override 的 method 才會呼叫 virtual function，舉例來說，static method 、private method 不能被 override，所以也不會有 virtual function。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Animal</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> String <span class="title function_">moveMethod</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Unspecified&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] argv)</span> &#123;</span><br><span class="line">        Animal a1;</span><br><span class="line">        a1 = <span class="keyword">new</span> <span class="title class_">Bird</span>();</span><br><span class="line">        System.out.println(a1.moveMethod()); <span class="comment">// print out &quot;Unspecified&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Bird</span> <span class="keyword">extends</span> <span class="title class_">Animal</span> &#123;</span><br><span class="line">    <span class="comment">// this is not override because Bird can&#x27;t see Animal&#x27;s moveMethod</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">moveMethod</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Fly&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="參考資料"><a class="markdownIt-Anchor" href="#參考資料"></a> 參考資料</h2>
+<p><a href="https://programming.im.ncnu.edu.tw/J_index.html">https://programming.im.ncnu.edu.tw/J_index.html</a></p>
+]]></content>
+      <categories>
+        <category>Java Learning</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>OOP</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Java 自學筆記 03 - Interface &amp; Abstract</title>
+    <url>/posts/java-learning-03/</url>
+    <content><![CDATA[<p><img src="../../images/2024/03/19/java_interface_abstract.png" alt="Interface &amp; Abstract" /></p>
+<p>OOP 除了有 Encapsulation、Inheritance 與 Polymorphism 三大要素外，<strong>Interface</strong> 與 <strong>Abstract</strong> 也是 OOP 中的重要概念。</p>
+<span id="more"></span>
+<h2 id="interface-介面"><a class="markdownIt-Anchor" href="#interface-介面"></a> Interface (介面)</h2>
+<p>因為 java 的 class 不能多重繼承，所以發展出 Interface:</p>
+<h3 id="宣告-interface"><a class="markdownIt-Anchor" href="#宣告-interface"></a> 宣告 interface</h3>
+<p>interface 裡的變數都是 <strong>piblic</strong>、<strong>static</strong> 以及 <strong>final</strong> 的<br />
+interface 裡的方法則是 <strong>public</strong> 以及 <strong>abstract</strong> 的</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">Listener</span> &#123;</span><br><span class="line">    <span class="type">double</span> <span class="variable">PI</span> <span class="operator">=</span> <span class="number">3.14149</span>; <span class="comment">// 同public static final</span></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">listen</span><span class="params">()</span>; <span class="comment">// 同public abstract</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">Runnalbe</span> &#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">PERIOD</span> <span class="operator">=</span> <span class="number">10</span>;</span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span>; <span class="comment">// 注意這裡只有 ()，沒有 &#123;&#125;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">AnotherRun</span> &#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">PERIOD</span> <span class="operator">=</span> <span class="number">20</span>;</span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span>;</span><br><span class="line">    <span class="type">int</span> <span class="title function_">run</span><span class="params">(<span class="type">int</span>)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="interface-的繼承"><a class="markdownIt-Anchor" href="#interface-的繼承"></a> Interface 的繼承</h3>
+<p>Interface 可以多重繼承</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">ActionListener</span> <span class="keyword">extends</span> <span class="title class_">Listener</span> &#123;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">MultiInterface</span> <span class="keyword">extends</span> <span class="title class_">Listener</span>, Runnalbe &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="class-實作-interface"><a class="markdownIt-Anchor" href="#class-實作-interface"></a> Class 實作 Interface</h3>
+<p><strong>相同變數名稱</strong>: 用 interfaceA.var 以及 interfaceB.var 區分<br />
+<strong>相同函數名稱</strong>: 實作一次就好</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">A</span> <span class="keyword">implements</span> <span class="title class_">Listener</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">listen</span><span class="params">()</span> &#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">B</span> <span class="keyword">implements</span> <span class="title class_">Listener</span>, Runnable &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">listen</span><span class="params">()</span> &#123;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">C</span> <span class="keyword">implements</span> <span class="title class_">MultiInterface</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">listen</span><span class="params">()</span> &#123;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">D</span> <span class="keyword">extends</span> <span class="title class_">A</span> <span class="keyword">implements</span> <span class="title class_">Runnable</span>, AnotherRun &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">run</span><span class="params">(<span class="type">int</span> period)</span> &#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="abstarct-抽象"><a class="markdownIt-Anchor" href="#abstarct-抽象"></a> Abstarct (抽象)</h2>
+<p>只有參數宣告，沒有實作的方法，稱為abstract method。</p>
+<ul>
+<li><strong>具有 abstract method 的 class 必須宣告為 abstract class。</strong></li>
+<li>繼承 abstract class 的子類別必須 <strong>override 所有父類別的 abstract method</strong>，否則子類別也必須宣告為 abstract class。</li>
+<li>實作 Interface A 的 Class 必須<strong>實作 A 裡的所有method</strong>，否則必須宣告自己為 abstract class。</li>
+<li><strong>不能直接 new abstract class</strong>，只能 new 其非 abstract class 的子類別。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title class_">AbstractExample</span> &#123;</span><br><span class="line">    <span class="type">int</span> x;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="keyword">abstract</span> <span class="title function_">abstractMethod</span><span class="params">()</span> &#123;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">AbstractExample</span><span class="params">()</span> &#123;</span><br><span class="line">        x = <span class="number">5</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SubClass</span> <span class="keyword">extends</span> <span class="title class_">AbstractExample</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">abstractMethod</span><span class="params">()</span> &#123; <span class="comment">// must override this method, or SubClass be declared as abstract class</span></span><br><span class="line">        x = <span class="number">10</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Main</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] argv)</span> &#123;</span><br><span class="line">        <span class="type">AbstractExample</span> <span class="variable">a</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SubClass</span>(); <span class="comment">// correct</span></span><br><span class="line">        a.abstractMethod(); <span class="comment">// virtual function, call SubClass&#x27;s abstractMethod</span></span><br><span class="line">        a = <span class="keyword">new</span> <span class="title class_">AbstractExample</span>(); <span class="comment">// Compile error, you can&#x27;t new abstract class</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="參考資料"><a class="markdownIt-Anchor" href="#參考資料"></a> 參考資料</h2>
+<p><a href="https://programming.im.ncnu.edu.tw/J_index.html">https://programming.im.ncnu.edu.tw/J_index.html</a></p>
+]]></content>
+      <categories>
+        <category>Java Learning</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>OOP</tag>
       </tags>
   </entry>
   <entry>
@@ -889,205 +994,6 @@ double &gt; float &gt; long &gt; int &gt; short &gt; byte</li>
       </tags>
   </entry>
   <entry>
-    <title>Java 自學筆記 04 - List &amp; Queue</title>
-    <url>/posts/java-learning-04/</url>
-    <content><![CDATA[<h2 id="collection"><a class="markdownIt-Anchor" href="#collection"></a> Collection</h2>
-<p>Collection 是 Java 中用來存儲、操作數據結構的一種框架，在此之下提供了許多實用的 Interface，包括 <strong>List</strong>、<strong>Queue</strong> 以及 <strong>Set</strong> (Map 是分開的)。</p>
-<p><img src="../../images/2024/03/19/java_collection.png" alt="Java Collection" /></p>
-<span id="more"></span>
-<h2 id="list"><a class="markdownIt-Anchor" href="#list"></a> List</h2>
-<p>List 基本上就是動態數組，其下有 <strong>ArrayList</strong>、<strong>LinkedList</strong>、<strong>Vector</strong> 等不同的實現。</p>
-<p><img src="../../images/2024/03/19/java_list_interface.png" alt="Java List Interface" /></p>
-<ul>
-<li><strong>ArrayList</strong>: 透過索引訪問的動態陣列，查尋的時間複雜度為 <strong>O(1)</strong>，然而插入時會將後面的元素全部往右移 (刪除時則是全部往左移)，因此時間複雜度最差為 <strong>O(n)</strong>。<strong>適合用在隨機查找、頻繁訪問及更新的資料上。</strong></li>
-<li><strong>LinkedList</strong>: 透過雙向鏈結實現的動態陣列，插入與刪除的效率高，操作本身的時間複雜度為 <strong>O(1)</strong>，但查找時需要遍歷整個鏈表，因此時間複雜度最差為 <strong>O(n)</strong>。<strong>適用於需要大量插入和刪除操作的情況。</strong></li>
-</ul>
-<blockquote>
-<p>Vector 是老舊的語法，透過 <code>synchronized</code> 同步以實現線程安全，性能不佳，大多時候都可以被 ArrayList 取代掉，兩者的用法幾乎一模一樣。</p>
-</blockquote>
-<h3 id="array-to-arraylist"><a class="markdownIt-Anchor" href="#array-to-arraylist"></a> Array to ArrayList</h3>
-<p><code>Arrays.asList()</code> 可以將 Array 轉換為 <code>java.util.Arrays.ArrayList</code>，與 collections 中所指的 ArrayList 並不一樣，轉換而成的 ArrayList 並不能進行添加或刪除的操作。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">List&lt;String&gt; names = Arrays.asList(<span class="string">&quot;Sandy&quot;</span>, <span class="string">&quot;Jack&quot;</span>);</span><br><span class="line"><span class="comment">// names.add(&quot;Frank&quot;); // 還是可以 compile，但執行會報錯</span></span><br></pre></td></tr></table></figure>
-<h3 id="basic-usage"><a class="markdownIt-Anchor" href="#basic-usage"></a> Basic Usage</h3>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">List&lt;String&gt; list = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;(); <span class="comment">// Interface&lt;Object&gt;</span></span><br><span class="line"><span class="comment">// List&lt;String&gt; list = new LinkedList&lt;&gt;(); </span></span><br><span class="line">list.add(<span class="string">&quot;Jack&quot;</span>);</span><br><span class="line">list.add(<span class="string">&quot;Emma&quot;</span>);</span><br><span class="line">list.add(<span class="string">&quot;Jack&quot;</span>);</span><br><span class="line">list.addAll(names);</span><br><span class="line">System.out.println(list); <span class="comment">// [Jack, Emma, Jack, Sandy, Jack]</span></span><br><span class="line"></span><br><span class="line">list.get(<span class="number">0</span>); <span class="comment">// Jack</span></span><br><span class="line">list.indexOf(<span class="string">&quot;Jack&quot;</span>); <span class="comment">// 0</span></span><br><span class="line">list.size(); <span class="comment">// 5</span></span><br><span class="line">list.isEmpty(); <span class="comment">// false</span></span><br><span class="line"></span><br><span class="line">list.set(<span class="number">0</span>, <span class="string">&quot;Timmy&quot;</span>);</span><br><span class="line">System.out.println(list);  <span class="comment">// [Timmy, Emma, Jack, Sandy, Jack]</span></span><br><span class="line"></span><br><span class="line">list.remove(<span class="number">0</span>); <span class="comment">// remove(index): return element or throw exception</span></span><br><span class="line">list.remove(<span class="string">&quot;Jack&quot;</span>); <span class="comment">// remove(Object): return True or False</span></span><br><span class="line">System.out.println(list);  <span class="comment">// [Emma, Sandy, Jack]</span></span><br><span class="line"></span><br><span class="line">list.removeIf(x-&gt;x.contains(<span class="string">&quot;J&quot;</span>));</span><br><span class="line">System.out.println(list);  <span class="comment">// [Emma, Sandy]</span></span><br><span class="line"></span><br><span class="line">list.clear();</span><br></pre></td></tr></table></figure>
-<h2 id="queue"><a class="markdownIt-Anchor" href="#queue"></a> Queue</h2>
-<p>Queue 是一個<strong>先進先出 (FIFO)</strong> 的資料集合，其下大致上可以分為 Deque 及 Priority Queue 兩類，Deque 有 <strong>ArrayDeque</strong>、<strong>LinkedList</strong> 等實現，Priority Queue 的實現則是 <strong>PriorityQueue</strong>。<br />
-<img src="../../images/2024/03/19/java_queue_interface.png" alt="Java Queue Interface" /></p>
-<ul>
-<li><strong>LinkedList</strong>: 前面就提到過了，雙向鏈結的特性使其能夠快速地對頭尾元素進行操作。</li>
-<li><strong>ArrayDeque</strong>: 同時有 Deque 以及 Array 的性質，能快速地訪問元素，也可以快速地對頭尾元素進行操作。</li>
-<li><strong>PriorityQueue</strong>: 其實就是 Min Heap。</li>
-</ul>
-<h3 id="deque"><a class="markdownIt-Anchor" href="#deque"></a> Deque</h3>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Deque&lt;Integer&gt; deque = <span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line"><span class="comment">// Deque&lt;Integer&gt; deque = new ArrayDeque&lt;&gt;();</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// add from first</span></span><br><span class="line">deque.addFirst(<span class="number">1</span>);</span><br><span class="line">deque.addFirst(<span class="number">2</span>);</span><br><span class="line">deque.addFirst(<span class="number">3</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// add from last</span></span><br><span class="line">deque.addLast(<span class="number">4</span>);</span><br><span class="line">deque.addLast(<span class="number">5</span>);</span><br><span class="line">deque.addLast(<span class="number">6</span>);</span><br><span class="line"></span><br><span class="line">System.out.println(deque);  <span class="comment">// [3, 2, 1, 4, 5, 6]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// get from first</span></span><br><span class="line">deque.getFirst();           <span class="comment">// return 3</span></span><br><span class="line">System.out.println(deque);  <span class="comment">// [3, 2, 1, 4, 5, 6]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// get from last</span></span><br><span class="line">deque.getLast();            <span class="comment">// return 6</span></span><br><span class="line">System.out.println(deque);  <span class="comment">// [3, 2, 1, 4, 5, 6]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// remove from first</span></span><br><span class="line">deque.removeFirst();        <span class="comment">// return 3</span></span><br><span class="line">System.out.println(deque);  <span class="comment">// [2, 1, 4, 5, 6]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// remove from last</span></span><br><span class="line">deque.removeLast();         <span class="comment">// return 6</span></span><br><span class="line">System.out.println(deque);  <span class="comment">// [2, 1, 4, 5]</span></span><br></pre></td></tr></table></figure>
-<h3 id="priority-queue"><a class="markdownIt-Anchor" href="#priority-queue"></a> Priority Queue</h3>
-<p>將 pq 印出來會發現最小值永遠在第一個，後面順序則不一定，有興趣可以自己去看 heap 的規則。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Queue&lt;Integer&gt; pq = <span class="keyword">new</span> <span class="title class_">PriorityQueue</span>&lt;&gt;();</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">7</span>; i&gt;<span class="number">0</span>; i--)&#123;</span><br><span class="line">    pq.offer(i);        <span class="comment">// similar to pq.add()</span></span><br><span class="line">&#125;</span><br><span class="line">System.out.println(pq); <span class="comment">// [1, 4, 2, 7, 5, 6, 3]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// get first one</span></span><br><span class="line">pq.peek();</span><br><span class="line">System.out.println(pq); <span class="comment">// [1, 4, 2, 7, 5, 6, 3]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// remove first one</span></span><br><span class="line">pq.poll();</span><br><span class="line">System.out.println(pq); <span class="comment">// [2, 4, 3, 7, 5, 6]</span></span><br></pre></td></tr></table></figure>
-<p>But！都用到 PriorityQueue 了，肯定不只是拿來處理這麼簡單的任務，通常會儲存一組資料，例如 <code>&quot;apple&quot;, 2</code>、<code>&quot;banana&quot;, 3</code> 等，這時候 PriorityQueue 就不知道該如何進行排序了，這時我們可能就需要自訂義類別與比較器:</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Self-defined Class</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Pair</span>&#123;</span><br><span class="line">    String first;</span><br><span class="line">    <span class="type">int</span> second;</span><br><span class="line"></span><br><span class="line">    Pair(String first, <span class="type">int</span> second)&#123;</span><br><span class="line">        <span class="built_in">this</span>.first = first;</span><br><span class="line">        <span class="built_in">this</span>.second = second;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Self-defined Comparator</span></span><br><span class="line">Comparator&lt;Pair&gt; customComparator = <span class="keyword">new</span> <span class="title class_">Comparator</span>&lt;&gt;() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">compare</span><span class="params">(Pair p1, Pair p2)</span> &#123;</span><br><span class="line">        <span class="comment">// compare with second element</span></span><br><span class="line">        <span class="keyword">return</span> Integer.compare(p1.second, p2.second);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// initialize PriorityQueue with Comparator</span></span><br><span class="line">PriorityQueue&lt;Pair&gt; pq2 = <span class="keyword">new</span> <span class="title class_">PriorityQueue</span>&lt;&gt;(customComparator);</span><br><span class="line"></span><br><span class="line"><span class="comment">// offer</span></span><br><span class="line">pq2.offer(<span class="keyword">new</span> <span class="title class_">Pair</span>(<span class="string">&quot;apple&quot;</span>, <span class="number">2</span>));</span><br><span class="line">pq2.offer(<span class="keyword">new</span> <span class="title class_">Pair</span>(<span class="string">&quot;banana&quot;</span>, <span class="number">3</span>));</span><br><span class="line">pq2.offer(<span class="keyword">new</span> <span class="title class_">Pair</span>(<span class="string">&quot;cherry&quot;</span>, <span class="number">1</span>));</span><br><span class="line"></span><br><span class="line"><span class="comment">// poll</span></span><br><span class="line"><span class="keyword">while</span> (!pq2.isEmpty()) &#123;</span><br><span class="line">    <span class="type">Pair</span> <span class="variable">pair</span> <span class="operator">=</span> pq2.poll();</span><br><span class="line">    System.out.println(<span class="string">&quot;(&quot;</span> + pair.first + <span class="string">&quot;, &quot;</span> + pair.second + <span class="string">&quot;)&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// result</span></span><br><span class="line"><span class="comment">// (cherry, 1)</span></span><br><span class="line"><span class="comment">// (apple, 2)</span></span><br><span class="line"><span class="comment">// (banana, 3)</span></span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>Java Learning</category>
-      </categories>
-      <tags>
-        <tag>Java</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Java 自學筆記 03 - Interface &amp; Abstract</title>
-    <url>/posts/java-learning-03/</url>
-    <content><![CDATA[<p><img src="../../images/2024/03/19/java_interface_abstract.png" alt="Interface &amp; Abstract" /></p>
-<p>OOP 除了有 Encapsulation、Inheritance 與 Polymorphism 三大要素外，<strong>Interface</strong> 與 <strong>Abstract</strong> 也是 OOP 中的重要概念。</p>
-<span id="more"></span>
-<h2 id="interface-介面"><a class="markdownIt-Anchor" href="#interface-介面"></a> Interface (介面)</h2>
-<p>因為 java 的 class 不能多重繼承，所以發展出 Interface:</p>
-<h3 id="宣告-interface"><a class="markdownIt-Anchor" href="#宣告-interface"></a> 宣告 interface</h3>
-<p>interface 裡的變數都是 <strong>piblic</strong>、<strong>static</strong> 以及 <strong>final</strong> 的<br />
-interface 裡的方法則是 <strong>public</strong> 以及 <strong>abstract</strong> 的</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">Listener</span> &#123;</span><br><span class="line">    <span class="type">double</span> <span class="variable">PI</span> <span class="operator">=</span> <span class="number">3.14149</span>; <span class="comment">// 同public static final</span></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">listen</span><span class="params">()</span>; <span class="comment">// 同public abstract</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">Runnalbe</span> &#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">PERIOD</span> <span class="operator">=</span> <span class="number">10</span>;</span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span>; <span class="comment">// 注意這裡只有 ()，沒有 &#123;&#125;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">AnotherRun</span> &#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">PERIOD</span> <span class="operator">=</span> <span class="number">20</span>;</span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span>;</span><br><span class="line">    <span class="type">int</span> <span class="title function_">run</span><span class="params">(<span class="type">int</span>)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="interface-的繼承"><a class="markdownIt-Anchor" href="#interface-的繼承"></a> Interface 的繼承</h3>
-<p>Interface 可以多重繼承</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">ActionListener</span> <span class="keyword">extends</span> <span class="title class_">Listener</span> &#123;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">MultiInterface</span> <span class="keyword">extends</span> <span class="title class_">Listener</span>, Runnalbe &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="class-實作-interface"><a class="markdownIt-Anchor" href="#class-實作-interface"></a> Class 實作 Interface</h3>
-<p><strong>相同變數名稱</strong>: 用 interfaceA.var 以及 interfaceB.var 區分<br />
-<strong>相同函數名稱</strong>: 實作一次就好</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">A</span> <span class="keyword">implements</span> <span class="title class_">Listener</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">listen</span><span class="params">()</span> &#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">B</span> <span class="keyword">implements</span> <span class="title class_">Listener</span>, Runnable &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">listen</span><span class="params">()</span> &#123;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">C</span> <span class="keyword">implements</span> <span class="title class_">MultiInterface</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">listen</span><span class="params">()</span> &#123;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">D</span> <span class="keyword">extends</span> <span class="title class_">A</span> <span class="keyword">implements</span> <span class="title class_">Runnable</span>, AnotherRun &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">run</span><span class="params">(<span class="type">int</span> period)</span> &#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="abstarct-抽象"><a class="markdownIt-Anchor" href="#abstarct-抽象"></a> Abstarct (抽象)</h2>
-<p>只有參數宣告，沒有實作的方法，稱為abstract method。</p>
-<ul>
-<li><strong>具有 abstract method 的 class 必須宣告為 abstract class。</strong></li>
-<li>繼承 abstract class 的子類別必須 <strong>override 所有父類別的 abstract method</strong>，否則子類別也必須宣告為 abstract class。</li>
-<li>實作 Interface A 的 Class 必須<strong>實作 A 裡的所有method</strong>，否則必須宣告自己為 abstract class。</li>
-<li><strong>不能直接 new abstract class</strong>，只能 new 其非 abstract class 的子類別。</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title class_">AbstractExample</span> &#123;</span><br><span class="line">    <span class="type">int</span> x;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="keyword">abstract</span> <span class="title function_">abstractMethod</span><span class="params">()</span> &#123;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">AbstractExample</span><span class="params">()</span> &#123;</span><br><span class="line">        x = <span class="number">5</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SubClass</span> <span class="keyword">extends</span> <span class="title class_">AbstractExample</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">abstractMethod</span><span class="params">()</span> &#123; <span class="comment">// must override this method, or SubClass be declared as abstract class</span></span><br><span class="line">        x = <span class="number">10</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Main</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] argv)</span> &#123;</span><br><span class="line">        <span class="type">AbstractExample</span> <span class="variable">a</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SubClass</span>(); <span class="comment">// correct</span></span><br><span class="line">        a.abstractMethod(); <span class="comment">// virtual function, call SubClass&#x27;s abstractMethod</span></span><br><span class="line">        a = <span class="keyword">new</span> <span class="title class_">AbstractExample</span>(); <span class="comment">// Compile error, you can&#x27;t new abstract class</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="參考資料"><a class="markdownIt-Anchor" href="#參考資料"></a> 參考資料</h2>
-<p><a href="https://programming.im.ncnu.edu.tw/J_index.html">https://programming.im.ncnu.edu.tw/J_index.html</a></p>
-]]></content>
-      <categories>
-        <category>Java Learning</category>
-      </categories>
-      <tags>
-        <tag>Java</tag>
-        <tag>OOP</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Java 自學筆記 02 - OOP</title>
-    <url>/posts/java-learning-02/</url>
-    <content><![CDATA[<p><img src="../../images/2024/03/18/java_oop.png" alt="Java OOP" /></p>
-<p>Java 是一個物件導向的程式語言，重點在於如何定義物件之間的互動，Object Oriented Programming (OOP) 的三大特性分別是: <strong>Encapsulation (封裝)</strong>、<strong>Inheritance (繼承)</strong> 與 <strong>Polymorphism (多型)</strong> 。</p>
-<span id="more"></span>
-<h2 id="encapsulation-封裝"><a class="markdownIt-Anchor" href="#encapsulation-封裝"></a> Encapsulation (封裝)</h2>
-<p>所謂封裝(Encapsulation)，是指class A的設計者可以指定其他的class能否存取A的某個member。</p>
-<h3 id="access-modifier"><a class="markdownIt-Anchor" href="#access-modifier"></a> Access Modifier</h3>
-<p>類別中每個 member 的權限都是分開控制的，存取範圍的大小是public &gt; protected &gt; package &gt; private。</p>
-<ul>
-<li><strong>private</strong>: 只有A自己才可以存取，使用keyword <strong>private</strong></li>
-<li><strong>package (default)</strong>: 只有和A同一個package的class才可以存取，沒有相對應的keyword</li>
-<li><strong>protected</strong>: 只有同一個package或是A的子類別才可以存取，使用keyword <strong>protected</strong></li>
-<li><strong>public</strong>: 所有的class都可以存取，使用keyword <strong>public</strong></li>
-</ul>
-<h3 id="package"><a class="markdownIt-Anchor" href="#package"></a> Package</h3>
-<p>對應到資料夾名稱，不同層的資料夾視為不同封包:</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> math;</span><br><span class="line"><span class="keyword">package</span> math.geometry;</span><br></pre></td></tr></table></figure>
-<p>要使用封包內的類別:</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> math.BasicMath;</span><br><span class="line"><span class="keyword">import</span> math.geometry.*;</span><br></pre></td></tr></table></figure>
-<h2 id="inheritance-繼承"><a class="markdownIt-Anchor" href="#inheritance-繼承"></a> Inheritance (繼承)</h2>
-<p>Java使用關鍵字extends來表達繼承，若class宣告時沒有指定extends，則Java會自動extends <strong>java.lang.Object</strong>。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Animal</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">moveMethod</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Unspecified&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Bird</span> <span class="keyword">extends</span> <span class="title class_">Animal</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">moveMethod</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Fly&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="override-覆寫"><a class="markdownIt-Anchor" href="#override-覆寫"></a> Override (覆寫)</h3>
-<p>子類別重新定義它所能看到的父類別中的 method (如 public、protected，如果子類別和父類別在同一個 package 裡，則沒有修飾字的method也可以)，稱為override。</p>
-<ul>
-<li>如果子類別看不到父類別的方法 (如父類別的 private 方法，或子父類別不在同一個 package 而子類別定義了父類別內的 package method)，則就算定義了同樣的 method 也不是override</li>
-<li>重複定義 static method 也不算 override</li>
-<li>子類別不可縮小父類別方法的存取範圍</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">C2</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">a</span><span class="params">()</span> &#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">C1</span> <span class="keyword">extends</span> <span class="title class_">C2</span> &#123;</span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">a</span><span class="params">()</span> &#123; <span class="comment">// Compile Error，不得縮小存取範圍</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="final-修飾字"><a class="markdownIt-Anchor" href="#final-修飾字"></a> final 修飾字</h3>
-<p>final 除可用來修飾變數外，也可放在class和object method前面:</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">class</span> <span class="title class_">FinalClass</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title function_">finalMethod</span><span class="params">()</span> &#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>final放在class前面表示class不可被繼承，放在object method表示不可被Override。</p>
-<h2 id="polymorphism-多形"><a class="markdownIt-Anchor" href="#polymorphism-多形"></a> Polymorphism (多形)</h2>
-<h3 id="upcasting-向上轉型"><a class="markdownIt-Anchor" href="#upcasting-向上轉型"></a> UpCasting (向上轉型)</h3>
-<p>子類別可以向上相容於父類別，舉例來說，Bird 是一種 Animal，所以可以順利向上轉型。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Animal a;</span><br><span class="line">Bird b;</span><br><span class="line">a = b; <span class="comment">// upcasting, Bird is a kind of Animal</span></span><br></pre></td></tr></table></figure>
-<h3 id="downcasting-向下轉型"><a class="markdownIt-Anchor" href="#downcasting-向下轉型"></a> DownCasting (向下轉型)</h3>
-<p>相反的，父類別並不能像下相容子類別，因為 Animal 並不一定都是 Bird，如果要向下轉型必須要強制casting。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">Animal</span> <span class="variable">a</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Bird</span>(); <span class="comment">// upcasting</span></span><br><span class="line">Bird b;</span><br><span class="line">b = (Bird)a; <span class="comment">// downcasting, compile correct</span></span><br><span class="line"><span class="keyword">if</span> (a <span class="keyword">instanceof</span> Bird) &#123; <span class="comment">// true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>InheritanceExample.java</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">InheritanceExample</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] argv)</span> &#123;</span><br><span class="line">        Animal a1, a2, a3, a4;</span><br><span class="line">        Bird b;</span><br><span class="line">        Dog d;</span><br><span class="line">        Fish f;</span><br><span class="line">        a2 = a1 = <span class="keyword">new</span> <span class="title class_">Animal</span>();</span><br><span class="line">        b = <span class="keyword">new</span> <span class="title class_">Bird</span>();</span><br><span class="line">        d = <span class="keyword">new</span> <span class="title class_">Dog</span>();</span><br><span class="line">        f = <span class="keyword">new</span> <span class="title class_">Fish</span>();</span><br><span class="line">        System.out.println(a1.moveMethod());</span><br><span class="line">        System.out.println(b.moveMethod());</span><br><span class="line">        System.out.println(d.moveMethod());</span><br><span class="line">        System.out.println(f.moveMethod());</span><br><span class="line">        a1 = b; <span class="comment">// Correct, we call this upcasting</span></span><br><span class="line">        b = a1; <span class="comment">// Compile Error, type not compatible</span></span><br><span class="line">        b = (Bird)a1; <span class="comment">// downcasting, Compile Correct</span></span><br><span class="line">        a2 = b; <span class="comment">// Correct,we call this upcasting</span></span><br><span class="line">        d = a2; <span class="comment">// Compile Error, type not compatible</span></span><br><span class="line">        d = (Dog)a2; <span class="comment">// Compile Correct, but runtime error</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="instanceof-關鍵字"><a class="markdownIt-Anchor" href="#instanceof-關鍵字"></a> instanceof 關鍵字</h2>
-<p>用來判斷某 reference 所指到的物件與類別是否相容 (including upcasting):</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Object ref;</span><br><span class="line">ref = <span class="keyword">new</span> <span class="title class_">Bird</span>();</span><br><span class="line"><span class="keyword">if</span> (ref <span class="keyword">instanceof</span> Animal) &#123; <span class="comment">// correct</span></span><br><span class="line">    System.out.println(<span class="string">&quot;ref is currently pointing to an Animal Object.&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="virtual-function虛擬函數"><a class="markdownIt-Anchor" href="#virtual-function虛擬函數"></a> Virtual Function(虛擬函數)</h3>
-<p>當父類別 reference 到子類別的 object，ex: <code>Animal a = new Bird()</code>，如果子類別 override 父類別的 method，java 會呼叫子類別的方法，也就是 Virtual Function，(如果是呼叫父類別的方法就是 Non-Virtual Function)。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">InheritanceExample</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] argv)</span> &#123;</span><br><span class="line">        Animal a1;</span><br><span class="line">        a1 = <span class="keyword">new</span> <span class="title class_">Animal</span>();</span><br><span class="line">        System.out.println(a1.moveMethod()); <span class="comment">// print out &quot;Unspecified&quot;</span></span><br><span class="line">        a1 = <span class="keyword">new</span> <span class="title class_">Bird</span>(); <span class="comment">// polymorphism</span></span><br><span class="line">        System.out.println(a1.moveMethod()); <span class="comment">// print out &quot;Fly&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>要注意 override 的範圍，只有被 override 的 method 才會呼叫 virtual function，舉例來說，static method 、private method 不能被 override，所以也不會有 virtual function。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Animal</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> String <span class="title function_">moveMethod</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Unspecified&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] argv)</span> &#123;</span><br><span class="line">        Animal a1;</span><br><span class="line">        a1 = <span class="keyword">new</span> <span class="title class_">Bird</span>();</span><br><span class="line">        System.out.println(a1.moveMethod()); <span class="comment">// print out &quot;Unspecified&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Bird</span> <span class="keyword">extends</span> <span class="title class_">Animal</span> &#123;</span><br><span class="line">    <span class="comment">// this is not override because Bird can&#x27;t see Animal&#x27;s moveMethod</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">moveMethod</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Fly&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="參考資料"><a class="markdownIt-Anchor" href="#參考資料"></a> 參考資料</h2>
-<p><a href="https://programming.im.ncnu.edu.tw/J_index.html">https://programming.im.ncnu.edu.tw/J_index.html</a></p>
-]]></content>
-      <categories>
-        <category>Java Learning</category>
-      </categories>
-      <tags>
-        <tag>Java</tag>
-        <tag>OOP</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Java 自學筆記 06 - Multi Thread</title>
-    <url>/posts/java-learning-06/</url>
-    <content><![CDATA[<h2 id="java-thread"><a class="markdownIt-Anchor" href="#java-thread"></a> Java Thread</h2>
-<p>There are two ways to new a thread in Java:</p>
-<p><img src="../../images/2024/03/20/java_thread.png" alt="Java Thread" /></p>
-<span id="more"></span>
-<h3 id="implemented-from-runnable-interface"><a class="markdownIt-Anchor" href="#implemented-from-runnable-interface"></a> Implemented from Runnable Interface</h3>
-<p>Runnable 是一個 interface，<code>run()</code> 裡面放的就是 thread 要執行的內容，一定要 <strong>override</strong> 且一定要設為 <strong>public</strong>。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">TestRunnable</span> <span class="keyword">implements</span> <span class="title class_">Runnable</span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="comment">// ... </span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// to new</span></span><br><span class="line"><span class="type">Thread</span> <span class="variable">thread</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Thread</span>(<span class="keyword">new</span> <span class="title class_">TestRunnable</span>());</span><br></pre></td></tr></table></figure>
-<h3 id="extended-from-thread-class"><a class="markdownIt-Anchor" href="#extended-from-thread-class"></a> Extended from Thread Class</h3>
-<p>Thread 是 Runnable 的實現，用法一樣是把要執行的程式放進 <code>run()</code> 裡面，概念一樣是 <strong>override</strong> + <strong>public</strong>。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">TestThread</span> <span class="keyword">extends</span> <span class="title class_">Thread</span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// to new</span></span><br><span class="line"><span class="type">Thread</span> <span class="variable">thread</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">TestThread</span>()</span><br></pre></td></tr></table></figure>
-<p>我們也可以直接用 lambda 來 new thread。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">Thread</span> <span class="variable">thread</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Thread</span>(()-&gt;&#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<h2 id="start-and-join"><a class="markdownIt-Anchor" href="#start-and-join"></a> Start and Join</h2>
-<p>我們可以用 <code>start()</code> 來開始執行 thread，並用 <code>join()</code> 來等待 thread 完成並回歸 main thread。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">Thread</span> <span class="variable">thread</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Thread</span>(()-&gt;&#123;</span><br><span class="line">    System.out.println(<span class="string">&quot;Run in thread&quot;</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">System.out.println(<span class="string">&quot;Run in main&quot;</span>);</span><br><span class="line">thread.start();</span><br><span class="line"><span class="keyword">try</span>&#123;</span><br><span class="line">    thread.join();</span><br><span class="line">&#125;<span class="keyword">catch</span>(InterruptedException e)&#123;　<span class="comment">// 一定要處理 Exception</span></span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br><span class="line">System.out.println(<span class="string">&quot;Back to main&quot;</span>);</span><br></pre></td></tr></table></figure>
-<p>執行結果如下:</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Run in main</span><br><span class="line">Run in thread</span><br><span class="line">Back to main</span><br></pre></td></tr></table></figure>
-<h2 id="shared-resources"><a class="markdownIt-Anchor" href="#shared-resources"></a> Shared Resources</h2>
-<p>同時有多個 thread 對同一個資源進行操作時，可能會出現 <strong>race condition</strong>，導致結果不如預期，舉例來說:</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">SyncThread</span> <span class="keyword">extends</span> <span class="title class_">Thread</span>&#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="type">int</span> <span class="variable">sum</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">0</span>; i&lt;<span class="number">10000</span>; i++)&#123;</span><br><span class="line">            addOne();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">addOne</span><span class="params">()</span>&#123;</span><br><span class="line">        sum += <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SharedResources</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span>&#123;</span><br><span class="line">        <span class="type">Thread</span> <span class="variable">thread1</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SyncThread</span>();</span><br><span class="line">        <span class="type">Thread</span> <span class="variable">thread2</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SyncThread</span>();</span><br><span class="line">        thread1.start();</span><br><span class="line">        thread2.start();</span><br><span class="line">        <span class="keyword">try</span>&#123;</span><br><span class="line">            thread1.join();</span><br><span class="line">            thread2.join();</span><br><span class="line">        &#125;<span class="keyword">catch</span>(InterruptedException e)&#123;</span><br><span class="line">            <span class="comment">// ...</span></span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(SyncThread.sum);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>每一個 thread 各別對 <code>sum</code> 進行 <code>addOne()</code> 10000 次，理論上最後的結果應該是<code>sum = 20000</code>，但最後結果卻小於 20000 (每次跑會不太一樣)，原因大致上是這樣:</p>
-<p><img src="../../images/2024/03/20/race_condition.png" alt="race_condition" /></p>
-<h3 id="synchronized"><a class="markdownIt-Anchor" href="#synchronized"></a> Synchronized</h3>
-<p>我們可以使用 <code>synchronized</code> 關鍵字來實現同步，確保在同一時間只有一個 thread 在執行指定的代碼，使用方法有:</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 1. 修飾方法</span></span><br><span class="line"><span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title function_">addOne</span><span class="params">()</span>&#123;</span><br><span class="line">        sum += <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 2. 修飾代碼塊</span></span><br><span class="line"><span class="keyword">void</span> <span class="title function_">addOne</span><span class="params">()</span>&#123;</span><br><span class="line">    <span class="keyword">synchronized</span> (<span class="built_in">this</span>)&#123;</span><br><span class="line">        sum += <span class="number">1</span>;</span><br><span class="line">    &#125;        </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>不過 <code>synchronized</code> 是比較古老的用法了，在高併發的情況下性能可能會不太好，所以可以考慮用後面的方法。</p>
-<h3 id="atomic"><a class="markdownIt-Anchor" href="#atomic"></a> Atomic</h3>
-<p>Atomic 表示不可被切分的動作，以我們的例子來說就是，我們可以將 <code>sum</code> 指定為  <strong>AtomicInteger</strong>，確保對 <code>sum</code> 的操作不會被中斷。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.concurrent.atomic.AtomicInteger;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">SyncThread</span> <span class="keyword">extends</span> <span class="title class_">Thread</span> &#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="type">AtomicInteger</span> <span class="variable">sum</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">AtomicInteger</span>(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; <span class="number">10000</span>; i++) &#123;</span><br><span class="line">            sum.addAndGet(<span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="concurrent-lock"><a class="markdownIt-Anchor" href="#concurrent-lock"></a> Concurrent Lock</h3>
-<p><code>java.util.concurrent</code> 是 Java 中用來取代 <code>synchronized</code> 的一個 package，我們可以使用裡面的 Lock 機制，透過 Lock 的取得以及釋放來控制 thread 的動作。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.concurrent.locks.Lock;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.locks.ReentrantLock;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">SyncThread</span> <span class="keyword">extends</span> <span class="title class_">Thread</span> &#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="type">int</span> <span class="variable">sum</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">Lock</span> <span class="variable">lock</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ReentrantLock</span>();</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; <span class="number">10000</span>; i++) &#123;</span><br><span class="line">            addOne();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">addOne</span><span class="params">()</span> &#123;</span><br><span class="line">        lock.lock();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            sum += <span class="number">1</span>;</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            lock.unlock();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="concurrent-collection"><a class="markdownIt-Anchor" href="#concurrent-collection"></a> Concurrent Collection</h3>
-<p>前兩篇在介紹 Collections 的時候有稍微提到，Vector、Hashtable 等容器透過 <code>synchronized</code> 來實現同步，在高併發時效率不太好，因此 Java 後來又提供了 <strong>ConcurrentHashMap</strong>、<strong>ConcurrentLinkedQueue</strong> 等基於 concurrent 實現的容器。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.concurrent.ConcurrentHashMap;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">SyncThread</span> <span class="keyword">extends</span> <span class="title class_">Thread</span> &#123;</span><br><span class="line">    <span class="keyword">static</span> ConcurrentHashMap&lt;String, Integer&gt; map = <span class="keyword">new</span> <span class="title class_">ConcurrentHashMap</span>&lt;&gt;()&#123;</span><br><span class="line">        &#123;</span><br><span class="line">            put(<span class="string">&quot;sum&quot;</span>, <span class="number">0</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; <span class="number">10000</span>; i++) &#123;</span><br><span class="line">            map.compute(<span class="string">&quot;sum&quot;</span>, (key, value) -&gt; value + <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="參考資料"><a class="markdownIt-Anchor" href="#參考資料"></a> 參考資料</h2>
-<p><a href="https://popcornylu.gitbooks.io/java_multithread/content/">Java多執行緒的基本知識</a></p>
-]]></content>
-      <categories>
-        <category>Java Learning</category>
-      </categories>
-      <tags>
-        <tag>Java</tag>
-        <tag>Multi-thread</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Java 自學筆記 07 - Concurrent Queue (w/ Producer Consumer Problem)</title>
     <url>/posts/java-learning-07/</url>
     <content><![CDATA[<p>在 Java 的多線程操作中，Concurrent Queue 是一種非常重要的容器，在共享資源的同時也能夠幫我們進行流程控制。<br />
@@ -1132,6 +1038,86 @@ CAS 是原子操作的一種 (atomic)，它的基本思想是比較目標內存�
       <tags>
         <tag>Java</tag>
         <tag>Multi-thread</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Java 自學筆記 08 - ExecutorService &amp; Future</title>
+    <url>/posts/java-learning-08/</url>
+    <content><![CDATA[<p>在 <a href="/posts/java-learning-08">Java 自學筆記 07 - Concurrent Queue</a> 中我們使用 concurrent queue 來實作 <strong>Producer Consumer Problem</strong>，將生產者產出的 task 丟給 queue，消費者一有空閒就會去 queue 中拿新的 task 出來，實際上這就是 <strong>Thread Pool</strong> 的概念，不過過程中我們是自己去創建與管理 thread 和 queue，而 Java 其實提供了許多跟 Thread Pool 有關的介面，讓我們能夠更簡單的實現這些功能。</p>
+<h2 id="executorservice"><a class="markdownIt-Anchor" href="#executorservice"></a> ExecutorService</h2>
+<p><img src="/images/2024/03/22/executor_service.png" alt="Executor Service" /></p>
+<p><strong>ExecutorService</strong> 是 Java 中用於管理 Thread Pool 的 Interface，我們可以使用 <strong>Executors</strong> 類別下的 method 來去實作一個 ExecutorService，常見的方法有:</p>
+<ul>
+<li><strong>newSingleThreadExecutor()</strong>: 創建一個單個工作線程的線程池。</li>
+<li><strong>newFixedThreadPool(int n)</strong>: 創建一個 n 個線程的線程池。</li>
+<li><strong>newCachedThreadPool()</strong>: 創建一個可根據需要自動擴展的線程池。</li>
+</ul>
+<p>常用操作：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// new a ExecutorService</span></span><br><span class="line"><span class="type">ExecutorService</span> <span class="variable">executor</span> <span class="operator">=</span> Executors.newFixedThreadPool(<span class="number">3</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// submit runnable tasks to ExecutorService</span></span><br><span class="line">executor.submit(<span class="keyword">new</span> <span class="title class_">RunnableTask</span>());</span><br><span class="line"></span><br><span class="line"><span class="comment">// submit callable tasks to ExecutorService</span></span><br><span class="line">executor.submit(<span class="keyword">new</span> <span class="title class_">CallableTask</span>());</span><br><span class="line"></span><br><span class="line"><span class="comment">// shutdown ExecutorService</span></span><br><span class="line">executor.shutdown();     <span class="comment">// smooth shutdown</span></span><br><span class="line">executor.shutdownNow();  <span class="comment">// force shutdown</span></span><br></pre></td></tr></table></figure>
+<p>從上面的程式碼中可以發現， ExecutorService 除了跟 Thread 一樣可以執行 <strong>Runnable</strong> 外，還多了一個 <strong>Callable</strong>，兩者非常相似，差別只在於 Callable 會回傳東西而 Runnable 不會，實作 Callable 的方法如下:</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">CallableTask</span> <span class="keyword">implements</span> <span class="title class_">Callable</span>&lt;Integer&gt; &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> Integer <span class="title function_">call</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>call()</code> 屬於 abstract method，一定要 override 掉，另外就是要注意泛型的資料型態。</p>
+<h2 id="future"><a class="markdownIt-Anchor" href="#future"></a> Future</h2>
+<p><code>submit()</code> 方法會返回一個 <strong>Future</strong> 物件，簡單來說 Future 是一個未來會得到的結果，以 submit 一個 Callable  來的話，其 Futrue 就是未來的某一時間點我們會得到 Callable 的返回值。越看覺得越熟悉，這就是 javascript 裡的 promise 跟非同步的概念呀 !<br />
+我們可以使用 <code>get()</code> 方法來取得結果，當呼叫 <code>get()</code> 時，主進程會被阻擋，直到 get() 取得返回值才會繼續，舉例來說：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.concurrent.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">CallableTask</span> <span class="keyword">implements</span> <span class="title class_">Callable</span>&lt;String&gt; &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">call</span><span class="params">()</span> <span class="keyword">throws</span> InterruptedException&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Task started.&quot;</span>);</span><br><span class="line">        Thread.sleep(<span class="number">3000</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Task finished.&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ThreadPool</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException, ExecutionException&#123;</span><br><span class="line">        <span class="type">ExecutorService</span> <span class="variable">executor</span> <span class="operator">=</span> Executors.newFixedThreadPool(<span class="number">3</span>);</span><br><span class="line"></span><br><span class="line">        Future&lt;String&gt; future = executor.submit(<span class="keyword">new</span> <span class="title class_">CallableTask</span>());</span><br><span class="line">        System.out.println(<span class="string">&quot;Main thread keeps running.&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// main thread is blocked until task return</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">str</span> <span class="operator">=</span> future.get();</span><br><span class="line">        System.out.println(str);;</span><br><span class="line">        </span><br><span class="line">        System.out.println(<span class="string">&quot;Main thread continues.&quot;</span>);</span><br><span class="line"></span><br><span class="line">        executor.shutdown();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>執行結果如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Main thread keeps running.</span><br><span class="line">Task started.</span><br><span class="line">Task finished.</span><br><span class="line">Main thread continues.</span><br></pre></td></tr></table></figure>
+<h2 id="參考資料"><a class="markdownIt-Anchor" href="#參考資料"></a> 參考資料</h2>
+<p><a href="https://popcornylu.gitbooks.io/java_multithread/content/">Java多執行緒的基本知識</a><br />
+<a href="https://javarevisited.blogspot.com/2017/02/difference-between-executor-executorservice-and-executors-in-java.html#axzz7ZGX8FDUO">Difference between Executor, ExecutorService and Executers class in Java</a></p>
+]]></content>
+      <categories>
+        <category>Java Learning</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>Thread</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Java 自學筆記 04 - List &amp; Queue</title>
+    <url>/posts/java-learning-04/</url>
+    <content><![CDATA[<h2 id="collection"><a class="markdownIt-Anchor" href="#collection"></a> Collection</h2>
+<p>Collection 是 Java 中用來存儲、操作數據結構的一種框架，在此之下提供了許多實用的 Interface，包括 <strong>List</strong>、<strong>Queue</strong> 以及 <strong>Set</strong> (Map 是分開的)。</p>
+<p><img src="../../images/2024/03/19/java_collection.png" alt="Java Collection" /></p>
+<span id="more"></span>
+<h2 id="list"><a class="markdownIt-Anchor" href="#list"></a> List</h2>
+<p>List 基本上就是動態數組，其下有 <strong>ArrayList</strong>、<strong>LinkedList</strong>、<strong>Vector</strong> 等不同的實現。</p>
+<p><img src="../../images/2024/03/19/java_list_interface.png" alt="Java List Interface" /></p>
+<ul>
+<li><strong>ArrayList</strong>: 透過索引訪問的動態陣列，查尋的時間複雜度為 <strong>O(1)</strong>，然而插入時會將後面的元素全部往右移 (刪除時則是全部往左移)，因此時間複雜度最差為 <strong>O(n)</strong>。<strong>適合用在隨機查找、頻繁訪問及更新的資料上。</strong></li>
+<li><strong>LinkedList</strong>: 透過雙向鏈結實現的動態陣列，插入與刪除的效率高，操作本身的時間複雜度為 <strong>O(1)</strong>，但查找時需要遍歷整個鏈表，因此時間複雜度最差為 <strong>O(n)</strong>。<strong>適用於需要大量插入和刪除操作的情況。</strong></li>
+</ul>
+<blockquote>
+<p>Vector 是老舊的語法，透過 <code>synchronized</code> 同步以實現線程安全，性能不佳，大多時候都可以被 ArrayList 取代掉，兩者的用法幾乎一模一樣。</p>
+</blockquote>
+<h3 id="array-to-arraylist"><a class="markdownIt-Anchor" href="#array-to-arraylist"></a> Array to ArrayList</h3>
+<p><code>Arrays.asList()</code> 可以將 Array 轉換為 <code>java.util.Arrays.ArrayList</code>，與 collections 中所指的 ArrayList 並不一樣，轉換而成的 ArrayList 並不能進行添加或刪除的操作。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">List&lt;String&gt; names = Arrays.asList(<span class="string">&quot;Sandy&quot;</span>, <span class="string">&quot;Jack&quot;</span>);</span><br><span class="line"><span class="comment">// names.add(&quot;Frank&quot;); // 還是可以 compile，但執行會報錯</span></span><br></pre></td></tr></table></figure>
+<h3 id="basic-usage"><a class="markdownIt-Anchor" href="#basic-usage"></a> Basic Usage</h3>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">List&lt;String&gt; list = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;(); <span class="comment">// Interface&lt;Object&gt;</span></span><br><span class="line"><span class="comment">// List&lt;String&gt; list = new LinkedList&lt;&gt;(); </span></span><br><span class="line">list.add(<span class="string">&quot;Jack&quot;</span>);</span><br><span class="line">list.add(<span class="string">&quot;Emma&quot;</span>);</span><br><span class="line">list.add(<span class="string">&quot;Jack&quot;</span>);</span><br><span class="line">list.addAll(names);</span><br><span class="line">System.out.println(list); <span class="comment">// [Jack, Emma, Jack, Sandy, Jack]</span></span><br><span class="line"></span><br><span class="line">list.get(<span class="number">0</span>); <span class="comment">// Jack</span></span><br><span class="line">list.indexOf(<span class="string">&quot;Jack&quot;</span>); <span class="comment">// 0</span></span><br><span class="line">list.size(); <span class="comment">// 5</span></span><br><span class="line">list.isEmpty(); <span class="comment">// false</span></span><br><span class="line"></span><br><span class="line">list.set(<span class="number">0</span>, <span class="string">&quot;Timmy&quot;</span>);</span><br><span class="line">System.out.println(list);  <span class="comment">// [Timmy, Emma, Jack, Sandy, Jack]</span></span><br><span class="line"></span><br><span class="line">list.remove(<span class="number">0</span>); <span class="comment">// remove(index): return element or throw exception</span></span><br><span class="line">list.remove(<span class="string">&quot;Jack&quot;</span>); <span class="comment">// remove(Object): return True or False</span></span><br><span class="line">System.out.println(list);  <span class="comment">// [Emma, Sandy, Jack]</span></span><br><span class="line"></span><br><span class="line">list.removeIf(x-&gt;x.contains(<span class="string">&quot;J&quot;</span>));</span><br><span class="line">System.out.println(list);  <span class="comment">// [Emma, Sandy]</span></span><br><span class="line"></span><br><span class="line">list.clear();</span><br></pre></td></tr></table></figure>
+<h2 id="queue"><a class="markdownIt-Anchor" href="#queue"></a> Queue</h2>
+<p>Queue 是一個<strong>先進先出 (FIFO)</strong> 的資料集合，其下大致上可以分為 Deque 及 Priority Queue 兩類，Deque 有 <strong>ArrayDeque</strong>、<strong>LinkedList</strong> 等實現，Priority Queue 的實現則是 <strong>PriorityQueue</strong>。<br />
+<img src="../../images/2024/03/19/java_queue_interface.png" alt="Java Queue Interface" /></p>
+<ul>
+<li><strong>LinkedList</strong>: 前面就提到過了，雙向鏈結的特性使其能夠快速地對頭尾元素進行操作。</li>
+<li><strong>ArrayDeque</strong>: 同時有 Deque 以及 Array 的性質，能快速地訪問元素，也可以快速地對頭尾元素進行操作。</li>
+<li><strong>PriorityQueue</strong>: 其實就是 Min Heap。</li>
+</ul>
+<h3 id="deque"><a class="markdownIt-Anchor" href="#deque"></a> Deque</h3>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Deque&lt;Integer&gt; deque = <span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line"><span class="comment">// Deque&lt;Integer&gt; deque = new ArrayDeque&lt;&gt;();</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// add from first</span></span><br><span class="line">deque.addFirst(<span class="number">1</span>);</span><br><span class="line">deque.addFirst(<span class="number">2</span>);</span><br><span class="line">deque.addFirst(<span class="number">3</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// add from last</span></span><br><span class="line">deque.addLast(<span class="number">4</span>);</span><br><span class="line">deque.addLast(<span class="number">5</span>);</span><br><span class="line">deque.addLast(<span class="number">6</span>);</span><br><span class="line"></span><br><span class="line">System.out.println(deque);  <span class="comment">// [3, 2, 1, 4, 5, 6]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// get from first</span></span><br><span class="line">deque.getFirst();           <span class="comment">// return 3</span></span><br><span class="line">System.out.println(deque);  <span class="comment">// [3, 2, 1, 4, 5, 6]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// get from last</span></span><br><span class="line">deque.getLast();            <span class="comment">// return 6</span></span><br><span class="line">System.out.println(deque);  <span class="comment">// [3, 2, 1, 4, 5, 6]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// remove from first</span></span><br><span class="line">deque.removeFirst();        <span class="comment">// return 3</span></span><br><span class="line">System.out.println(deque);  <span class="comment">// [2, 1, 4, 5, 6]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// remove from last</span></span><br><span class="line">deque.removeLast();         <span class="comment">// return 6</span></span><br><span class="line">System.out.println(deque);  <span class="comment">// [2, 1, 4, 5]</span></span><br></pre></td></tr></table></figure>
+<h3 id="priority-queue"><a class="markdownIt-Anchor" href="#priority-queue"></a> Priority Queue</h3>
+<p>將 pq 印出來會發現最小值永遠在第一個，後面順序則不一定，有興趣可以自己去看 heap 的規則。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Queue&lt;Integer&gt; pq = <span class="keyword">new</span> <span class="title class_">PriorityQueue</span>&lt;&gt;();</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">7</span>; i&gt;<span class="number">0</span>; i--)&#123;</span><br><span class="line">    pq.offer(i);        <span class="comment">// similar to pq.add()</span></span><br><span class="line">&#125;</span><br><span class="line">System.out.println(pq); <span class="comment">// [1, 4, 2, 7, 5, 6, 3]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// get first one</span></span><br><span class="line">pq.peek();</span><br><span class="line">System.out.println(pq); <span class="comment">// [1, 4, 2, 7, 5, 6, 3]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// remove first one</span></span><br><span class="line">pq.poll();</span><br><span class="line">System.out.println(pq); <span class="comment">// [2, 4, 3, 7, 5, 6]</span></span><br></pre></td></tr></table></figure>
+<p>But！都用到 PriorityQueue 了，肯定不只是拿來處理這麼簡單的任務，通常會儲存一組資料，例如 <code>&quot;apple&quot;, 2</code>、<code>&quot;banana&quot;, 3</code> 等，這時候 PriorityQueue 就不知道該如何進行排序了，這時我們可能就需要自訂義類別與比較器:</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Self-defined Class</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Pair</span>&#123;</span><br><span class="line">    String first;</span><br><span class="line">    <span class="type">int</span> second;</span><br><span class="line"></span><br><span class="line">    Pair(String first, <span class="type">int</span> second)&#123;</span><br><span class="line">        <span class="built_in">this</span>.first = first;</span><br><span class="line">        <span class="built_in">this</span>.second = second;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Self-defined Comparator</span></span><br><span class="line">Comparator&lt;Pair&gt; customComparator = <span class="keyword">new</span> <span class="title class_">Comparator</span>&lt;&gt;() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">compare</span><span class="params">(Pair p1, Pair p2)</span> &#123;</span><br><span class="line">        <span class="comment">// compare with second element</span></span><br><span class="line">        <span class="keyword">return</span> Integer.compare(p1.second, p2.second);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// initialize PriorityQueue with Comparator</span></span><br><span class="line">PriorityQueue&lt;Pair&gt; pq2 = <span class="keyword">new</span> <span class="title class_">PriorityQueue</span>&lt;&gt;(customComparator);</span><br><span class="line"></span><br><span class="line"><span class="comment">// offer</span></span><br><span class="line">pq2.offer(<span class="keyword">new</span> <span class="title class_">Pair</span>(<span class="string">&quot;apple&quot;</span>, <span class="number">2</span>));</span><br><span class="line">pq2.offer(<span class="keyword">new</span> <span class="title class_">Pair</span>(<span class="string">&quot;banana&quot;</span>, <span class="number">3</span>));</span><br><span class="line">pq2.offer(<span class="keyword">new</span> <span class="title class_">Pair</span>(<span class="string">&quot;cherry&quot;</span>, <span class="number">1</span>));</span><br><span class="line"></span><br><span class="line"><span class="comment">// poll</span></span><br><span class="line"><span class="keyword">while</span> (!pq2.isEmpty()) &#123;</span><br><span class="line">    <span class="type">Pair</span> <span class="variable">pair</span> <span class="operator">=</span> pq2.poll();</span><br><span class="line">    System.out.println(<span class="string">&quot;(&quot;</span> + pair.first + <span class="string">&quot;, &quot;</span> + pair.second + <span class="string">&quot;)&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// result</span></span><br><span class="line"><span class="comment">// (cherry, 1)</span></span><br><span class="line"><span class="comment">// (apple, 2)</span></span><br><span class="line"><span class="comment">// (banana, 3)</span></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>Java Learning</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
       </tags>
   </entry>
   <entry>
@@ -1261,48 +1247,108 @@ Data accessed together should be stored todether.</p>
       </tags>
   </entry>
   <entry>
-    <title>系統架構筆記 - 垂直擴展、水平擴展</title>
-    <url>/posts/scaling/</url>
-    <content><![CDATA[<p><img src="../../images/2024/01/17/scaling.png" alt="scaling" /></p>
-<p>這篇文章會介紹垂直擴展以及水平擴展，並以資料庫的水平擴展為延伸，介紹讀寫分離與資料庫切分 (Sharding)。</p>
+    <title>Java 自學筆記 05 - Set &amp; Map</title>
+    <url>/posts/java-learning-05/</url>
+    <content><![CDATA[<h2 id="set"><a class="markdownIt-Anchor" href="#set"></a> Set</h2>
+<p>Set 的關係圖如下:<br />
+<img src="../../images/2024/03/19/java_set_interface.png" alt="Java Set Interface" /></p>
+<p>比較常用的:</p>
+<ul>
+<li><strong>HashSet</strong>: 不保證保存順序，速度最快</li>
+<li><strong>LinkedHashSet</strong>: 保存順序與存入順序相同</li>
+<li><strong>TreeSet</strong>: 依元素的大小排序，存入的元素必須是可比較的</li>
+</ul>
 <span id="more"></span>
-<h1 id="垂直擴展"><a class="markdownIt-Anchor" href="#垂直擴展"></a> 垂直擴展</h1>
-<p>這台機器不行那我就換一台更好的。<br />
-其實就是升級硬體，好處就是簡單直接，能用垂擴展解決那就優先考慮垂直擴展吧。但垂直擴展是有極限的，而且越好的機器越貴，這時就可以考慮水平擴展。</p>
-<h1 id="水平擴展"><a class="markdownIt-Anchor" href="#水平擴展"></a> 水平擴展</h1>
-<p>一台機器不行那我就多用幾台。<br />
-要實現伺服器的水平擴展比較容易，不外乎就是多開幾台機器，然後做好 load balance，這裡重點介紹<strong>資料庫</strong>的水平擴展，大致上可以分為兩個策略：</p>
-<h2 id="讀寫分離"><a class="markdownIt-Anchor" href="#讀寫分離"></a> 讀寫分離</h2>
-<p>在原本的資料庫 (主節點) 外添加幾個從資料庫 (從節點) ，向主節點寫入資料，讀取時則優先自從節點讀取。讀寫分離會遇到幾個問題：</p>
-<ol>
-<li><strong>最終一致性問題</strong><br />
-由於從節點的數據是自主節點同步過來，因此中間勢必存在一時間差，可能導致從節點的數據不是最即時的數據，因此從節點的數據僅滿足最終一致性。</li>
-<li><strong>單個主節點</strong><br />
-由於主節點仍然只有一個，如果遇到需要大量寫入的作業仍然會出現堵塞，這時候可能要考慮多個主節點的架構，不過就跟前一點一樣會遇到資料同步的問題，還需要考慮同時有多個寫入情況下的 race condition。</li>
-</ol>
-<h2 id="資料庫切分-partitioning-sharding"><a class="markdownIt-Anchor" href="#資料庫切分-partitioning-sharding"></a> 資料庫切分 (Partitioning / Sharding)</h2>
-<p>將一個資料庫 (大資料表) 分割為多個小資料表，並將其儲存在不同節點上，又可以分為<strong>垂直切分</strong>與<strong>水平切分</strong>：<br />
-<img src="../../images/2024/01/17/sharding.png" alt="sharding" /></p>
-<h3 id="垂直切分"><a class="markdownIt-Anchor" href="#垂直切分"></a> 垂直切分</h3>
-<p>按照欄位來進行切分，通常可以按照業務功能來做切割，如電商平台中的買家資訊與賣家資訊就可以分開儲存。</p>
-<h3 id="水平切分"><a class="markdownIt-Anchor" href="#水平切分"></a> 水平切分</h3>
-<p>按照列來進行切分，主要有兩種切分方法：</p>
-<ol>
-<li><strong>按一定範圍切分</strong><br />
-舉例來說 ID &lt;= 10000 為第一個表，接著每 10000 筆資料為一個表，這個做法的好處是<strong>容易新增表</strong>，壞處是<strong>較差的附載平衡</strong>，因為新資料與舊資料的活躍度可能有很大的差異。</li>
-<li><strong>使用哈希表切分</strong><br />
-將 ID 放入一個 Hash Function 中，如 <code>10 % 3 = 1</code>，根據 Hash 結果找到對應的表，好處是有<strong>較佳的附載平衡</strong>，缺點是<strong>不容易新增表</strong>，新增一個表通常涉及到<strong>修改 Hash Function</strong> 以及原先表的<strong>數據遷移</strong>。</li>
-</ol>
-<h1 id="參考資料"><a class="markdownIt-Anchor" href="#參考資料"></a> 參考資料</h1>
-<p><a href="https://www.digitalocean.com/community/tutorials/understanding-database-sharding">Understanding Database Sharding</a><br />
-<a href="https://blog.csdn.net/Dongguabai/article/details/83578092">高并发（水平扩展，垂直扩展）</a><br />
-<a href="https://www.twblogs.net/a/5c99f60fbd9eee434fc6c4d5">數據庫的向上擴展和橫向擴展（即水平擴展：讀寫分離、垂直切分、水平切分）</a></p>
+<h3 id="basic-usage"><a class="markdownIt-Anchor" href="#basic-usage"></a> Basic Usage</h3>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Set&lt;String&gt; set = <span class="keyword">new</span> <span class="title class_">HashSet</span>&lt;&gt;(); </span><br><span class="line"><span class="comment">// Set&lt;String&gt; set = new LinkedHashSet&lt;&gt;(); </span></span><br><span class="line"><span class="comment">// Set&lt;String&gt; set = new TreeSet&lt;&gt;();</span></span><br><span class="line"></span><br><span class="line">set.add(<span class="string">&quot;Jack&quot;</span>);</span><br><span class="line">set.add(<span class="string">&quot;Emma&quot;</span>);   </span><br><span class="line">set.add(<span class="string">&quot;Kevin&quot;</span>);   </span><br><span class="line">set.add(<span class="string">&quot;Jack&quot;</span>);</span><br><span class="line"></span><br><span class="line">set.contains(<span class="string">&quot;Tom&quot;</span>) <span class="comment">// False</span></span><br><span class="line">set.remove(<span class="string">&quot;Tom&quot;</span>); <span class="comment">// False</span></span><br><span class="line"></span><br><span class="line">set.size(); <span class="comment">// 3 ([Kevin, Jack, Emma])</span></span><br><span class="line">set.isEmpty(); <span class="comment">// False</span></span><br><span class="line"><span class="comment">// set.clear();</span></span><br></pre></td></tr></table></figure>
+<h3 id="iterations"><a class="markdownIt-Anchor" href="#iterations"></a> Iterations</h3>
+<p>Iterator 是老用法了不太推薦，用 for 跟 forEach 好多了</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Iterator&lt;String&gt; newSet = set.iterator();     </span><br><span class="line"><span class="keyword">while</span> (newSet.hasNext()) &#123;   </span><br><span class="line">    System.out.println(newSet.next());   </span><br><span class="line">&#125;  </span><br><span class="line"><span class="comment">// or</span></span><br><span class="line"><span class="keyword">for</span> (String name: set)&#123;</span><br><span class="line">    System.out.println(name); </span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// or</span></span><br><span class="line">set.forEach((name)-&gt;&#123;</span><br><span class="line">    System.out.println(name);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="set-operations"><a class="markdownIt-Anchor" href="#set-operations"></a> Set Operations</h3>
+<p>set 很適合用來做交集聯集等操作。</p>
+<p><img src="../../images/2024/03/19/set_operation.png" alt="Set Operation" /></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">String[] source = &#123;<span class="string">&quot;Jack&quot;</span>, <span class="string">&quot;Tom&quot;</span>&#125;;</span><br><span class="line">Set&lt;String&gt; set2 = <span class="keyword">new</span> <span class="title class_">HashSet</span>&lt;&gt;(Arrays.asList(source)); </span><br><span class="line"></span><br><span class="line"><span class="comment">// union</span></span><br><span class="line">set.addAll(set2); <span class="comment">// [Kevin, Tom, Jack, Emma]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// intersection</span></span><br><span class="line">set.retainAll(set2); <span class="comment">// [Jack]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// difference (自己那邊)</span></span><br><span class="line">set.removeAll(set2); <span class="comment">// [Kevin, Emma]</span></span><br></pre></td></tr></table></figure>
+<h2 id="map"><a class="markdownIt-Anchor" href="#map"></a> Map</h2>
+<p>Map 的關係圖下:<br />
+<img src="../../images/2024/03/19/java_map_interface.png" alt="Java Map Interface" /></p>
+<blockquote>
+<p>上圖最左邊的 Hashtable 跟 Vector 一樣是老舊的語法，透過 <code>synchronized</code> 同步以實現線程安全，性能不佳，大多時候都可以被取代掉，真的要確保線程安全可以改用 <code>ConcurrentHashMap</code>。</p>
+</blockquote>
+<p>同樣有三種常用的 Map，各自的特色跟對應到的 Set 一模一樣，只是改成存鍵值對:</p>
+<ul>
+<li><strong>HashMap</strong>: 不保證保存順序，速度最快</li>
+<li><strong>LinkedHashMap</strong>: 保存順序與存入順序相同</li>
+<li><strong>TreeMap</strong>: 依元素的大小排序，存入的元素必須是可比較的</li>
+</ul>
+<h3 id="basic-usage-2"><a class="markdownIt-Anchor" href="#basic-usage-2"></a> Basic Usage</h3>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Map&lt;String, Integer&gt; map = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line"><span class="comment">// Map&lt;String, Integer&gt; set = new LinkedHashMap&lt;&gt;(); </span></span><br><span class="line"><span class="comment">// Map&lt;String, Integer&gt; set = new TreeMap&lt;&gt;();</span></span><br><span class="line"></span><br><span class="line">map.put(<span class="string">&quot;apple&quot;</span>, <span class="number">3</span>);</span><br><span class="line">map.put(<span class="string">&quot;banana&quot;</span>, <span class="number">2</span>);</span><br><span class="line">map.put(<span class="string">&quot;orange&quot;</span>, <span class="number">4</span>);  <span class="comment">// return null</span></span><br><span class="line">map.put(<span class="string">&quot;orange&quot;</span>, <span class="number">5</span>); <span class="comment">// return 4 (previous value)</span></span><br><span class="line">System.out.println(map); <span class="comment">// &#123;banana=2, orange=5, apple=3&#125;</span></span><br><span class="line"></span><br><span class="line">map.get(<span class="string">&quot;apple&quot;</span>); <span class="comment">// return 3</span></span><br><span class="line">map.get(<span class="string">&quot;peach&quot;</span>); <span class="comment">// return null</span></span><br><span class="line">map.getOrDefault(<span class="string">&quot;peach&quot;</span>, <span class="number">0</span>); <span class="comment">// return default 0</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// map.remove(&quot;apple&quot;); // return 3</span></span><br><span class="line">map.remove(<span class="string">&quot;peach&quot;</span>); <span class="comment">// return null</span></span><br><span class="line"></span><br><span class="line">map.isEmpty(); <span class="comment">// return false</span></span><br><span class="line">map.size(); <span class="comment">// return 3</span></span><br><span class="line"><span class="comment">// map.clear(); </span></span><br></pre></td></tr></table></figure>
+<h3 id="keys-and-values"><a class="markdownIt-Anchor" href="#keys-and-values"></a> Keys and Values</h3>
+<p>取用方式基本上類似於 python 的 <code>keys()</code> 和 <code>values()</code></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// get keys</span></span><br><span class="line">Set&lt;String&gt; keys = map.keySet();</span><br><span class="line">System.out.println(keys); <span class="comment">// [banana, orange, apple]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// get values</span></span><br><span class="line">Collection&lt;Integer&gt; values = map.values();</span><br><span class="line">System.out.println(values); <span class="comment">// [2, 5, 3]</span></span><br></pre></td></tr></table></figure>
+<h3 id="iterations-2"><a class="markdownIt-Anchor" href="#iterations-2"></a> Iterations</h3>
+<p>遍歷 Map 有很多方法，這裡示範三種：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 1. keySet()，</span></span><br><span class="line"><span class="keyword">for</span> (String key: map.keySet())&#123;</span><br><span class="line">    System.out.println(<span class="string">&quot;key=&quot;</span> + key + <span class="string">&quot;, value=&quot;</span> + map.get(key));</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 2. entrySet()，類愈 python 的 items()</span></span><br><span class="line"><span class="keyword">for</span> (Map.Entry&lt;String, Integer&gt; entry: map.entrySet())&#123;</span><br><span class="line">    System.out.println(<span class="string">&quot;key=&quot;</span> + entry.getKey() + <span class="string">&quot;, value=&quot;</span> + entry.getValue());</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 3. forEach()，建議使用</span></span><br><span class="line">map.forEach((key, value) -&gt; &#123;</span><br><span class="line">    System.out.println(<span class="string">&quot;key=&quot;</span> + key + <span class="string">&quot;, value=&quot;</span> + value);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="map-operations"><a class="markdownIt-Anchor" href="#map-operations"></a> Map Operations</h3>
+<p>跟 Set 一樣 Map 也可以做 operations，很酷的是我們對 <code>keySet()</code> 進行操作時，其實也會影響到 Map 本身。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Map&lt;String, Integer&gt; map2 = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;()&#123;&#123;</span><br><span class="line">    put(<span class="string">&quot;orange&quot;</span>, <span class="number">1</span>);</span><br><span class="line">    put(<span class="string">&quot;lemon&quot;</span>, <span class="number">1</span>);</span><br><span class="line">    put(<span class="string">&quot;starwberry&quot;</span>, <span class="number">2</span>);</span><br><span class="line">&#125;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// union</span></span><br><span class="line">map.putAll(map2); </span><br><span class="line">System.out.println(map); <span class="comment">// &#123;banana=2, orange=1, apple=3, lemon=1, starwberry=2&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// intersection</span></span><br><span class="line">map.keySet().retainAll(map2.keySet());</span><br><span class="line">System.out.println(map); <span class="comment">// &#123;orange=5&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// difference (left half)</span></span><br><span class="line">map.keySet().removeAll(map2.keySet());</span><br><span class="line">System.out.println(map); <span class="comment">// &#123;banana=2, apple=3&#125;</span></span><br></pre></td></tr></table></figure>
+<h2 id="參考資料"><a class="markdownIt-Anchor" href="#參考資料"></a> 參考資料</h2>
+<p><a href="https://www.javatpoint.com/set-in-java">Set in Java - Javapoint</a><br />
+<a href="https://www.javatpoint.com/java-map">Java Map - Javapoint</a></p>
 ]]></content>
       <categories>
-        <category>System Design</category>
+        <category>Java Learning</category>
       </categories>
       <tags>
-        <tag>Scaling</tag>
+        <tag>Java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Java 自學筆記 06 - Multi Thread</title>
+    <url>/posts/java-learning-06/</url>
+    <content><![CDATA[<h2 id="java-thread"><a class="markdownIt-Anchor" href="#java-thread"></a> Java Thread</h2>
+<p>There are two ways to new a thread in Java:</p>
+<p><img src="../../images/2024/03/20/java_thread.png" alt="Java Thread" /></p>
+<span id="more"></span>
+<h3 id="implemented-from-runnable-interface"><a class="markdownIt-Anchor" href="#implemented-from-runnable-interface"></a> Implemented from Runnable Interface</h3>
+<p>Runnable 是一個 interface，<code>run()</code> 裡面放的就是 thread 要執行的內容，一定要 <strong>override</strong> 且一定要設為 <strong>public</strong>。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">TestRunnable</span> <span class="keyword">implements</span> <span class="title class_">Runnable</span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="comment">// ... </span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// to new</span></span><br><span class="line"><span class="type">Thread</span> <span class="variable">thread</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Thread</span>(<span class="keyword">new</span> <span class="title class_">TestRunnable</span>());</span><br></pre></td></tr></table></figure>
+<h3 id="extended-from-thread-class"><a class="markdownIt-Anchor" href="#extended-from-thread-class"></a> Extended from Thread Class</h3>
+<p>Thread 是 Runnable 的實現，用法一樣是把要執行的程式放進 <code>run()</code> 裡面，概念一樣是 <strong>override</strong> + <strong>public</strong>。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">TestThread</span> <span class="keyword">extends</span> <span class="title class_">Thread</span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// to new</span></span><br><span class="line"><span class="type">Thread</span> <span class="variable">thread</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">TestThread</span>()</span><br></pre></td></tr></table></figure>
+<p>我們也可以直接用 lambda 來 new thread。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">Thread</span> <span class="variable">thread</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Thread</span>(()-&gt;&#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h2 id="start-and-join"><a class="markdownIt-Anchor" href="#start-and-join"></a> Start and Join</h2>
+<p>我們可以用 <code>start()</code> 來開始執行 thread，並用 <code>join()</code> 來等待 thread 完成並回歸 main thread。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">Thread</span> <span class="variable">thread</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Thread</span>(()-&gt;&#123;</span><br><span class="line">    System.out.println(<span class="string">&quot;Run in thread&quot;</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">System.out.println(<span class="string">&quot;Run in main&quot;</span>);</span><br><span class="line">thread.start();</span><br><span class="line"><span class="keyword">try</span>&#123;</span><br><span class="line">    thread.join();</span><br><span class="line">&#125;<span class="keyword">catch</span>(InterruptedException e)&#123;　<span class="comment">// 一定要處理 Exception</span></span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br><span class="line">System.out.println(<span class="string">&quot;Back to main&quot;</span>);</span><br></pre></td></tr></table></figure>
+<p>執行結果如下:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Run in main</span><br><span class="line">Run in thread</span><br><span class="line">Back to main</span><br></pre></td></tr></table></figure>
+<h2 id="shared-resources"><a class="markdownIt-Anchor" href="#shared-resources"></a> Shared Resources</h2>
+<p>同時有多個 thread 對同一個資源進行操作時，可能會出現 <strong>race condition</strong>，導致結果不如預期，舉例來說:</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">SyncThread</span> <span class="keyword">extends</span> <span class="title class_">Thread</span>&#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="type">int</span> <span class="variable">sum</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">0</span>; i&lt;<span class="number">10000</span>; i++)&#123;</span><br><span class="line">            addOne();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">addOne</span><span class="params">()</span>&#123;</span><br><span class="line">        sum += <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SharedResources</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span>&#123;</span><br><span class="line">        <span class="type">Thread</span> <span class="variable">thread1</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SyncThread</span>();</span><br><span class="line">        <span class="type">Thread</span> <span class="variable">thread2</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SyncThread</span>();</span><br><span class="line">        thread1.start();</span><br><span class="line">        thread2.start();</span><br><span class="line">        <span class="keyword">try</span>&#123;</span><br><span class="line">            thread1.join();</span><br><span class="line">            thread2.join();</span><br><span class="line">        &#125;<span class="keyword">catch</span>(InterruptedException e)&#123;</span><br><span class="line">            <span class="comment">// ...</span></span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(SyncThread.sum);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>每一個 thread 各別對 <code>sum</code> 進行 <code>addOne()</code> 10000 次，理論上最後的結果應該是<code>sum = 20000</code>，但最後結果卻小於 20000 (每次跑會不太一樣)，原因大致上是這樣:</p>
+<p><img src="../../images/2024/03/20/race_condition.png" alt="race_condition" /></p>
+<h3 id="synchronized"><a class="markdownIt-Anchor" href="#synchronized"></a> Synchronized</h3>
+<p>我們可以使用 <code>synchronized</code> 關鍵字來實現同步，確保在同一時間只有一個 thread 在執行指定的代碼，使用方法有:</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 1. 修飾方法</span></span><br><span class="line"><span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title function_">addOne</span><span class="params">()</span>&#123;</span><br><span class="line">        sum += <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 2. 修飾代碼塊</span></span><br><span class="line"><span class="keyword">void</span> <span class="title function_">addOne</span><span class="params">()</span>&#123;</span><br><span class="line">    <span class="keyword">synchronized</span> (<span class="built_in">this</span>)&#123;</span><br><span class="line">        sum += <span class="number">1</span>;</span><br><span class="line">    &#125;        </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>不過 <code>synchronized</code> 是比較古老的用法了，在高併發的情況下性能可能會不太好，所以可以考慮用後面的方法。</p>
+<h3 id="atomic"><a class="markdownIt-Anchor" href="#atomic"></a> Atomic</h3>
+<p>Atomic 表示不可被切分的動作，以我們的例子來說就是，我們可以將 <code>sum</code> 指定為  <strong>AtomicInteger</strong>，確保對 <code>sum</code> 的操作不會被中斷。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.concurrent.atomic.AtomicInteger;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">SyncThread</span> <span class="keyword">extends</span> <span class="title class_">Thread</span> &#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="type">AtomicInteger</span> <span class="variable">sum</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">AtomicInteger</span>(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; <span class="number">10000</span>; i++) &#123;</span><br><span class="line">            sum.addAndGet(<span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="concurrent-lock"><a class="markdownIt-Anchor" href="#concurrent-lock"></a> Concurrent Lock</h3>
+<p><code>java.util.concurrent</code> 是 Java 中用來取代 <code>synchronized</code> 的一個 package，我們可以使用裡面的 Lock 機制，透過 Lock 的取得以及釋放來控制 thread 的動作。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.concurrent.locks.Lock;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.locks.ReentrantLock;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">SyncThread</span> <span class="keyword">extends</span> <span class="title class_">Thread</span> &#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="type">int</span> <span class="variable">sum</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">Lock</span> <span class="variable">lock</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ReentrantLock</span>();</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; <span class="number">10000</span>; i++) &#123;</span><br><span class="line">            addOne();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">addOne</span><span class="params">()</span> &#123;</span><br><span class="line">        lock.lock();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            sum += <span class="number">1</span>;</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            lock.unlock();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="concurrent-collection"><a class="markdownIt-Anchor" href="#concurrent-collection"></a> Concurrent Collection</h3>
+<p>前兩篇在介紹 Collections 的時候有稍微提到，Vector、Hashtable 等容器透過 <code>synchronized</code> 來實現同步，在高併發時效率不太好，因此 Java 後來又提供了 <strong>ConcurrentHashMap</strong>、<strong>ConcurrentLinkedQueue</strong> 等基於 concurrent 實現的容器。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.concurrent.ConcurrentHashMap;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">SyncThread</span> <span class="keyword">extends</span> <span class="title class_">Thread</span> &#123;</span><br><span class="line">    <span class="keyword">static</span> ConcurrentHashMap&lt;String, Integer&gt; map = <span class="keyword">new</span> <span class="title class_">ConcurrentHashMap</span>&lt;&gt;()&#123;</span><br><span class="line">        &#123;</span><br><span class="line">            put(<span class="string">&quot;sum&quot;</span>, <span class="number">0</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; <span class="number">10000</span>; i++) &#123;</span><br><span class="line">            map.compute(<span class="string">&quot;sum&quot;</span>, (key, value) -&gt; value + <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="參考資料"><a class="markdownIt-Anchor" href="#參考資料"></a> 參考資料</h2>
+<p><a href="https://popcornylu.gitbooks.io/java_multithread/content/">Java多執行緒的基本知識</a></p>
+]]></content>
+      <categories>
+        <category>Java Learning</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>Multi-thread</tag>
       </tags>
   </entry>
   <entry>
@@ -1408,6 +1454,51 @@ Laplacian Matrix 的算法就是直接將Diagonal Degree Matrix 減去 Adjacency
       </tags>
   </entry>
   <entry>
+    <title>系統架構筆記 - 垂直擴展、水平擴展</title>
+    <url>/posts/scaling/</url>
+    <content><![CDATA[<p><img src="../../images/2024/01/17/scaling.png" alt="scaling" /></p>
+<p>這篇文章會介紹垂直擴展以及水平擴展，並以資料庫的水平擴展為延伸，介紹讀寫分離與資料庫切分 (Sharding)。</p>
+<span id="more"></span>
+<h1 id="垂直擴展"><a class="markdownIt-Anchor" href="#垂直擴展"></a> 垂直擴展</h1>
+<p>這台機器不行那我就換一台更好的。<br />
+其實就是升級硬體，好處就是簡單直接，能用垂擴展解決那就優先考慮垂直擴展吧。但垂直擴展是有極限的，而且越好的機器越貴，這時就可以考慮水平擴展。</p>
+<h1 id="水平擴展"><a class="markdownIt-Anchor" href="#水平擴展"></a> 水平擴展</h1>
+<p>一台機器不行那我就多用幾台。<br />
+要實現伺服器的水平擴展比較容易，不外乎就是多開幾台機器，然後做好 load balance，這裡重點介紹<strong>資料庫</strong>的水平擴展，大致上可以分為兩個策略：</p>
+<h2 id="讀寫分離"><a class="markdownIt-Anchor" href="#讀寫分離"></a> 讀寫分離</h2>
+<p>在原本的資料庫 (主節點) 外添加幾個從資料庫 (從節點) ，向主節點寫入資料，讀取時則優先自從節點讀取。讀寫分離會遇到幾個問題：</p>
+<ol>
+<li><strong>最終一致性問題</strong><br />
+由於從節點的數據是自主節點同步過來，因此中間勢必存在一時間差，可能導致從節點的數據不是最即時的數據，因此從節點的數據僅滿足最終一致性。</li>
+<li><strong>單個主節點</strong><br />
+由於主節點仍然只有一個，如果遇到需要大量寫入的作業仍然會出現堵塞，這時候可能要考慮多個主節點的架構，不過就跟前一點一樣會遇到資料同步的問題，還需要考慮同時有多個寫入情況下的 race condition。</li>
+</ol>
+<h2 id="資料庫切分-partitioning-sharding"><a class="markdownIt-Anchor" href="#資料庫切分-partitioning-sharding"></a> 資料庫切分 (Partitioning / Sharding)</h2>
+<p>將一個資料庫 (大資料表) 分割為多個小資料表，並將其儲存在不同節點上，又可以分為<strong>垂直切分</strong>與<strong>水平切分</strong>：<br />
+<img src="../../images/2024/01/17/sharding.png" alt="sharding" /></p>
+<h3 id="垂直切分"><a class="markdownIt-Anchor" href="#垂直切分"></a> 垂直切分</h3>
+<p>按照欄位來進行切分，通常可以按照業務功能來做切割，如電商平台中的買家資訊與賣家資訊就可以分開儲存。</p>
+<h3 id="水平切分"><a class="markdownIt-Anchor" href="#水平切分"></a> 水平切分</h3>
+<p>按照列來進行切分，主要有兩種切分方法：</p>
+<ol>
+<li><strong>按一定範圍切分</strong><br />
+舉例來說 ID &lt;= 10000 為第一個表，接著每 10000 筆資料為一個表，這個做法的好處是<strong>容易新增表</strong>，壞處是<strong>較差的附載平衡</strong>，因為新資料與舊資料的活躍度可能有很大的差異。</li>
+<li><strong>使用哈希表切分</strong><br />
+將 ID 放入一個 Hash Function 中，如 <code>10 % 3 = 1</code>，根據 Hash 結果找到對應的表，好處是有<strong>較佳的附載平衡</strong>，缺點是<strong>不容易新增表</strong>，新增一個表通常涉及到<strong>修改 Hash Function</strong> 以及原先表的<strong>數據遷移</strong>。</li>
+</ol>
+<h1 id="參考資料"><a class="markdownIt-Anchor" href="#參考資料"></a> 參考資料</h1>
+<p><a href="https://www.digitalocean.com/community/tutorials/understanding-database-sharding">Understanding Database Sharding</a><br />
+<a href="https://blog.csdn.net/Dongguabai/article/details/83578092">高并发（水平扩展，垂直扩展）</a><br />
+<a href="https://www.twblogs.net/a/5c99f60fbd9eee434fc6c4d5">數據庫的向上擴展和橫向擴展（即水平擴展：讀寫分離、垂直切分、水平切分）</a></p>
+]]></content>
+      <categories>
+        <category>System Design</category>
+      </categories>
+      <tags>
+        <tag>Scaling</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Trie (字典樹) - Design Add and Search Words Data Structure</title>
     <url>/posts/trie-2/</url>
     <content><![CDATA[<h1 id="前言"><a class="markdownIt-Anchor" href="#前言"></a> 前言</h1>
@@ -1493,62 +1584,6 @@ Laplacian Matrix 的算法就是直接將Diagonal Degree Matrix 減去 Adjacency
       <tags>
         <tag>Trie</tag>
         <tag>LeetCode</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Java 自學筆記 05 - Set &amp; Map</title>
-    <url>/posts/java-learning-05/</url>
-    <content><![CDATA[<h2 id="set"><a class="markdownIt-Anchor" href="#set"></a> Set</h2>
-<p>Set 的關係圖如下:<br />
-<img src="../../images/2024/03/19/java_set_interface.png" alt="Java Set Interface" /></p>
-<p>比較常用的:</p>
-<ul>
-<li><strong>HashSet</strong>: 不保證保存順序，速度最快</li>
-<li><strong>LinkedHashSet</strong>: 保存順序與存入順序相同</li>
-<li><strong>TreeSet</strong>: 依元素的大小排序，存入的元素必須是可比較的</li>
-</ul>
-<span id="more"></span>
-<h3 id="basic-usage"><a class="markdownIt-Anchor" href="#basic-usage"></a> Basic Usage</h3>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Set&lt;String&gt; set = <span class="keyword">new</span> <span class="title class_">HashSet</span>&lt;&gt;(); </span><br><span class="line"><span class="comment">// Set&lt;String&gt; set = new LinkedHashSet&lt;&gt;(); </span></span><br><span class="line"><span class="comment">// Set&lt;String&gt; set = new TreeSet&lt;&gt;();</span></span><br><span class="line"></span><br><span class="line">set.add(<span class="string">&quot;Jack&quot;</span>);</span><br><span class="line">set.add(<span class="string">&quot;Emma&quot;</span>);   </span><br><span class="line">set.add(<span class="string">&quot;Kevin&quot;</span>);   </span><br><span class="line">set.add(<span class="string">&quot;Jack&quot;</span>);</span><br><span class="line"></span><br><span class="line">set.contains(<span class="string">&quot;Tom&quot;</span>) <span class="comment">// False</span></span><br><span class="line">set.remove(<span class="string">&quot;Tom&quot;</span>); <span class="comment">// False</span></span><br><span class="line"></span><br><span class="line">set.size(); <span class="comment">// 3 ([Kevin, Jack, Emma])</span></span><br><span class="line">set.isEmpty(); <span class="comment">// False</span></span><br><span class="line"><span class="comment">// set.clear();</span></span><br></pre></td></tr></table></figure>
-<h3 id="iterations"><a class="markdownIt-Anchor" href="#iterations"></a> Iterations</h3>
-<p>Iterator 是老用法了不太推薦，用 for 跟 forEach 好多了</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Iterator&lt;String&gt; newSet = set.iterator();     </span><br><span class="line"><span class="keyword">while</span> (newSet.hasNext()) &#123;   </span><br><span class="line">    System.out.println(newSet.next());   </span><br><span class="line">&#125;  </span><br><span class="line"><span class="comment">// or</span></span><br><span class="line"><span class="keyword">for</span> (String name: set)&#123;</span><br><span class="line">    System.out.println(name); </span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// or</span></span><br><span class="line">set.forEach((name)-&gt;&#123;</span><br><span class="line">    System.out.println(name);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<h3 id="set-operations"><a class="markdownIt-Anchor" href="#set-operations"></a> Set Operations</h3>
-<p>set 很適合用來做交集聯集等操作。</p>
-<p><img src="../../images/2024/03/19/set_operation.png" alt="Set Operation" /></p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">String[] source = &#123;<span class="string">&quot;Jack&quot;</span>, <span class="string">&quot;Tom&quot;</span>&#125;;</span><br><span class="line">Set&lt;String&gt; set2 = <span class="keyword">new</span> <span class="title class_">HashSet</span>&lt;&gt;(Arrays.asList(source)); </span><br><span class="line"></span><br><span class="line"><span class="comment">// union</span></span><br><span class="line">set.addAll(set2); <span class="comment">// [Kevin, Tom, Jack, Emma]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// intersection</span></span><br><span class="line">set.retainAll(set2); <span class="comment">// [Jack]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// difference (自己那邊)</span></span><br><span class="line">set.removeAll(set2); <span class="comment">// [Kevin, Emma]</span></span><br></pre></td></tr></table></figure>
-<h2 id="map"><a class="markdownIt-Anchor" href="#map"></a> Map</h2>
-<p>Map 的關係圖下:<br />
-<img src="../../images/2024/03/19/java_map_interface.png" alt="Java Map Interface" /></p>
-<blockquote>
-<p>上圖最左邊的 Hashtable 跟 Vector 一樣是老舊的語法，透過 <code>synchronized</code> 同步以實現線程安全，性能不佳，大多時候都可以被取代掉，真的要確保線程安全可以改用 <code>ConcurrentHashMap</code>。</p>
-</blockquote>
-<p>同樣有三種常用的 Map，各自的特色跟對應到的 Set 一模一樣，只是改成存鍵值對:</p>
-<ul>
-<li><strong>HashMap</strong>: 不保證保存順序，速度最快</li>
-<li><strong>LinkedHashMap</strong>: 保存順序與存入順序相同</li>
-<li><strong>TreeMap</strong>: 依元素的大小排序，存入的元素必須是可比較的</li>
-</ul>
-<h3 id="basic-usage-2"><a class="markdownIt-Anchor" href="#basic-usage-2"></a> Basic Usage</h3>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Map&lt;String, Integer&gt; map = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line"><span class="comment">// Map&lt;String, Integer&gt; set = new LinkedHashMap&lt;&gt;(); </span></span><br><span class="line"><span class="comment">// Map&lt;String, Integer&gt; set = new TreeMap&lt;&gt;();</span></span><br><span class="line"></span><br><span class="line">map.put(<span class="string">&quot;apple&quot;</span>, <span class="number">3</span>);</span><br><span class="line">map.put(<span class="string">&quot;banana&quot;</span>, <span class="number">2</span>);</span><br><span class="line">map.put(<span class="string">&quot;orange&quot;</span>, <span class="number">4</span>);  <span class="comment">// return null</span></span><br><span class="line">map.put(<span class="string">&quot;orange&quot;</span>, <span class="number">5</span>); <span class="comment">// return 4 (previous value)</span></span><br><span class="line">System.out.println(map); <span class="comment">// &#123;banana=2, orange=5, apple=3&#125;</span></span><br><span class="line"></span><br><span class="line">map.get(<span class="string">&quot;apple&quot;</span>); <span class="comment">// return 3</span></span><br><span class="line">map.get(<span class="string">&quot;peach&quot;</span>); <span class="comment">// return null</span></span><br><span class="line">map.getOrDefault(<span class="string">&quot;peach&quot;</span>, <span class="number">0</span>); <span class="comment">// return default 0</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// map.remove(&quot;apple&quot;); // return 3</span></span><br><span class="line">map.remove(<span class="string">&quot;peach&quot;</span>); <span class="comment">// return null</span></span><br><span class="line"></span><br><span class="line">map.isEmpty(); <span class="comment">// return false</span></span><br><span class="line">map.size(); <span class="comment">// return 3</span></span><br><span class="line"><span class="comment">// map.clear(); </span></span><br></pre></td></tr></table></figure>
-<h3 id="keys-and-values"><a class="markdownIt-Anchor" href="#keys-and-values"></a> Keys and Values</h3>
-<p>取用方式基本上類似於 python 的 <code>keys()</code> 和 <code>values()</code></p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// get keys</span></span><br><span class="line">Set&lt;String&gt; keys = map.keySet();</span><br><span class="line">System.out.println(keys); <span class="comment">// [banana, orange, apple]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// get values</span></span><br><span class="line">Collection&lt;Integer&gt; values = map.values();</span><br><span class="line">System.out.println(values); <span class="comment">// [2, 5, 3]</span></span><br></pre></td></tr></table></figure>
-<h3 id="iterations-2"><a class="markdownIt-Anchor" href="#iterations-2"></a> Iterations</h3>
-<p>遍歷 Map 有很多方法，這裡示範三種：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 1. keySet()，</span></span><br><span class="line"><span class="keyword">for</span> (String key: map.keySet())&#123;</span><br><span class="line">    System.out.println(<span class="string">&quot;key=&quot;</span> + key + <span class="string">&quot;, value=&quot;</span> + map.get(key));</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 2. entrySet()，類愈 python 的 items()</span></span><br><span class="line"><span class="keyword">for</span> (Map.Entry&lt;String, Integer&gt; entry: map.entrySet())&#123;</span><br><span class="line">    System.out.println(<span class="string">&quot;key=&quot;</span> + entry.getKey() + <span class="string">&quot;, value=&quot;</span> + entry.getValue());</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 3. forEach()，建議使用</span></span><br><span class="line">map.forEach((key, value) -&gt; &#123;</span><br><span class="line">    System.out.println(<span class="string">&quot;key=&quot;</span> + key + <span class="string">&quot;, value=&quot;</span> + value);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<h3 id="map-operations"><a class="markdownIt-Anchor" href="#map-operations"></a> Map Operations</h3>
-<p>跟 Set 一樣 Map 也可以做 operations，很酷的是我們對 <code>keySet()</code> 進行操作時，其實也會影響到 Map 本身。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Map&lt;String, Integer&gt; map2 = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;()&#123;&#123;</span><br><span class="line">    put(<span class="string">&quot;orange&quot;</span>, <span class="number">1</span>);</span><br><span class="line">    put(<span class="string">&quot;lemon&quot;</span>, <span class="number">1</span>);</span><br><span class="line">    put(<span class="string">&quot;starwberry&quot;</span>, <span class="number">2</span>);</span><br><span class="line">&#125;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// union</span></span><br><span class="line">map.putAll(map2); </span><br><span class="line">System.out.println(map); <span class="comment">// &#123;banana=2, orange=1, apple=3, lemon=1, starwberry=2&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// intersection</span></span><br><span class="line">map.keySet().retainAll(map2.keySet());</span><br><span class="line">System.out.println(map); <span class="comment">// &#123;orange=5&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// difference (left half)</span></span><br><span class="line">map.keySet().removeAll(map2.keySet());</span><br><span class="line">System.out.println(map); <span class="comment">// &#123;banana=2, apple=3&#125;</span></span><br></pre></td></tr></table></figure>
-<h2 id="參考資料"><a class="markdownIt-Anchor" href="#參考資料"></a> 參考資料</h2>
-<p><a href="https://www.javatpoint.com/set-in-java">Set in Java - Javapoint</a><br />
-<a href="https://www.javatpoint.com/java-map">Java Map - Javapoint</a></p>
-]]></content>
-      <categories>
-        <category>Java Learning</category>
-      </categories>
-      <tags>
-        <tag>Java</tag>
       </tags>
   </entry>
 </search>
