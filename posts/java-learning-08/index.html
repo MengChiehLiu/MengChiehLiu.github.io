@@ -29,10 +29,10 @@
 <meta property="og:locale" content="zh_TW">
 <meta property="og:image" content="https://mengchiehliu.github.io/images/2024/03/22/executor_service.png">
 <meta property="article:published_time" content="2024-03-22T15:07:05.000Z">
-<meta property="article:modified_time" content="2024-03-22T15:15:28.903Z">
+<meta property="article:modified_time" content="2024-03-22T15:27:28.899Z">
 <meta property="article:author" content="Meng-Chieh Liu">
 <meta property="article:tag" content="Java">
-<meta property="article:tag" content="Thread">
+<meta property="article:tag" content="Multi-thread">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://mengchiehliu.github.io/images/2024/03/22/executor_service.png">
 
@@ -159,7 +159,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">22</span>
+          <span class="site-state-item-count">23</span>
           <span class="site-state-item-name">文章</span>
         </a>
       </div>
@@ -170,7 +170,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-count">21</span>
         <span class="site-state-item-name">標籤</span></a>
       </div>
   </nav>
@@ -301,7 +301,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">文章字數：</span>
-      <span>561</span>
+      <span>562</span>
     </span>
     <span class="post-meta-item" title="所需閱讀時間">
       <span class="post-meta-item-icon">
@@ -322,6 +322,7 @@
         <p>在 <a href="/posts/java-learning-08">Java 自學筆記 07 - Concurrent Queue</a> 中我們使用 concurrent queue 來實作 <strong>Producer Consumer Problem</strong>，將生產者產出的 task 丟給 queue，消費者一有空閒就會去 queue 中拿新的 task 出來，實際上這就是 <strong>Thread Pool</strong> 的概念，不過過程中我們是自己去創建與管理 thread 和 queue，而 Java 其實提供了許多跟 Thread Pool 有關的介面，讓我們能夠更簡單的實現這些功能。</p>
 <h2 id="executorservice"><a class="markdownIt-Anchor" href="#executorservice"></a> ExecutorService</h2>
 <p><img src="/images/2024/03/22/executor_service.png" alt="Executor Service" /></p>
+<span id="more"></span>
 <p><strong>ExecutorService</strong> 是 Java 中用於管理 Thread Pool 的 Interface，我們可以使用 <strong>Executors</strong> 類別下的 method 來去實作一個 ExecutorService，常見的方法有:</p>
 <ul>
 <li><strong>newSingleThreadExecutor()</strong>: 創建一個單個工作線程的線程池。</li>
@@ -369,7 +370,7 @@
 
           <div class="post-tags">
               <a href="/tags/Java/" rel="tag"><i class="fa fa-tag"></i> Java</a>
-              <a href="/tags/Thread/" rel="tag"><i class="fa fa-tag"></i> Thread</a>
+              <a href="/tags/Multi-thread/" rel="tag"><i class="fa fa-tag"></i> Multi-thread</a>
           </div>
 
         
@@ -381,6 +382,9 @@
                 </a>
             </div>
             <div class="post-nav-item">
+                <a href="/posts/ascii-spinning-cube/" rel="next" title="Python 隨便寫 - ASCII Spinning Cube">
+                  Python 隨便寫 - ASCII Spinning Cube <i class="fa fa-chevron-right"></i>
+                </a>
             </div>
           </div>
     </footer>
