@@ -33,7 +33,7 @@
 <meta property="og:image" content="https://mengchiehliu.github.io/images/2024/01/10/number-of-hash-functions.png">
 <meta property="og:image" content="https://mengchiehliu.github.io/images/2024/01/10/filter-result.png">
 <meta property="article:published_time" content="2024-01-10T14:10:26.000Z">
-<meta property="article:modified_time" content="2024-03-21T13:56:21.846Z">
+<meta property="article:modified_time" content="2024-03-25T15:19:43.109Z">
 <meta property="article:author" content="Meng-Chieh Liu">
 <meta property="article:tag" content="Bloom Filter">
 <meta name="twitter:card" content="summary">
@@ -162,7 +162,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">23</span>
+          <span class="site-state-item-count">24</span>
           <span class="site-state-item-name">文章</span>
         </a>
       </div>
@@ -173,7 +173,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-count">22</span>
         <span class="site-state-item-name">標籤</span></a>
       </div>
   </nav>
@@ -308,7 +308,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <p><img src="../../images/2024/01/10/bloom-filter-new.png" alt="bloom-filter" /></p>
+        <p><img src="/images/2024/01/10/bloom-filter-new.png" alt="bloom-filter" /></p>
 <h1 id="summary"><a class="markdownIt-Anchor" href="#summary"></a> Summary</h1>
 <ul>
 <li>用途: 用來快速判斷元素是否存在於一個集合中</li>
@@ -329,11 +329,11 @@
 <p>由預期的 <strong>False positive rate (p)</strong> 以及存入的<strong>資料筆數 (n)</strong> 來求出 <strong>Array Size (m)</strong> 以及 <strong>Hash Functions數 (k)</strong></p>
 <ul>
 <li><strong>False positive rate</strong><br />
-<img src="../../images/2024/01/10/false-positive-probability.png" alt="false-positive-probability" /></li>
+<img src="/images/2024/01/10/false-positive-probability.png" alt="false-positive-probability" /></li>
 <li><strong>Array size</strong><br />
-<img src="../../images/2024/01/10/array-size.png" alt="array-size" /></li>
+<img src="/images/2024/01/10/array-size.png" alt="array-size" /></li>
 <li><strong>Number of hash functions</strong><br />
-<img src="../../images/2024/01/10/number-of-hash-functions.png" alt="number-of-hash-functions" /></li>
+<img src="/images/2024/01/10/number-of-hash-functions.png" alt="number-of-hash-functions" /></li>
 </ul>
 </li>
 <li>
@@ -348,7 +348,7 @@
 <p>看一下成果</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">n = <span class="number">100000</span> <span class="comment"># Number of items to add </span></span><br><span class="line">p = <span class="number">0.05</span> <span class="comment"># False positive probability </span></span><br><span class="line">  </span><br><span class="line">bloomf = BloomFilter(n,p) </span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Array size: &#123;&#125;&quot;</span>.<span class="built_in">format</span>(bloomf.size)) </span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Number of hash functions: &#123;&#125;&quot;</span>.<span class="built_in">format</span>(bloomf.hash_count)) </span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;False positive probability: &#123;&#125;&quot;</span>.<span class="built_in">format</span>(bloomf.fp_prob)) </span><br><span class="line"></span><br><span class="line"><span class="comment"># Add items</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">	bloomf.add(<span class="built_in">str</span>(i))</span><br><span class="line"></span><br><span class="line"><span class="comment"># Check false positive rate on Test data</span></span><br><span class="line">fp = <span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n, <span class="number">2</span>*n):</span><br><span class="line">	<span class="keyword">if</span> bloomf.check(<span class="built_in">str</span>(i)):</span><br><span class="line">		fp += <span class="number">1</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;False positive rate on test data: &#123;:.4f&#125;&quot;</span>.<span class="built_in">format</span>(fp/n)) </span><br></pre></td></tr></table></figure>
 <p>可以看到實際的 FP Rate 與我們設定的非常接近。<br />
-<img src="../../images/2024/01/10/filter-result.png" alt="filter-result" /></p>
+<img src="/images/2024/01/10/filter-result.png" alt="filter-result" /></p>
 <h1 id="參考文章"><a class="markdownIt-Anchor" href="#參考文章"></a> 參考文章</h1>
 <p><a target="_blank" rel="noopener" href="https://www.geeksforgeeks.org/bloom-filters-introduction-and-python-implementation/">Bloom Filters – Introduction and Implementation</a></p>
 

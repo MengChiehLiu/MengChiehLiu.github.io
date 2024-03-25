@@ -35,7 +35,7 @@
 <meta property="og:image" content="https://mengchiehliu.github.io/images/2023/03/29/pseudo_code.webp">
 <meta property="og:image" content="https://mengchiehliu.github.io/images/2023/03/29/simple_network_2.png">
 <meta property="article:published_time" content="2023-03-29T14:27:34.000Z">
-<meta property="article:modified_time" content="2024-03-21T13:56:18.835Z">
+<meta property="article:modified_time" content="2024-03-25T15:19:39.496Z">
 <meta property="article:author" content="Meng-Chieh Liu">
 <meta property="article:tag" content="Betweenness Centrality">
 <meta property="article:tag" content="Graph">
@@ -165,7 +165,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">23</span>
+          <span class="site-state-item-count">24</span>
           <span class="site-state-item-name">文章</span>
         </a>
       </div>
@@ -176,7 +176,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-count">22</span>
         <span class="site-state-item-name">標籤</span></a>
       </div>
   </nav>
@@ -288,16 +288,16 @@
     
     <div class="post-body" itemprop="articleBody">
         <h1 id="介紹"><a class="markdownIt-Anchor" href="#介紹"></a> 介紹</h1>
-<p><img src="../../images/2023/03/29/Betweenness_Centrality.png" alt="Betweenness Centrality" /></p>
+<p><img src="/images/2023/03/29/Betweenness_Centrality.png" alt="Betweenness Centrality" /></p>
 <p>介數中心性（Betweenness Centrality）是社會網絡分析中常用的一種指標，用於度量一個節點在整個網絡中扮演了多重要的角色，簡單來說，介數中心性指標評估了一個節點在網絡中擔任了多少條<strong>最短路徑</strong>的中介者角色。</p>
 <p>更白話一點，介數中心性看的是一個節點有<strong>多常被其他人經過</strong>，舉例來說：某些公車站點連接了不同的公車路線，這些公車站點對於連接整個公車網絡起著重要的作用，如果這些公車站發生了任何問題，整個公車路線都會受到影響。這些公車站點就是具有高介數中心性的節點。</p>
 <span id="more"></span>
 <h1 id="計算方法"><a class="markdownIt-Anchor" href="#計算方法"></a> 計算方法</h1>
 <h2 id="介數中心性"><a class="markdownIt-Anchor" href="#介數中心性"></a> 介數中心性</h2>
-<p><img src="../../images/2023/03/29/formula.png" alt="Betweenness Centrality Formula" /></p>
+<p><img src="/images/2023/03/29/formula.png" alt="Betweenness Centrality Formula" /></p>
 <p>公式中，𝜎(sigma)表示最短路徑的數量，分母的意思是從點s到點w的最短路徑的數量，分子的意思是從點s到點w的最短路徑中經過v點的數量，聽起來有點抽象，我們用下面這張圖來解釋：</p>
 <blockquote>
-<p><img src="../../images/2023/03/29/simple_network.png" alt="Simple Network" /><br />
+<p><img src="/images/2023/03/29/simple_network.png" alt="Simple Network" /><br />
 從s點到w點的最短路徑總共有4條，分別是<br />
 <code>s -&gt; 1 -&gt; v -&gt; w</code><br />
 <code>s -&gt; 2 -&gt; v -&gt; w</code><br />
@@ -308,9 +308,9 @@
 </blockquote>
 <h2 id="標準化"><a class="markdownIt-Anchor" href="#標準化"></a> 標準化</h2>
 <p>聰明的你可能會發現網絡中的節點越多，算出來的值也越大(因為是加總)，因此，為了讓不同網絡之間能被拿來比較，我們要對其進行標準化。</p>
-<p><img src="../../images/2023/03/29/normalization_formula.png" alt="Normalization Formula" /></p>
+<p><img src="/images/2023/03/29/normalization_formula.png" alt="Normalization Formula" /></p>
 <p>其中，分母是Binomial Coefficient，指的是一個網絡的最大可能介數中心性(網路中任選兩點、n-1取2)：<br />
-<img src="../../images/2023/03/29/binomial_coefficient.png" alt="Binomial Coefficient" /></p>
+<img src="/images/2023/03/29/binomial_coefficient.png" alt="Binomial Coefficient" /></p>
 <p>(上面標準化公式的假設是網絡是沒有方向性的，如果有方向性的話就不用除2了。)</p>
 <h1 id="python-實作"><a class="markdownIt-Anchor" href="#python-實作"></a> Python 實作</h1>
 <p>網路上很多有關Betweenness Centrality的教學都是直接套<code>networkx</code>套件，但對於程式邏輯究竟如何實現卻是著墨很少，因此接下來要以<strong>不用套件</strong>的方式來實現unweighted graph中Betweenness Centrality的計算！</p>
@@ -318,7 +318,7 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">graph = &#123;</span><br><span class="line">    <span class="number">0</span> : [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>], <span class="comment"># 節點 : [他的鄰居]</span></span><br><span class="line">    <span class="number">1</span> : [<span class="number">0</span>, <span class="number">4</span>],</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="pseudo-code"><a class="markdownIt-Anchor" href="#pseudo-code"></a> Pseudo Code</h2>
 <p>來看看Pseudo Code，這個算法可以計算出graph中各個點的Betweenness Centrality:<br />
-<img src="../../images/2023/03/29/pseudo_code.webp" alt="Pseudo Code for Betweenness Centrality" /></p>
+<img src="/images/2023/03/29/pseudo_code.webp" alt="Pseudo Code for Betweenness Centrality" /></p>
 <h2 id="程式邏輯"><a class="markdownIt-Anchor" href="#程式邏輯"></a> 程式邏輯</h2>
 <p>看了霧煞煞? 沒關係，來解釋一下變數的意涵：</p>
 <blockquote>
@@ -358,7 +358,7 @@ C: centrality，介數中心性 (sum of delta)</p>
 <li>接著我們將每個w的path中的v取出，去更新這些v，<code>sigma[v]/sigma[w]</code>表示經過v的最短路徑數/經過w的最短路徑數，這邊比較讓人confused的點應該是，根據前面提到的Betweenness Centrality公式，不是只有<code>sigma[v]/sigma[w]</code>嗎?為什麼要乘以<code>1+delta[w]</code>呢?原因是目前的介數中心性只考慮了v之於w的影響，我們要對其進行修正以納入w後面的節點的影響，我們一樣拿前面用過的例子來解釋：</li>
 </ul>
 <blockquote>
-<p><img src="../../images/2023/03/29/simple_network_2.png" alt="simple network 2" /><br />
+<p><img src="/images/2023/03/29/simple_network_2.png" alt="simple network 2" /><br />
 我們把原本的v當成新的w，把點1當成新的v，從s到w的最短路徑有三條，分別是<br />
 <code>s -&gt; v -&gt; w</code><br />
 <code>s -&gt; 2 -&gt; w</code><br />

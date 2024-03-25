@@ -153,7 +153,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">23</span>
+          <span class="site-state-item-count">24</span>
           <span class="site-state-item-name">文章</span>
         </a>
       </div>
@@ -164,7 +164,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-count">22</span>
         <span class="site-state-item-name">標籤</span></a>
       </div>
   </nav>
@@ -192,6 +192,114 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://mengchiehliu.github.io/posts/java-learning-09/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Meng-Chieh Liu">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="米蟲的程式小窩">
+      <meta itemprop="description" content="讀會計但一直寫程式的人">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 米蟲的程式小窩">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/java-learning-09/" class="post-title-link" itemprop="url">Java 自學筆記 09 - Stream API</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+
+      <time title="創建時間：2024-03-25 23:12:51" itemprop="dateCreated datePublished" datetime="2024-03-25T23:12:51+08:00">2024-03-25</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Java-Learning/" itemprop="url" rel="index"><span itemprop="name">Java Learning</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>1.1k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>5 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="java-stream"><a class="markdownIt-Anchor" href="#java-stream"></a> Java Stream</h2>
+<p><img src="/images/2024/03/25/java_stream.png" alt="Java Stream" /></p>
+<p><strong>Stream</strong> 是一個元素形成的隊列，其<strong>來源 (Source)</strong> 可以是集合或數組，Stream 本身並不會存儲元素，其操作也不會影響到原始來源，單純以數據流的方式來處理數據，依性質可以分為兩類：</p>
+<ul>
+<li><strong>中間操作 (Intermediate Operations)</strong><br />
+Stream 的中間步驟，一個 Stream 可以有多個中間操作，會返回一個新的 stream，屬於<strong>惰性求值 (Lazy Evaluation)</strong>，意思是不會馬上計算結果，而是等到終端操作時才一併計算。</li>
+<li><strong>終端操作 (Terminal Operations)</strong><br />
+Stream 的最後一步，一個 stream 只能有一個終端操作，會產生一個新的集合或值。</li>
+</ul>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/posts/java-learning-09/#more" rel="contents">
+                閱讀全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -578,7 +686,7 @@
     <div class="post-body" itemprop="articleBody">
           <p>在 Java 的多線程操作中，Concurrent Queue 是一種非常重要的容器，在共享資源的同時也能夠幫我們進行流程控制。<br />
 Java 的 Concurrent Queue 可以分為兩類，分別是 <strong>Blocking Queue</strong> 以及 <strong>Non Blocking Queue</strong>，兩種都是線程安全的，文章的最後會用 Blocking Queue 來實作 <strong>Producer Consumer Problem</strong> !</p>
-<p><img src="../../images/2024/03/20/consumer_producer.png" alt="Consumer Producer" /></p>
+<p><img src="/images/2024/03/20/consumer_producer.png" alt="Consumer Producer" /></p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/posts/java-learning-07/#more" rel="contents">
@@ -680,7 +788,7 @@ Java 的 Concurrent Queue 可以分為兩類，分別是 <strong>Blocking Queue<
     <div class="post-body" itemprop="articleBody">
           <h2 id="java-thread"><a class="markdownIt-Anchor" href="#java-thread"></a> Java Thread</h2>
 <p>There are two ways to new a thread in Java:</p>
-<p><img src="../../images/2024/03/20/java_thread.png" alt="Java Thread" /></p>
+<p><img src="/images/2024/03/20/java_thread.png" alt="Java Thread" /></p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/posts/java-learning-06/#more" rel="contents">
@@ -782,7 +890,7 @@ Java 的 Concurrent Queue 可以分為兩類，分別是 <strong>Blocking Queue<
     <div class="post-body" itemprop="articleBody">
           <h2 id="set"><a class="markdownIt-Anchor" href="#set"></a> Set</h2>
 <p>Set 的關係圖如下:<br />
-<img src="../../images/2024/03/19/java_set_interface.png" alt="Java Set Interface" /></p>
+<img src="/images/2024/03/19/java_set_interface.png" alt="Java Set Interface" /></p>
 <p>比較常用的:</p>
 <ul>
 <li><strong>HashSet</strong>: 不保證保存順序，速度最快</li>
@@ -890,7 +998,7 @@ Java 的 Concurrent Queue 可以分為兩類，分別是 <strong>Blocking Queue<
     <div class="post-body" itemprop="articleBody">
           <h2 id="collection"><a class="markdownIt-Anchor" href="#collection"></a> Collection</h2>
 <p>Collection 是 Java 中用來存儲、操作數據結構的一種框架，在此之下提供了許多實用的 Interface，包括 <strong>List</strong>、<strong>Queue</strong> 以及 <strong>Set</strong> (Map 是分開的)。</p>
-<p><img src="../../images/2024/03/19/java_collection.png" alt="Java Collection" /></p>
+<p><img src="/images/2024/03/19/java_collection.png" alt="Java Collection" /></p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/posts/java-learning-04/#more" rel="contents">
@@ -990,7 +1098,7 @@ Java 的 Concurrent Queue 可以分為兩類，分別是 <strong>Blocking Queue<
     
     
     <div class="post-body" itemprop="articleBody">
-          <p><img src="../../images/2024/03/19/java_interface_abstract.png" alt="Interface &amp; Abstract" /></p>
+          <p><img src="/images/2024/03/19/java_interface_abstract.png" alt="Interface &amp; Abstract" /></p>
 <p>OOP 除了有 Encapsulation、Inheritance 與 Polymorphism 三大要素外，<strong>Interface</strong> 與 <strong>Abstract</strong> 也是 OOP 中的重要概念。</p>
           <!--noindex-->
             <div class="post-button">
@@ -1091,114 +1199,11 @@ Java 的 Concurrent Queue 可以分為兩類，分別是 <strong>Blocking Queue<
     
     
     <div class="post-body" itemprop="articleBody">
-          <p><img src="../../images/2024/03/18/java_oop.png" alt="Java OOP" /></p>
+          <p><img src="/images/2024/03/18/java_oop.png" alt="Java OOP" /></p>
 <p>Java 是一個物件導向的程式語言，重點在於如何定義物件之間的互動，Object Oriented Programming (OOP) 的三大特性分別是: <strong>Encapsulation (封裝)</strong>、<strong>Inheritance (繼承)</strong> 與 <strong>Polymorphism (多型)</strong> 。</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/posts/java-learning-02/#more" rel="contents">
-                閱讀全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://mengchiehliu.github.io/posts/java-learning-01/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Meng-Chieh Liu">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="米蟲的程式小窩">
-      <meta itemprop="description" content="讀會計但一直寫程式的人">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 米蟲的程式小窩">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/java-learning-01/" class="post-title-link" itemprop="url">Java 自學筆記 01 - Basics</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">發表於</span>
-
-      <time title="創建時間：2024-03-18 23:33:14" itemprop="dateCreated datePublished" datetime="2024-03-18T23:33:14+08:00">2024-03-18</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分類於</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Java-Learning/" itemprop="url" rel="index"><span itemprop="name">Java Learning</span></a>
-        </span>
-    </span>
-
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="文章字數">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">文章字數：</span>
-      <span>865</span>
-    </span>
-    <span class="post-meta-item" title="所需閱讀時間">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
-      <span>4 分鐘</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2 id="jvm-jre-jdk"><a class="markdownIt-Anchor" href="#jvm-jre-jdk"></a> JVM, JRE &amp; JDK</h2>
-<p><img src="../../images/2024/03/18/JVM_JRE_JDK.png" alt="JVM, JRE &amp; JDK" /></p>
-<h3 id="java-vs-c"><a class="markdownIt-Anchor" href="#java-vs-c"></a> Java vs C</h3>
-<p>當開發 C 或 C++ 程式時，通常會先將原始碼透過編譯器轉換成目標機器可以理解的 Object Code。這個 Object Code 是特定於目標機器架構的，因此在不同的硬體平台上可能會產生不同的機器碼。因此，當將程式移植到不同的機器或架構時，通常需要重新編譯原始碼以生成適用於該特定平台的新 Object Code。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/posts/java-learning-01/#more" rel="contents">
                 閱讀全文 &raquo;
               </a>
             </div>

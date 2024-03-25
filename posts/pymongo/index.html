@@ -31,7 +31,7 @@
 <meta property="og:image" content="https://mengchiehliu.github.io/images/2023/05/05/mongodb_atlas_connect.png">
 <meta property="og:image" content="https://mengchiehliu.github.io/images/2023/05/05/mongodb_atlas_connection_string.png">
 <meta property="article:published_time" content="2023-05-05T12:40:15.000Z">
-<meta property="article:modified_time" content="2024-03-21T13:57:45.375Z">
+<meta property="article:modified_time" content="2024-03-25T15:20:54.438Z">
 <meta property="article:author" content="Meng-Chieh Liu">
 <meta property="article:tag" content="MongoDB">
 <meta property="article:tag" content="PyMongo">
@@ -161,7 +161,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">23</span>
+          <span class="site-state-item-count">24</span>
           <span class="site-state-item-name">文章</span>
         </a>
       </div>
@@ -172,7 +172,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-count">22</span>
         <span class="site-state-item-name">標籤</span></a>
       </div>
   </nav>
@@ -284,7 +284,7 @@
     
     <div class="post-body" itemprop="articleBody">
         <h1 id="前言"><a class="markdownIt-Anchor" href="#前言"></a> 前言</h1>
-<p><img src="../../images/2023/05/05/cover.png" alt="cover image" /></p>
+<p><img src="/images/2023/05/05/cover.png" alt="cover image" /></p>
 <p>因為課堂專案的關係需要用到MongoDB所以小學了一下，發現MongoDB真的是很香，撇開資料庫易用性，光是MongoDB Atlas提供每位使用者免費10GB的雲端資料庫空間(免填信用卡)，就很值得你辦個帳號來玩一下了。這篇文章會簡單介紹一下MongoDB，以及如何用python PyMongo完成資料庫的CRUD操作。</p>
 <span id="more"></span>
 <h1 id="mongodb-atlas"><a class="markdownIt-Anchor" href="#mongodb-atlas"></a> MongoDB Atlas</h1>
@@ -340,8 +340,8 @@ Data accessed together should be stored todether.</p>
 <p>其中，<code>CONNECTION_STRING</code>的格式長這樣，記得要換成自己的帳號、密碼:</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mongodb+srv://&lt;user_name&gt;:&lt;password&gt;@thrifty.0xdedx2.mongodb.net/?retryWrites=true&amp;w=majority</span><br></pre></td></tr></table></figure>
 <p>這串東西好長喔記不起來怎麼辦? 進入mongodb atlas後，可以在 Connect → Drivers → python 裡找到<br />
-<img src="../../images/2023/05/05/mongodb_atlas_connect.png" alt="mongodb atlas connect" /><br />
-<img src="../../images/2023/05/05/mongodb_atlas_connection_string.png" alt="mongodb atlas connection string" /></p>
+<img src="/images/2023/05/05/mongodb_atlas_connect.png" alt="mongodb atlas connect" /><br />
+<img src="/images/2023/05/05/mongodb_atlas_connection_string.png" alt="mongodb atlas connection string" /></p>
 <p>我們可以直接透過client物件來建立或取用database，可以使用key-value的方式或呼叫object的方式，舉例來說我想要create一個名叫test_database的database，那我可以用:</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">database = client.test_database <span class="comment"># or</span></span><br><span class="line">database = client[<span class="string">&#x27;test_database&#x27;</span>]</span><br></pre></td></tr></table></figure>
 <p>同理，我們可以透過db物件來建立或取用collection:</p>

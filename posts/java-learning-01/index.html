@@ -33,7 +33,7 @@
 <meta property="og:image" content="https://mengchiehliu.github.io/images/2024/03/18/java_casting.png">
 <meta property="og:image" content="https://mengchiehliu.github.io/images/2024/03/18/java_array.png">
 <meta property="article:published_time" content="2024-03-18T15:33:14.000Z">
-<meta property="article:modified_time" content="2024-03-21T13:57:25.740Z">
+<meta property="article:modified_time" content="2024-03-25T15:20:18.401Z">
 <meta property="article:author" content="Meng-Chieh Liu">
 <meta property="article:tag" content="Java">
 <meta name="twitter:card" content="summary">
@@ -162,7 +162,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">23</span>
+          <span class="site-state-item-count">24</span>
           <span class="site-state-item-name">文章</span>
         </a>
       </div>
@@ -173,7 +173,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-count">22</span>
         <span class="site-state-item-name">標籤</span></a>
       </div>
   </nav>
@@ -285,14 +285,14 @@
     
     <div class="post-body" itemprop="articleBody">
         <h2 id="jvm-jre-jdk"><a class="markdownIt-Anchor" href="#jvm-jre-jdk"></a> JVM, JRE &amp; JDK</h2>
-<p><img src="../../images/2024/03/18/JVM_JRE_JDK.png" alt="JVM, JRE &amp; JDK" /></p>
+<p><img src="/images/2024/03/18/JVM_JRE_JDK.png" alt="JVM, JRE &amp; JDK" /></p>
 <h3 id="java-vs-c"><a class="markdownIt-Anchor" href="#java-vs-c"></a> Java vs C</h3>
 <p>當開發 C 或 C++ 程式時，通常會先將原始碼透過編譯器轉換成目標機器可以理解的 Object Code。這個 Object Code 是特定於目標機器架構的，因此在不同的硬體平台上可能會產生不同的機器碼。因此，當將程式移植到不同的機器或架構時，通常需要重新編譯原始碼以生成適用於該特定平台的新 Object Code。</p>
 <span id="more"></span>
 <h3 id="jvm-java-virtual-machine"><a class="markdownIt-Anchor" href="#jvm-java-virtual-machine"></a> JVM (Java Virtual Machine)</h3>
 <p>Java 通過 JVM 來解決跨平台的問題，程式在編譯時是先翻譯成 JVM 的 Byte code，執行時才由 JVM 轉換為機器碼，由於不是直接編譯成機械碼，這表示只要新的平台有安裝 JVM，就不用重新編譯一遍了。<br />
 某方面來說 JVM 算是一種 interpreter，負責執行 Byte code。<br />
-<img src="../../images/2024/03/18/JVM.png" alt="JVM" /></p>
+<img src="/images/2024/03/18/JVM.png" alt="JVM" /></p>
 <h3 id="jre-java-runtime-environment"><a class="markdownIt-Anchor" href="#jre-java-runtime-environment"></a> JRE (Java Runtime Environment)</h3>
 <p>JRE 包含了執行 Java 程式所需的所有檔案和庫，包括 JVM、Class Libraries、Java API 等，也就是說單單是執行而不需要開發的話安裝 JRE 就夠了。</p>
 <h3 id="jdk-java-development-kit"><a class="markdownIt-Anchor" href="#jdk-java-development-kit"></a> JDK (Java Development Kit)</h3>
@@ -311,13 +311,13 @@
 </ul>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">java Hello</span></span><br></pre></td></tr></table></figure>
 <h2 id="data-type"><a class="markdownIt-Anchor" href="#data-type"></a> Data Type</h2>
-<p><img src="../../images/2024/03/18/java_data_type.png" alt="Java Data Type" /></p>
+<p><img src="/images/2024/03/18/java_data_type.png" alt="Java Data Type" /></p>
 <h3 id="資料型態轉換"><a class="markdownIt-Anchor" href="#資料型態轉換"></a> 資料型態轉換</h3>
 <ul>
 <li>浮點數大於整數<br />
 double &gt; float &gt; long &gt; int &gt; short &gt; byte</li>
 <li>小轉大OK，大轉小error<br />
-<img src="../../images/2024/03/18/java_casting.png" alt="Java Casting" /></li>
+<img src="/images/2024/03/18/java_casting.png" alt="Java Casting" /></li>
 <li>大轉小可以強制轉換，但可能失真</li>
 </ul>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="variable">n1</span> <span class="operator">=</span> <span class="number">1024</span>;</span><br><span class="line"><span class="type">byte</span> <span class="variable">n2</span> <span class="operator">=</span> (<span class="type">byte</span>)n1; <span class="comment">// 不一樣 (2進位高位被截斷)</span></span><br></pre></td></tr></table></figure>
@@ -333,7 +333,7 @@ double &gt; float &gt; long &gt; int &gt; short &gt; byte</li>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"><span class="type">Scanner</span> <span class="variable">s</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Scanner</span>(System.in);</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="variable">x</span> <span class="operator">=</span> s.nextInt();</span><br><span class="line"><span class="type">String</span> <span class="variable">text</span> <span class="operator">=</span> s.next();</span><br></pre></td></tr></table></figure>
 <h2 id="array"><a class="markdownIt-Anchor" href="#array"></a> Array</h2>
 <p>Java 的陣列跟 C 不一樣，不是以連續的記憶體表達陣列，而是以一種 object 的形式實作，因此多維的陣列係由前一層指向後一層，所以不同層的 Array 長度可以不一樣 !!!</p>
-<p><img src="../../images/2024/03/18/java_array.png" alt="Java Array" /></p>
+<p><img src="/images/2024/03/18/java_array.png" alt="Java Array" /></p>
 <p>Array 的宣告與初始化方法。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span>[][] x = <span class="keyword">new</span> <span class="title class_">int</span>[<span class="number">2</span>][<span class="number">2</span>];</span><br><span class="line">x = &#123;&#123;<span class="number">1</span>,<span class="number">2</span>&#125;,&#123;<span class="number">3</span>,<span class="number">4</span>&#125;&#125;;</span><br><span class="line">x.length <span class="comment">// x的長度</span></span><br></pre></td></tr></table></figure>
 <h2 id="class-and-object"><a class="markdownIt-Anchor" href="#class-and-object"></a> Class and Object</h2>

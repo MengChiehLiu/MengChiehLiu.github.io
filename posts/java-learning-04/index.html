@@ -31,7 +31,7 @@
 <meta property="og:image" content="https://mengchiehliu.github.io/images/2024/03/19/java_list_interface.png">
 <meta property="og:image" content="https://mengchiehliu.github.io/images/2024/03/19/java_queue_interface.png">
 <meta property="article:published_time" content="2024-03-19T14:19:28.000Z">
-<meta property="article:modified_time" content="2024-03-21T13:57:32.758Z">
+<meta property="article:modified_time" content="2024-03-25T15:20:36.332Z">
 <meta property="article:author" content="Meng-Chieh Liu">
 <meta property="article:tag" content="Java">
 <meta name="twitter:card" content="summary">
@@ -160,7 +160,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">23</span>
+          <span class="site-state-item-count">24</span>
           <span class="site-state-item-name">文章</span>
         </a>
       </div>
@@ -171,7 +171,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-count">22</span>
         <span class="site-state-item-name">標籤</span></a>
       </div>
   </nav>
@@ -329,11 +329,11 @@
     <div class="post-body" itemprop="articleBody">
         <h2 id="collection"><a class="markdownIt-Anchor" href="#collection"></a> Collection</h2>
 <p>Collection 是 Java 中用來存儲、操作數據結構的一種框架，在此之下提供了許多實用的 Interface，包括 <strong>List</strong>、<strong>Queue</strong> 以及 <strong>Set</strong> (Map 是分開的)。</p>
-<p><img src="../../images/2024/03/19/java_collection.png" alt="Java Collection" /></p>
+<p><img src="/images/2024/03/19/java_collection.png" alt="Java Collection" /></p>
 <span id="more"></span>
 <h2 id="list"><a class="markdownIt-Anchor" href="#list"></a> List</h2>
 <p>List 基本上就是動態數組，其下有 <strong>ArrayList</strong>、<strong>LinkedList</strong>、<strong>Vector</strong> 等不同的實現。</p>
-<p><img src="../../images/2024/03/19/java_list_interface.png" alt="Java List Interface" /></p>
+<p><img src="/images/2024/03/19/java_list_interface.png" alt="Java List Interface" /></p>
 <ul>
 <li><strong>ArrayList</strong>: 透過索引訪問的動態陣列，查尋的時間複雜度為 <strong>O(1)</strong>，然而插入時會將後面的元素全部往右移 (刪除時則是全部往左移)，因此時間複雜度最差為 <strong>O(n)</strong>。<strong>適合用在隨機查找、頻繁訪問及更新的資料上。</strong></li>
 <li><strong>LinkedList</strong>: 透過雙向鏈結實現的動態陣列，插入與刪除的效率高，操作本身的時間複雜度為 <strong>O(1)</strong>，但查找時需要遍歷整個鏈表，因此時間複雜度最差為 <strong>O(n)</strong>。<strong>適用於需要大量插入和刪除操作的情況。</strong></li>
@@ -348,7 +348,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt; list = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;(); <span class="comment">// Interface&lt;Object&gt;</span></span><br><span class="line"><span class="comment">// List&lt;String&gt; list = new LinkedList&lt;&gt;(); </span></span><br><span class="line">list.add(<span class="string">&quot;Jack&quot;</span>);</span><br><span class="line">list.add(<span class="string">&quot;Emma&quot;</span>);</span><br><span class="line">list.add(<span class="string">&quot;Jack&quot;</span>);</span><br><span class="line">list.addAll(names);</span><br><span class="line">System.out.println(list); <span class="comment">// [Jack, Emma, Jack, Sandy, Jack]</span></span><br><span class="line"></span><br><span class="line">list.get(<span class="number">0</span>); <span class="comment">// Jack</span></span><br><span class="line">list.indexOf(<span class="string">&quot;Jack&quot;</span>); <span class="comment">// 0</span></span><br><span class="line">list.size(); <span class="comment">// 5</span></span><br><span class="line">list.isEmpty(); <span class="comment">// false</span></span><br><span class="line"></span><br><span class="line">list.set(<span class="number">0</span>, <span class="string">&quot;Timmy&quot;</span>);</span><br><span class="line">System.out.println(list);  <span class="comment">// [Timmy, Emma, Jack, Sandy, Jack]</span></span><br><span class="line"></span><br><span class="line">list.remove(<span class="number">0</span>); <span class="comment">// remove(index): return element or throw exception</span></span><br><span class="line">list.remove(<span class="string">&quot;Jack&quot;</span>); <span class="comment">// remove(Object): return True or False</span></span><br><span class="line">System.out.println(list);  <span class="comment">// [Emma, Sandy, Jack]</span></span><br><span class="line"></span><br><span class="line">list.removeIf(x-&gt;x.contains(<span class="string">&quot;J&quot;</span>));</span><br><span class="line">System.out.println(list);  <span class="comment">// [Emma, Sandy]</span></span><br><span class="line"></span><br><span class="line">list.clear();</span><br></pre></td></tr></table></figure>
 <h2 id="queue"><a class="markdownIt-Anchor" href="#queue"></a> Queue</h2>
 <p>Queue 是一個<strong>先進先出 (FIFO)</strong> 的資料集合，其下大致上可以分為 Deque 及 Priority Queue 兩類，Deque 有 <strong>ArrayDeque</strong>、<strong>LinkedList</strong> 等實現，Priority Queue 的實現則是 <strong>PriorityQueue</strong>。<br />
-<img src="../../images/2024/03/19/java_queue_interface.png" alt="Java Queue Interface" /></p>
+<img src="/images/2024/03/19/java_queue_interface.png" alt="Java Queue Interface" /></p>
 <ul>
 <li><strong>LinkedList</strong>: 前面就提到過了，雙向鏈結的特性使其能夠快速地對頭尾元素進行操作。</li>
 <li><strong>ArrayDeque</strong>: 同時有 Deque 以及 Array 的性質，能快速地訪問元素，也可以快速地對頭尾元素進行操作。</li>

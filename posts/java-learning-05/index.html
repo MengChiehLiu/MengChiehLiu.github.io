@@ -31,7 +31,7 @@
 <meta property="og:image" content="https://mengchiehliu.github.io/images/2024/03/19/set_operation.png">
 <meta property="og:image" content="https://mengchiehliu.github.io/images/2024/03/19/java_map_interface.png">
 <meta property="article:published_time" content="2024-03-19T14:21:46.000Z">
-<meta property="article:modified_time" content="2024-03-21T13:57:35.644Z">
+<meta property="article:modified_time" content="2024-03-25T15:20:43.763Z">
 <meta property="article:author" content="Meng-Chieh Liu">
 <meta property="article:tag" content="Java">
 <meta name="twitter:card" content="summary">
@@ -160,7 +160,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">23</span>
+          <span class="site-state-item-count">24</span>
           <span class="site-state-item-name">文章</span>
         </a>
       </div>
@@ -171,7 +171,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-count">22</span>
         <span class="site-state-item-name">標籤</span></a>
       </div>
   </nav>
@@ -315,7 +315,7 @@
     <div class="post-body" itemprop="articleBody">
         <h2 id="set"><a class="markdownIt-Anchor" href="#set"></a> Set</h2>
 <p>Set 的關係圖如下:<br />
-<img src="../../images/2024/03/19/java_set_interface.png" alt="Java Set Interface" /></p>
+<img src="/images/2024/03/19/java_set_interface.png" alt="Java Set Interface" /></p>
 <p>比較常用的:</p>
 <ul>
 <li><strong>HashSet</strong>: 不保證保存順序，速度最快</li>
@@ -330,11 +330,11 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Iterator&lt;String&gt; newSet = set.iterator();     </span><br><span class="line"><span class="keyword">while</span> (newSet.hasNext()) &#123;   </span><br><span class="line">    System.out.println(newSet.next());   </span><br><span class="line">&#125;  </span><br><span class="line"><span class="comment">// or</span></span><br><span class="line"><span class="keyword">for</span> (String name: set)&#123;</span><br><span class="line">    System.out.println(name); </span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// or</span></span><br><span class="line">set.forEach((name)-&gt;&#123;</span><br><span class="line">    System.out.println(name);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 <h3 id="set-operations"><a class="markdownIt-Anchor" href="#set-operations"></a> Set Operations</h3>
 <p>set 很適合用來做交集聯集等操作。</p>
-<p><img src="../../images/2024/03/19/set_operation.png" alt="Set Operation" /></p>
+<p><img src="/images/2024/03/19/set_operation.png" alt="Set Operation" /></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">String[] source = &#123;<span class="string">&quot;Jack&quot;</span>, <span class="string">&quot;Tom&quot;</span>&#125;;</span><br><span class="line">Set&lt;String&gt; set2 = <span class="keyword">new</span> <span class="title class_">HashSet</span>&lt;&gt;(Arrays.asList(source)); </span><br><span class="line"></span><br><span class="line"><span class="comment">// union</span></span><br><span class="line">set.addAll(set2); <span class="comment">// [Kevin, Tom, Jack, Emma]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// intersection</span></span><br><span class="line">set.retainAll(set2); <span class="comment">// [Jack]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// difference (自己那邊)</span></span><br><span class="line">set.removeAll(set2); <span class="comment">// [Kevin, Emma]</span></span><br></pre></td></tr></table></figure>
 <h2 id="map"><a class="markdownIt-Anchor" href="#map"></a> Map</h2>
 <p>Map 的關係圖下:<br />
-<img src="../../images/2024/03/19/java_map_interface.png" alt="Java Map Interface" /></p>
+<img src="/images/2024/03/19/java_map_interface.png" alt="Java Map Interface" /></p>
 <blockquote>
 <p>上圖最左邊的 Hashtable 跟 Vector 一樣是老舊的語法，透過 <code>synchronized</code> 同步以實現線程安全，性能不佳，大多時候都可以被取代掉，真的要確保線程安全可以改用 <code>ConcurrentHashMap</code>。</p>
 </blockquote>

@@ -33,7 +33,7 @@
 <meta property="og:image" content="https://mengchiehliu.github.io/images/2024/01/16/canary.png">
 <meta property="og:image" content="https://mengchiehliu.github.io/images/2024/01/16/feature-toggle.png">
 <meta property="article:published_time" content="2024-01-16T09:22:09.000Z">
-<meta property="article:modified_time" content="2024-03-21T13:56:47.625Z">
+<meta property="article:modified_time" content="2024-03-25T15:19:46.550Z">
 <meta property="article:author" content="Meng-Chieh Liu">
 <meta property="article:tag" content="Deployment">
 <meta name="twitter:card" content="summary">
@@ -162,7 +162,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">23</span>
+          <span class="site-state-item-count">24</span>
           <span class="site-state-item-name">文章</span>
         </a>
       </div>
@@ -173,7 +173,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-count">22</span>
         <span class="site-state-item-name">標籤</span></a>
       </div>
   </nav>
@@ -284,7 +284,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <p><img src="../../images/2024/01/16/strategies.png" alt="strategies" /></p>
+        <p><img src="/images/2024/01/16/strategies.png" alt="strategies" /></p>
 <p>這篇文章簡單紀錄了常見的五種部署策略: Big Bang Deployment、Rolling Deployment (滾動部署)、Blue-Green Deployment (藍綠部署)、Canary Deployment (金絲雀部署) 與 Shadow Deployment (影子部署)。</p>
 <span id="more"></span>
 <h1 id="big-bang-deployment"><a class="markdownIt-Anchor" href="#big-bang-deployment"></a> Big Bang Deployment</h1>
@@ -302,7 +302,7 @@
 </li>
 </ul>
 <h1 id="rolling-deployment-滾動部署"><a class="markdownIt-Anchor" href="#rolling-deployment-滾動部署"></a> Rolling Deployment (滾動部署)</h1>
-<p><img src="../../images/2024/01/16/rolling.png" alt="rolling" /></p>
+<p><img src="/images/2024/01/16/rolling.png" alt="rolling" /></p>
 <p>將舊版本逐步 (one by one) 更新為新版本，在這個過程中，舊版本和新版本會共存一段時間。</p>
 <ul>
 <li>優點:
@@ -318,7 +318,7 @@
 </li>
 </ul>
 <h1 id="blue-green-deployment-藍綠部署"><a class="markdownIt-Anchor" href="#blue-green-deployment-藍綠部署"></a> Blue-Green Deployment (藍綠部署)</h1>
-<p><img src="../../images/2024/01/16/blue-green.png" alt="blue-green" /></p>
+<p><img src="/images/2024/01/16/blue-green.png" alt="blue-green" /></p>
 <p>同時維護兩個平行的環境，一個為主要環境 (Blue)，另一個為即將上線的新版本 (Green)，於測試環境測試完新版本後，直接將兩個環境的流量做切換。</p>
 <ul>
 <li>優點:
@@ -334,7 +334,7 @@
 </li>
 </ul>
 <h1 id="canary-deployment-金絲雀部署"><a class="markdownIt-Anchor" href="#canary-deployment-金絲雀部署"></a> Canary Deployment (金絲雀部署)</h1>
-<p><img src="../../images/2024/01/16/canary.png" alt="canary" /></p>
+<p><img src="/images/2024/01/16/canary.png" alt="canary" /></p>
 <p>將新版本釋出給少量用戶做測試，測試沒問題後才將剩下的部署為新版本。</p>
 <ul>
 <li>優點:
@@ -373,7 +373,7 @@
 </li>
 </ul>
 <h2 id="其他-feature-toggle"><a class="markdownIt-Anchor" href="#其他-feature-toggle"></a> 其他: Feature Toggle</h2>
-<p><img src="../../images/2024/01/16/feature-toggle.png" alt="feature-toggle" /></p>
+<p><img src="/images/2024/01/16/feature-toggle.png" alt="feature-toggle" /></p>
 <p>封面的圖片裡還有提到一個 Feature Toggle，概念是在程式中設計一個開關來控制新功能的狀態，可以針對特定用戶開啟，用來觀察新功能的效能、反饋如何，通常是用來做 A/B Test，本質上跟前面提到的幾個部署方法有點差異。</p>
 
     </div>

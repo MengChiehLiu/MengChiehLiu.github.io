@@ -15,7 +15,7 @@ Hexo GitHub：<a href="https://github.com/hexojs/hexo">https://github.com/hexojs
 </ul>
 <blockquote>
 <p>進入網站後選擇LTS版本，然後選擇下載安裝程式，我自己是用Windows作業系統，直接點擊Windows icon就開始下載了，下載好後打開安裝程式一路確認到最後就安裝好啦～安裝完成後可以用 <code>npm --version</code> 來確認是否安裝成功。<br />
-<img src="../../images/2023/03/14/nodejs.png" alt="Node.js" /></p>
+<img src="/images/2023/03/14/nodejs.png" alt="Node.js" /></p>
 </blockquote>
 <ul>
 <li>安裝 git<br />
@@ -23,7 +23,7 @@ Hexo GitHub：<a href="https://github.com/hexojs/hexo">https://github.com/hexojs
 </ul>
 <blockquote>
 <p>選擇對應的作業系統直接下載就好～這裡一樣以Windows為例，選擇的是Standalone Installer下的64-bit Git for Windows Setup，下載好後打開安裝程式一路確認到最後就安裝好啦～安裝完成後可以用 <code>git --version</code> 來確認是否安裝成功。<br />
-<img src="../../images/2023/03/14/git.png" alt="git" /></p>
+<img src="/images/2023/03/14/git.png" alt="git" /></p>
 </blockquote>
 <ul>
 <li>註冊GitHub帳號<br />
@@ -49,7 +49,7 @@ Hexo GitHub：<a href="https://github.com/hexojs/hexo">https://github.com/hexojs
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo server #or</span><br><span class="line">hexo s      </span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>預設主題是landscape，也可以使用其他主題，下一篇文章會教大家如何套用Hexo上的熱門主題nexT！<br />
-<img src="../../images/2023/03/14/landscape.png" alt="landscape" /></p>
+<img src="/images/2023/03/14/landscape.png" alt="landscape" /></p>
 </blockquote>
 <h1 id="hexo-架構"><a class="markdownIt-Anchor" href="#hexo-架構"></a> Hexo 架構</h1>
 <p>在開始加工我們的網站之前，先來認識一下Hexo的資料夾架構！</p>
@@ -72,7 +72,7 @@ Hexo GitHub：<a href="https://github.com/hexojs/hexo">https://github.com/hexojs
 <p>subtitle跟description可寫可不寫<br />
 language預設是英文，可以改成zh-TW顯示繁體中文<br />
 keyword跟Google關鍵字搜尋有關，這裡先忽略不管他，未來有機會再來詳細介紹！<br />
-<img src="../../images/2023/03/14/config_site.png" alt="config_site" /></p>
+<img src="/images/2023/03/14/config_site.png" alt="config_site" /></p>
 </blockquote>
 <h1 id="撰寫文章新增頁面"><a class="markdownIt-Anchor" href="#撰寫文章新增頁面"></a> 撰寫文章/新增頁面</h1>
 <p>在Hexo當中共有三種佈局，分別是draft、post與page，其中draft跟page屬於文章，page則屬於頁面。</p>
@@ -117,11 +117,11 @@ page是功能頁面，常見的有about、tags、categories等，下一篇文章
 <ol>
 <li>
 <p>在GitHub中創建一個新的repository (點右上角加號)<br />
-<img src="../../images/2023/03/14/repository.png" alt="repository" /></p>
+<img src="/images/2023/03/14/repository.png" alt="repository" /></p>
 </li>
 <li>
 <p>repository名稱取為<code>user_name.github.io</code>，然後直接create repository<br />
-<img src="../../images/2023/03/14/repository_create.png" alt="repository_create" /></p>
+<img src="/images/2023/03/14/repository_create.png" alt="repository_create" /></p>
 </li>
 <li>
 <p>修改網頁_config.yml中的URL設置</p>
@@ -131,7 +131,7 @@ page是功能頁面，常見的有about、tags、categories等，下一篇文章
 <blockquote>
 <p>這裡的url是GitHub Pages的網址<br />
 root設成 /<br />
-<img src="../../images/2023/03/14/config_url.png" alt="config_url" /></p>
+<img src="/images/2023/03/14/config_url.png" alt="config_url" /></p>
 </blockquote>
 <ol start="4">
 <li>修改網頁_config.yml中的deploy設置</li>
@@ -139,7 +139,7 @@ root設成 /<br />
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repo: https://github.com/user_name/user_name.github.io.git</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>這裡選擇用HTTPS的方式連結，部署時直接輸入帳號密碼就行，也可以用SSH，不過就要設置金鑰，比較麻煩一些<br />
-<img src="../../images/2023/03/14/config_deploy.png" alt="config_deploy" /></p>
+<img src="/images/2023/03/14/config_deploy.png" alt="config_deploy" /></p>
 </blockquote>
 <ol start="5">
 <li>修改完後記得重新生成一次靜態文件</li>
@@ -148,7 +148,7 @@ root設成 /<br />
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo deploy #or</span><br><span class="line">hexo d</span><br></pre></td></tr></table></figure>
 <ol start="7">
 <li>打開GitHub Pages的網址就能看到我們剛剛部署上去的網頁啦！<br />
-<img src="../../images/2023/03/14/gitpage.png" alt="Alt text" /></li>
+<img src="/images/2023/03/14/gitpage.png" alt="Alt text" /></li>
 </ol>
 <h1 id="預告"><a class="markdownIt-Anchor" href="#預告"></a> 預告</h1>
 <p>下一篇文章我將會介紹如何套用nexT主題，除了講解外觀設定以外，也將帶著大家打造標籤頁及站內搜尋等功能！</p>
@@ -176,10 +176,10 @@ NexT GitHub：<a href="https://github.com/next-theme/hexo-theme-next">https://gi
 <p>我個人是喜歡第二種方法(git)，因為資源為自動進到themes資料夾當中，如果使用第二種方法(npm)的話資源會跑到node_modules資料夾中，雖然在功能上不會有差異，但未來要對主題的config檔做調整時要找比較久。</p>
 <h1 id="套用主題"><a class="markdownIt-Anchor" href="#套用主題"></a> 套用主題</h1>
 <p>到<strong>網頁</strong>的config檔(<code>/_config.yml</code>)，搜尋<strong>theme</strong>將主題設置成next就行了。<br />
-<img src="../../images/2023/03/15/config_theme.png" alt="config_theme" /></p>
+<img src="/images/2023/03/15/config_theme.png" alt="config_theme" /></p>
 <p>另外Next其實有提供4種版面可以做選擇，分別是：💟 <a href="https://theme-next.js.org/muse/">Muse</a> | 🔯 <a href="https://theme-next.js.org/mist/">Mist</a> | ♓️ <a href="https://theme-next.js.org/pisces/">Pisces</a> | ♊️ <a href="https://theme-next.js.org/">Gemini</a></p>
 <p>大家可以點擊連結看看自己喜歡哪種版面，預設是使用Muse，如果要做更改的話，到<strong>主題</strong>的config檔(<code>themes/next/_config.yml</code>)中搜尋<strong>Schemes</strong>，將喜歡的佈局取消註解就可以了，另外下面的<strong>darkmode</strong>改成true的話則是可以讓網頁變成黑色模式。<br />
-<img src="../../images/2023/03/15/next_schemes.png" alt="next_schemes" /></p>
+<img src="/images/2023/03/15/next_schemes.png" alt="next_schemes" /></p>
 <p>NexT也支援canvas背景動畫，我們可以在<strong>主題</strong>config檔搜尋<strong>canvas_ribbon</strong>，將下方的enable改為true，部屬後網頁背景就會出現酷炫的彩色絲帶動畫了～</p>
 <h1 id="添加頭像-avatar"><a class="markdownIt-Anchor" href="#添加頭像-avatar"></a> 添加頭像 avatar</h1>
 <ol>
@@ -188,28 +188,28 @@ NexT GitHub：<a href="https://github.com/next-theme/hexo-theme-next">https://gi
 </ol>
 <blockquote>
 <p>rounded改成true的話頭像會是圓形，rotated改成true的話滑鼠移到頭像上時會有快速旋轉的動畫。<br />
-<img src="../../images/2023/03/15/next_avatar.png" alt="next_avatar" /></p>
+<img src="/images/2023/03/15/next_avatar.png" alt="next_avatar" /></p>
 </blockquote>
 <h1 id="更改網站圖示-favicon"><a class="markdownIt-Anchor" href="#更改網站圖示-favicon"></a> 更改網站圖示 favicon</h1>
 <p>我們可以把網站圖示換成自己的圖片，官方文件中建議可以使用<a href="https://realfavicongenerator.net/">Favicon Generator</a>來生成客製化的網站圖示。</p>
 <ol>
 <li>把準備好的圖片放入<code>themes/next/source/images</code>或<code>source/images</code>當中。</li>
 <li>在<strong>主題</strong>config檔搜尋<strong>favicon</strong>，修改成自己準備的圖片路徑或者修改圖片名稱使其一致。<br />
-<img src="../../images/2023/03/15/next_favicon.png" alt="next_favicon" /></li>
+<img src="/images/2023/03/15/next_favicon.png" alt="next_favicon" /></li>
 </ol>
 <h1 id="社群媒體連結-social-link"><a class="markdownIt-Anchor" href="#社群媒體連結-social-link"></a> 社群媒體連結 social link</h1>
 <p>在<strong>主題</strong>config檔搜尋<strong>social</strong>，將自己的社群媒體連結填入並取消註解就可以了，下方的social_icon則可以設定是否顯示icon及icon外觀。<br />
-<img src="../../images/2023/03/15/next_social.png" alt="next_social" /></p>
+<img src="/images/2023/03/15/next_social.png" alt="next_social" /></p>
 <p>Hexo NexT使用<a href="https://fontawesome.com/icons">Font Awesome</a>提供的icons，因此我們可以為新的連結挑選適合的icon，接下來我們來新增一個Linkedin連結看看(包含icon)。</p>
 <ol>
 <li>先到Font Awesome上搜尋Linkedin，選擇自己喜歡的icon，複製綠色的那段文字。<br />
-<img src="../../images/2023/03/15/font_awesome_linkedin.png" alt="font_awesome_linkedin" /></li>
+<img src="/images/2023/03/15/font_awesome_linkedin.png" alt="font_awesome_linkedin" /></li>
 <li>依<code>標題: 連結 || 綠色文字</code>的格式在social下加入新的一行，舉例來說。</li>
 </ol>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Linkedin: https://www.linkedin.com/in/meng-chieh-liu-615952235/ || fa-brands fa-linkedin</span><br></pre></td></tr></table></figure>
 <h1 id="啟用功能選單-menu"><a class="markdownIt-Anchor" href="#啟用功能選單-menu"></a> 啟用功能選單 Menu</h1>
 <p>在<strong>主題</strong>config檔搜尋<strong>menu</strong>，可以看到NexT預先幫我們建立好許多功能選單，其中home跟archives是預設就開啟的，我們可以取消註解來啟用其他功能選單，但目前那些頁面還是空的喔！所以我們的下一步就是要建立相應的分頁。<br />
-<img src="../../images/2023/03/15/next_menu.png" alt="next_menu" /></p>
+<img src="/images/2023/03/15/next_menu.png" alt="next_menu" /></p>
 <p>這邊介紹如何建立tags/categories頁面：</p>
 <ol>
 <li>建立新頁面</li>
@@ -219,11 +219,11 @@ NexT GitHub：<a href="https://github.com/next-theme/hexo-theme-next">https://gi
 <li>
 <p>找到<code>source/tags/index.md</code>檔案，在檔案中加入<code>type: &quot;tags&quot;</code>，注意這裡的tags要加<strong>雙引號</strong>！！！<br />
 (categories比照辦理)<br />
-<img src="../../images/2023/03/15/tags.png" alt="tags" /></p>
+<img src="/images/2023/03/15/tags.png" alt="tags" /></p>
 </li>
 <li>
 <p>在post裡面加入tags/categories，重新部署後這些tags/categories就會出現對應的頁面上啦～<br />
-<img src="../../images/2023/03/15/post_tags.png" alt="post_tags" /></p>
+<img src="/images/2023/03/15/post_tags.png" alt="post_tags" /></p>
 </li>
 </ol>
 <h1 id="站內搜尋功能-local-search"><a class="markdownIt-Anchor" href="#站內搜尋功能-local-search"></a> 站內搜尋功能 local search</h1>
@@ -234,7 +234,7 @@ NexT GitHub：<a href="https://github.com/next-theme/hexo-theme-next">https://gi
 <ol start="2">
 <li>
 <p>在<strong>主題</strong>config檔搜尋<strong>local_search</strong>，將enable調為true。<br />
-<img src="../../images/2023/03/15/next_local_search.png" alt="next_local_search" /></p>
+<img src="/images/2023/03/15/next_local_search.png" alt="next_local_search" /></p>
 </li>
 <li>
 <p>在<strong>網頁</strong>config檔加入下面設置。</p>
@@ -243,7 +243,7 @@ NexT GitHub：<a href="https://github.com/next-theme/hexo-theme-next">https://gi
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">search:</span><br><span class="line">  path: search.xml</span><br><span class="line">  field: post</span><br><span class="line">  format: html</span><br><span class="line">  limit: 10000</span><br></pre></td></tr></table></figure>
 <ol start="4">
 <li>重新部署後就能開始使用站內搜尋啦～<br />
-<img src="../../images/2023/03/15/local_search.png" alt="local_search" /></li>
+<img src="/images/2023/03/15/local_search.png" alt="local_search" /></li>
 </ol>
 <h1 id="預告"><a class="markdownIt-Anchor" href="#預告"></a> 預告</h1>
 <p>下一篇文章將會帶大家做SEO，設定keywords與sitemap讓Google搜的到我們的部落格/文章。</p>
@@ -260,7 +260,7 @@ NexT GitHub：<a href="https://github.com/next-theme/hexo-theme-next">https://gi
     <title>Hello Hexo！簡單三步驟搞定Google SEO和Bing SEO！(3)</title>
     <url>/posts/Hello-Hexo-3/</url>
     <content><![CDATA[<h1 id="前言"><a class="markdownIt-Anchor" href="#前言"></a> 前言</h1>
-<p><img src="../../images/2023/04/11/google_bing.png" alt="google and bing logo" /></p>
+<p><img src="/images/2023/04/11/google_bing.png" alt="google and bing logo" /></p>
 <p>好不容易架設好Hexo網站，下一個問題就是如何讓自己寫的文章被其他人看見，大家可以在Google搜尋中輸入<code>site: 你的網站url</code>，看看Google能不能找到你的網站，沒意外的話Google應該還找不到你的網站，換做是Bing也一樣，原因是這些搜尋引擎還不認識我們的網站，本篇文章會帶大家使用Google Search Console以及Bing Webmaster來進行SEO。<br />
 (ps. 網路上已經有很多文章介紹Hexo的Google SEO，但在Bing與ChatGPT合作後，搜尋量有了明顯的提升，因此這篇文章除了介紹Google SEO外，也會介紹Bing SEO)</p>
 <span id="more"></span>
@@ -271,18 +271,18 @@ NexT GitHub：<a href="https://github.com/next-theme/hexo-theme-next">https://gi
 <p>我們要在<a href="https://search.google.com/search-console/about">Google Search Console</a>來設定Google的SEO，</p>
 <h2 id="step-1"><a class="markdownIt-Anchor" href="#step-1"></a> Step 1</h2>
 <p>我們首先要驗證我們的網頁，選擇<strong>網站前置字元</strong>，將你的網站url複製上去(舉例:<code>https://MengChiehLiu.github.io/</code>)。<br />
-<img src="../../images/2023/04/11/google_search_console.png" alt="google search console - resource type" /></p>
+<img src="/images/2023/04/11/google_search_console.png" alt="google search console - resource type" /></p>
 <h2 id="step-2"><a class="markdownIt-Anchor" href="#step-2"></a> Step 2</h2>
 <p>我們使用建議的驗證方式，將html檔案下載下來，放到<code>/source</code>路徑下，我們要將檔案內容改成下面這樣:</p>
 <figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 加上這段 --&gt;</span></span><br><span class="line">---</span><br><span class="line">layout: false</span><br><span class="line">---</span><br><span class="line"><span class="comment">&lt;!-- 原本的 --&gt;</span></span><br><span class="line">google-site-verification: googled0a70fa73d09cd65.html</span><br></pre></td></tr></table></figure>
 <p>重新部署網頁後(這很重要!)就可以回到Google Search Console按下驗證。<br />
-<img src="../../images/2023/04/11/google_search_console_2.png" alt="google search console - html verification" /></p>
+<img src="/images/2023/04/11/google_search_console_2.png" alt="google search console - html verification" /></p>
 <h2 id="step-3"><a class="markdownIt-Anchor" href="#step-3"></a> Step 3</h2>
 <p>我們到Sitemap頁面中將加入<code>sitemap.xml</code>，這樣Google搜尋引擎就會定期到我們的sitemap去看我們的部落格有沒有更新了。<br />
-<img src="../../images/2023/04/11/google_search_console_3.png" alt="google search console - sitemap" /></p>
+<img src="/images/2023/04/11/google_search_console_3.png" alt="google search console - sitemap" /></p>
 <h1 id="bing-seo"><a class="markdownIt-Anchor" href="#bing-seo"></a> Bing SEO</h1>
 <p>我們要在<a href="https://www.bing.com/webmasters/about">Bing Webmaster</a>來設定Bing的SEO，Bing的SEO超級簡單，登入後直接從Google Search Console匯入網站資訊就好。<br />
-<img src="../../images/2023/04/11/bing_webmaster.png" alt="bing webmaster" /></p>
+<img src="/images/2023/04/11/bing_webmaster.png" alt="bing webmaster" /></p>
 <h1 id="結語"><a class="markdownIt-Anchor" href="#結語"></a> 結語</h1>
 <p>做完這些設定後，Google和Bing會需要一些時間把我們的網站納入搜尋引擎當中，這個過程可能會需要1~2天。<br />
 上面這些設定只是讓搜尋引擎找的到我們的網站，屬於最基本的SEO，其他如關鍵字以、網址長度也會影響到網站排名，但最重要的還是文章的品質，所以努力寫出好文章也是SEO的關鍵喔。</p>
@@ -307,95 +307,10 @@ hexo預設使用<code>年/月/日/檔案名稱</code>來當作文章url，我們
       </tags>
   </entry>
   <entry>
-    <title>Hello Hexo！功能全部開起來看起來就很厲害了吧？NexT常見設定整理 (4)</title>
-    <url>/posts/Hello-Hexo-4/</url>
-    <content><![CDATA[<h1 id="前言"><a class="markdownIt-Anchor" href="#前言"></a> 前言</h1>
-<p><img src="../../images/2023/04/14/cover.png" alt="cover image" /></p>
-<p>Next之所以受到歡迎，一大原因是因為NexT將很多常用的功能都整合進入主題當中，只要修改一下主題設定檔(config)、下載一下插件(plugins)，就能實現大部分的功能，今天就帶大家看一些常見的功能在NexT主題下要如何實現。</p>
-<span id="more"></span>
-<h1 id="大綱"><a class="markdownIt-Anchor" href="#大綱"></a> 大綱</h1>
-<ul>
-<li><a href="#%E7%95%99%E8%A8%80%E6%9D%BF">留言板</a></li>
-<li><a href="#%E7%89%88%E6%AC%8A%E8%81%B2%E6%98%8E">版權聲明</a></li>
-<li><a href="#%E9%96%B1%E8%AE%80%E9%80%B2%E5%BA%A6">閱讀進度</a></li>
-<li><a href="#%E5%9B%9E%E5%88%B0%E9%A0%82%E9%83%A8">回到頂部</a></li>
-<li><a href="#%E8%A8%AA%E5%AE%A2%E7%B5%B1%E8%A8%88%E3%80%81%E6%96%87%E7%AB%A0%E9%96%B1%E8%AE%80%E7%B5%B1%E8%A8%88">訪客統計、文章閱讀次數</a></li>
-<li><a href="#%E6%96%87%E7%AB%A0%E5%AD%97%E6%95%B8%E3%80%81%E9%96%B1%E8%AE%80%E6%99%82%E9%96%93">文章字數、閱讀時間</a></li>
-</ul>
-<h1 id="功能"><a class="markdownIt-Anchor" href="#功能"></a> 功能</h1>
-<h2 id="留言板"><a class="markdownIt-Anchor" href="#留言板"></a> 留言板</h2>
-<p>留言板是一個很奇妙的東西，雖然心裡想到底有誰會來留言，但沒有的話又好像少了些什麼，所以姑且還是放一下XD。<br />
-NexT支援多種留言版插件，網路上推薦使用的是disqus或utterances (gitalk因為權限要求過高所以沒什麼推薦了)，二選一的情況下，disqus要另外去註冊一個帳號有點麻煩，反觀utterances可以直接連結github repository來儲存評論，且外觀比較簡潔，所以最後決定使用utterances。</p>
-<ol>
-<li>
-<p>到<a href="https://github.com/apps/utterances" title="{rel='nofollow'}">utterances app</a>把app安裝到github上，將權限開給指定的專案repository。(我是直接跟部落格使用同一個，當然你也可以另外開一個新的repository。)</p>
-</li>
-<li>
-<p>找到<code>next/_config.yml</code>中的<code>utterances</code>，將<code>enable</code>改成<code>true</code>，在<code>repo</code>填入剛剛開啟權限的repository名稱，舉例來說我是填<code>MengChiehLiu/MengChiehLiu.github.io</code>，<code>theme</code>參數可以設定不同留言板風格，大家可以自己試試看。</p>
-</li>
-</ol>
-<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">utterances:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">repo:</span> <span class="string">MengChiehLiu/MengChiehLiu.github.io</span></span><br><span class="line">  <span class="attr">issue_term:</span> <span class="string">pathname</span></span><br><span class="line">  <span class="attr">theme:</span> <span class="string">github-light</span></span><br></pre></td></tr></table></figure>
-<ol start="3">
-<li>最後如果你希望留言板只出現在文章頁面，而不要出現在其他page(ex: 標籤頁、分類頁)的話，那要到page下的<code>index.md</code>下修改標頭檔。</li>
-</ol>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: </span><br><span class="line">date: </span><br><span class="line">type: </span><br><span class="line">&lt;!-- 加入下面這一行 --&gt;</span><br><span class="line">comments: false</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
-<h2 id="版權聲明"><a class="markdownIt-Anchor" href="#版權聲明"></a> 版權聲明</h2>
-<p>找到<code>next/_config.yml</code>中的<code>creative_commons</code>，將<code>post</code>改成<code>true</code>就可以了，協議的版本可以參考<a href="https://creativecommons.org/about/cclicenses/" title="{rel='nofollow'}">About CC Licenses</a>自己做挑選。</p>
-<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">creative_commons:</span></span><br><span class="line">  <span class="attr">license:</span> <span class="string">by-nc-sa</span></span><br><span class="line">  <span class="attr">size:</span> <span class="string">small</span></span><br><span class="line">  <span class="attr">sidebar:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">post:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">language:</span></span><br></pre></td></tr></table></figure>
-<p>我自己覺得預設的內容就挺不錯的，不過也可以自訂內容，這邊提供一篇不錯的文章給有興趣的人:</p>
-<ul>
-<li><a href="https://guiblogs.com/hexo30-21/" title="{rel='nofollow'}">Day 21：在 Hexo 增加作者版權聲明（使用 Next 佈景）</a></li>
-</ul>
-<h2 id="閱讀進度"><a class="markdownIt-Anchor" href="#閱讀進度"></a> 閱讀進度</h2>
-<p>找到<code>next/_config.yml</code>中的<code>reading_progress</code>，將<code>enable</code>改成<code>true</code>，開啟後會在網頁頂部/底部顯示閱讀進度條。</p>
-<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">reading_progress:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">start_at:</span> <span class="string">left</span>   <span class="comment"># left/right，從左或右開始</span></span><br><span class="line">  <span class="attr">position:</span> <span class="string">top</span>    <span class="comment"># top/bottom，顯示在網頁頂部或底部</span></span><br><span class="line">  <span class="attr">reversed:</span> <span class="literal">false</span>  <span class="comment"># 開啟的話會從全滿開始扣</span></span><br><span class="line">  <span class="attr">color:</span> <span class="string">&quot;#37c6c0&quot;</span> <span class="comment"># 顏色</span></span><br><span class="line">  <span class="attr">height:</span> <span class="string">3px</span>      <span class="comment"># 進度條寬度</span></span><br></pre></td></tr></table></figure>
-<h2 id="回到頂部"><a class="markdownIt-Anchor" href="#回到頂部"></a> 回到頂部</h2>
-<p>就是網頁往下滑右下角會出現的那個箭頭，按下去會回到網頁的頂部，找到<code>next/_config.yml</code>中的<code>back2top</code>，將<code>enable</code>改成<code>true</code>。</p>
-<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">back2top:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">sidebar:</span> <span class="literal">false</span>        <span class="comment"># 是否也顯示在側邊欄中</span></span><br><span class="line">  <span class="attr">scrollpercent:</span> <span class="literal">false</span>  <span class="comment"># 是否顯示百分比</span></span><br></pre></td></tr></table></figure>
-<h2 id="訪客統計-文章閱讀統計"><a class="markdownIt-Anchor" href="#訪客統計-文章閱讀統計"></a> 訪客統計、文章閱讀統計</h2>
-<p><a href="https://busuanzi.ibruce.info/" title="{rel='nofollow'}">不蒜子</a>是一款極簡的前端計數工具，NexT已經幫我們將不蒜子整合在主題當中，只要修改<code>next/_config.yml</code>中的<code>busuanzi_count</code>，將<code>enable</code>改成<code>true</code>，就可以啟用訪客統計、文章閱讀次數的功能。</p>
-<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">busuanzi_count:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">total_visitors:</span> <span class="literal">true</span>  <span class="comment"># 訪客人數</span></span><br><span class="line">  <span class="attr">total_visitors_icon:</span> <span class="string">fa</span> <span class="string">fa-user</span></span><br><span class="line">  <span class="attr">total_views:</span> <span class="literal">true</span>     <span class="comment"># 全站閱覽次數</span></span><br><span class="line">  <span class="attr">total_views_icon:</span> <span class="string">fa</span> <span class="string">fa-eye</span></span><br><span class="line">  <span class="attr">post_views:</span> <span class="literal">true</span>      <span class="comment"># 文章閱讀統計</span></span><br><span class="line">  <span class="attr">post_views_icon:</span> <span class="string">far</span> <span class="string">fa-eye</span></span><br></pre></td></tr></table></figure>
-<h2 id="文章字數-閱讀時間"><a class="markdownIt-Anchor" href="#文章字數-閱讀時間"></a> 文章字數、閱讀時間</h2>
-<ol>
-<li>下載<code>hexo-word-counter</code>插件</li>
-</ol>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">npm install hexo-word-counter</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">hexo clean</span></span><br></pre></td></tr></table></figure>
-<ol start="2">
-<li>在Hexo的config檔中(主目錄裡的)加入下面設定</li>
-</ol>
-<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">symbols_count_time:</span></span><br><span class="line">  <span class="attr">symbols:</span> <span class="literal">true</span>             <span class="comment"># 文章字數</span></span><br><span class="line">  <span class="attr">time:</span> <span class="literal">true</span>                <span class="comment"># 文章時間</span></span><br><span class="line">  <span class="attr">total_symbols:</span> <span class="literal">false</span>      <span class="comment"># 總文章字數 (顯示在網頁底部)</span></span><br><span class="line">  <span class="attr">total_time:</span> <span class="literal">false</span>         <span class="comment"># 總文章時間 (顯示在網頁底部)</span></span><br><span class="line">  <span class="attr">exclude_codeblock:</span> <span class="literal">false</span>  <span class="comment"># 不考慮程式碼部分</span></span><br><span class="line">  <span class="attr">wpm:</span> <span class="number">275</span>                  <span class="comment"># Words Per Minute</span></span><br><span class="line">  <span class="attr">suffix:</span> <span class="string">&quot;mins.&quot;</span>           <span class="comment"># 時間單位</span></span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>wpm官方文檔中給的建議是<br />
-Slow ≈ 200<br />
-Normal ≈ 275<br />
-Fast ≈ 350<br />
-如果主要是中文的話可以設300，中英夾雜維持275就好。</p>
-</blockquote>
-<ol start="3">
-<li>這個插件有被整合進NexT當中，在完成前一個步驟後，我們可以修改theme config來調整外觀顯示</li>
-</ol>
-<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">post_meta:</span></span><br><span class="line">  <span class="attr">item_text:</span> <span class="literal">true</span>        <span class="comment"># 是否顯示文字部分(文章)</span></span><br><span class="line"></span><br><span class="line"><span class="attr">symbols_count_time:</span></span><br><span class="line">  <span class="attr">separated_meta:</span> <span class="literal">true</span>   <span class="comment"># 是否獨立一行</span></span><br><span class="line">  <span class="attr">item_text_total:</span> <span class="literal">false</span> <span class="comment"># 是否顯示文字部分(網頁底部)</span></span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>不顯示文字的話就不會有<code>文章字數：</code>和<code>所需閱讀時間 ≈</code>，只會有最前面的圖示。</p>
-</blockquote>
-<h2 id="其他"><a class="markdownIt-Anchor" href="#其他"></a> 其他</h2>
-<p>站內搜尋、主選單等功能我在<a href="/posts/Hello-Hexo-2/">這篇文章</a>中有介紹過了，有興趣的人可以去看看。</p>
-<h1 id="預告"><a class="markdownIt-Anchor" href="#預告"></a> 預告</h1>
-<p>下一篇文章會帶大家美化部落格!包括更換背景圖片、變更字體以及其他風格設定~</p>
-]]></content>
-      <categories>
-        <category>Hexo</category>
-      </categories>
-      <tags>
-        <tag>Hexo</tag>
-        <tag>NexT</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Hello Hexo！NexT 主題太單調？跟著這些美化步驟為部落格加入個人風格！(5)</title>
     <url>/posts/Hello-Hexo-5/</url>
     <content><![CDATA[<h1 id="前言"><a class="markdownIt-Anchor" href="#前言"></a> 前言</h1>
-<p><img src="../../images/2023/04/17/cover.png" alt="cover" /></p>
+<p><img src="/images/2023/04/17/cover.png" alt="cover" /></p>
 <p>Hexo Next雖然已經將許多常見的設定整合到主題當中，但大家都採用一樣的設定的話其實挺無聊的，所以今天要在Hexo Next的基礎上帶大家來美化自己的部落格，為部落格加入<strong>個人風格</strong>，如果還不知道Hexo或者NexT是什麼可以參考我之前寫的<a href="/categories/Hexo/">Hello Hexo！</a>系列文章。</p>
 <span id="more"></span>
 <h1 id="大綱"><a class="markdownIt-Anchor" href="#大綱"></a> 大綱</h1>
@@ -557,19 +472,104 @@ Fast ≈ 350<br />
       </tags>
   </entry>
   <entry>
+    <title>Hello Hexo！功能全部開起來看起來就很厲害了吧？NexT常見設定整理 (4)</title>
+    <url>/posts/Hello-Hexo-4/</url>
+    <content><![CDATA[<h1 id="前言"><a class="markdownIt-Anchor" href="#前言"></a> 前言</h1>
+<p><img src="/images/2023/04/14/cover.png" alt="cover image" /></p>
+<p>Next之所以受到歡迎，一大原因是因為NexT將很多常用的功能都整合進入主題當中，只要修改一下主題設定檔(config)、下載一下插件(plugins)，就能實現大部分的功能，今天就帶大家看一些常見的功能在NexT主題下要如何實現。</p>
+<span id="more"></span>
+<h1 id="大綱"><a class="markdownIt-Anchor" href="#大綱"></a> 大綱</h1>
+<ul>
+<li><a href="#%E7%95%99%E8%A8%80%E6%9D%BF">留言板</a></li>
+<li><a href="#%E7%89%88%E6%AC%8A%E8%81%B2%E6%98%8E">版權聲明</a></li>
+<li><a href="#%E9%96%B1%E8%AE%80%E9%80%B2%E5%BA%A6">閱讀進度</a></li>
+<li><a href="#%E5%9B%9E%E5%88%B0%E9%A0%82%E9%83%A8">回到頂部</a></li>
+<li><a href="#%E8%A8%AA%E5%AE%A2%E7%B5%B1%E8%A8%88%E3%80%81%E6%96%87%E7%AB%A0%E9%96%B1%E8%AE%80%E7%B5%B1%E8%A8%88">訪客統計、文章閱讀次數</a></li>
+<li><a href="#%E6%96%87%E7%AB%A0%E5%AD%97%E6%95%B8%E3%80%81%E9%96%B1%E8%AE%80%E6%99%82%E9%96%93">文章字數、閱讀時間</a></li>
+</ul>
+<h1 id="功能"><a class="markdownIt-Anchor" href="#功能"></a> 功能</h1>
+<h2 id="留言板"><a class="markdownIt-Anchor" href="#留言板"></a> 留言板</h2>
+<p>留言板是一個很奇妙的東西，雖然心裡想到底有誰會來留言，但沒有的話又好像少了些什麼，所以姑且還是放一下XD。<br />
+NexT支援多種留言版插件，網路上推薦使用的是disqus或utterances (gitalk因為權限要求過高所以沒什麼推薦了)，二選一的情況下，disqus要另外去註冊一個帳號有點麻煩，反觀utterances可以直接連結github repository來儲存評論，且外觀比較簡潔，所以最後決定使用utterances。</p>
+<ol>
+<li>
+<p>到<a href="https://github.com/apps/utterances" title="{rel='nofollow'}">utterances app</a>把app安裝到github上，將權限開給指定的專案repository。(我是直接跟部落格使用同一個，當然你也可以另外開一個新的repository。)</p>
+</li>
+<li>
+<p>找到<code>next/_config.yml</code>中的<code>utterances</code>，將<code>enable</code>改成<code>true</code>，在<code>repo</code>填入剛剛開啟權限的repository名稱，舉例來說我是填<code>MengChiehLiu/MengChiehLiu.github.io</code>，<code>theme</code>參數可以設定不同留言板風格，大家可以自己試試看。</p>
+</li>
+</ol>
+<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">utterances:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">repo:</span> <span class="string">MengChiehLiu/MengChiehLiu.github.io</span></span><br><span class="line">  <span class="attr">issue_term:</span> <span class="string">pathname</span></span><br><span class="line">  <span class="attr">theme:</span> <span class="string">github-light</span></span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>最後如果你希望留言板只出現在文章頁面，而不要出現在其他page(ex: 標籤頁、分類頁)的話，那要到page下的<code>index.md</code>下修改標頭檔。</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: </span><br><span class="line">date: </span><br><span class="line">type: </span><br><span class="line">&lt;!-- 加入下面這一行 --&gt;</span><br><span class="line">comments: false</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+<h2 id="版權聲明"><a class="markdownIt-Anchor" href="#版權聲明"></a> 版權聲明</h2>
+<p>找到<code>next/_config.yml</code>中的<code>creative_commons</code>，將<code>post</code>改成<code>true</code>就可以了，協議的版本可以參考<a href="https://creativecommons.org/about/cclicenses/" title="{rel='nofollow'}">About CC Licenses</a>自己做挑選。</p>
+<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">creative_commons:</span></span><br><span class="line">  <span class="attr">license:</span> <span class="string">by-nc-sa</span></span><br><span class="line">  <span class="attr">size:</span> <span class="string">small</span></span><br><span class="line">  <span class="attr">sidebar:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">post:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">language:</span></span><br></pre></td></tr></table></figure>
+<p>我自己覺得預設的內容就挺不錯的，不過也可以自訂內容，這邊提供一篇不錯的文章給有興趣的人:</p>
+<ul>
+<li><a href="https://guiblogs.com/hexo30-21/" title="{rel='nofollow'}">Day 21：在 Hexo 增加作者版權聲明（使用 Next 佈景）</a></li>
+</ul>
+<h2 id="閱讀進度"><a class="markdownIt-Anchor" href="#閱讀進度"></a> 閱讀進度</h2>
+<p>找到<code>next/_config.yml</code>中的<code>reading_progress</code>，將<code>enable</code>改成<code>true</code>，開啟後會在網頁頂部/底部顯示閱讀進度條。</p>
+<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">reading_progress:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">start_at:</span> <span class="string">left</span>   <span class="comment"># left/right，從左或右開始</span></span><br><span class="line">  <span class="attr">position:</span> <span class="string">top</span>    <span class="comment"># top/bottom，顯示在網頁頂部或底部</span></span><br><span class="line">  <span class="attr">reversed:</span> <span class="literal">false</span>  <span class="comment"># 開啟的話會從全滿開始扣</span></span><br><span class="line">  <span class="attr">color:</span> <span class="string">&quot;#37c6c0&quot;</span> <span class="comment"># 顏色</span></span><br><span class="line">  <span class="attr">height:</span> <span class="string">3px</span>      <span class="comment"># 進度條寬度</span></span><br></pre></td></tr></table></figure>
+<h2 id="回到頂部"><a class="markdownIt-Anchor" href="#回到頂部"></a> 回到頂部</h2>
+<p>就是網頁往下滑右下角會出現的那個箭頭，按下去會回到網頁的頂部，找到<code>next/_config.yml</code>中的<code>back2top</code>，將<code>enable</code>改成<code>true</code>。</p>
+<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">back2top:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">sidebar:</span> <span class="literal">false</span>        <span class="comment"># 是否也顯示在側邊欄中</span></span><br><span class="line">  <span class="attr">scrollpercent:</span> <span class="literal">false</span>  <span class="comment"># 是否顯示百分比</span></span><br></pre></td></tr></table></figure>
+<h2 id="訪客統計-文章閱讀統計"><a class="markdownIt-Anchor" href="#訪客統計-文章閱讀統計"></a> 訪客統計、文章閱讀統計</h2>
+<p><a href="https://busuanzi.ibruce.info/" title="{rel='nofollow'}">不蒜子</a>是一款極簡的前端計數工具，NexT已經幫我們將不蒜子整合在主題當中，只要修改<code>next/_config.yml</code>中的<code>busuanzi_count</code>，將<code>enable</code>改成<code>true</code>，就可以啟用訪客統計、文章閱讀次數的功能。</p>
+<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">busuanzi_count:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">total_visitors:</span> <span class="literal">true</span>  <span class="comment"># 訪客人數</span></span><br><span class="line">  <span class="attr">total_visitors_icon:</span> <span class="string">fa</span> <span class="string">fa-user</span></span><br><span class="line">  <span class="attr">total_views:</span> <span class="literal">true</span>     <span class="comment"># 全站閱覽次數</span></span><br><span class="line">  <span class="attr">total_views_icon:</span> <span class="string">fa</span> <span class="string">fa-eye</span></span><br><span class="line">  <span class="attr">post_views:</span> <span class="literal">true</span>      <span class="comment"># 文章閱讀統計</span></span><br><span class="line">  <span class="attr">post_views_icon:</span> <span class="string">far</span> <span class="string">fa-eye</span></span><br></pre></td></tr></table></figure>
+<h2 id="文章字數-閱讀時間"><a class="markdownIt-Anchor" href="#文章字數-閱讀時間"></a> 文章字數、閱讀時間</h2>
+<ol>
+<li>下載<code>hexo-word-counter</code>插件</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">npm install hexo-word-counter</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">hexo clean</span></span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>在Hexo的config檔中(主目錄裡的)加入下面設定</li>
+</ol>
+<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">symbols_count_time:</span></span><br><span class="line">  <span class="attr">symbols:</span> <span class="literal">true</span>             <span class="comment"># 文章字數</span></span><br><span class="line">  <span class="attr">time:</span> <span class="literal">true</span>                <span class="comment"># 文章時間</span></span><br><span class="line">  <span class="attr">total_symbols:</span> <span class="literal">false</span>      <span class="comment"># 總文章字數 (顯示在網頁底部)</span></span><br><span class="line">  <span class="attr">total_time:</span> <span class="literal">false</span>         <span class="comment"># 總文章時間 (顯示在網頁底部)</span></span><br><span class="line">  <span class="attr">exclude_codeblock:</span> <span class="literal">false</span>  <span class="comment"># 不考慮程式碼部分</span></span><br><span class="line">  <span class="attr">wpm:</span> <span class="number">275</span>                  <span class="comment"># Words Per Minute</span></span><br><span class="line">  <span class="attr">suffix:</span> <span class="string">&quot;mins.&quot;</span>           <span class="comment"># 時間單位</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>wpm官方文檔中給的建議是<br />
+Slow ≈ 200<br />
+Normal ≈ 275<br />
+Fast ≈ 350<br />
+如果主要是中文的話可以設300，中英夾雜維持275就好。</p>
+</blockquote>
+<ol start="3">
+<li>這個插件有被整合進NexT當中，在完成前一個步驟後，我們可以修改theme config來調整外觀顯示</li>
+</ol>
+<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">post_meta:</span></span><br><span class="line">  <span class="attr">item_text:</span> <span class="literal">true</span>        <span class="comment"># 是否顯示文字部分(文章)</span></span><br><span class="line"></span><br><span class="line"><span class="attr">symbols_count_time:</span></span><br><span class="line">  <span class="attr">separated_meta:</span> <span class="literal">true</span>   <span class="comment"># 是否獨立一行</span></span><br><span class="line">  <span class="attr">item_text_total:</span> <span class="literal">false</span> <span class="comment"># 是否顯示文字部分(網頁底部)</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>不顯示文字的話就不會有<code>文章字數：</code>和<code>所需閱讀時間 ≈</code>，只會有最前面的圖示。</p>
+</blockquote>
+<h2 id="其他"><a class="markdownIt-Anchor" href="#其他"></a> 其他</h2>
+<p>站內搜尋、主選單等功能我在<a href="/posts/Hello-Hexo-2/">這篇文章</a>中有介紹過了，有興趣的人可以去看看。</p>
+<h1 id="預告"><a class="markdownIt-Anchor" href="#預告"></a> 預告</h1>
+<p>下一篇文章會帶大家美化部落格!包括更換背景圖片、變更字體以及其他風格設定~</p>
+]]></content>
+      <categories>
+        <category>Hexo</category>
+      </categories>
+      <tags>
+        <tag>Hexo</tag>
+        <tag>NexT</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>深入瞭解社會網絡分析中的介數中心性(Betweenness Centrality) - 計算方法與Python程式實作</title>
     <url>/posts/betweenness-centrality/</url>
     <content><![CDATA[<h1 id="介紹"><a class="markdownIt-Anchor" href="#介紹"></a> 介紹</h1>
-<p><img src="../../images/2023/03/29/Betweenness_Centrality.png" alt="Betweenness Centrality" /></p>
+<p><img src="/images/2023/03/29/Betweenness_Centrality.png" alt="Betweenness Centrality" /></p>
 <p>介數中心性（Betweenness Centrality）是社會網絡分析中常用的一種指標，用於度量一個節點在整個網絡中扮演了多重要的角色，簡單來說，介數中心性指標評估了一個節點在網絡中擔任了多少條<strong>最短路徑</strong>的中介者角色。</p>
 <p>更白話一點，介數中心性看的是一個節點有<strong>多常被其他人經過</strong>，舉例來說：某些公車站點連接了不同的公車路線，這些公車站點對於連接整個公車網絡起著重要的作用，如果這些公車站發生了任何問題，整個公車路線都會受到影響。這些公車站點就是具有高介數中心性的節點。</p>
 <span id="more"></span>
 <h1 id="計算方法"><a class="markdownIt-Anchor" href="#計算方法"></a> 計算方法</h1>
 <h2 id="介數中心性"><a class="markdownIt-Anchor" href="#介數中心性"></a> 介數中心性</h2>
-<p><img src="../../images/2023/03/29/formula.png" alt="Betweenness Centrality Formula" /></p>
+<p><img src="/images/2023/03/29/formula.png" alt="Betweenness Centrality Formula" /></p>
 <p>公式中，𝜎(sigma)表示最短路徑的數量，分母的意思是從點s到點w的最短路徑的數量，分子的意思是從點s到點w的最短路徑中經過v點的數量，聽起來有點抽象，我們用下面這張圖來解釋：</p>
 <blockquote>
-<p><img src="../../images/2023/03/29/simple_network.png" alt="Simple Network" /><br />
+<p><img src="/images/2023/03/29/simple_network.png" alt="Simple Network" /><br />
 從s點到w點的最短路徑總共有4條，分別是<br />
 <code>s -&gt; 1 -&gt; v -&gt; w</code><br />
 <code>s -&gt; 2 -&gt; v -&gt; w</code><br />
@@ -580,9 +580,9 @@ Fast ≈ 350<br />
 </blockquote>
 <h2 id="標準化"><a class="markdownIt-Anchor" href="#標準化"></a> 標準化</h2>
 <p>聰明的你可能會發現網絡中的節點越多，算出來的值也越大(因為是加總)，因此，為了讓不同網絡之間能被拿來比較，我們要對其進行標準化。</p>
-<p><img src="../../images/2023/03/29/normalization_formula.png" alt="Normalization Formula" /></p>
+<p><img src="/images/2023/03/29/normalization_formula.png" alt="Normalization Formula" /></p>
 <p>其中，分母是Binomial Coefficient，指的是一個網絡的最大可能介數中心性(網路中任選兩點、n-1取2)：<br />
-<img src="../../images/2023/03/29/binomial_coefficient.png" alt="Binomial Coefficient" /></p>
+<img src="/images/2023/03/29/binomial_coefficient.png" alt="Binomial Coefficient" /></p>
 <p>(上面標準化公式的假設是網絡是沒有方向性的，如果有方向性的話就不用除2了。)</p>
 <h1 id="python-實作"><a class="markdownIt-Anchor" href="#python-實作"></a> Python 實作</h1>
 <p>網路上很多有關Betweenness Centrality的教學都是直接套<code>networkx</code>套件，但對於程式邏輯究竟如何實現卻是著墨很少，因此接下來要以<strong>不用套件</strong>的方式來實現unweighted graph中Betweenness Centrality的計算！</p>
@@ -590,7 +590,7 @@ Fast ≈ 350<br />
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">graph = &#123;</span><br><span class="line">    <span class="number">0</span> : [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>], <span class="comment"># 節點 : [他的鄰居]</span></span><br><span class="line">    <span class="number">1</span> : [<span class="number">0</span>, <span class="number">4</span>],</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="pseudo-code"><a class="markdownIt-Anchor" href="#pseudo-code"></a> Pseudo Code</h2>
 <p>來看看Pseudo Code，這個算法可以計算出graph中各個點的Betweenness Centrality:<br />
-<img src="../../images/2023/03/29/pseudo_code.webp" alt="Pseudo Code for Betweenness Centrality" /></p>
+<img src="/images/2023/03/29/pseudo_code.webp" alt="Pseudo Code for Betweenness Centrality" /></p>
 <h2 id="程式邏輯"><a class="markdownIt-Anchor" href="#程式邏輯"></a> 程式邏輯</h2>
 <p>看了霧煞煞? 沒關係，來解釋一下變數的意涵：</p>
 <blockquote>
@@ -630,7 +630,7 @@ C: centrality，介數中心性 (sum of delta)</p>
 <li>接著我們將每個w的path中的v取出，去更新這些v，<code>sigma[v]/sigma[w]</code>表示經過v的最短路徑數/經過w的最短路徑數，這邊比較讓人confused的點應該是，根據前面提到的Betweenness Centrality公式，不是只有<code>sigma[v]/sigma[w]</code>嗎?為什麼要乘以<code>1+delta[w]</code>呢?原因是目前的介數中心性只考慮了v之於w的影響，我們要對其進行修正以納入w後面的節點的影響，我們一樣拿前面用過的例子來解釋：</li>
 </ul>
 <blockquote>
-<p><img src="../../images/2023/03/29/simple_network_2.png" alt="simple network 2" /><br />
+<p><img src="/images/2023/03/29/simple_network_2.png" alt="simple network 2" /><br />
 我們把原本的v當成新的w，把點1當成新的v，從s到w的最短路徑有三條，分別是<br />
 <code>s -&gt; v -&gt; w</code><br />
 <code>s -&gt; 2 -&gt; w</code><br />
@@ -664,7 +664,7 @@ C: centrality，介數中心性 (sum of delta)</p>
   <entry>
     <title>資料結構筆記 - 布隆過濾器 Bloom Filter</title>
     <url>/posts/bloom-filter/</url>
-    <content><![CDATA[<p><img src="../../images/2024/01/10/bloom-filter-new.png" alt="bloom-filter" /></p>
+    <content><![CDATA[<p><img src="/images/2024/01/10/bloom-filter-new.png" alt="bloom-filter" /></p>
 <h1 id="summary"><a class="markdownIt-Anchor" href="#summary"></a> Summary</h1>
 <ul>
 <li>用途: 用來快速判斷元素是否存在於一個集合中</li>
@@ -685,11 +685,11 @@ C: centrality，介數中心性 (sum of delta)</p>
 <p>由預期的 <strong>False positive rate (p)</strong> 以及存入的<strong>資料筆數 (n)</strong> 來求出 <strong>Array Size (m)</strong> 以及 <strong>Hash Functions數 (k)</strong></p>
 <ul>
 <li><strong>False positive rate</strong><br />
-<img src="../../images/2024/01/10/false-positive-probability.png" alt="false-positive-probability" /></li>
+<img src="/images/2024/01/10/false-positive-probability.png" alt="false-positive-probability" /></li>
 <li><strong>Array size</strong><br />
-<img src="../../images/2024/01/10/array-size.png" alt="array-size" /></li>
+<img src="/images/2024/01/10/array-size.png" alt="array-size" /></li>
 <li><strong>Number of hash functions</strong><br />
-<img src="../../images/2024/01/10/number-of-hash-functions.png" alt="number-of-hash-functions" /></li>
+<img src="/images/2024/01/10/number-of-hash-functions.png" alt="number-of-hash-functions" /></li>
 </ul>
 </li>
 <li>
@@ -704,7 +704,7 @@ C: centrality，介數中心性 (sum of delta)</p>
 <p>看一下成果</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">n = <span class="number">100000</span> <span class="comment"># Number of items to add </span></span><br><span class="line">p = <span class="number">0.05</span> <span class="comment"># False positive probability </span></span><br><span class="line">  </span><br><span class="line">bloomf = BloomFilter(n,p) </span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Array size: &#123;&#125;&quot;</span>.<span class="built_in">format</span>(bloomf.size)) </span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Number of hash functions: &#123;&#125;&quot;</span>.<span class="built_in">format</span>(bloomf.hash_count)) </span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;False positive probability: &#123;&#125;&quot;</span>.<span class="built_in">format</span>(bloomf.fp_prob)) </span><br><span class="line"></span><br><span class="line"><span class="comment"># Add items</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">	bloomf.add(<span class="built_in">str</span>(i))</span><br><span class="line"></span><br><span class="line"><span class="comment"># Check false positive rate on Test data</span></span><br><span class="line">fp = <span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n, <span class="number">2</span>*n):</span><br><span class="line">	<span class="keyword">if</span> bloomf.check(<span class="built_in">str</span>(i)):</span><br><span class="line">		fp += <span class="number">1</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;False positive rate on test data: &#123;:.4f&#125;&quot;</span>.<span class="built_in">format</span>(fp/n)) </span><br></pre></td></tr></table></figure>
 <p>可以看到實際的 FP Rate 與我們設定的非常接近。<br />
-<img src="../../images/2024/01/10/filter-result.png" alt="filter-result" /></p>
+<img src="/images/2024/01/10/filter-result.png" alt="filter-result" /></p>
 <h1 id="參考文章"><a class="markdownIt-Anchor" href="#參考文章"></a> 參考文章</h1>
 <p><a href="https://www.geeksforgeeks.org/bloom-filters-introduction-and-python-implementation/">Bloom Filters – Introduction and Implementation</a></p>
 ]]></content>
@@ -718,7 +718,7 @@ C: centrality，介數中心性 (sum of delta)</p>
   <entry>
     <title>系統架構筆記 - 常見的五種部署策略</title>
     <url>/posts/deployment-strategies/</url>
-    <content><![CDATA[<p><img src="../../images/2024/01/16/strategies.png" alt="strategies" /></p>
+    <content><![CDATA[<p><img src="/images/2024/01/16/strategies.png" alt="strategies" /></p>
 <p>這篇文章簡單紀錄了常見的五種部署策略: Big Bang Deployment、Rolling Deployment (滾動部署)、Blue-Green Deployment (藍綠部署)、Canary Deployment (金絲雀部署) 與 Shadow Deployment (影子部署)。</p>
 <span id="more"></span>
 <h1 id="big-bang-deployment"><a class="markdownIt-Anchor" href="#big-bang-deployment"></a> Big Bang Deployment</h1>
@@ -736,7 +736,7 @@ C: centrality，介數中心性 (sum of delta)</p>
 </li>
 </ul>
 <h1 id="rolling-deployment-滾動部署"><a class="markdownIt-Anchor" href="#rolling-deployment-滾動部署"></a> Rolling Deployment (滾動部署)</h1>
-<p><img src="../../images/2024/01/16/rolling.png" alt="rolling" /></p>
+<p><img src="/images/2024/01/16/rolling.png" alt="rolling" /></p>
 <p>將舊版本逐步 (one by one) 更新為新版本，在這個過程中，舊版本和新版本會共存一段時間。</p>
 <ul>
 <li>優點:
@@ -752,7 +752,7 @@ C: centrality，介數中心性 (sum of delta)</p>
 </li>
 </ul>
 <h1 id="blue-green-deployment-藍綠部署"><a class="markdownIt-Anchor" href="#blue-green-deployment-藍綠部署"></a> Blue-Green Deployment (藍綠部署)</h1>
-<p><img src="../../images/2024/01/16/blue-green.png" alt="blue-green" /></p>
+<p><img src="/images/2024/01/16/blue-green.png" alt="blue-green" /></p>
 <p>同時維護兩個平行的環境，一個為主要環境 (Blue)，另一個為即將上線的新版本 (Green)，於測試環境測試完新版本後，直接將兩個環境的流量做切換。</p>
 <ul>
 <li>優點:
@@ -768,7 +768,7 @@ C: centrality，介數中心性 (sum of delta)</p>
 </li>
 </ul>
 <h1 id="canary-deployment-金絲雀部署"><a class="markdownIt-Anchor" href="#canary-deployment-金絲雀部署"></a> Canary Deployment (金絲雀部署)</h1>
-<p><img src="../../images/2024/01/16/canary.png" alt="canary" /></p>
+<p><img src="/images/2024/01/16/canary.png" alt="canary" /></p>
 <p>將新版本釋出給少量用戶做測試，測試沒問題後才將剩下的部署為新版本。</p>
 <ul>
 <li>優點:
@@ -807,7 +807,7 @@ C: centrality，介數中心性 (sum of delta)</p>
 </li>
 </ul>
 <h2 id="其他-feature-toggle"><a class="markdownIt-Anchor" href="#其他-feature-toggle"></a> 其他: Feature Toggle</h2>
-<p><img src="../../images/2024/01/16/feature-toggle.png" alt="feature-toggle" /></p>
+<p><img src="/images/2024/01/16/feature-toggle.png" alt="feature-toggle" /></p>
 <p>封面的圖片裡還有提到一個 Feature Toggle，概念是在程式中設計一個開關來控制新功能的狀態，可以針對特定用戶開啟，用來觀察新功能的效能、反饋如何，通常是用來做 A/B Test，本質上跟前面提到的幾個部署方法有點差異。</p>
 ]]></content>
       <categories>
@@ -830,7 +830,7 @@ C: centrality，介數中心性 (sum of delta)</p>
 <p>一般來說我們可以使用<strong>插值法</strong>來計算 IRR，假設 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi></mrow><annotation encoding="application/x-tex">{r}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02778em;">r</span></span></span></span></span>=5% 時 NPV &gt; 0，<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi></mrow><annotation encoding="application/x-tex">{r}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02778em;">r</span></span></span></span></span>=6% 時 NPV &lt; 0，那我們就能說 IRR 在 5%~6% 之間，可以用 <strong>Binary Search</strong> 的概念去實作，但這次我決定用點不一樣的。</p>
 <h2 id="牛頓法-newtons-method"><a class="markdownIt-Anchor" href="#牛頓法-newtons-method"></a> 牛頓法 (Newton’s method)</h2>
 <p>所謂的<strong>牛頓法</strong>是一種求解方程式 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">{f(x) = 0}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mord">0</span></span></span></span></span> 的根的方法。我們把上面 NPV 公式裡的 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi></mrow><annotation encoding="application/x-tex">{r}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02778em;">r</span></span></span></span></span> 換成 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">{x}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord"><span class="mord mathnormal">x</span></span></span></span></span>，便可以把 NPV 視作 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">{f(x)}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span></span></span> ，則 IRR 即是 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">{f(x) = 0}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mord">0</span></span></span></span></span> 的根，因此牛頓法正好可以拿來求解 IRR。</p>
-<p><img src="../../images/2024/03/21/newton_method.png" alt="Newton method" /></p>
+<p><img src="/images/2024/03/21/newton_method.png" alt="Newton method" /></p>
 <p>我們讓 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">{f(x)}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span></span></span> 對 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">{x_{n}}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">n</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></span> 做偏微分得到一斜率，進一步計算出通過 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">{x_{n}}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">n</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></span> 之切線，接著找到切線與 x 軸的交點 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub></mrow><annotation encoding="application/x-tex">{x_{n+1}}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.638891em;vertical-align:-0.208331em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.301108em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">n</span><span class="mbin mtight">+</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.208331em;"><span></span></span></span></span></span></span></span></span></span></span>，其值為:</p>
 <p><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mstyle scriptlevel="0" displaystyle="true"><msub><mi>x</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><msub><mi>x</mi><mi>n</mi></msub><mo>−</mo><mfrac><mrow><mi>f</mi><mo stretchy="false">(</mo><msub><mi>x</mi><mi>n</mi></msub><mo stretchy="false">)</mo></mrow><mrow><msup><mi>f</mi><mo mathvariant="normal" lspace="0em" rspace="0em">′</mo></msup><mo stretchy="false">(</mo><msub><mi>x</mi><mi>n</mi></msub><mo stretchy="false">)</mo></mrow></mfrac></mstyle></mrow><annotation encoding="application/x-tex">{\displaystyle x_{n+1}=x_{n}-{\frac {f(x_{n})}{f&#x27;(x_{n})}}}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:2.363em;vertical-align:-0.936em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.301108em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">n</span><span class="mbin mtight">+</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.208331em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">n</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord"><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.427em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6778919999999999em;"><span style="top:-2.9890000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">n</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">n</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.936em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></span></p>
 <p>能發現 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub></mrow><annotation encoding="application/x-tex">{x_{n+1}}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.638891em;vertical-align:-0.208331em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.301108em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">n</span><span class="mbin mtight">+</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.208331em;"><span></span></span></span></span></span></span></span></span></span></span> 相比於 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">{x_{n}}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">n</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></span> 更靠近我們要求的根，因此我們能迭代的進行這個操作，直到 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo stretchy="false">(</mo><msub><mi>x</mi><mi>n</mi></msub><mo stretchy="false">)</mo><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">{f(x_{n}) = 0}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">n</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mord">0</span></span></span></span></span>，或者 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mi>b</mi><mi>s</mi><mo stretchy="false">(</mo><mrow><mi>f</mi><mo stretchy="false">(</mo><msub><mi>x</mi><mi>n</mi></msub><mo stretchy="false">)</mo></mrow><mo>−</mo><mn>0</mn><mo stretchy="false">)</mo><mo>&lt;</mo><mi>t</mi><mi>o</mi><mi>l</mi><mi>e</mi><mi>r</mi><mi>a</mi><mi>n</mi><mi>c</mi><mi>e</mi></mrow><annotation encoding="application/x-tex">{abs({f(x_{n})} - 0) &lt; tolerance}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal">a</span><span class="mord mathnormal">b</span><span class="mord mathnormal">s</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">n</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord">0</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mord mathnormal">t</span><span class="mord mathnormal">o</span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord mathnormal">e</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal">a</span><span class="mord mathnormal">n</span><span class="mord mathnormal">c</span><span class="mord mathnormal">e</span></span></span></span></span>。</p>
@@ -856,14 +856,14 @@ C: centrality，介數中心性 (sum of delta)</p>
     <title>Java 自學筆記 01 - Basics</title>
     <url>/posts/java-learning-01/</url>
     <content><![CDATA[<h2 id="jvm-jre-jdk"><a class="markdownIt-Anchor" href="#jvm-jre-jdk"></a> JVM, JRE &amp; JDK</h2>
-<p><img src="../../images/2024/03/18/JVM_JRE_JDK.png" alt="JVM, JRE &amp; JDK" /></p>
+<p><img src="/images/2024/03/18/JVM_JRE_JDK.png" alt="JVM, JRE &amp; JDK" /></p>
 <h3 id="java-vs-c"><a class="markdownIt-Anchor" href="#java-vs-c"></a> Java vs C</h3>
 <p>當開發 C 或 C++ 程式時，通常會先將原始碼透過編譯器轉換成目標機器可以理解的 Object Code。這個 Object Code 是特定於目標機器架構的，因此在不同的硬體平台上可能會產生不同的機器碼。因此，當將程式移植到不同的機器或架構時，通常需要重新編譯原始碼以生成適用於該特定平台的新 Object Code。</p>
 <span id="more"></span>
 <h3 id="jvm-java-virtual-machine"><a class="markdownIt-Anchor" href="#jvm-java-virtual-machine"></a> JVM (Java Virtual Machine)</h3>
 <p>Java 通過 JVM 來解決跨平台的問題，程式在編譯時是先翻譯成 JVM 的 Byte code，執行時才由 JVM 轉換為機器碼，由於不是直接編譯成機械碼，這表示只要新的平台有安裝 JVM，就不用重新編譯一遍了。<br />
 某方面來說 JVM 算是一種 interpreter，負責執行 Byte code。<br />
-<img src="../../images/2024/03/18/JVM.png" alt="JVM" /></p>
+<img src="/images/2024/03/18/JVM.png" alt="JVM" /></p>
 <h3 id="jre-java-runtime-environment"><a class="markdownIt-Anchor" href="#jre-java-runtime-environment"></a> JRE (Java Runtime Environment)</h3>
 <p>JRE 包含了執行 Java 程式所需的所有檔案和庫，包括 JVM、Class Libraries、Java API 等，也就是說單單是執行而不需要開發的話安裝 JRE 就夠了。</p>
 <h3 id="jdk-java-development-kit"><a class="markdownIt-Anchor" href="#jdk-java-development-kit"></a> JDK (Java Development Kit)</h3>
@@ -882,13 +882,13 @@ C: centrality，介數中心性 (sum of delta)</p>
 </ul>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">java Hello</span></span><br></pre></td></tr></table></figure>
 <h2 id="data-type"><a class="markdownIt-Anchor" href="#data-type"></a> Data Type</h2>
-<p><img src="../../images/2024/03/18/java_data_type.png" alt="Java Data Type" /></p>
+<p><img src="/images/2024/03/18/java_data_type.png" alt="Java Data Type" /></p>
 <h3 id="資料型態轉換"><a class="markdownIt-Anchor" href="#資料型態轉換"></a> 資料型態轉換</h3>
 <ul>
 <li>浮點數大於整數<br />
 double &gt; float &gt; long &gt; int &gt; short &gt; byte</li>
 <li>小轉大OK，大轉小error<br />
-<img src="../../images/2024/03/18/java_casting.png" alt="Java Casting" /></li>
+<img src="/images/2024/03/18/java_casting.png" alt="Java Casting" /></li>
 <li>大轉小可以強制轉換，但可能失真</li>
 </ul>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> <span class="variable">n1</span> <span class="operator">=</span> <span class="number">1024</span>;</span><br><span class="line"><span class="type">byte</span> <span class="variable">n2</span> <span class="operator">=</span> (<span class="type">byte</span>)n1; <span class="comment">// 不一樣 (2進位高位被截斷)</span></span><br></pre></td></tr></table></figure>
@@ -904,7 +904,7 @@ double &gt; float &gt; long &gt; int &gt; short &gt; byte</li>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"><span class="type">Scanner</span> <span class="variable">s</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Scanner</span>(System.in);</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="variable">x</span> <span class="operator">=</span> s.nextInt();</span><br><span class="line"><span class="type">String</span> <span class="variable">text</span> <span class="operator">=</span> s.next();</span><br></pre></td></tr></table></figure>
 <h2 id="array"><a class="markdownIt-Anchor" href="#array"></a> Array</h2>
 <p>Java 的陣列跟 C 不一樣，不是以連續的記憶體表達陣列，而是以一種 object 的形式實作，因此多維的陣列係由前一層指向後一層，所以不同層的 Array 長度可以不一樣 !!!</p>
-<p><img src="../../images/2024/03/18/java_array.png" alt="Java Array" /></p>
+<p><img src="/images/2024/03/18/java_array.png" alt="Java Array" /></p>
 <p>Array 的宣告與初始化方法。</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span>[][] x = <span class="keyword">new</span> <span class="title class_">int</span>[<span class="number">2</span>][<span class="number">2</span>];</span><br><span class="line">x = &#123;&#123;<span class="number">1</span>,<span class="number">2</span>&#125;,&#123;<span class="number">3</span>,<span class="number">4</span>&#125;&#125;;</span><br><span class="line">x.length <span class="comment">// x的長度</span></span><br></pre></td></tr></table></figure>
 <h2 id="class-and-object"><a class="markdownIt-Anchor" href="#class-and-object"></a> Class and Object</h2>
@@ -934,7 +934,7 @@ double &gt; float &gt; long &gt; int &gt; short &gt; byte</li>
   <entry>
     <title>Java 自學筆記 02 - OOP</title>
     <url>/posts/java-learning-02/</url>
-    <content><![CDATA[<p><img src="../../images/2024/03/18/java_oop.png" alt="Java OOP" /></p>
+    <content><![CDATA[<p><img src="/images/2024/03/18/java_oop.png" alt="Java OOP" /></p>
 <p>Java 是一個物件導向的程式語言，重點在於如何定義物件之間的互動，Object Oriented Programming (OOP) 的三大特性分別是: <strong>Encapsulation (封裝)</strong>、<strong>Inheritance (繼承)</strong> 與 <strong>Polymorphism (多型)</strong> 。</p>
 <span id="more"></span>
 <h2 id="encapsulation-封裝"><a class="markdownIt-Anchor" href="#encapsulation-封裝"></a> Encapsulation (封裝)</h2>
@@ -1000,7 +1000,7 @@ double &gt; float &gt; long &gt; int &gt; short &gt; byte</li>
   <entry>
     <title>Java 自學筆記 03 - Interface &amp; Abstract</title>
     <url>/posts/java-learning-03/</url>
-    <content><![CDATA[<p><img src="../../images/2024/03/19/java_interface_abstract.png" alt="Interface &amp; Abstract" /></p>
+    <content><![CDATA[<p><img src="/images/2024/03/19/java_interface_abstract.png" alt="Interface &amp; Abstract" /></p>
 <p>OOP 除了有 Encapsulation、Inheritance 與 Polymorphism 三大要素外，<strong>Interface</strong> 與 <strong>Abstract</strong> 也是 OOP 中的重要概念。</p>
 <span id="more"></span>
 <h2 id="interface-介面"><a class="markdownIt-Anchor" href="#interface-介面"></a> Interface (介面)</h2>
@@ -1041,11 +1041,11 @@ interface 裡的方法則是 <strong>public</strong> 以及 <strong>abstract</st
     <url>/posts/java-learning-04/</url>
     <content><![CDATA[<h2 id="collection"><a class="markdownIt-Anchor" href="#collection"></a> Collection</h2>
 <p>Collection 是 Java 中用來存儲、操作數據結構的一種框架，在此之下提供了許多實用的 Interface，包括 <strong>List</strong>、<strong>Queue</strong> 以及 <strong>Set</strong> (Map 是分開的)。</p>
-<p><img src="../../images/2024/03/19/java_collection.png" alt="Java Collection" /></p>
+<p><img src="/images/2024/03/19/java_collection.png" alt="Java Collection" /></p>
 <span id="more"></span>
 <h2 id="list"><a class="markdownIt-Anchor" href="#list"></a> List</h2>
 <p>List 基本上就是動態數組，其下有 <strong>ArrayList</strong>、<strong>LinkedList</strong>、<strong>Vector</strong> 等不同的實現。</p>
-<p><img src="../../images/2024/03/19/java_list_interface.png" alt="Java List Interface" /></p>
+<p><img src="/images/2024/03/19/java_list_interface.png" alt="Java List Interface" /></p>
 <ul>
 <li><strong>ArrayList</strong>: 透過索引訪問的動態陣列，查尋的時間複雜度為 <strong>O(1)</strong>，然而插入時會將後面的元素全部往右移 (刪除時則是全部往左移)，因此時間複雜度最差為 <strong>O(n)</strong>。<strong>適合用在隨機查找、頻繁訪問及更新的資料上。</strong></li>
 <li><strong>LinkedList</strong>: 透過雙向鏈結實現的動態陣列，插入與刪除的效率高，操作本身的時間複雜度為 <strong>O(1)</strong>，但查找時需要遍歷整個鏈表，因此時間複雜度最差為 <strong>O(n)</strong>。<strong>適用於需要大量插入和刪除操作的情況。</strong></li>
@@ -1060,7 +1060,7 @@ interface 裡的方法則是 <strong>public</strong> 以及 <strong>abstract</st
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line">List&lt;String&gt; list = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;(); <span class="comment">// Interface&lt;Object&gt;</span></span><br><span class="line"><span class="comment">// List&lt;String&gt; list = new LinkedList&lt;&gt;(); </span></span><br><span class="line">list.add(<span class="string">&quot;Jack&quot;</span>);</span><br><span class="line">list.add(<span class="string">&quot;Emma&quot;</span>);</span><br><span class="line">list.add(<span class="string">&quot;Jack&quot;</span>);</span><br><span class="line">list.addAll(names);</span><br><span class="line">System.out.println(list); <span class="comment">// [Jack, Emma, Jack, Sandy, Jack]</span></span><br><span class="line"></span><br><span class="line">list.get(<span class="number">0</span>); <span class="comment">// Jack</span></span><br><span class="line">list.indexOf(<span class="string">&quot;Jack&quot;</span>); <span class="comment">// 0</span></span><br><span class="line">list.size(); <span class="comment">// 5</span></span><br><span class="line">list.isEmpty(); <span class="comment">// false</span></span><br><span class="line"></span><br><span class="line">list.set(<span class="number">0</span>, <span class="string">&quot;Timmy&quot;</span>);</span><br><span class="line">System.out.println(list);  <span class="comment">// [Timmy, Emma, Jack, Sandy, Jack]</span></span><br><span class="line"></span><br><span class="line">list.remove(<span class="number">0</span>); <span class="comment">// remove(index): return element or throw exception</span></span><br><span class="line">list.remove(<span class="string">&quot;Jack&quot;</span>); <span class="comment">// remove(Object): return True or False</span></span><br><span class="line">System.out.println(list);  <span class="comment">// [Emma, Sandy, Jack]</span></span><br><span class="line"></span><br><span class="line">list.removeIf(x-&gt;x.contains(<span class="string">&quot;J&quot;</span>));</span><br><span class="line">System.out.println(list);  <span class="comment">// [Emma, Sandy]</span></span><br><span class="line"></span><br><span class="line">list.clear();</span><br></pre></td></tr></table></figure>
 <h2 id="queue"><a class="markdownIt-Anchor" href="#queue"></a> Queue</h2>
 <p>Queue 是一個<strong>先進先出 (FIFO)</strong> 的資料集合，其下大致上可以分為 Deque 及 Priority Queue 兩類，Deque 有 <strong>ArrayDeque</strong>、<strong>LinkedList</strong> 等實現，Priority Queue 的實現則是 <strong>PriorityQueue</strong>。<br />
-<img src="../../images/2024/03/19/java_queue_interface.png" alt="Java Queue Interface" /></p>
+<img src="/images/2024/03/19/java_queue_interface.png" alt="Java Queue Interface" /></p>
 <ul>
 <li><strong>LinkedList</strong>: 前面就提到過了，雙向鏈結的特性使其能夠快速地對頭尾元素進行操作。</li>
 <li><strong>ArrayDeque</strong>: 同時有 Deque 以及 Array 的性質，能快速地訪問元素，也可以快速地對頭尾元素進行操作。</li>
@@ -1086,7 +1086,7 @@ interface 裡的方法則是 <strong>public</strong> 以及 <strong>abstract</st
     <url>/posts/java-learning-05/</url>
     <content><![CDATA[<h2 id="set"><a class="markdownIt-Anchor" href="#set"></a> Set</h2>
 <p>Set 的關係圖如下:<br />
-<img src="../../images/2024/03/19/java_set_interface.png" alt="Java Set Interface" /></p>
+<img src="/images/2024/03/19/java_set_interface.png" alt="Java Set Interface" /></p>
 <p>比較常用的:</p>
 <ul>
 <li><strong>HashSet</strong>: 不保證保存順序，速度最快</li>
@@ -1101,11 +1101,11 @@ interface 裡的方法則是 <strong>public</strong> 以及 <strong>abstract</st
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Iterator&lt;String&gt; newSet = set.iterator();     </span><br><span class="line"><span class="keyword">while</span> (newSet.hasNext()) &#123;   </span><br><span class="line">    System.out.println(newSet.next());   </span><br><span class="line">&#125;  </span><br><span class="line"><span class="comment">// or</span></span><br><span class="line"><span class="keyword">for</span> (String name: set)&#123;</span><br><span class="line">    System.out.println(name); </span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// or</span></span><br><span class="line">set.forEach((name)-&gt;&#123;</span><br><span class="line">    System.out.println(name);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 <h3 id="set-operations"><a class="markdownIt-Anchor" href="#set-operations"></a> Set Operations</h3>
 <p>set 很適合用來做交集聯集等操作。</p>
-<p><img src="../../images/2024/03/19/set_operation.png" alt="Set Operation" /></p>
+<p><img src="/images/2024/03/19/set_operation.png" alt="Set Operation" /></p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line">String[] source = &#123;<span class="string">&quot;Jack&quot;</span>, <span class="string">&quot;Tom&quot;</span>&#125;;</span><br><span class="line">Set&lt;String&gt; set2 = <span class="keyword">new</span> <span class="title class_">HashSet</span>&lt;&gt;(Arrays.asList(source)); </span><br><span class="line"></span><br><span class="line"><span class="comment">// union</span></span><br><span class="line">set.addAll(set2); <span class="comment">// [Kevin, Tom, Jack, Emma]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// intersection</span></span><br><span class="line">set.retainAll(set2); <span class="comment">// [Jack]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// difference (自己那邊)</span></span><br><span class="line">set.removeAll(set2); <span class="comment">// [Kevin, Emma]</span></span><br></pre></td></tr></table></figure>
 <h2 id="map"><a class="markdownIt-Anchor" href="#map"></a> Map</h2>
 <p>Map 的關係圖下:<br />
-<img src="../../images/2024/03/19/java_map_interface.png" alt="Java Map Interface" /></p>
+<img src="/images/2024/03/19/java_map_interface.png" alt="Java Map Interface" /></p>
 <blockquote>
 <p>上圖最左邊的 Hashtable 跟 Vector 一樣是老舊的語法，透過 <code>synchronized</code> 同步以實現線程安全，性能不佳，大多時候都可以被取代掉，真的要確保線程安全可以改用 <code>ConcurrentHashMap</code>。</p>
 </blockquote>
@@ -1142,7 +1142,7 @@ interface 裡的方法則是 <strong>public</strong> 以及 <strong>abstract</st
     <url>/posts/java-learning-06/</url>
     <content><![CDATA[<h2 id="java-thread"><a class="markdownIt-Anchor" href="#java-thread"></a> Java Thread</h2>
 <p>There are two ways to new a thread in Java:</p>
-<p><img src="../../images/2024/03/20/java_thread.png" alt="Java Thread" /></p>
+<p><img src="/images/2024/03/20/java_thread.png" alt="Java Thread" /></p>
 <span id="more"></span>
 <h3 id="implemented-from-runnable-interface"><a class="markdownIt-Anchor" href="#implemented-from-runnable-interface"></a> Implemented from Runnable Interface</h3>
 <p>Runnable 是一個 interface，<code>run()</code> 裡面放的就是 thread 要執行的內容，一定要 <strong>override</strong> 且一定要設為 <strong>public</strong>。</p>
@@ -1161,7 +1161,7 @@ interface 裡的方法則是 <strong>public</strong> 以及 <strong>abstract</st
 <p>同時有多個 thread 對同一個資源進行操作時，可能會出現 <strong>race condition</strong>，導致結果不如預期，舉例來說:</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">SyncThread</span> <span class="keyword">extends</span> <span class="title class_">Thread</span>&#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="type">int</span> <span class="variable">sum</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">0</span>; i&lt;<span class="number">10000</span>; i++)&#123;</span><br><span class="line">            addOne();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">addOne</span><span class="params">()</span>&#123;</span><br><span class="line">        sum += <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SharedResources</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span>&#123;</span><br><span class="line">        <span class="type">Thread</span> <span class="variable">thread1</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SyncThread</span>();</span><br><span class="line">        <span class="type">Thread</span> <span class="variable">thread2</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SyncThread</span>();</span><br><span class="line">        thread1.start();</span><br><span class="line">        thread2.start();</span><br><span class="line">        <span class="keyword">try</span>&#123;</span><br><span class="line">            thread1.join();</span><br><span class="line">            thread2.join();</span><br><span class="line">        &#125;<span class="keyword">catch</span>(InterruptedException e)&#123;</span><br><span class="line">            <span class="comment">// ...</span></span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(SyncThread.sum);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>每一個 thread 各別對 <code>sum</code> 進行 <code>addOne()</code> 10000 次，理論上最後的結果應該是<code>sum = 20000</code>，但最後結果卻小於 20000 (每次跑會不太一樣)，原因大致上是這樣:</p>
-<p><img src="../../images/2024/03/20/race_condition.png" alt="race_condition" /></p>
+<p><img src="/images/2024/03/20/race_condition.png" alt="race_condition" /></p>
 <h3 id="synchronized"><a class="markdownIt-Anchor" href="#synchronized"></a> Synchronized</h3>
 <p>我們可以使用 <code>synchronized</code> 關鍵字來實現同步，確保在同一時間只有一個 thread 在執行指定的代碼，使用方法有:</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 1. 修飾方法</span></span><br><span class="line"><span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title function_">addOne</span><span class="params">()</span>&#123;</span><br><span class="line">        sum += <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 2. 修飾代碼塊</span></span><br><span class="line"><span class="keyword">void</span> <span class="title function_">addOne</span><span class="params">()</span>&#123;</span><br><span class="line">    <span class="keyword">synchronized</span> (<span class="built_in">this</span>)&#123;</span><br><span class="line">        sum += <span class="number">1</span>;</span><br><span class="line">    &#125;        </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -1191,7 +1191,7 @@ interface 裡的方法則是 <strong>public</strong> 以及 <strong>abstract</st
     <url>/posts/java-learning-07/</url>
     <content><![CDATA[<p>在 Java 的多線程操作中，Concurrent Queue 是一種非常重要的容器，在共享資源的同時也能夠幫我們進行流程控制。<br />
 Java 的 Concurrent Queue 可以分為兩類，分別是 <strong>Blocking Queue</strong> 以及 <strong>Non Blocking Queue</strong>，兩種都是線程安全的，文章的最後會用 Blocking Queue 來實作 <strong>Producer Consumer Problem</strong> !</p>
-<p><img src="../../images/2024/03/20/consumer_producer.png" alt="Consumer Producer" /></p>
+<p><img src="/images/2024/03/20/consumer_producer.png" alt="Consumer Producer" /></p>
 <span id="more"></span>
 <h2 id="non-blocking-queue"><a class="markdownIt-Anchor" href="#non-blocking-queue"></a> Non Blocking Queue</h2>
 <p>Non Blocking Queue 其實就是一般的 Queue，對 Queue 進行操作要馬成功要馬失敗，無論如何會立刻知道結果。<br />
@@ -1203,7 +1203,7 @@ CAS 是原子操作的一種 (atomic)，它的基本思想是比較目標內存�
 </blockquote>
 <h2 id="blocking-queue"><a class="markdownIt-Anchor" href="#blocking-queue"></a> Blocking Queue</h2>
 <p>Blocking Queue 相比於 Non Blocking Queue 多了<strong>阻塞等待</strong>的動作，大部分的 Concurrent Queue 都是屬於 Blocking Queue，如 <strong>ArrayBlockingQueue</strong>、<strong>LinkedBlockingQueue</strong> 等，其阻塞是基於 <strong>Lock</strong> 來實現的，具體來說 Blocking Queue 多了四種操作:</p>
-<p><img src="../../images/2024/03/20/blocking_queue.png" alt="Blocking Queue" /></p>
+<p><img src="/images/2024/03/20/blocking_queue.png" alt="Blocking Queue" /></p>
 <ul>
 <li><strong>put(e)</strong>: 從尾部放入元素，如果佇列已滿則阻塞等待，直到出現空位並放入。</li>
 <li><strong>take(e)</strong>: 從頭部取出元素，如果佇列為空則阻塞等待，直到出現元素並取出。</li>
@@ -1270,10 +1270,98 @@ CAS 是原子操作的一種 (atomic)，它的基本思想是比較目標內存�
       </tags>
   </entry>
   <entry>
+    <title>Java 自學筆記 09 - Stream API</title>
+    <url>/posts/java-learning-09/</url>
+    <content><![CDATA[<h2 id="java-stream"><a class="markdownIt-Anchor" href="#java-stream"></a> Java Stream</h2>
+<p><img src="/images/2024/03/25/java_stream.png" alt="Java Stream" /></p>
+<p><strong>Stream</strong> 是一個元素形成的隊列，其<strong>來源 (Source)</strong> 可以是集合或數組，Stream 本身並不會存儲元素，其操作也不會影響到原始來源，單純以數據流的方式來處理數據，依性質可以分為兩類：</p>
+<ul>
+<li><strong>中間操作 (Intermediate Operations)</strong><br />
+Stream 的中間步驟，一個 Stream 可以有多個中間操作，會返回一個新的 stream，屬於<strong>惰性求值 (Lazy Evaluation)</strong>，意思是不會馬上計算結果，而是等到終端操作時才一併計算。</li>
+<li><strong>終端操作 (Terminal Operations)</strong><br />
+Stream 的最後一步，一個 stream 只能有一個終端操作，會產生一個新的集合或值。</li>
+</ul>
+<span id="more"></span>
+<h3 id="創建-stream"><a class="markdownIt-Anchor" href="#創建-stream"></a> 創建 Stream</h3>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// array to stream</span></span><br><span class="line"><span class="type">int</span>[] array = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125;;</span><br><span class="line">Arrays.stream(array);</span><br><span class="line">Stream.of(array);</span><br><span class="line"></span><br><span class="line"><span class="comment">// collecitions to stream</span></span><br><span class="line">List&lt;Integer&gt; numbers = Arrays.asList(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>);</span><br><span class="line">Set&lt;Integer&gt; set = <span class="keyword">new</span> <span class="title class_">HashSet</span>&lt;&gt;(numbers);</span><br><span class="line">Map&lt;Integer, Integer&gt; map = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;()&#123;&#123;</span><br><span class="line">    put(<span class="number">1</span>, <span class="number">1</span>); put(<span class="number">2</span>, <span class="number">2</span>); put(<span class="number">3</span>,<span class="number">3</span>)</span><br><span class="line">&#125;&#125;;</span><br><span class="line"></span><br><span class="line">numbers.stream();</span><br><span class="line">set.stream();</span><br><span class="line">map.keySet().stream();</span><br><span class="line">map.values().stream();</span><br></pre></td></tr></table></figure>
+<h3 id="parallel-stream"><a class="markdownIt-Anchor" href="#parallel-stream"></a> Parallel Stream</h3>
+<p>Stream 支援<strong>併行流 (parallelStream)</strong>，底層默認使用 <strong>ForkJoinPool</strong>，所謂的 ForkJoinPool 其實就是 divide and conquer 算法，將任務不斷拆分成小任務處理，能充分利用 CPU 的效能，細節可以參考: <a href="https://popcornylu.gitbooks.io/java_multithread/content/threadpool/forkjoin.html">ForkJoin Pool</a></p>
+<p><img src="/images/2024/03/25/ForkJoinPool.png" alt="ForkJoinPool" /></p>
+<p>可以直接創建 Parallel Stream 也可以從 Stream 轉換：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">numbers.parallelStream();    <span class="comment">// or</span></span><br><span class="line">numbers.stream().parallel();</span><br></pre></td></tr></table></figure>
+<h2 id="遍歷匹配-foreachfindmatch"><a class="markdownIt-Anchor" href="#遍歷匹配-foreachfindmatch"></a> 遍歷/匹配 (foreach/find/match)</h2>
+<p>findFirst、findAny 等操作返回的為一個 <strong>Optional</strong> 物件，用來表示一個可能為 null 的值，常用方法為:</p>
+<ul>
+<li><strong>get()</strong>：获取 Optional 对象中的值，如果值为 null，则抛出 NoSuchElementException 异常。</li>
+<li><strong>orElse(T other)</strong>：获取 Optional 对象中的值，如果值为 null，则返回指定的默认值。</li>
+<li><strong>isPresent()</strong>：判断 Optional 对象是否包含值。</li>
+<li><strong>ifPresent(Consumer&lt;? super T&gt; consumer)</strong>：如果 Optional 对象包含值，则执行指定的操作。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// forEach</span></span><br><span class="line">numbers.stream()</span><br><span class="line">    .forEach(System.out:: println);</span><br><span class="line"></span><br><span class="line"><span class="comment">// findFirst (返回第一個)</span></span><br><span class="line">Optional&lt;Integer&gt; first = numbers.stream()</span><br><span class="line">    .filter(n -&gt; n &gt; <span class="number">2</span>)</span><br><span class="line">    .findFirst();</span><br><span class="line">first.get();</span><br><span class="line"></span><br><span class="line"><span class="comment">// findAny (返回任一個)</span></span><br><span class="line">numbers.parallelStream()</span><br><span class="line">    .filter(n -&gt; n &gt; <span class="number">2</span>)</span><br><span class="line">    .findAny()</span><br><span class="line">    .get();</span><br><span class="line"></span><br><span class="line"><span class="comment">// anyMatch (任一符合)</span></span><br><span class="line"><span class="type">boolean</span> <span class="variable">match</span> <span class="operator">=</span> numbers.parallelStream()</span><br><span class="line">    .filter(n -&gt; n &gt; <span class="number">2</span>)</span><br><span class="line">    .anyMatch();</span><br></pre></td></tr></table></figure>
+<h2 id="篩選-filter"><a class="markdownIt-Anchor" href="#篩選-filter"></a> 篩選 (filter)</h2>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">numbers.stream()</span><br><span class="line">    .filter(n -&gt; n % <span class="number">2</span> == <span class="number">0</span>)</span><br><span class="line">    .sorted((n1, n2)-&gt; n2 - n1)    <span class="comment">// Descending </span></span><br><span class="line">    .forEach(System.out::println);</span><br></pre></td></tr></table></figure>
+<h2 id="映射-mapflatmap"><a class="markdownIt-Anchor" href="#映射-mapflatmap"></a> 映射 (map/flatMap)</h2>
+<ul>
+<li><strong>map</strong>: 把一個元素映射到一個新的元素</li>
+<li><strong>flatMap</strong>: 把一個元素映射到一個新的 stream</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">numbers.stream()</span><br><span class="line">    .map(n -&gt; n * n)</span><br><span class="line">    .collect(Collectors.toList());</span><br></pre></td></tr></table></figure>
+<p>假設要將 <code>&#123;&quot;Hello&quot;, &quot;World&quot;&#125;</code> 轉換成 <code>&#123;&quot;H&quot;, &quot;e&quot;, &quot;l&quot;, &quot;o&quot;, &quot;W&quot;, &quot;r&quot;, &quot;d&quot;&#125;</code>，那我們不能直接用 <code>map(s-&gt;s.split(&quot;&quot;))</code>，因為 map 回傳的是一個元素，所以會是 <code>String[]</code>，這時候就可以改用<strong>flatMap</strong>:</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">helloworld = &#123;<span class="string">&quot;H&quot;</span>, <span class="string">&quot;e&quot;</span>, <span class="string">&quot;l&quot;</span>, <span class="string">&quot;o&quot;</span>, <span class="string">&quot;W&quot;</span>, <span class="string">&quot;r&quot;</span>, <span class="string">&quot;d&quot;</span>&#125;;</span><br><span class="line"></span><br><span class="line">helloworld.stream()</span><br><span class="line">    .flatMap(word-&gt; Arrays.stream(word.split(<span class="string">&quot;&quot;</span>)))</span><br><span class="line">    .distinct()</span><br><span class="line">    .collect(Collectors.toList());</span><br></pre></td></tr></table></figure>
+<h2 id="歸約-reduce"><a class="markdownIt-Anchor" href="#歸約-reduce"></a> 歸約 (reduce)</h2>
+<ul>
+<li><strong>identity</strong>: 初始值，沒設置就是用第一筆資料當初始值。</li>
+<li><strong>accumulator</strong>: 累加器函數，第一個參數是累加值，第二個參數是當前值。</li>
+<li><strong>combiner</strong>: 組合器函數，在 parallel 情況下用來合併各個線程的結果。</li>
+</ul>
+<h3 id="accumulator"><a class="markdownIt-Anchor" href="#accumulator"></a> accumulator</h3>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Optional&lt;T&gt; reduce(</span></span><br><span class="line"><span class="comment">//     BinaryOperator&lt;T&gt; accumulator</span></span><br><span class="line"><span class="comment">// )</span></span><br><span class="line">Optional&lt;Integer&gt; opt_sum = numbers.stream()</span><br><span class="line">    .reduce((acc, x) -&gt; acc + x);</span><br><span class="line"><span class="type">int</span> <span class="variable">sum1</span> <span class="operator">=</span> opt_sum.get();</span><br></pre></td></tr></table></figure>
+<h3 id="identity-accumulator"><a class="markdownIt-Anchor" href="#identity-accumulator"></a> identity + accumulator</h3>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// T reduce(</span></span><br><span class="line"><span class="comment">//     T identity, </span></span><br><span class="line"><span class="comment">//     BinaryOperator&lt;T&gt; accumulator</span></span><br><span class="line"><span class="comment">// )</span></span><br><span class="line"><span class="type">int</span> <span class="variable">sum2</span> <span class="operator">=</span> numbers.stream()</span><br><span class="line">    .reduce(<span class="number">0</span>, (acc, x) -&gt; acc + x);</span><br></pre></td></tr></table></figure>
+<h3 id="identity-accumulator-combiner"><a class="markdownIt-Anchor" href="#identity-accumulator-combiner"></a> identity + accumulator + combiner</h3>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// &lt;U&gt; U reduce(</span></span><br><span class="line"><span class="comment">//     U identity, </span></span><br><span class="line"><span class="comment">//     BiFunction&lt;U, ? super T, U&gt; accumulator,</span></span><br><span class="line"><span class="comment">//     BinaryOperator&lt;U&gt; combiner</span></span><br><span class="line"><span class="comment">// )</span></span><br><span class="line">numbers.parallelStream()</span><br><span class="line">    .reduce(<span class="number">0</span>, (acc, x)-&gt;&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;acc: &quot;</span> + acc + <span class="string">&quot;, x: &quot;</span> + x);</span><br><span class="line">        <span class="keyword">return</span> acc+x;</span><br><span class="line">    &#125;,(comb, x)-&gt;&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;comb: &quot;</span> + comb + <span class="string">&quot;, x: &quot;</span> + x);</span><br><span class="line">        <span class="keyword">return</span> comb+x;</span><br><span class="line">    &#125;);</span><br></pre></td></tr></table></figure>
+<p>output:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">acc: 0, x: 2    // 各線程</span><br><span class="line">acc: 0, x: 1</span><br><span class="line">acc: 0, x: 3</span><br><span class="line">comb: 2, x: 3   // 合併線程</span><br><span class="line">comb: 1, x: 5</span><br></pre></td></tr></table></figure>
+<p>可以發現每個元素都被當作是一個新的線程了 (acc 都是 0)，等於 accumulator 根本沒派上用場，事實上，accumulator 在這裡的作用反而更像是一個中介的轉換器，負責將原本的類型 <strong>T</strong> 轉換到 <strong>U</strong>，可以參考: <a href="https://stackoverflow.com/questions/24308146/why-is-a-combiner-needed-for-reduce-method-that-converts-type-in-java-8">Why is a combiner needed for reduce method that converts type in java 8</a></p>
+<h2 id="收集-collect"><a class="markdownIt-Anchor" href="#收集-collect"></a> 收集 (collect)</h2>
+<p><strong>collect</strong> 的目的是用來將 stream 轉存為其他資料型態。</p>
+<h3 id="stream-to-collections"><a class="markdownIt-Anchor" href="#stream-to-collections"></a> stream to collections</h3>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">numbers.stream()</span><br><span class="line">    .collect(Collectors.toList());</span><br><span class="line">numbers.stream()</span><br><span class="line">    .collect(Collectors.toSet());</span><br><span class="line">numbers.stream()</span><br><span class="line">    .collect(Collectors.toMap(x-&gt;x, x-&gt;x));</span><br></pre></td></tr></table></figure>
+<h3 id="partitioningby-groupingby"><a class="markdownIt-Anchor" href="#partitioningby-groupingby"></a> partitioningBy / groupingBy</h3>
+<ul>
+<li><strong>partitioningBy</strong>: 分為兩群 (<code>Map&lt;boolean, List&lt;T&gt;&gt;</code>)</li>
+<li><strong>groupingBy</strong>: 分為多群 (<code>Map&lt;T, List&lt;T&gt;&gt;</code>)</li>
+</ul>
+<p><img src="/images/2024/03/25/partitioningBy.png" alt="partitioningBy" /></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">numbers.stream()</span><br><span class="line">    .collect(Collectors.partitioningBy(x -&gt; x&gt;<span class="number">2</span>));</span><br><span class="line">numbers.stream()</span><br><span class="line">    .collect(Collectors.groupingBy(x -&gt; x%<span class="number">4</span>));</span><br></pre></td></tr></table></figure>
+<h3 id="joining-string"><a class="markdownIt-Anchor" href="#joining-string"></a> joining (String)</h3>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">joined</span> <span class="operator">=</span> numbers.stream()</span><br><span class="line">    .map(String::valueOf)</span><br><span class="line">    .collect(Collectors.joining(<span class="string">&quot;-&quot;</span>));</span><br></pre></td></tr></table></figure>
+<h2 id="統計-maxminsumaveragecount"><a class="markdownIt-Anchor" href="#統計-maxminsumaveragecount"></a> 統計 (max/min/sum/average/count)</h2>
+<h3 id="max-min"><a class="markdownIt-Anchor" href="#max-min"></a> max / min</h3>
+<p>max / min 相關的操作都是返回 <strong>Optional</strong> 物件。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// int</span></span><br><span class="line">Optional&lt;Integer&gt; max = numbers.stream()</span><br><span class="line">    .max(Integer::compareTo);</span><br><span class="line">max.get();</span><br><span class="line"></span><br><span class="line"><span class="comment">// String</span></span><br><span class="line">names.stream()</span><br><span class="line">    .min(Comparator.comparing(String::valueOf))</span><br><span class="line">    .get();</span><br><span class="line"></span><br><span class="line"><span class="comment">// stream</span></span><br><span class="line">numbers.stream()</span><br><span class="line">    .collect(Collectors.maxBy(Integer::compareTo))</span><br><span class="line">    .get();</span><br></pre></td></tr></table></figure>
+<h3 id="sum-average-count"><a class="markdownIt-Anchor" href="#sum-average-count"></a> sum / average / count</h3>
+<p>注意 average 回傳的是 double</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// sum</span></span><br><span class="line">numbers.stream()</span><br><span class="line">    .collect(Collectors.summingInt(x-&gt;x));</span><br><span class="line"></span><br><span class="line"><span class="comment">// average</span></span><br><span class="line"><span class="type">double</span> <span class="variable">average</span> <span class="operator">=</span> numbers.stream()</span><br><span class="line">    .collect(Collectors.averagingInt(x-&gt;x));</span><br><span class="line"></span><br><span class="line"><span class="comment">// count</span></span><br><span class="line">names.stream().count();</span><br><span class="line">names.stream().collect(Collectors.counting());</span><br></pre></td></tr></table></figure>
+<h2 id="參考資料"><a class="markdownIt-Anchor" href="#參考資料"></a> 參考資料</h2>
+<p><a href="https://www.runoob.com/java/java8-streams.html">Java 8 Stream | 菜鸟教程</a><br />
+<a href="https://blog.csdn.net/m0_58093863/article/details/123165069">Java8 Stream 流的创建、筛选、映射、排序、归约、分组、聚合、提取与组合、收集、接合、foreach遍历</a><br />
+<a href="https://www.cnblogs.com/lijingran/p/8727507.html">java8中stream的map和flatmap的理解</a><br />
+<a href="https://blog.csdn.net/IO_Field/article/details/54971679">Java 8系列之Stream中万能的reduce</a></p>
+]]></content>
+      <categories>
+        <category>Java Learning</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>Java Stream</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>MongoDB概念介紹 + PyMongo基本CRUD操作教學</title>
     <url>/posts/pymongo/</url>
     <content><![CDATA[<h1 id="前言"><a class="markdownIt-Anchor" href="#前言"></a> 前言</h1>
-<p><img src="../../images/2023/05/05/cover.png" alt="cover image" /></p>
+<p><img src="/images/2023/05/05/cover.png" alt="cover image" /></p>
 <p>因為課堂專案的關係需要用到MongoDB所以小學了一下，發現MongoDB真的是很香，撇開資料庫易用性，光是MongoDB Atlas提供每位使用者免費10GB的雲端資料庫空間(免填信用卡)，就很值得你辦個帳號來玩一下了。這篇文章會簡單介紹一下MongoDB，以及如何用python PyMongo完成資料庫的CRUD操作。</p>
 <span id="more"></span>
 <h1 id="mongodb-atlas"><a class="markdownIt-Anchor" href="#mongodb-atlas"></a> MongoDB Atlas</h1>
@@ -1329,8 +1417,8 @@ Data accessed together should be stored todether.</p>
 <p>其中，<code>CONNECTION_STRING</code>的格式長這樣，記得要換成自己的帳號、密碼:</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">mongodb+srv://&lt;user_name&gt;:&lt;password&gt;@thrifty.0xdedx2.mongodb.net/?retryWrites=true&amp;w=majority</span><br></pre></td></tr></table></figure>
 <p>這串東西好長喔記不起來怎麼辦? 進入mongodb atlas後，可以在 Connect → Drivers → python 裡找到<br />
-<img src="../../images/2023/05/05/mongodb_atlas_connect.png" alt="mongodb atlas connect" /><br />
-<img src="../../images/2023/05/05/mongodb_atlas_connection_string.png" alt="mongodb atlas connection string" /></p>
+<img src="/images/2023/05/05/mongodb_atlas_connect.png" alt="mongodb atlas connect" /><br />
+<img src="/images/2023/05/05/mongodb_atlas_connection_string.png" alt="mongodb atlas connection string" /></p>
 <p>我們可以直接透過client物件來建立或取用database，可以使用key-value的方式或呼叫object的方式，舉例來說我想要create一個名叫test_database的database，那我可以用:</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">database = client.test_database <span class="comment"># or</span></span><br><span class="line">database = client[<span class="string">&#x27;test_database&#x27;</span>]</span><br></pre></td></tr></table></figure>
 <p>同理，我們可以透過db物件來建立或取用collection:</p>
@@ -1398,7 +1486,7 @@ Data accessed together should be stored todether.</p>
   <entry>
     <title>系統架構筆記 - 垂直擴展、水平擴展</title>
     <url>/posts/scaling/</url>
-    <content><![CDATA[<p><img src="../../images/2024/01/17/scaling.png" alt="scaling" /></p>
+    <content><![CDATA[<p><img src="/images/2024/01/17/scaling.png" alt="scaling" /></p>
 <p>這篇文章會介紹垂直擴展以及水平擴展，並以資料庫的水平擴展為延伸，介紹讀寫分離與資料庫切分 (Sharding)。</p>
 <span id="more"></span>
 <h1 id="垂直擴展"><a class="markdownIt-Anchor" href="#垂直擴展"></a> 垂直擴展</h1>
@@ -1417,7 +1505,7 @@ Data accessed together should be stored todether.</p>
 </ol>
 <h2 id="資料庫切分-partitioning-sharding"><a class="markdownIt-Anchor" href="#資料庫切分-partitioning-sharding"></a> 資料庫切分 (Partitioning / Sharding)</h2>
 <p>將一個資料庫 (大資料表) 分割為多個小資料表，並將其儲存在不同節點上，又可以分為<strong>垂直切分</strong>與<strong>水平切分</strong>：<br />
-<img src="../../images/2024/01/17/sharding.png" alt="sharding" /></p>
+<img src="/images/2024/01/17/sharding.png" alt="sharding" /></p>
 <h3 id="垂直切分"><a class="markdownIt-Anchor" href="#垂直切分"></a> 垂直切分</h3>
 <p>按照欄位來進行切分，通常可以按照業務功能來做切割，如電商平台中的買家資訊與賣家資訊就可以分開儲存。</p>
 <h3 id="水平切分"><a class="markdownIt-Anchor" href="#水平切分"></a> 水平切分</h3>
@@ -1444,7 +1532,7 @@ Data accessed together should be stored todether.</p>
     <title>Spectral Clustering - 算法解析與numpy程式實作</title>
     <url>/posts/spectral-clustering/</url>
     <content><![CDATA[<h1 id="前言"><a class="markdownIt-Anchor" href="#前言"></a> 前言</h1>
-<p><img src="../../images/2023/04/27/cluster_analysis.jpg" alt="Spectral Clustering" /></p>
+<p><img src="/images/2023/04/27/cluster_analysis.jpg" alt="Spectral Clustering" /></p>
 <p>在社群網絡中分析中，有時候會想要找出網絡當中的社群(community detection)，一個最直觀的想法是直接對網絡進行分群，那麼分群結果就是各個community了。<br />
 如果我們能夠計算各個節點之間的相似性，那麼我們當然可以直接套用傳統的分群方法，如cosine similiarity，但一來是相似度特徵可能很難取得，二來是這樣分群的話就沒有利用到網絡的結構了，這時我們可以改為使用基於圖論的分群方法。<br />
 今天這篇文章會帶大家簡單瞭解什麼是cut approach, balanced-cut approach以及其代表方法spectral clustering，並示範不依賴其他套件，僅使用numpy實作spectral clustering。</p>
@@ -1461,7 +1549,7 @@ Data accessed together should be stored todether.</p>
 聽起來很直觀，但這樣切會有一個問題，那就是有可能會切出一些非常小的community，導致分群不夠balance。</p>
 <h2 id="balanced-cut-approach"><a class="markdownIt-Anchor" href="#balanced-cut-approach"></a> Balanced-cut Approach</h2>
 <p>為了解決Mini-cut Approach的缺點，Balanced-cut Approach在切割網絡時除了考量原本的edge，另外除以community的node數做加權調整，切割的目標從最小化edge數轉為最小化ratio cut，公式如下:<br />
-<img src="../../images/2023/04/27/ratio_cut.png" alt="Ratio Cut formula" /></p>
+<img src="/images/2023/04/27/ratio_cut.png" alt="Ratio Cut formula" /></p>
 <p>公式解釋: 分成k群(k要自己決定)，每次取一個群<code>Pi</code>出來看，分子部分表示將<code>Pi</code>切開的話會切到的edge數，分母部分表示<code>Pi</code>內部的node數，將k個群的結果加總起來就會是整個網路的ratio cut分數。</p>
 <h3 id="matrixs"><a class="markdownIt-Anchor" href="#matrixs"></a> Matrixs</h3>
 <p>為了要計算Ratio Cut，我們先要來認識一下三種矩陣:</p>
@@ -1509,7 +1597,7 @@ Laplacian Matrix 的算法就是直接將Diagonal Degree Matrix 減去 Adjacency
 (我這邊直接矩陣相除，大家可以自己算。)</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">array([[ <span class="number">2.</span> , -inf, -inf],</span><br><span class="line">       [-inf,  <span class="number">1.</span> , -inf],</span><br><span class="line">       [-inf, -inf,  <span class="number">1.5</span>]])</span><br></pre></td></tr></table></figure>
 <p>根據上面矩陣運算的過程，我們能將公式重新整理為:<br />
-<img src="../../images/2023/04/27/ratio_cut_2.png" alt="ratio cut formula extended" /></p>
+<img src="/images/2023/04/27/ratio_cut_2.png" alt="ratio cut formula extended" /></p>
 <p>在第三行的部分，我們另外對X進行標準化(同除以分母)變成了<code>X prime</code>。</p>
 <h3 id="minimize"><a class="markdownIt-Anchor" href="#minimize"></a> Minimize</h3>
 <p>回到最一開始的問題，我們的目標是要最小化ratio cut的分數，方法就是透過上面的公式去求解<code>X prime</code>矩陣，難過的是，還記的X矩陣裡最一開始只能填入0跟1嗎，想要在這樣嚴格的限制下求出最佳解是個<strong>NP-hard</strong>的問題。<br />
@@ -1558,7 +1646,7 @@ Laplacian Matrix 的算法就是直接將Diagonal Degree Matrix 減去 Adjacency
 <li>我們回到上一層，改走<code>bo</code>這條路徑。</li>
 <li><code>bot</code>符合我們要找的答案，並且他也是單字的結尾，因此回傳<code>true</code>。</li>
 </ol>
-<p><img src="../../images/2023/03/20/trie.png" alt="trie" /></p>
+<p><img src="/images/2023/03/20/trie.png" alt="trie" /></p>
 <h1 id="方法一-pointers-c"><a class="markdownIt-Anchor" href="#方法一-pointers-c"></a> 方法一: Pointers (C++)</h1>
 <p>重點</p>
 <ul>
@@ -1594,7 +1682,7 @@ Laplacian Matrix 的算法就是直接將Diagonal Degree Matrix 減去 Adjacency
 <li>節點是可以被共用的，舉例來說&quot;sun&quot;及&quot;sup&quot;就共用了s、u兩個節點。</li>
 <li>葉子節點一定是單字結尾，但非葉節點也可以是結尾，舉例來說&quot;an&quot;及&quot;and&quot;分別是兩個單字，其中n及d都是單字的結尾(綠色)。</li>
 </ol>
-<p><img src="../../images/2023/03/18/trie.png" alt="trie" /><br />
+<p><img src="/images/2023/03/18/trie.png" alt="trie" /><br />
 字典樹的優點是可以快速查找字符串，且可以按照字典序進行排序。但缺點是需要較大的空間來存儲，且插入和刪除操作相對較慢。</p>
 <h1 id="實作-trie"><a class="markdownIt-Anchor" href="#實作-trie"></a> 實作 Trie</h1>
 <p>實作的內容就是一開始提到的LeetCode 208，簡單來說就是要做出初始化、插入、尋找及尋找前綴4個功能，詳細題目可以自己到LeetCode去看。</p>

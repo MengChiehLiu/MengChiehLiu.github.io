@@ -30,7 +30,7 @@
 <meta property="og:image" content="https://mengchiehliu.github.io/images/2024/01/17/scaling.png">
 <meta property="og:image" content="https://mengchiehliu.github.io/images/2024/01/17/sharding.png">
 <meta property="article:published_time" content="2024-01-17T09:16:08.000Z">
-<meta property="article:modified_time" content="2024-03-21T13:57:47.966Z">
+<meta property="article:modified_time" content="2024-03-25T15:20:56.789Z">
 <meta property="article:author" content="Meng-Chieh Liu">
 <meta property="article:tag" content="Scaling">
 <meta name="twitter:card" content="summary">
@@ -159,7 +159,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">23</span>
+          <span class="site-state-item-count">24</span>
           <span class="site-state-item-name">文章</span>
         </a>
       </div>
@@ -170,7 +170,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-count">22</span>
         <span class="site-state-item-name">標籤</span></a>
       </div>
   </nav>
@@ -281,7 +281,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <p><img src="../../images/2024/01/17/scaling.png" alt="scaling" /></p>
+        <p><img src="/images/2024/01/17/scaling.png" alt="scaling" /></p>
 <p>這篇文章會介紹垂直擴展以及水平擴展，並以資料庫的水平擴展為延伸，介紹讀寫分離與資料庫切分 (Sharding)。</p>
 <span id="more"></span>
 <h1 id="垂直擴展"><a class="markdownIt-Anchor" href="#垂直擴展"></a> 垂直擴展</h1>
@@ -300,7 +300,7 @@
 </ol>
 <h2 id="資料庫切分-partitioning-sharding"><a class="markdownIt-Anchor" href="#資料庫切分-partitioning-sharding"></a> 資料庫切分 (Partitioning / Sharding)</h2>
 <p>將一個資料庫 (大資料表) 分割為多個小資料表，並將其儲存在不同節點上，又可以分為<strong>垂直切分</strong>與<strong>水平切分</strong>：<br />
-<img src="../../images/2024/01/17/sharding.png" alt="sharding" /></p>
+<img src="/images/2024/01/17/sharding.png" alt="sharding" /></p>
 <h3 id="垂直切分"><a class="markdownIt-Anchor" href="#垂直切分"></a> 垂直切分</h3>
 <p>按照欄位來進行切分，通常可以按照業務功能來做切割，如電商平台中的買家資訊與賣家資訊就可以分開儲存。</p>
 <h3 id="水平切分"><a class="markdownIt-Anchor" href="#水平切分"></a> 水平切分</h3>

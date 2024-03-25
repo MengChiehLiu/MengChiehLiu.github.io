@@ -30,7 +30,7 @@
 <meta property="og:image" content="https://mengchiehliu.github.io/images/2024/03/20/consumer_producer.png">
 <meta property="og:image" content="https://mengchiehliu.github.io/images/2024/03/20/blocking_queue.png">
 <meta property="article:published_time" content="2024-03-20T15:24:22.000Z">
-<meta property="article:modified_time" content="2024-03-21T13:56:24.482Z">
+<meta property="article:modified_time" content="2024-03-25T15:20:48.875Z">
 <meta property="article:author" content="Meng-Chieh Liu">
 <meta property="article:tag" content="Java">
 <meta property="article:tag" content="Multi-thread">
@@ -160,7 +160,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">23</span>
+          <span class="site-state-item-count">24</span>
           <span class="site-state-item-name">文章</span>
         </a>
       </div>
@@ -171,7 +171,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-count">22</span>
         <span class="site-state-item-name">標籤</span></a>
       </div>
   </nav>
@@ -315,7 +315,7 @@
     <div class="post-body" itemprop="articleBody">
         <p>在 Java 的多線程操作中，Concurrent Queue 是一種非常重要的容器，在共享資源的同時也能夠幫我們進行流程控制。<br />
 Java 的 Concurrent Queue 可以分為兩類，分別是 <strong>Blocking Queue</strong> 以及 <strong>Non Blocking Queue</strong>，兩種都是線程安全的，文章的最後會用 Blocking Queue 來實作 <strong>Producer Consumer Problem</strong> !</p>
-<p><img src="../../images/2024/03/20/consumer_producer.png" alt="Consumer Producer" /></p>
+<p><img src="/images/2024/03/20/consumer_producer.png" alt="Consumer Producer" /></p>
 <span id="more"></span>
 <h2 id="non-blocking-queue"><a class="markdownIt-Anchor" href="#non-blocking-queue"></a> Non Blocking Queue</h2>
 <p>Non Blocking Queue 其實就是一般的 Queue，對 Queue 進行操作要馬成功要馬失敗，無論如何會立刻知道結果。<br />
@@ -327,7 +327,7 @@ CAS 是原子操作的一種 (atomic)，它的基本思想是比較目標內存�
 </blockquote>
 <h2 id="blocking-queue"><a class="markdownIt-Anchor" href="#blocking-queue"></a> Blocking Queue</h2>
 <p>Blocking Queue 相比於 Non Blocking Queue 多了<strong>阻塞等待</strong>的動作，大部分的 Concurrent Queue 都是屬於 Blocking Queue，如 <strong>ArrayBlockingQueue</strong>、<strong>LinkedBlockingQueue</strong> 等，其阻塞是基於 <strong>Lock</strong> 來實現的，具體來說 Blocking Queue 多了四種操作:</p>
-<p><img src="../../images/2024/03/20/blocking_queue.png" alt="Blocking Queue" /></p>
+<p><img src="/images/2024/03/20/blocking_queue.png" alt="Blocking Queue" /></p>
 <ul>
 <li><strong>put(e)</strong>: 從尾部放入元素，如果佇列已滿則阻塞等待，直到出現空位並放入。</li>
 <li><strong>take(e)</strong>: 從頭部取出元素，如果佇列為空則阻塞等待，直到出現元素並取出。</li>

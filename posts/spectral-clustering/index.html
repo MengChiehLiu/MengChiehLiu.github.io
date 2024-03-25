@@ -31,7 +31,7 @@
 <meta property="og:image" content="https://mengchiehliu.github.io/images/2023/04/27/ratio_cut.png">
 <meta property="og:image" content="https://mengchiehliu.github.io/images/2023/04/27/ratio_cut_2.png">
 <meta property="article:published_time" content="2023-04-26T17:53:24.000Z">
-<meta property="article:modified_time" content="2024-03-21T13:57:50.589Z">
+<meta property="article:modified_time" content="2024-03-25T15:20:58.482Z">
 <meta property="article:author" content="Meng-Chieh Liu">
 <meta property="article:tag" content="Graph">
 <meta property="article:tag" content="Spectral Clustering">
@@ -161,7 +161,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">23</span>
+          <span class="site-state-item-count">24</span>
           <span class="site-state-item-name">文章</span>
         </a>
       </div>
@@ -172,7 +172,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-count">22</span>
         <span class="site-state-item-name">標籤</span></a>
       </div>
   </nav>
@@ -301,7 +301,7 @@
     
     <div class="post-body" itemprop="articleBody">
         <h1 id="前言"><a class="markdownIt-Anchor" href="#前言"></a> 前言</h1>
-<p><img src="../../images/2023/04/27/cluster_analysis.jpg" alt="Spectral Clustering" /></p>
+<p><img src="/images/2023/04/27/cluster_analysis.jpg" alt="Spectral Clustering" /></p>
 <p>在社群網絡中分析中，有時候會想要找出網絡當中的社群(community detection)，一個最直觀的想法是直接對網絡進行分群，那麼分群結果就是各個community了。<br />
 如果我們能夠計算各個節點之間的相似性，那麼我們當然可以直接套用傳統的分群方法，如cosine similiarity，但一來是相似度特徵可能很難取得，二來是這樣分群的話就沒有利用到網絡的結構了，這時我們可以改為使用基於圖論的分群方法。<br />
 今天這篇文章會帶大家簡單瞭解什麼是cut approach, balanced-cut approach以及其代表方法spectral clustering，並示範不依賴其他套件，僅使用numpy實作spectral clustering。</p>
@@ -318,7 +318,7 @@
 聽起來很直觀，但這樣切會有一個問題，那就是有可能會切出一些非常小的community，導致分群不夠balance。</p>
 <h2 id="balanced-cut-approach"><a class="markdownIt-Anchor" href="#balanced-cut-approach"></a> Balanced-cut Approach</h2>
 <p>為了解決Mini-cut Approach的缺點，Balanced-cut Approach在切割網絡時除了考量原本的edge，另外除以community的node數做加權調整，切割的目標從最小化edge數轉為最小化ratio cut，公式如下:<br />
-<img src="../../images/2023/04/27/ratio_cut.png" alt="Ratio Cut formula" /></p>
+<img src="/images/2023/04/27/ratio_cut.png" alt="Ratio Cut formula" /></p>
 <p>公式解釋: 分成k群(k要自己決定)，每次取一個群<code>Pi</code>出來看，分子部分表示將<code>Pi</code>切開的話會切到的edge數，分母部分表示<code>Pi</code>內部的node數，將k個群的結果加總起來就會是整個網路的ratio cut分數。</p>
 <h3 id="matrixs"><a class="markdownIt-Anchor" href="#matrixs"></a> Matrixs</h3>
 <p>為了要計算Ratio Cut，我們先要來認識一下三種矩陣:</p>
@@ -366,7 +366,7 @@ Laplacian Matrix 的算法就是直接將Diagonal Degree Matrix 減去 Adjacency
 (我這邊直接矩陣相除，大家可以自己算。)</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">array([[ <span class="number">2.</span> , -inf, -inf],</span><br><span class="line">       [-inf,  <span class="number">1.</span> , -inf],</span><br><span class="line">       [-inf, -inf,  <span class="number">1.5</span>]])</span><br></pre></td></tr></table></figure>
 <p>根據上面矩陣運算的過程，我們能將公式重新整理為:<br />
-<img src="../../images/2023/04/27/ratio_cut_2.png" alt="ratio cut formula extended" /></p>
+<img src="/images/2023/04/27/ratio_cut_2.png" alt="ratio cut formula extended" /></p>
 <p>在第三行的部分，我們另外對X進行標準化(同除以分母)變成了<code>X prime</code>。</p>
 <h3 id="minimize"><a class="markdownIt-Anchor" href="#minimize"></a> Minimize</h3>
 <p>回到最一開始的問題，我們的目標是要最小化ratio cut的分數，方法就是透過上面的公式去求解<code>X prime</code>矩陣，難過的是，還記的X矩陣裡最一開始只能填入0跟1嗎，想要在這樣嚴格的限制下求出最佳解是個<strong>NP-hard</strong>的問題。<br />
