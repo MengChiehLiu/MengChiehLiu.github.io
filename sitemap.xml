@@ -329,20 +329,6 @@
   </url>
   
   <url>
-    <loc>https://mengchiehliu.github.io/tags/Scaling/</loc>
-    <lastmod>2024-07-27</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://mengchiehliu.github.io/tags/MongoDB/</loc>
-    <lastmod>2024-07-27</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://mengchiehliu.github.io/tags/Deployment/</loc>
     <lastmod>2024-07-27</lastmod>
     <changefreq>weekly</changefreq>
@@ -350,14 +336,21 @@
   </url>
   
   <url>
-    <loc>https://mengchiehliu.github.io/tags/Hexo/</loc>
+    <loc>https://mengchiehliu.github.io/tags/Scaling/</loc>
     <lastmod>2024-07-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://mengchiehliu.github.io/tags/SEO/</loc>
+    <loc>https://mengchiehliu.github.io/tags/Java-Learning/</loc>
+    <lastmod>2024-07-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://mengchiehliu.github.io/tags/MongoDB/</loc>
     <lastmod>2024-07-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -392,21 +385,28 @@
   </url>
   
   <url>
-    <loc>https://mengchiehliu.github.io/tags/Social-Network-Analysis/</loc>
-    <lastmod>2024-07-27</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://mengchiehliu.github.io/tags/Spectral-Clustering/</loc>
-    <lastmod>2024-07-27</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://mengchiehliu.github.io/tags/Monotonic-Stack/</loc>
+    <lastmod>2024-07-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://mengchiehliu.github.io/tags/Hexo/</loc>
+    <lastmod>2024-07-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://mengchiehliu.github.io/tags/SEO/</loc>
+    <lastmod>2024-07-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://mengchiehliu.github.io/tags/Social-Network-Analysis/</loc>
     <lastmod>2024-07-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -420,14 +420,7 @@
   </url>
   
   <url>
-    <loc>https://mengchiehliu.github.io/tags/Newton-s-method/</loc>
-    <lastmod>2024-07-27</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://mengchiehliu.github.io/tags/IRR/</loc>
+    <loc>https://mengchiehliu.github.io/tags/Spectral-Clustering/</loc>
     <lastmod>2024-07-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -455,7 +448,14 @@
   </url>
   
   <url>
-    <loc>https://mengchiehliu.github.io/tags/Java-Learning/</loc>
+    <loc>https://mengchiehliu.github.io/tags/Newton-s-method/</loc>
+    <lastmod>2024-07-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://mengchiehliu.github.io/tags/IRR/</loc>
     <lastmod>2024-07-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -478,6 +478,13 @@
   </url>
   
   <url>
+    <loc>https://mengchiehliu.github.io/categories/Java/</loc>
+    <lastmod>2024-07-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://mengchiehliu.github.io/categories/Blog/</loc>
     <lastmod>2024-07-27</lastmod>
     <changefreq>weekly</changefreq>
@@ -486,13 +493,6 @@
   
   <url>
     <loc>https://mengchiehliu.github.io/categories/Others/</loc>
-    <lastmod>2024-07-27</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://mengchiehliu.github.io/categories/Java/</loc>
     <lastmod>2024-07-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
