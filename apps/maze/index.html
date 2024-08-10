@@ -1,0 +1,62 @@
+<!doctypehtml><html lang=zh-TW><meta charset=UTF-8><meta content=width=device-width name=viewport><meta content=#222 name=theme-color><meta content="Hexo 6.3.0" name=generator><link href=/images/apple-touch-icon.png rel=apple-touch-icon sizes=180x180><link href=/images/favicon-32x32.png rel=icon sizes=32x32 type=image/png><link href=/images/favicon-16x16.png rel=icon sizes=16x16 type=image/png><link color=#222 href=/images/safari-pinned-tab.svg rel=mask-icon><link href=/images/site.webmanifest rel=manifest><link href=/css/main.css rel=stylesheet><link crossorigin=anonymous href=https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css integrity=sha256-/4UQcSmErDzPCMAiuOiWPVVsNN2s3ZY/NsmXNcj0IFc= rel=stylesheet><link crossorigin=anonymous href=https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css integrity=sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE= rel=stylesheet><script class=next-config data-name=main type=application/json>{"hostname":"mengchiehliu.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.15.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":true,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src=/js/config.js></script><meta content="Maze Solver     Generate maze with Eller's Algorithm, find path with A* Search Algorithm              Width:                  Height:                  Generate Maze         Find Path" name=description><meta content=website property=og:type><meta content="Maze Solver" property=og:title><meta content=https://mengchiehliu.github.io/apps/maze/index.html property=og:url><meta content=米蟲的程式小窩 property=og:site_name><meta content="Maze Solver     Generate maze with Eller's Algorithm, find path with A* Search Algorithm              Width:                  Height:                  Generate Maze         Find Path" property=og:description><meta content=zh_TW property=og:locale><meta content=2024-08-10T09:17:09.475Z property=article:published_time><meta content=2024-08-10T09:17:09.475Z property=article:modified_time><meta content="Meng-Chieh Liu" property=article:author><meta content="米蟲的程式小窩,Meng-Chieh Liu,MengChiehLiu,劉孟頡,RiceBugJ,rice_bug_j" property=article:tag><meta content=summary name=twitter:card><link href=https://mengchiehliu.github.io/apps/maze/ rel=canonical><script class=next-config data-name=page type=application/json>{"sidebar":"","isHome":false,"isPost":false,"lang":"zh-TW","comments":true,"permalink":"https://mengchiehliu.github.io/apps/maze/index.html","path":"apps/maze/index.html","title":"Maze Solver"}</script><script class=next-config data-name=calendar type=application/json>""</script><title></title><noscript><link href=/css/noscript.css rel=stylesheet></noscript><link href=/apps/maze/styles.css rel=stylesheet></head><style>.footer {
+            display: flex;
+            flex-direction: column; /* 垂直对齐内容 */
+            align-items: center;    /* 水平居中对齐内容 */
+            justify-content: center; /* 垂直居中对齐内容（可选） */
+            text-align: center;     /* 如果需要文本水平居中 */
+        }</style><body><!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maze Solver | 米蟲的程式小窩</title>
+    <link rel="stylesheet" href="/apps/maze/styles.css">
+</head> --><!-- <body> --><div id=app><h1>Maze Solver</h1><h4 style="margin-top: 0px">Generate maze with Eller's Algorithm, find path with A* Search Algorithm</h4><div id=options><label for=width>Width:</label><input id=width min=1 type=number><label for=height>Height:</label><input id=height min=1 type=number><button class=app-button id=generate onclick=buildMaze()>Generate Maze</button><button class=app-button id=find-path onclick=findPath()>Find Path</button></div><div id=maze></div><a class=app-button href=/apps>Go Back</a></div><script src=/apps/maze/script.js></script><script src=/apps/maze/a_star.js></script><!-- </body> --><!-- </html> --><script>document.addEventListener('DOMContentLoaded', function() {
+                var element = document.getElementById('sakana');
+                if (element) {
+                    element.parentNode.removeChild(element);
+                }
+            });</script><footer class=footer><div class=copyright>© <span itemprop=copyrightYear>2024</span><span class=with-love> <i class="fa fa-heart"></i> </span><span class=author itemprop=copyrightHolder>Meng-Chieh Liu</span></div><div class=busuanzi-count><span class=post-meta-item id=busuanzi_container_site_uv> <span class=post-meta-item-icon> <i class="fa fa-user"></i> </span> <span class=site-uv title=訪客總數> <span id=busuanzi_value_site_uv></span> </span> </span><span class=post-meta-item id=busuanzi_container_site_pv> <span class=post-meta-item-icon> <i class="fa fa-eye"></i> </span> <span class=site-pv title=總瀏覽次數> <span id=busuanzi_value_site_pv></span> </span> </span></div></footer><div id=sakana style=position:fixed;right:0;bottom:0px;></div><script async onload=initSakanaWidget({"character":"BMO","enable":true,"enable_mobile":false,"controls":false,"threshold":0.15,"customCharacters":[{"base":"chisato","name":"BMO","image":"/images/BMO.png","i":0.08,"s":0.1,"d":0.96,"r":12}],"size":200,"autoFit":false,"bottom":"0px","stroke":{"color":"#b4b4b4","width":10},"rotate":0}) src=https://cdn.jsdelivr.net/npm/sakana-widget@2.3.0/lib/sakana.min.js></script><script>function log(msg) {
+        console.log("[hexo-sakana] " + msg);
+      }
+
+      function initSakanaWidget(config) {
+        if (
+          !config.enable_mobile &&
+          window.navigator.userAgent.match(
+            /(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i
+          )
+        ) {
+          log(
+            '检测为移动端，且配置中未开启在移动端启用组件，hexo-sakana 已禁用'
+          );
+          return;
+        }
+        for (character of config.customCharacters) {
+          if (!["takina", "chisato"].includes(character.base)) {
+            log(`无效基础角色 ${character.base}，取消注册`);
+            continue;
+          }
+          if (character.name === "") {
+            log("名称为空，取消注册");
+            continue;
+          }
+          const originCharacter = SakanaWidget.getCharacter(character.base);
+          originCharacter.initialState = {
+            ...originCharacter.initialState,
+            ...character,
+          };
+          originCharacter.image = !character.image ? originCharacter.image : character.image
+          SakanaWidget.registerCharacter(character.name, originCharacter);
+          log(`注册自定义角色：${character.name}`)
+        }
+        new SakanaWidget({
+          character: config.character,
+          size: config.size,
+          autoFit: config.autoFit,
+          controls: config.controls,
+          stroke: config.stroke,
+          threshold: config.threshold,
+          rotate: config.rotate,
+        }).mount("#sakana");
+      }</script>
